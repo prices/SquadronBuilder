@@ -23,7 +23,7 @@
  * </pre>
  *
  * @category   html
- * @package    core
+ * @package    abilities
  * @subpackage weapons
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
@@ -43,7 +43,7 @@ require_once dirname(__FILE__)."/../core/Abilities.php";
  * This class deals with printing out a single weapon.
  *
  * @category   html
- * @package    core
+ * @package    abilities
  * @subpackage weapons
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
@@ -53,7 +53,7 @@ require_once dirname(__FILE__)."/../core/Abilities.php";
 class Weapon extends \SquadronBuilder\core\Abilities
 {
     /** This is a list of the special abilities for this object */
-    protected $header = "Weapon Special Abilities";
+    protected $name = "Weapon Special Abilities";
     /** This is a list of the special abilities for this object */
     protected $abilities = array(
         "Accurate"      => "+1 to hit if no movement during this turns activation.",

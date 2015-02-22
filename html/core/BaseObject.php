@@ -50,6 +50,18 @@ defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
  */
 abstract class BaseObject
 {    
+    /** This is the size of the damage squares in mm*/
+    const DSIZE = 3;
+    /** This is the size of normal text in mm */
+    const SSIZE = 1.75;
+    /** This is the size of normal text in mm */
+    const NSIZE = 2.75;
+    /** This is the size of normal text in mm */
+    const LSIZE = 4;
+    /** This is the size of normal text in mm */
+    const HSIZE = 5;
+    /** This is our font family */
+    const FONTFAMILY = "sans-serif";
     /** This is our initial X coord */
     protected $x = 0;
     /** This is our initial Y coord */
@@ -57,37 +69,12 @@ abstract class BaseObject
     /** This is our padding value */
     protected $padding = 3;
     /** This is our width */
-    protected $width = 100;
+    protected $width = 70;
     /** This is our width */
     protected $height = 0;
     /** This is our index */
     protected $index = 0;
     
-    /**
-    * This function exports the abilities list as a block
-    *
-    * @param int $x The x to translate
-    * @param int $y The y to translate
-    * 
-    * @return string The svg text for the block
-    */
-    public function encode($x = 0, $y = 0)
-    {
-        return "";
-    }
-    /**
-    * This function exports the abilities list as a block
-    *
-    * @param int &$x The x to translate
-    * @param int &$y The y to translate
-    * 
-    * @return float The height of this object built.
-    */
-    public function height()
-    {
-        $this->encode();
-        return $this->height;
-    }
     /**
     * This is the constructor for the class
     * 
@@ -110,7 +97,73 @@ abstract class BaseObject
             $this->width   = $params["width"];
         }
     }
+    /**
+    * This returns the encoded object
+    *
+    * @param float &$height The height of the built object
+    * @param float $x       The x to translate
+    * @param float $y       The y to translate
+    * 
+    * @return string The svg text for the block
+    */
+    public static function export(&$index, $params = array(), &$height = 0, $x = 0, $y = 0)
+    {
+        $class = get_called_class();
+        $object = new $class($index, $params);
+        $text = $object->encode($x, $y);
+        $height = $object->height();
+        unset($object);
+        return $text;
+    }
+    /**
+    * This function exports the abilities list as a block
+    *
+    * @param int &$x     The x to translate
+    * @param int &$y     The y to translate
+    * @param int &$count The number of mecha to encode
+    * 
+    * @return string The svg text for the block
+    */
+    public function encode($x = 0, $y = 0, $count = 1)
+    {
+        return "";
+    }
+    /**
+    * This function exports the abilities list as a block
+    *
+    * @param int &$x The x to translate
+    * @param int &$y The y to translate
+    * 
+    * @return float The height of this object built.
+    */
+    public function height()
+    {
+        $this->encode();
+        return $this->height;
+    }
     
+    /**
+    * Prints normal normal text
+    *
+    * @param float &$x   The xposition
+    * @param float &$y   The yposition
+    * @param array $text The text to output
+    * 
+    * @return string The svg text for the block
+    */
+    protected function normal(&$x, &$y, $text)
+    {
+        if (strlen($text) == 0) {
+            return "";
+        }
+        $y += self::NSIZE * 0.5;
+        $ret = $this->text(
+            $text, $x, $y, "black", "none", self::NSIZE."mm", "text".$this->index++, ''
+        );
+        $y += self::SSIZE * 0.5;
+        $x += 0;
+        return $ret;
+    }
     /**
     * Prints normal bold text
     *
@@ -125,11 +178,11 @@ abstract class BaseObject
         if (strlen($text) == 0) {
             return "";
         }
-        $y += 1.75;
+        $y += self::NSIZE * 0.5;
         $ret = $this->text(
-            $text, $x, $y, "black", "none", "3.5mm", "text".$this->index++, 'style="font-weight:bold;"'
+            $text, $x, $y, "black", "none", self::NSIZE."mm", "text".$this->index++, 'style="font-weight:bold;"'
         );
-        $y += 1.75;
+        $y += self::NSIZE * 0.5;
         $x += 0;
         return $ret;
     }
@@ -150,13 +203,35 @@ abstract class BaseObject
         $values = explode("\n", $text);
         $ret = "";
         foreach ($values as $txt) {
-            $y += 1.5;
+            $y += self::SSIZE * 0.5;
             $ret .= $this->text(
-                $txt, $x, $y, "black", "none", "2.5mm", "text".$this->index++, ''
+                $txt, $x, $y, "black", "none", self::SSIZE."mm", "text".$this->index++, ''
             );
-            $y += 1.5;
+            $y += self::SSIZE * 0.6;
             $x += 0;
         }
+        return $ret;
+    }
+    /**
+    * Prints normal large text
+    *
+    * @param float &$x   The xposition
+    * @param float &$y   The yposition
+    * @param array $text The text to output
+    * 
+    * @return string The svg text for the block
+    */
+    protected function large(&$x, &$y, $text)
+    {
+        if (strlen($text) == 0) {
+            return "";
+        }
+        $y += self::LSIZE * 0.5;
+        $ret = $this->text(
+            $text, $x, $y, "black", "none", self::LSIZE."mm", "text".$this->index++, ''
+        );
+        $y += self::LSIZE * 0.6;
+        $x += 0;
         return $ret;
     }
     /**
@@ -173,11 +248,11 @@ abstract class BaseObject
         if (strlen($text) == 0) {
             return "";
         }
-        $y += 3;
+        $y += self::HSIZE * 0.5;
         $ret = $this->text(
-            $text, $x, $y, "black", "none", "6mm", "text".$this->index++, 'style="font-weight:bold;"'
+            $text, $x, $y, "black", "none", self::HSIZE."mm", "text".$this->index++, 'style="font-weight:bold;"'
         );
-        $y += 4;
+        $y += self::HSIZE * 0.6;
         $x += 0;
         return $ret;
     }
@@ -201,7 +276,7 @@ abstract class BaseObject
     ) {
         return '<text id="'.$id.'" x="'.(float)$x.'mm" y="'.(float)$y.'mm"'
             .'  font-size="'.$fontsize.'" fill="'.$fill.'" stroke="'.$stroke.'"'
-            .' '.$extra.'>'.strip_tags($text).'</text>'."\n";
+            .' '.$extra.' font-family="'.self::FONTFAMILY.'">'.strip_tags($text).'</text>'."\n";
     }
     /**
     * Returns a grouped object
@@ -236,6 +311,44 @@ abstract class BaseObject
         $ret = '<rect id="rect'.$this->index++.'" y="'.$y.'mm" x="'.$x.'mm"'
               .' height="'.(float)$height.'mm" width="'.(float)$width.'mm"'
               .' style="fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1" />'."\n";
+        return $ret;
+    }
+    /**
+    * Prints a rectangle
+    *
+    * @param float $x1     The top left corner
+    * @param float $y1     The top left corner
+    * @param float $width  The width
+    * @param float $height The height
+    * 
+    * @return string The svg text for the block
+    */
+    protected function damageBox($x, $y, $color = "#000000")
+    {
+        $ret = '<rect id="rect'.$this->index++.'" y="'.$y.'mm" x="'.$x.'mm"'
+              .' height="'.self::DSIZE.'mm" width="'.self::DSIZE.'mm"'
+              .' style="fill:none;stroke:'.$color.';stroke-width:1.47185135;stroke-opacity:1" />'."\n";
+        return $ret;
+    }
+    /**
+    * Prints a rectangle
+    *
+    * @param float $x1     The top left corner
+    * @param float $y1     The top left corner
+    * @param float $width  The width
+    * @param float $height The height
+    * 
+    * @return string The svg text for the block
+    */
+    protected function damageBoxes($x, $y, $boxes, $rows = 1, $color = "#000000")
+    {
+        $dx = $x;
+        $dy = $y; // - (self::DSIZE / 2);
+        $ret = "";
+        for ($i = 0; $i < $boxes; $i++) {
+            $dx += self::DSIZE * 1.2;
+            $ret .= $this->damageBox($dx, $dy, $color);
+        }
         return $ret;
     }
 }

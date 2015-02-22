@@ -23,8 +23,8 @@
  * </pre>
  *
  * @category   html
- * @package    core
- * @subpackage weapons
+ * @package    abilities
+ * @subpackage mecha
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -43,8 +43,8 @@ require_once dirname(__FILE__)."/../core/Abilities.php";
  * This class deals with printing out a single weapon.
  *
  * @category   html
- * @package    core
- * @subpackage weapons
+ * @package    abilities
+ * @subpackage mecha
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -53,7 +53,7 @@ require_once dirname(__FILE__)."/../core/Abilities.php";
 class Mecha extends \SquadronBuilder\core\Abilities
 {
     /** This is a list of the special abilities for this object */
-    protected $header = "Mecha Special Abilities";
+    protected $name = "Mecha Special Abilities";
     /** This is a list of the special abilities for this object */
     protected $abilities = array(
         'Afterburner'          => "Must make a secondary movement of 1 facing change up to 90 degrees,\n then full movement rate straight in the direction the mecha is pointed.",

@@ -23,7 +23,7 @@
  * </pre>
  *
  * @category   html
- * @package    core
+ * @package    abilities
  * @subpackage weapons
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
@@ -32,32 +32,32 @@
  * @link       https://github.com/prices/SquadronBuilder
  */
 /** This is our namespace */
-namespace SquadronBuilder\core;
+namespace SquadronBuilder\weapons;
 
 defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 
 /** These are our required files */
-require_once "BaseObject.php";
+require_once dirname(__FILE__)."/../core/Weapon.php";
 
 /**
  * This class deals with printing out a single weapon.
  *
  * @category   html
- * @package    core
+ * @package    abilities
  * @subpackage weapons
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-abstract class Weapon extends BaseObject
+class RegultAutoCannons extends \SquadronBuilder\core\Weapon
 {
     /** This is our header for abilities **/
-    protected $name = "";
+    protected $name = "Dual 22.3mm Auto-Cannons";
     /** This is our range **/
-    protected $range = 0;
+    protected $range = 12;
     /** This is our damage **/
-    protected $damage = 0;
+    protected $damage = 2;
     /** This is a list of the special abilities for this object */
     protected $abilities = array(
         "Accurate"      => false,
@@ -75,35 +75,5 @@ abstract class Weapon extends BaseObject
         "Volley"        => false,
         "Volley X"      => false,
     );
-    /**
-    * This function exports the abilities list as a block
-    *
-    * @param int &$x The x to translate
-    * @param int &$y The y to translate
-    * @param int &$count The number of mecha to encode
-    * 
-    * @return string The svg text for the block
-    */
-    public function encode($x = 0, $y = 0, $count = 1)
-    {
-        $text = "";
-        $dx = $x + $this->padding;
-        $dy = $y + $this->padding;
-        $abilities = "RG: ".$this->range.", MD: ".$this->damage;
-        foreach ($this->abilities as $name => $value) {
-            if ($value === true) {
-                $abilities .= ", ".$name;
-            } else if ($value !== false) {
-                $abilities .= ", ".$name." ".$value;
-            }
-        }
-        $text .= $this->normal($dx, $dy, $this->name);
-        $dy   += (self::NSIZE / 10);
-        $text .= $this->small($dx, $dy, $abilities);
-        $dy += $this->padding - 1.5;
-        $this->height = $dy - $y;
-        $text .= $this->rect($x, $y, $this->width, $this->height);
-        $text = $this->group($text, $x, $y);
-        return $text;
-    }
+    
 }

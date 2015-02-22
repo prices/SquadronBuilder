@@ -42,6 +42,7 @@ require_once "BaseObject.php";
 /** These are our required files */
 require_once dirname(__FILE__)."/../abilities/Weapon.php";
 require_once dirname(__FILE__)."/../abilities/Mecha.php";
+require_once dirname(__FILE__)."/../mecha/Regult.php";
 
 /**
  * This class deals with printing out a single mecha.
@@ -91,7 +92,8 @@ class Document extends BaseObject
     public function encode()
     {
         $Weapon = new \SquadronBuilder\abilities\Weapon($this->index);
-        $Mecha = new \SquadronBuilder\abilities\Mecha($this->index);
+        $Mecha  = new \SquadronBuilder\abilities\Mecha($this->index);
+        $Regult = new \SquadronBuilder\mecha\Regult($this->index);
 
         $text = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with SquadronBuilder (https://github.com/prices/SquadronBuilder) -->
@@ -111,9 +113,11 @@ class Document extends BaseObject
 ';
         $x = $this->margin;
         $y = $this->margin;
-        $text .= $Weapon->encode($x, $y);
-        $y    += $Weapon->height();
-        $text .= $Mecha->encode($x, $y);
+        $text .= $Regult->encode($x, $y, 5);
+        
+//        $text .= $Weapon->encode($x, $y);
+ //       $y    += $Weapon->height();
+  //      $text .= $Mecha->encode($x, $y);
         $text .= '</svg>';
         return $text;
     }

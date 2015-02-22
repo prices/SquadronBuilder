@@ -35,7 +35,7 @@
 namespace SquadronBuilder\core;
 
 /** This is a required class */
-require_once CODE_BASE.'core/Abilities.php';
+require_once CODE_BASE.'core/Weapon.php';
 
 /**
  * This class deals with printing out a single mecha.
@@ -48,7 +48,7 @@ require_once CODE_BASE.'core/Abilities.php';
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class AbilitiesTest extends \PHPUnit_Framework_TestCase
+class WeaponTest extends \PHPUnit_Framework_TestCase
 {
     /** The object under test */
     protected $o = null;
@@ -69,7 +69,7 @@ class AbilitiesTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->o = new AbilitiesTest1($this->x, $this->y, $this->index, array());
+        $this->o = new WeaponTest1($this->x, $this->y, $this->index, array());
     }
 
     /**
@@ -93,24 +93,23 @@ class AbilitiesTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                '\SquadronBuilder\core\AbilitiesTest2',
+                '\SquadronBuilder\core\WeaponTest2',
                 0,
                 0,
-                "",
+                '<g transform="translate(0mm, 0mm)" id="g3">
+         <text id="text0" x="3mm" y="4.75mm"  font-size="3.5mm" fill="black" stroke="none" style="font-weight:bold;">This is a weapon</text>
+<text id="text1" x="3mm" y="8mm"  font-size="2.5mm" fill="black" stroke="none" >RG: 18, MD: 4</text>
+<rect id="rect2" y="0mm" x="0mm" height="12.5mm" width="100mm" style="fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1" />
+</g>',
             ),
             array(
-                '\SquadronBuilder\core\AbilitiesTest1',
+                '\SquadronBuilder\core\WeaponTest1',
                 1,
                 5,
-                '<g transform="translate(1mm, 5mm)" id="g8">
-         <text id="text0" x="4mm" y="11mm"  font-size="6mm" fill="black" stroke="none" style="font-weight:bold;">ASDF</text>
-<text id="text1" x="4mm" y="16.75mm"  font-size="3.5mm" fill="black" stroke="none" style="font-weight:bold;">Property1</text>
-<text id="text2" x="4mm" y="20mm"  font-size="2.5mm" fill="black" stroke="none" >Description for Property1</text>
-<text id="text3" x="4mm" y="24.25mm"  font-size="3.5mm" fill="black" stroke="none" style="font-weight:bold;">Property #</text>
-<text id="text4" x="4mm" y="27.5mm"  font-size="2.5mm" fill="black" stroke="none" >Description for Property #</text>
-<text id="text5" x="4mm" y="31.75mm"  font-size="3.5mm" fill="black" stroke="none" style="font-weight:bold;">Property X</text>
-<text id="text6" x="4mm" y="35mm"  font-size="2.5mm" fill="black" stroke="none" >Description for Property X</text>
-<rect id="rect7" y="5mm" x="1mm" height="35.5mm" width="100mm" style="fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1" />
+                '<g transform="translate(1mm, 5mm)" id="g3">
+         <text id="text0" x="4mm" y="9.75mm"  font-size="3.5mm" fill="black" stroke="none" style="font-weight:bold;">This is a weapon</text>
+<text id="text1" x="4mm" y="13mm"  font-size="2.5mm" fill="black" stroke="none" >RG: 9, MD: 2, Accurate, Ammo 6, Anti-Missile, Inescapable, Missile, Volley X</text>
+<rect id="rect2" y="5mm" x="1mm" height="12.5mm" width="100mm" style="fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1" />
 </g>',
             ),
         );
@@ -135,7 +134,7 @@ class AbilitiesTest extends \PHPUnit_Framework_TestCase
 
 }
 /**
- * Test class for Abilities
+ * Test class for Weapon
  *
  * @category   html
  * @package    core
@@ -145,20 +144,35 @@ class AbilitiesTest extends \PHPUnit_Framework_TestCase
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class AbilitiesTest1 extends Abilities
+class WeaponTest1 extends Weapon
 {
     /** This is our header for abilities **/
-    protected $name = "ASDF";
+    protected $name = "This is a weapon";
+    /** This is our range **/
+    protected $range = 9;
+    /** This is our damage **/
+    protected $damage = 2;
     /** This is a list of the special abilities for this object */
     protected $abilities = array(
-        "Property1" => "Description for Property1",
-        "Property #" => "Description for Property #",
-        "Property X" => "Description for Property X",
+        "Accurate"      => true,
+        "Ammo"          => 6,
+        "Anti-Missile"  => true,
+        "Blast"         => false,
+        "Fly Over"      => false,
+        "Inescapable"   => true,
+        "Indirect Fire" => false,
+        "Missile"       => true,
+        "Overwhelming"  => false,
+        "Rapid Fire"    => false,
+        "Rear Fire"     => false,
+        "Split Fire"    => false,
+        "Volley"        => false,
+        "Volley X"      => true,
     );
 
 }
 /**
- * Test class for Abilities
+ * Test class for Weapon
  *
  * @category   html
  * @package    core
@@ -168,13 +182,16 @@ class AbilitiesTest1 extends Abilities
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class AbilitiesTest2 extends Abilities
+class WeaponTest2 extends Weapon
 {
     /** This is our header for abilities **/
-    protected $name = "";
+    protected $name = "This is a weapon";
+    /** This is our range **/
+    protected $range = 18;
+    /** This is our damage **/
+    protected $damage = 4;
     /** This is a list of the special abilities for this object */
     protected $abilities = array(
     );
-
 }
 ?>

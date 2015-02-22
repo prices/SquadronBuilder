@@ -35,7 +35,7 @@
 namespace SquadronBuilder\core;
 
 /** This is a required class */
-require_once CODE_BASE.'core/Abilities.php';
+require_once CODE_BASE.'core/Mecha.php';
 
 /**
  * This class deals with printing out a single mecha.
@@ -48,7 +48,7 @@ require_once CODE_BASE.'core/Abilities.php';
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class AbilitiesTest extends \PHPUnit_Framework_TestCase
+class MechaTest extends \PHPUnit_Framework_TestCase
 {
     /** The object under test */
     protected $o = null;
@@ -69,7 +69,7 @@ class AbilitiesTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->o = new AbilitiesTest1($this->x, $this->y, $this->index, array());
+        $this->o = new MechaTest1($this->x, $this->y, $this->index, array());
     }
 
     /**
@@ -93,25 +93,10 @@ class AbilitiesTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                '\SquadronBuilder\core\AbilitiesTest2',
-                0,
-                0,
-                "",
-            ),
-            array(
-                '\SquadronBuilder\core\AbilitiesTest1',
+                '\SquadronBuilder\core\MechaTest1',
                 1,
                 5,
-                '<g transform="translate(1mm, 5mm)" id="g8">
-         <text id="text0" x="4mm" y="11mm"  font-size="6mm" fill="black" stroke="none" style="font-weight:bold;">ASDF</text>
-<text id="text1" x="4mm" y="16.75mm"  font-size="3.5mm" fill="black" stroke="none" style="font-weight:bold;">Property1</text>
-<text id="text2" x="4mm" y="20mm"  font-size="2.5mm" fill="black" stroke="none" >Description for Property1</text>
-<text id="text3" x="4mm" y="24.25mm"  font-size="3.5mm" fill="black" stroke="none" style="font-weight:bold;">Property #</text>
-<text id="text4" x="4mm" y="27.5mm"  font-size="2.5mm" fill="black" stroke="none" >Description for Property #</text>
-<text id="text5" x="4mm" y="31.75mm"  font-size="3.5mm" fill="black" stroke="none" style="font-weight:bold;">Property X</text>
-<text id="text6" x="4mm" y="35mm"  font-size="2.5mm" fill="black" stroke="none" >Description for Property X</text>
-<rect id="rect7" y="5mm" x="1mm" height="35.5mm" width="100mm" style="fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1" />
-</g>',
+                '',
             ),
         );
     }
@@ -135,7 +120,7 @@ class AbilitiesTest extends \PHPUnit_Framework_TestCase
 
 }
 /**
- * Test class for Abilities
+ * Test class for Mecha
  *
  * @category   html
  * @package    core
@@ -145,20 +130,85 @@ class AbilitiesTest extends \PHPUnit_Framework_TestCase
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class AbilitiesTest1 extends Abilities
+class MechaTest1 extends Mecha
 {
     /** This is our header for abilities **/
-    protected $name = "ASDF";
+    protected $name = "Regult Test";
+    /** This is our speed **/
+    protected $speed = 5;
+    /** This is our piloting **/
+    protected $piloting = 2;
+    /** This is our gunnery **/
+    protected $gunnery = 2;
+    /** This is our defense **/
+    protected $defense = 5;
     /** This is a list of the special abilities for this object */
     protected $abilities = array(
-        "Property1" => "Description for Property1",
-        "Property #" => "Description for Property #",
-        "Property X" => "Description for Property X",
+        'Afterburner'          => false,
+        'Aircraft'             => false,
+        'Battloid Restriction' => false,
+        'Cumbersome'           => false,
+        'Fast Mover'           => false,
+        'Flight'               => trues,
+        'Focus Fire'           => false,
+        'Hands'                => true,
+        'Hover'                => false,
+        'Jettison'             => "to something",
+        'Leadership'           => 4,
+        'Leap'                 => false,
+        'Life is Cheap'        => false,
+        'Variable Modes'       => false,
+        'Zentraidi Infantry'   => false,
+    );
+    /** These are our weapons */
+    protected $ranged = array(
+        "MechaWeaponTest1", "MechaWeaponTest2"
+    );
+    /** These are our weapons */
+    protected $handtohand = array(
+        "Body Block", "Kick", "Jump Kick", "Stomp"
+    );
+}
+/**
+ * Test class for Weapon
+ *
+ * @category   html
+ * @package    core
+ * @subpackage mecha
+ * @author     Scott Price <prices@dflytech.com>
+ * @copyright  2015 Scott Price
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link       https://github.com/prices/SquadronBuilder
+ */
+class MechaWeaponTest1 extends Weapon
+{
+    /** This is our header for abilities **/
+    protected $name = "This is a weapon";
+    /** This is our range **/
+    protected $range = 9;
+    /** This is our damage **/
+    protected $damage = 2;
+    /** This is a list of the special abilities for this object */
+    protected $abilities = array(
+        "Accurate"      => true,
+        "Ammo"          => false,
+        "Anti-Missile"  => true,
+        "Blast"         => false,
+        "Fly Over"      => false,
+        "Inescapable"   => true,
+        "Indirect Fire" => false,
+        "Missile"       => false,
+        "Overwhelming"  => false,
+        "Rapid Fire"    => false,
+        "Rear Fire"     => false,
+        "Split Fire"    => false,
+        "Volley"        => false,
+        "Volley X"      => false,
     );
 
 }
 /**
- * Test class for Abilities
+ * Test class for Weapon
  *
  * @category   html
  * @package    core
@@ -168,13 +218,32 @@ class AbilitiesTest1 extends Abilities
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class AbilitiesTest2 extends Abilities
+class MechaWeaponTest2 extends Weapon
 {
     /** This is our header for abilities **/
-    protected $name = "";
+    protected $name = "This is missile a weapon";
+    /** This is our range **/
+    protected $range = 9;
+    /** This is our damage **/
+    protected $damage = 2;
     /** This is a list of the special abilities for this object */
     protected $abilities = array(
+        "Accurate"      => true,
+        "Ammo"          => 6,
+        "Anti-Missile"  => true,
+        "Blast"         => false,
+        "Fly Over"      => false,
+        "Inescapable"   => true,
+        "Indirect Fire" => false,
+        "Missile"       => true,
+        "Overwhelming"  => false,
+        "Rapid Fire"    => false,
+        "Rear Fire"     => false,
+        "Split Fire"    => false,
+        "Volley"        => false,
+        "Volley X"      => true,
     );
 
 }
+
 ?>
