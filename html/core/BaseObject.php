@@ -50,60 +50,67 @@ defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
  */
 abstract class BaseObject
 {    
-    /** This is our header for abilities **/
-    protected static $abilitiesHeader = "";
-    /** This is a list of the special abilities for this object */
-    protected static $abilities = array(
-    );
+    /** This is our initial X coord */
+    protected $x = 0;
+    /** This is our initial Y coord */
+    protected $y = 0;
+    /** This is our padding value */
+    protected $padding = 3;
+    /** This is our width */
+    protected $width = 100;
+    /** This is our width */
+    protected $height = 0;
+    /** This is our index */
+    protected $index = 0;
+    
     /**
     * This function exports the abilities list as a block
     *
-    * @param array $translate The x and y values to translate this block to
+    * @param int $x The x to translate
+    * @param int $y The y to translate
     * 
     * @return string The svg text for the block
     */
-    public static function exportAbilities($translate = array())
+    public function encode($x = 0, $y = 0)
     {
-        $text = "";
-        if (!is_array(static::$abilities) || (count(static::$abilities) == 0)) {
-            return $text;
-        }
-        $x       = 5;
-        $y       = 5;
-        $text   .= static::text($x, $y, static::header($x, $y, static::$abilitiesHeader));
-        $ability = "";
-        $tx      = $x;
-        $ty      = $y;
-        foreach (static::$abilities as $value => $description) {
-            $ability .= static::bold($x, $y, $value);
-            $ability .= static::small($x, $y, $description);
-        }
-        $text .= static::text($tx, $ty, $ability);
-        $text .= static::rect(
-        return $text;
+        return "";
     }
     /**
-    * Prints normal bold text
+    * This function exports the abilities list as a block
     *
-    * @param float $x   The xposition
-    * @param float $y   The yposition
-    * @param array $text The text to output
+    * @param int &$x The x to translate
+    * @param int &$y The y to translate
     * 
-    * @return string The svg text for the block
+    * @return float The height of this object built.
     */
-    protected static function text($x, $y, $text)
+    public function height()
     {
-        if (strlen($text) == 0) {
-            return "";
-        }
-        $ret = '<text
-                    sodipodi:linespacing="125%"
-                    xml:space="preserve"
-                 >
-             '.$text.'
-             </text>';
-        return $ret;
+        $this->encode();
+        return $this->height;
     }
+    /**
+    * This is the constructor for the class
+    * 
+    * @param float &$x     The x coordinate to start at
+    * @param float &$y     The y coordinate to start at
+    * @param float &$index The start index for ids
+    * @param array $params The other parameters
+    *
+    * @return null
+    */
+    public function __construct(&$index, $params = array(), $x = 0, $y = 0)
+    {
+        $this->x     = $x;
+        $this->y     = $y;
+        $this->index = &$index;
+        if (isset($params["padding"])) {
+            $this->padding = $params["padding"];
+        }
+        if (isset($params["width"])) {
+            $this->width   = $params["width"];
+        }
+    }
+    
     /**
     * Prints normal bold text
     *
@@ -113,21 +120,17 @@ abstract class BaseObject
     * 
     * @return string The svg text for the block
     */
-    protected static function bold(&$x, &$y, $text)
+    protected function bold(&$x, &$y, $text)
     {
         if (strlen($text) == 0) {
             return "";
         }
-        $ret = '<tspan
-             id="tspan23715"
-             y="'.$y.'"
-             x="'.$x.'"
-             sodipodi:role="line"
-             style="font-size:9px;font-weight:bold;">
-             '.$text.'
-             </tspan>';
-        $x += 11;
-        $y += 0;
+        $y += 1.75;
+        $ret = $this->text(
+            $text, $x, $y, "black", "none", "3.5mm", "text".$this->index++, 'style="font-weight:bold;"'
+        );
+        $y += 1.75;
+        $x += 0;
         return $ret;
     }
     /**
@@ -139,21 +142,21 @@ abstract class BaseObject
     * 
     * @return string The svg text for the block
     */
-    protected static function small(&$x, &$y, $text)
+    protected function small(&$x, &$y, $text)
     {
         if (strlen($text) == 0) {
             return "";
         }
-        $ret = '<tspan
-             id="tspan23715"
-             y="'.$y.'"
-             x="'.$x.'"
-             sodipodi:role="line"
-             style="font-size:6px;">
-             '.$text.'
-             </tspan>';
-        $x += 8;
-        $y += 0;
+        $values = explode("\n", $text);
+        $ret = "";
+        foreach ($values as $txt) {
+            $y += 1.5;
+            $ret .= $this->text(
+                $txt, $x, $y, "black", "none", "2.5mm", "text".$this->index++, ''
+            );
+            $y += 1.5;
+            $x += 0;
+        }
         return $ret;
     }
     /**
@@ -165,21 +168,54 @@ abstract class BaseObject
     * 
     * @return string The svg text for the block
     */
-    protected static function header(&$x, &$y, $text)
+    protected function header(&$x, &$y, $text)
     {
         if (strlen($text) == 0) {
             return "";
         }
-        $ret = '<tspan
-             id="tspan23715"
-             y="'.$y.'"
-             x="'.$x.'"
-             sodipodi:role="line"
-             style="font-size:14px;font-weight:bold;">
-             '.$text.'
-             </tspan>';
-        $x += 15;
-        $y += 0;
+        $y += 3;
+        $ret = $this->text(
+            $text, $x, $y, "black", "none", "6mm", "text".$this->index++, 'style="font-weight:bold;"'
+        );
+        $y += 4;
+        $x += 0;
+        return $ret;
+    }
+    /**
+    * Returns a text object
+    *
+    * @param string $text     The text to print
+    * @param int    $x        The x-coordinate of the upper left corner
+    * @param int    $y        The y-coordinate of the upper left corner
+    * @param string $fill     The fill color (be sure to add "#")
+    * @param string $stroke   The line color (be sure to add "#")
+    * @param string $fontsize The size of font to use
+    * @param string $id       The id of the shape
+    * @param string $extra    Extra stuff to add to the tag
+    *
+    * @return string
+    */
+    protected function text(
+        $text, $x, $y, $fill, $stroke, $fontsize = "3mm", $id = "",
+        $extra = ""
+    ) {
+        return '<text id="'.$id.'" x="'.(float)$x.'mm" y="'.(float)$y.'mm"'
+            .'  font-size="'.$fontsize.'" fill="'.$fill.'" stroke="'.$stroke.'"'
+            .' '.$extra.'>'.strip_tags($text).'</text>'."\n";
+    }
+    /**
+    * Returns a grouped object
+    *
+    * @param string $object The text to print
+    * @param int    $x      The x-coordinate of the upper left corner
+    * @param int    $y      The y-coordinate of the upper left corner
+    *
+    * @return string
+    */
+    protected function group($object, $x, $y) 
+    {
+        $ret = '<g transform="translate('.$x.'mm, '.$y.'mm)" id="g'.$this->index++.'">
+         '.$object.'</g>';
         return $ret;
     }
     /**
@@ -192,22 +228,14 @@ abstract class BaseObject
     * 
     * @return string The svg text for the block
     */
-    protected static function rectangle($x, $y, $width, $height)
+    protected function rect($x, $y, $width, $height)
     {
         if (($height == 0) || ($width == 0)) {
             return "";
         }
-        $ret = '<rect
-             id="rect23715"
-             y="'.$y.'"
-             x="'.$x.'"
-             height="'.$height.'"
-             width="'.$width.'"
-             id="rect23737"
-             style="fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1" />
-             />';
-        $x += 15;
-        $y += 0;
+        $ret = '<rect id="rect'.$this->index++.'" y="'.$y.'mm" x="'.$x.'mm"'
+              .' height="'.(float)$height.'mm" width="'.(float)$width.'mm"'
+              .' style="fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1" />'."\n";
         return $ret;
     }
 }

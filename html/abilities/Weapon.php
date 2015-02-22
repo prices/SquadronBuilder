@@ -32,12 +32,12 @@
  * @link       https://github.com/prices/SquadronBuilder
  */
 /** This is our namespace */
-namespace SquadronBuilder\core;
+namespace SquadronBuilder\abilities;
 
 defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 
 /** These are our required files */
-require_once "BaseObject.php";
+require_once dirname(__FILE__)."/../core/Abilities.php";
 
 /**
  * This class deals with printing out a single weapon.
@@ -50,10 +50,10 @@ require_once "BaseObject.php";
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class Weapon extends BaseObject
+class Weapon extends \SquadronBuilder\core\Abilities
 {
     /** This is a list of the special abilities for this object */
-    protected $abilitiesHeader = "Weapon Special Abilities";
+    protected $header = "Weapon Special Abilities";
     /** This is a list of the special abilities for this object */
     protected $abilities = array(
         "Accurate"      => "+1 to hit if no movement during this turns activation.",

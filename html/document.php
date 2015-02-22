@@ -24,36 +24,20 @@
  *
  * @category   html
  * @package    core
- * @subpackage mecha
+ * @subpackage weapons
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version    GIT: $Id: $
  * @link       https://github.com/prices/SquadronBuilder
  */
-/** This is our namespace */
-namespace SquadronBuilder\core;
+ 
+define("_SQUADRONBUILDER", true);
 
-defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
+require_once dirname(__FILE__)."/core/Document.php";
 
-/** These are our required files */
-require_once "BaseObject.php";
+$document = new \SquadronBuilder\core\Document(array());
 
-/**
- * This class deals with printing out a single mecha.
- *
- * @category   html
- * @package    core
- * @subpackage mecha
- * @author     Scott Price <prices@dflytech.com>
- * @copyright  2015 Scott Price
- * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link       https://github.com/prices/SquadronBuilder
- */
-class Mecha extends BaseObject
-{    
-    /** This is a list of the special abilities for this object */
-    protected static $_abilities = array(
-    );
+header('Content-type: image/svg+xml');
 
-}
+print $document->encode();

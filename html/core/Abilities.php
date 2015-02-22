@@ -50,26 +50,41 @@ require_once "BaseObject.php";
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class Weapon extends BaseObject
+class Abilities extends BaseObject
 {
     /** This is a list of the special abilities for this object */
-    protected $abilitiesHeader = "Weapon Special Abilities";
+    protected $header = "Abilities";
     /** This is a list of the special abilities for this object */
     protected $abilities = array(
-        "Accurate"      => "+1 to hit if no movement during this turns activation.",
-        "Ammo #"        => "The number of shots available for this weapon.",
-        "Anti-Missile"  => "Can shoot down incoming missles with out spending command points",
-        "Blast"         => "Uses blast template, can scatter",
-        "Fly Over"      => "Must fly over the target to attack it",
-        "Inescapable"   => "Can not be dodged",
-        "Indirect Fire" => "May fire over terrain if friendly mecha has line of sight",
-        "Missile"       => "Missiles can be shot down",
-        "Overwhelming"  => "Can not roll with impact",
-        "Rapid Fire"    => "May be fired one additional time per turn",
-        "Rear Fire"     => "Can attack to the rear",
-        "Split Fire"    => "May split the damage between two targets",
-        "Volley"        => "Fires this many missiles in one shot.",
-        "Volley X"      => "One round of ammo is used per missile fired.  Any number of missiles\n fired up to the amount of ammo can be fired in a single volley.",
+        "None"      => "No Abilities",
     );
+    /**
+    * This function exports the abilities list as a block
+    *
+    * @param int &$x The x to translate
+    * @param int &$y The y to translate
+    * 
+    * @return string The svg text for the block
+    */
+    public function encode($x = 0, $y = 0)
+    {
+        $text = "";
+        if (!is_array($this->abilities) || (count($this->abilities) == 0)) {
+            return $text;
+        }
+        $dx = $x + $this->padding;
+        $dy = $y + $this->padding;
+        $text   .= $this->header($dx, $dy, $this->header);
+        foreach ($this->abilities as $value => $description) {
+            $text .= $this->bold($dx, $dy, $value);
+            $text .= $this->small($dx, $dy, $description);
+            $dy += 1;
+        }
+        $dy += $this->padding;
+        $this->height = $dy - $y;
+        $text .= $this->rect($x, $y, $this->width, $this->height);
+        $text = $this->group($text, $x, $y);
+        return $text;
+    }
     
 }

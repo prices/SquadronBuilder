@@ -35,7 +35,7 @@
 namespace SquadronBuilder\core;
 
 /** This is a required class */
-require_once CODE_BASE.'core/BaseObject.php';
+require_once CODE_BASE.'core/Document.php';
 
 /**
  * This class deals with printing out a single mecha.
@@ -48,7 +48,7 @@ require_once CODE_BASE.'core/BaseObject.php';
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class BaseObjectTest extends \PHPUnit_Framework_TestCase
+class DocumentTest extends \PHPUnit_Framework_TestCase
 {
     /** The object under test */
     protected $o = null;
@@ -69,7 +69,7 @@ class BaseObjectTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->o = new BaseObjectTest1($this->x, $this->y, $this->index, array());
+        $this->o = new Document(array());
     }
 
     /**
@@ -93,12 +93,74 @@ class BaseObjectTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                '\SquadronBuilder\core\BaseObjectTest2',
-                "",
-            ),
-            array(
                 '\SquadronBuilder\core\BaseObjectTest1',
-                "",
+                '<text
+                    sodipodi:linespacing="125%"
+                    xml:space="preserve"
+                 >
+             <tspan
+             id="tspan0"
+             y="5"
+             x="5"
+             sodipodi:role="line"
+             style="font-size:14px;font-weight:bold;">
+             ASDF
+             </tspan>
+             </text><text
+                    sodipodi:linespacing="125%"
+                    xml:space="preserve"
+                 >
+             <tspan
+             id="tspan1"
+             y="5"
+             x="20"
+             sodipodi:role="line"
+             style="font-size:9px;font-weight:bold;">
+             Property1
+             </tspan><tspan
+             id="tspan2"
+             y="5"
+             x="31"
+             sodipodi:role="line"
+             style="font-size:6px;">
+             Description for Property1
+             </tspan><tspan
+             id="tspan3"
+             y="5"
+             x="39"
+             sodipodi:role="line"
+             style="font-size:9px;font-weight:bold;">
+             Property #
+             </tspan><tspan
+             id="tspan4"
+             y="5"
+             x="50"
+             sodipodi:role="line"
+             style="font-size:6px;">
+             Description for Property #
+             </tspan><tspan
+             id="tspan5"
+             y="5"
+             x="58"
+             sodipodi:role="line"
+             style="font-size:9px;font-weight:bold;">
+             Property X
+             </tspan><tspan
+             id="tspan6"
+             y="5"
+             x="69"
+             sodipodi:role="line"
+             style="font-size:6px;">
+             Description for Property X
+             </tspan>
+             </text><rect
+             id="rect7"
+             y="0"
+             x="0"
+             height="15"
+             width="87"
+             id="rect23737"
+             style="fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1" />',
             ),
         );
     }
@@ -114,39 +176,9 @@ class BaseObjectTest extends \PHPUnit_Framework_TestCase
     */
     public function testEncode($class, $expect)
     {
-        $this->o = new $class($this->x, $this->y, $this->index, array());
+        $this->o = new Document(array());
         $this->assertSame($expect, $this->o->encode());
     }
-
-}
-/**
- * Test class for BaseObject
- *
- * @category   html
- * @package    core
- * @subpackage mecha
- * @author     Scott Price <prices@dflytech.com>
- * @copyright  2015 Scott Price
- * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link       https://github.com/prices/SquadronBuilder
- */
-class BaseObjectTest1 extends BaseObject
-{
-
-}
-/**
- * Test class for BaseObject
- *
- * @category   html
- * @package    core
- * @subpackage mecha
- * @author     Scott Price <prices@dflytech.com>
- * @copyright  2015 Scott Price
- * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link       https://github.com/prices/SquadronBuilder
- */
-class BaseObjectTest2 extends BaseObject
-{
 
 }
 ?>
