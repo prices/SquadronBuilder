@@ -40,7 +40,7 @@ defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 require_once dirname(__FILE__)."/../core/Mecha.php";
 require_once dirname(__FILE__)."/../weapons/RegultHeavyParticleCannons.php";
 require_once dirname(__FILE__)."/../weapons/RegultAutoCannons.php";
-require_once dirname(__FILE__)."/../weapons/RegultAirDefenseLasers.php";
+require_once dirname(__FILE__)."/../weapons/Regult313mmMRM.php";
 
 /**
  * This class deals with printing out a single weapon.
@@ -53,18 +53,18 @@ require_once dirname(__FILE__)."/../weapons/RegultAirDefenseLasers.php";
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class Regult extends \SquadronBuilder\core\Mecha
+class GluuhaugRegult extends \SquadronBuilder\core\Mecha
 {
     /** This is our header for abilities **/
-    protected $name = "Regult";
+    protected $name = "Gluuhaug Regult";
     /** This is our speed **/
-    protected $speed = 5;
+    protected $speed = 4;
     /** This is our piloting **/
     protected $piloting = 2;
     /** This is our gunnery **/
-    protected $gunnery = 1;
+    protected $gunnery = 2;
     /** This is our defense **/
-    protected $defense = 6;
+    protected $defense = 5;
     /** This is our defense **/
     protected $damage = 5;
     /** This is a list of the special abilities for this object */
@@ -87,7 +87,7 @@ class Regult extends \SquadronBuilder\core\Mecha
     );
     /** These are our weapons */
     protected $ranged = array(
-        "RegultHeavyParticleCannons", "RegultAutoCannons", "RegultAirDefenseLasers"
+        "RegultHeavyParticleCannons", "RegultAutoCannons", "Regult313mmMRM"
     );
     /** These are our weapons */
     protected $handtohand = array(

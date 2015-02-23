@@ -78,8 +78,8 @@ abstract class Weapon extends BaseObject
     /**
     * This function exports the abilities list as a block
     *
-    * @param int &$x The x to translate
-    * @param int &$y The y to translate
+    * @param int &$x     The x to translate
+    * @param int &$y     The y to translate
     * @param int &$count The number of mecha to encode
     * 
     * @return string The svg text for the block
@@ -104,6 +104,34 @@ abstract class Weapon extends BaseObject
         $this->height = $dy - $y;
         $text .= $this->rect($x, $y, $this->width, $this->height);
         $text = $this->group($text, $x, $y);
+        return $text;
+    }
+    /**
+    * This function exports the abilities list as a block
+    *
+    * @param int &$x     The x to translate
+    * @param int &$y     The y to translate
+    * 
+    * @return string The svg text for the block
+    */
+    public function ammo(&$x = 0, &$y = 0)
+    {
+        $ammo = $this->abilities["Ammo"];
+        if (!isset($ammo) || ($ammo == 0)) {
+            return "";
+        }
+        $dx    = $x;
+        $dy    = $y;
+        $text  = $this->small($dx, $dy, $this->name);
+        $diff  = $dy - $y;
+        
+        $dy    = $dy - self::SSIZE - (self::DSIZE / 2);
+        $dx    = $this->width - $this->padding - (self::DSIZE * $ammo);
+        $text .= $this->damageBoxes($dx, $dy, $ammo, $color);
+        if ($diff < (self::DSIZE * 1.5)) {
+            $diff = self::DSIZE * 1.5;
+        }
+        $y    += $diff;
         return $text;
     }
 }

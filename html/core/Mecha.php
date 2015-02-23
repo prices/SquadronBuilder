@@ -52,6 +52,35 @@ require_once "BaseObject.php";
  */
 class Mecha extends BaseObject
 {    
+    /** These are the colors for the ranged weapons */
+    private $_colors = array("#7f0000", "#7f7f00", "#007f00");
+    /** These are the colors for the ranged weapons */
+    private $_weapons = array();
+    /**
+    * This is the constructor for the class
+    * 
+    * @param float &$x     The x coordinate to start at
+    * @param float &$y     The y coordinate to start at
+    * @param float &$index The start index for ids
+    * @param array $params The other parameters
+    *
+    * @return null
+    */
+    public function __construct(&$index, $params = array(), $x = 0, $y = 0)
+    {
+        parent::__construct($index, $params, $x, $y);
+        $index = 0;
+        if (is_array($this->ranged) && (count($this->ranged) > 0)) {
+            foreach ($this->ranged as $class) {
+                $class = '\SquadronBuilder\weapons\\'.$class;
+                if (class_exists($class)) {
+                    $params["width"] = $this->width - ($this->padding * 2);
+                    $this->_weapons[$index] = new $class($index, $params);
+                    $index++;
+                }
+            }
+        }
+    }
     /**
     * This function exports the abilities list as a block
     *
@@ -69,6 +98,7 @@ class Mecha extends BaseObject
         for ($i = 0; $i < $count; $i++) {
             $text .= $this->_name($dx, $dy);
         }
+        $dy += $this->padding;
         $text .= $this->_ranged($dx, $dy);
         $text .= $this->_handtohand($dx, $dy);
         $text .= $this->_stats($dx, $dy);
@@ -90,21 +120,11 @@ class Mecha extends BaseObject
     private function _ranged(&$dx, &$dy)
     {
         $text = "";
-        if (is_array($this->ranged) && (count($this->ranged) > 0)) {
+        if (count($this->_weapons) > 0) {
             $text .= $this->bold($dx, $dy, "Ranged:");
-            foreach ($this->ranged as $class) {
-                $class = '\SquadronBuilder\weapons\\'.$class;
-                if (class_exists($class)) {
-                    $h     = 0;
-                    $text .= $class::export(
-                        $this->index, 
-                        array("width" => $this->width - (2 * $this->padding)),
-                        $h, 
-                        $dx, 
-                        $dy
-                    );
-                    $dy   += $h;
-                }
+            foreach ($this->_weapons as &$obj) {
+                $text .= $obj->encode($dx,$dy);
+                $dy += $obj->height();
             }
             $dy += 2;
         }
@@ -142,32 +162,16 @@ class Mecha extends BaseObject
         $x = $dx + 1;
         $y = $dy;
         $dy = $y + self::NSIZE / 2;
-        $text .= $this->normal(
-            $x, 
-            $dy,
-            "Speed: ".$this->speed
-        );
+        $text .= $this->normal($x, $dy, "Speed: ".$this->speed);
         $dy = $y + self::NSIZE / 2;
         $x += ($width / 4.5);
-        $text .= $this->normal(
-            $x,
-            $dy, 
-            "Pilot: ".$this->piloting
-        );
+        $text .= $this->normal($x, $dy, "Pilot: ".$this->piloting);
         $dy = $y + self::NSIZE / 2;
         $x += ($width / 5);
-        $text .= $this->normal(
-            $x,
-            $dy, 
-            "Gunnery: ".$this->gunnery
-        );
+        $text .= $this->normal($x, $dy, "Gunnery: ".$this->gunnery);
         $dy = $y + self::NSIZE / 2;
         $x += ($width / 4);
-        $text .= $this->normal(
-            $x,
-            $dy, 
-            "Defense: ".$this->defense
-        );
+        $text .= $this->normal($x, $dy, "Defense: ".$this->defenses);
         $height = $dy - $y;
         $dy += 2;
         $text .= $this->rect($dx, $y, $width, $height);
@@ -208,11 +212,41 @@ class Mecha extends BaseObject
     */
     private function _name(&$dx, &$dy)
     {
-        $x    = $dx + 10;
-        $text = $this->large($x, $dy, $this->name);
-        $y    = $dy - self::LSIZE - (self::DSIZE / 2);
-        $x   += (self::LSIZE * strlen($this->name)) / 2;
-        $text .= $this->damageBoxes($x, $y, $this->damage);
+        $y     = $dy + $this->padding;
+        $x     = $dx + $this->padding;
+        $text  = $this->large($x, $y, $this->name);
+        $by     = $y - self::LSIZE - (self::DSIZE / 2);
+        $x    += (self::LSIZE * strlen($this->name)) / 2;
+        $text .= $this->damageBoxes($x, $by, $this->damage);
+        $x     = $dx + 1;
+        $ammo = $this->_ammo($x, $y);
+        $height = $y - $dy;
+        if (strlen($ammo) > 0) {
+            $text  .= $ammo;
+            $width  = $this->width - ($this->padding * 2);
+            $text  .= $this->rect($dx, $dy, $width, $height);
+        }
+        $text = $this->group($text, $dx, $dy);
+        
+        $dy += $height;
+        return $text;
+    }
+    /**
+    * This function returns the stats
+    *
+    * @param int &$dx The x to translate
+    * @param int &$dy The y to translate
+    * 
+    * @return string The svg text for the block
+    */
+    private function _ammo(&$dx, &$dy)
+    {
+        $text = "";
+        if (count($this->_weapons) > 0) {
+            foreach ($this->_weapons as &$obj) {
+                $text .= $obj->ammo($dx, $dy);
+            }
+        }
         return $text;
     }
 }

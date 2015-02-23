@@ -67,13 +67,15 @@ abstract class BaseObject
     /** This is our initial Y coord */
     protected $y = 0;
     /** This is our padding value */
-    protected $padding = 3;
+    protected $padding = 2;
     /** This is our width */
     protected $width = 70;
     /** This is our width */
     protected $height = 0;
     /** This is our index */
     protected $index = 0;
+    /** This is other parameters */
+    protected $params = array();
     
     /**
     * This is the constructor for the class
@@ -87,33 +89,16 @@ abstract class BaseObject
     */
     public function __construct(&$index, $params = array(), $x = 0, $y = 0)
     {
-        $this->x     = $x;
-        $this->y     = $y;
-        $this->index = &$index;
+        $this->x      = $x;
+        $this->y      = $y;
+        $this->index  = &$index;
+        $this->params = (array)$params;
         if (isset($params["padding"])) {
             $this->padding = $params["padding"];
         }
         if (isset($params["width"])) {
             $this->width   = $params["width"];
         }
-    }
-    /**
-    * This returns the encoded object
-    *
-    * @param float &$height The height of the built object
-    * @param float $x       The x to translate
-    * @param float $y       The y to translate
-    * 
-    * @return string The svg text for the block
-    */
-    public static function export(&$index, $params = array(), &$height = 0, $x = 0, $y = 0)
-    {
-        $class = get_called_class();
-        $object = new $class($index, $params);
-        $text = $object->encode($x, $y);
-        $height = $object->height();
-        unset($object);
-        return $text;
     }
     /**
     * This function exports the abilities list as a block
@@ -138,7 +123,9 @@ abstract class BaseObject
     */
     public function height()
     {
-        $this->encode();
+        if (empty($this->height)) {
+            $this->encode();
+        }
         return $this->height;
     }
     
@@ -323,8 +310,9 @@ abstract class BaseObject
     * 
     * @return string The svg text for the block
     */
-    protected function damageBox($x, $y, $color = "#000000")
+    protected function damageBox($x, $y)
     {
+        $color = isset($this->params["color"]) ? $this->params["color"] : "#000000";
         $ret = '<rect id="rect'.$this->index++.'" y="'.$y.'mm" x="'.$x.'mm"'
               .' height="'.self::DSIZE.'mm" width="'.self::DSIZE.'mm"'
               .' style="fill:none;stroke:'.$color.';stroke-width:1.47185135;stroke-opacity:1" />'."\n";
@@ -340,14 +328,14 @@ abstract class BaseObject
     * 
     * @return string The svg text for the block
     */
-    protected function damageBoxes($x, $y, $boxes, $rows = 1, $color = "#000000")
+    protected function damageBoxes($x, $y, $boxes, $rows = 1)
     {
         $dx = $x;
         $dy = $y; // - (self::DSIZE / 2);
         $ret = "";
         for ($i = 0; $i < $boxes; $i++) {
             $dx += self::DSIZE * 1.2;
-            $ret .= $this->damageBox($dx, $dy, $color);
+            $ret .= $this->damageBox($dx, $dy);
         }
         return $ret;
     }
