@@ -81,7 +81,7 @@ class GluuhaugRegult extends \SquadronBuilder\core\Mecha
         'Jettison'             => false,
         'Leadership'           => false,
         'Leap'                 => true,
-        'Life is Cheap'        => true,
+        'Life is Cheap'        => false,
         'Variable Modes'       => false,
         'Zentraidi Infantry'   => false,
     );

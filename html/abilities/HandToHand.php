@@ -23,7 +23,7 @@
  * </pre>
  *
  * @category   html
- * @package    core
+ * @package    abilities
  * @subpackage weapons
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
@@ -32,62 +32,38 @@
  * @link       https://github.com/prices/SquadronBuilder
  */
 /** This is our namespace */
-namespace SquadronBuilder\core;
+namespace SquadronBuilder\abilities;
 
 defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 
 /** These are our required files */
-require_once "BaseObject.php";
+require_once dirname(__FILE__)."/../core/Abilities.php";
 
 /**
  * This class deals with printing out a single weapon.
  *
  * @category   html
- * @package    core
+ * @package    abilities
  * @subpackage weapons
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-abstract class Abilities extends BaseObject
+class HandToHand extends \SquadronBuilder\core\Abilities
 {
-    /** This is our width */
-    protected $width = 60;
     /** This is a list of the special abilities for this object */
-    protected $name = "Abilities";
+    protected $name = "Hand to Hand Attacks";
     /** This is a list of the special abilities for this object */
     protected $abilities = array(
-        "None"      => "No Abilities",
+        'Body Block' => 'MD: 2, Blocked mecha is pushed 1d6 inches away from the attaking mecha',
+        'Club' => 'MD: 4, Mecha must have a club',
+        'Grab' => 'MD: None, Mecha grabbed can not leave combat',
+        'Kick' => 'MD: 3, Once per turn',
+        'Jump Kick' => 'MD: 5, Costs additional command point, can only be used once per turn',
+        'Punch' => 'MD: 2',
+        'Power Punch' => 'MD: 4, Costs additional command point',
+        'Stomp' =>  'MD: 4, Can only be done if the attacking mecha hits the target with another hand to hand attack this turn, can only be used once per turn',
     );
-    /**
-    * This function exports the abilities list as a block
-    *
-    * @param int &$x     The x to translate
-    * @param int &$y     The y to translate
-    * @param int &$count The number of mecha to encode
-    * 
-    * @return string The svg text for the block
-    */
-    public function encode($x = 0, $y = 0, $count = 1)
-    {
-        $text = "";
-        if (!is_array($this->abilities) || (count($this->abilities) == 0)) {
-            return $text;
-        }
-        $dx = $x + $this->padding;
-        $dy = $y + $this->padding;
-        $text   .= $this->header($dx, $dy, $this->name);
-        foreach ($this->abilities as $value => $description) {
-            $text .= $this->bold($dx, $dy, $value);
-            $text .= $this->small($dx, $dy, $description);
-            $dy += 1;
-        }
-        $dy += $this->padding;
-        $this->height = $dy - $y;
-        $text .= $this->rect($x, $y, $this->width, $this->height);
-        $text = $this->group($text, $x, $y);
-        return $text;
-    }
     
 }

@@ -42,6 +42,7 @@ require_once "BaseObject.php";
 /** These are our required files */
 require_once dirname(__FILE__)."/../abilities/Weapon.php";
 require_once dirname(__FILE__)."/../abilities/Mecha.php";
+require_once dirname(__FILE__)."/../abilities/HandToHand.php";
 require_once dirname(__FILE__)."/../mecha/GluuhaugRegult.php";
 require_once dirname(__FILE__)."/../mecha/Regult.php";
 
@@ -94,6 +95,7 @@ class Document extends BaseObject
     {
         $Weapon = new \SquadronBuilder\abilities\Weapon($this->index);
         $Mecha  = new \SquadronBuilder\abilities\Mecha($this->index);
+        $HtH  = new \SquadronBuilder\abilities\HandToHand($this->index);
         $GRegult = new \SquadronBuilder\mecha\GluuhaugRegult($this->index);
         $Regult = new \SquadronBuilder\mecha\Regult($this->index);
 
@@ -119,11 +121,29 @@ class Document extends BaseObject
         $y    += $Regult->height();
         $text .= $GRegult->encode($x, $y, 5);
         
-//        $text .= $Weapon->encode($x, $y);
- //       $y    += $Weapon->height();
-  //      $text .= $Mecha->encode($x, $y);
+        $ax = $this->width - $this->margin - $Weapon->width();
+        $ay = $this->margin;
+        
+        $text .= $Weapon->encode($ax, $ay);
+        $ay    += $Weapon->height();
+        $text .= $Mecha->encode($ax, $ay);
+        $ay    += $Mecha->height();
+        $text .= $HtH->encode($ax, $ay);
+ 
+ 
+        $text .= $this->_font();
         $text .= '</svg>';
         return $text;
     }
-    
+    /**
+    * This includes our font
+    *
+    * @return string The font text
+    */
+    private function _font()
+    {
+        $text = "\n<!-- Deja Vu Font license at http://dejavu-fonts.org/wiki/License -->\n";
+        $text .= file_get_contents(dirname(__FILE__)."/../ttf/DejaVuSans.svg");
+        return $text;
+   }
 }

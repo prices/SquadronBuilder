@@ -171,7 +171,7 @@ class Mecha extends BaseObject
         $text .= $this->normal($x, $dy, "Gunnery: ".$this->gunnery);
         $dy = $y + self::NSIZE / 2;
         $x += ($width / 4);
-        $text .= $this->normal($x, $dy, "Defense: ".$this->defenses);
+        $text .= $this->normal($x, $dy, "Defense: ".$this->defense);
         $height = $dy - $y;
         $dy += 2;
         $text .= $this->rect($dx, $y, $width, $height);
@@ -216,9 +216,9 @@ class Mecha extends BaseObject
         $x     = $dx + $this->padding;
         $text  = $this->large($x, $y, $this->name);
         $by     = $y - self::LSIZE - (self::DSIZE / 2);
-        $x    += (self::LSIZE * strlen($this->name)) / 2;
+        $x    += (self::LSIZE * strlen($this->name)) / 1.75;
         $text .= $this->damageBoxes($x, $by, $this->damage);
-        $x     = $dx + 1;
+        $x     = $dx + $this->padding;
         $ammo = $this->_ammo($x, $y);
         $height = $y - $dy;
         if (strlen($ammo) > 0) {

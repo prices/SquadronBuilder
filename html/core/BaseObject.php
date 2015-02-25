@@ -59,9 +59,9 @@ abstract class BaseObject
     /** This is the size of normal text in mm */
     const LSIZE = 4;
     /** This is the size of normal text in mm */
-    const HSIZE = 5;
+    const HSIZE = 4.5;
     /** This is our font family */
-    const FONTFAMILY = "sans-serif";
+    const FONTFAMILY = "'DejaVu Sans', sans-serif";
     /** This is our initial X coord */
     protected $x = 0;
     /** This is our initial Y coord */
@@ -116,9 +116,6 @@ abstract class BaseObject
     /**
     * This function exports the abilities list as a block
     *
-    * @param int &$x The x to translate
-    * @param int &$y The y to translate
-    * 
     * @return float The height of this object built.
     */
     public function height()
@@ -127,6 +124,15 @@ abstract class BaseObject
             $this->encode();
         }
         return $this->height;
+    }
+    /**
+    * This function exports the abilities list as a block
+    *
+    * @return float The width of this object built.
+    */
+    public function width()
+    {
+        return $this->width;
     }
     
     /**
@@ -167,7 +173,7 @@ abstract class BaseObject
         }
         $y += self::NSIZE * 0.5;
         $ret = $this->text(
-            $text, $x, $y, "black", "none", self::NSIZE."mm", "text".$this->index++, 'style="font-weight:bold;"'
+            $text, $x, $y, "black", "none", self::NSIZE."mm", "text".$this->index++, 'font-weight:bold;'
         );
         $y += self::NSIZE * 0.5;
         $x += 0;
@@ -237,7 +243,7 @@ abstract class BaseObject
         }
         $y += self::HSIZE * 0.5;
         $ret = $this->text(
-            $text, $x, $y, "black", "none", self::HSIZE."mm", "text".$this->index++, 'style="font-weight:bold;"'
+            $text, $x, $y, "black", "none", self::HSIZE."mm", "text".$this->index++, 'font-weight:bold;'
         );
         $y += self::HSIZE * 0.6;
         $x += 0;
@@ -263,7 +269,7 @@ abstract class BaseObject
     ) {
         return '<text id="'.$id.'" x="'.(float)$x.'mm" y="'.(float)$y.'mm"'
             .'  font-size="'.$fontsize.'" fill="'.$fill.'" stroke="'.$stroke.'"'
-            .' '.$extra.' font-family="'.self::FONTFAMILY.'">'.strip_tags($text).'</text>'."\n";
+            .' style="'.$extra.'" font-family="'.self::FONTFAMILY.'" >'.strip_tags($text).'</text>'."\n";
     }
     /**
     * Returns a grouped object
@@ -276,7 +282,7 @@ abstract class BaseObject
     */
     protected function group($object, $x, $y) 
     {
-        $ret = '<g transform="translate('.$x.'mm, '.$y.'mm)" id="g'.$this->index++.'">
+        $ret = '<g>
          '.$object.'</g>';
         return $ret;
     }
@@ -331,7 +337,7 @@ abstract class BaseObject
     protected function damageBoxes($x, $y, $boxes, $rows = 1)
     {
         $dx = $x;
-        $dy = $y; // - (self::DSIZE / 2);
+        $dy = $y;
         $ret = "";
         for ($i = 0; $i < $boxes; $i++) {
             $dx += self::DSIZE * 1.2;
