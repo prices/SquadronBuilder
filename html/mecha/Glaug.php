@@ -107,46 +107,6 @@ class Glaug extends \SquadronBuilder\core\Mecha
     {
         if (parent::upgrade($name)) {
             switch ($name) {
-            case "Glaug-Eldare":
-                $this->set("name", "Glaug-Eldare");
-                $this->set("gunnery", 3);
-                $this->set("piloting", 2);
-                $this->set("speed", 12);
-                $this->set(
-                    "abilities",
-                    array(
-                        'Afterburner'          => true,
-                        'Aircraft'             => true,
-                        'Battloid Restriction' => false,
-                        'Cumbersome'           => false,
-                        'Fast Mover'           => false,
-                        'Flight'               => true,
-                        'Focus Fire'           => false,
-                        'Hands'                => false,
-                        'Hover'                => false,
-                        'Jettison'             => " to Glaug",
-                        'Leadership'           => 4,
-                        'Leap'                 => false,
-                        'Life is Cheap'        => false,
-                        'Variable Modes'       => false,
-                        'Zentraidi Infantry'   => false,
-                    )
-                );
-                $this->set(
-                    "handtohand",
-                    array(
-                        "Body Block", "Punch", "Power Punch"
-                    )
-                );
-                $this->set(
-                    "ranged",
-                    array(
-                        "GlaugChargedParticleCannon", "GlaugHeavyParticleCannons", 
-                        "GlaugRailCannons", "RegultAutoCannons", "Glaug150mmSRM",
-                        "Glaug103mmMiniMissiles", "Glaug178mmSRM"
-                    )
-                );
-                $this->setupRanged();
 
             }
             return true;

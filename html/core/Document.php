@@ -95,7 +95,8 @@ class Document extends BaseObject
         $Weapon = new \SquadronBuilder\abilities\Weapon($this->index);
         $Mecha  = new \SquadronBuilder\abilities\Mecha($this->index);
         $HtH  = new \SquadronBuilder\abilities\HandToHand($this->index);
-        $squad = new \SquadronBuilder\force\core\RegultReconSquadron($this->index);
+        $params = array("maxheight" => ($this->height - $this->margin));
+        $squad = new \SquadronBuilder\force\core\RegultReconSquadron($this->index, $params);
 
         $text = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with SquadronBuilder (https://github.com/prices/SquadronBuilder) -->

@@ -58,6 +58,8 @@ class Mecha extends BaseObject
     private $_weapons = array();
     /** This says whether we use ammo or not */
     private $_usesAmmo = false;
+    /** This says whether we have a jettison attribute */
+    private $_jettisonto = false;
     /**
     * This is the constructor for the class
     * 
@@ -72,6 +74,13 @@ class Mecha extends BaseObject
     {
         parent::__construct($index, $params, $x, $y);
         $this->setupRanged();
+        if ($class = $this->_jettison()) {
+            include_once dirname(__FILE__)."/../mecha/$class.php";
+            $class = '\SquadronBuilder\mecha\\'.$class;
+            if (class_exists($class)) {
+                $this->_jettisonto = new $class($this->index);
+            }
+        }
     }
     /**
     * This sets up our ranged weapons
@@ -107,9 +116,8 @@ class Mecha extends BaseObject
     /**
     * This function exports the abilities list as a block
     *
-    * @param int &$x     The x to translate
-    * @param int &$y     The y to translate
-    * @param int &$count The number of mecha to encode
+    * @param int &$x The x to translate
+    * @param int &$y The y to translate
     * 
     * @return string The svg text for the block
     */
@@ -128,9 +136,38 @@ class Mecha extends BaseObject
         $text .= $this->_handtohand($dx, $dy);
         $text .= $this->_stats($dx, $dy);
         $text .= $this->_abilities($dx, $dy);
+        if (is_object($this->_jettisonto)) {
+            $text .= $this->_jettisonto->jettisonTo($x, $dy);
+            $dy   += $this->_jettisonto->height();
+        }
         $dy += $this->padding;
         $this->height = $dy - $y;
         $text .= $this->rect($x, $y, $this->width, $this->height);
+        $text = $this->group($text, $x, $y);
+        return $text;
+    }
+    /**
+    * This function exports the abilities list as a block
+    *
+    * @param int &$x The x to translate
+    * @param int &$y The y to translate
+    * 
+    * @return string The svg text for the block
+    */
+    public function jettisonTo($x = 0, $y = 0)
+    {
+        $text  = "";
+        $dx    = $x + $this->padding;
+        $dy    = $y + $this->padding;
+        
+        $dy += $this->padding;
+        $text .= $this->largebold($dx, $dy, "Jettison to ".$this->get("name"));
+        $text .= $this->_ranged($dx, $dy);
+        $text .= $this->_handtohand($dx, $dy);
+        $text .= $this->_stats($dx, $dy);
+        $text .= $this->_abilities($dx, $dy);
+        $dy += $this->padding;
+        $this->height = $dy - $y;
         $text = $this->group($text, $x, $y);
         return $text;
     }
@@ -193,13 +230,13 @@ class Mecha extends BaseObject
         $dy = $y + self::NSIZE / 2;
         $text .= $this->normal($x, $dy, "Speed: ".$this->get("speed"));
         $dy = $y + self::NSIZE / 2;
-        $x += ($width / 4.5);
+        $x += ($width / 4);
         $text .= $this->normal($x, $dy, "Pilot: ".$this->get("piloting"));
         $dy = $y + self::NSIZE / 2;
-        $x += ($width / 5);
+        $x += ($width / 5.5);
         $text .= $this->normal($x, $dy, "Gunnery: ".$this->get("gunnery"));
         $dy = $y + self::NSIZE / 2;
-        $x += ($width / 4);
+        $x += ($width / 3.5);
         $text .= $this->normal($x, $dy, "Defense: ".$this->get("defense"));
         $height = $dy - $y;
         $dy += 2;
@@ -224,8 +261,12 @@ class Mecha extends BaseObject
                 $abilities .= $sep.$name;
                 $sep = ", ";
             } else if ($value !== false) {
-                $abilities .= $sep.$name." ".$value;
-                $sep = ", ";
+                if ($name == "Jettison") {
+                    $abilities .= $sep.$name." to ".$this->_jettisonto->get("name");
+                } else {
+                    $abilities .= $sep.$name." ".$value;
+                    $sep = ", ";
+                }
             }
         }
         $abilities = wordwrap($abilities, 55);
@@ -250,8 +291,14 @@ class Mecha extends BaseObject
         }
         $text  = $this->large($x, $y, $this->get("name"));
         $by    = $y - self::LSIZE - (self::DSIZE / 2);
-        $x    += (self::LSIZE * strlen($this->get("name"))) / 1.75;
+        $x    += (self::LSIZE * strlen($this->get("name"))) / 2;
         $text .= $this->damageBoxes($x, $by, $this->get("damage"));
+        $extra = (int)$this->get("extradamage");
+        if ($extra > 0) {
+            $by += (self::DSIZE * 1.2);
+            $text .= $this->damageBoxes($x, $by, $extra, null, "#0000CF");
+            $y += (self::DSIZE * 1.2);
+        }
         $x     = $dx + $this->padding;
         $ammo = $this->_ammo($x, $y);
         $height = $y - $dy;
@@ -291,5 +338,15 @@ class Mecha extends BaseObject
     private function _hasammo()
     {
         return $this->_usesAmmo;
+    }
+    /**
+    * This function returns the stats
+    *
+    * @return string The svg text for the block
+    */
+    private function _jettison()
+    {
+        $attrib = $this->get("abilities");
+        return $attrib["Jettison"];
     }
 }

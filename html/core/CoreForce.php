@@ -69,8 +69,18 @@ class CoreForce extends BaseObject
     public function __construct(&$index, $params = array(), $x = 0, $y = 0)
     {
         parent::__construct($index, $params, $x, $y);
+        $this->setupMecha();
+    }
+    /**
+    * This sets up our ranged weapons
+    *
+    * @return string The svg text for the block
+    */
+    protected function setupMecha()
+    {
         $ind = 0;
         $mecha = $this->get("mecha");
+        $this->_mecha = array();
         if (is_array($mecha) && (count($mecha) > 0)) {
             foreach ($mecha as $class => $count) {
                 include_once(dirname(__FILE__)."/../mecha/$class.php");
@@ -85,19 +95,23 @@ class CoreForce extends BaseObject
     /**
     * This function exports the abilities list as a block
     *
-    * @param int &$x     The x to translate
-    * @param int &$y     The y to translate
-    * @param int &$count The number of mecha to encode
+    * @param int &$x The x to translate
+    * @param int &$y The y to translate
     * 
     * @return string The svg text for the block
     */
-    public function encode($x = 0, $y = 0, $count = 1)
+    public function encode($x = 0, $y = 0)
     {
         $text  = "";
         $dy    = $y;
         $text .= $this->header($x, $dy, $this->get("name"));
         $text .= $this->largebold($x, $dy, $this->get("points")." Points");
+        $savey = $dy;
         foreach ($this->_mecha as &$mecha) {
+            if (($dy + $mecha->height()) > $this->get("maxheight")) {
+                $x += $mecha->width() + $this->padding;
+                $dy = $savey;
+            }
             $text .= $mecha->encode($x, $dy);
             $dy    += $mecha->height() + $this->padding;
         }
