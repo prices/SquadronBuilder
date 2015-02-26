@@ -38,9 +38,6 @@ defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 
 /** These are our required files */
 require_once dirname(__FILE__)."/../core/Mecha.php";
-require_once dirname(__FILE__)."/../weapons/RegultHeavyParticleCannons.php";
-require_once dirname(__FILE__)."/../weapons/RegultAutoCannons.php";
-require_once dirname(__FILE__)."/../weapons/Regult313mmMRM.php";
 
 /**
  * This class deals with printing out a single weapon.
@@ -55,43 +52,44 @@ require_once dirname(__FILE__)."/../weapons/Regult313mmMRM.php";
  */
 class GluuhaugRegult extends \SquadronBuilder\core\Mecha
 {
-    /** This is our header for abilities **/
-    protected $name = "Gluuhaug Regult";
-    /** This is our speed **/
-    protected $speed = 4;
-    /** This is our piloting **/
-    protected $piloting = 2;
-    /** This is our gunnery **/
-    protected $gunnery = 2;
-    /** This is our defense **/
-    protected $defense = 5;
-    /** This is our defense **/
-    protected $damage = 5;
-    /** This is a list of the special abilities for this object */
-    protected $abilities = array(
-        'Afterburner'          => false,
-        'Aircraft'             => false,
-        'Battloid Restriction' => false,
-        'Cumbersome'           => false,
-        'Fast Mover'           => false,
-        'Flight'               => false,
-        'Focus Fire'           => true,
-        'Hands'                => false,
-        'Hover'                => false,
-        'Jettison'             => false,
-        'Leadership'           => false,
-        'Leap'                 => true,
-        'Life is Cheap'        => false,
-        'Variable Modes'       => false,
-        'Zentraidi Infantry'   => false,
+    protected $params = array(
+        /** This is our header for abilities **/
+        "name" => "Gluuhaug Regult",
+        /** This is our speed **/
+        "speed" => 4,
+        /** This is our piloting **/
+        "piloting" => 2,
+        /** This is our gunnery **/
+        "gunnery" => 2,
+        /** This is our defense **/
+        "defense" => 5,
+        /** This is our defense **/
+        "damage" => 5,
+        /** This is a list of the special abilities for this object */
+        "abilities" => array(
+            'Afterburner'          => false,
+            'Aircraft'             => false,
+            'Battloid Restriction' => false,
+            'Cumbersome'           => false,
+            'Fast Mover'           => false,
+            'Flight'               => false,
+            'Focus Fire'           => true,
+            'Hands'                => false,
+            'Hover'                => false,
+            'Jettison'             => false,
+            'Leadership'           => false,
+            'Leap'                 => true,
+            'Life is Cheap'        => false,
+            'Variable Modes'       => false,
+            'Zentraidi Infantry'   => false,
+        ),
+        /** These are our weapons */
+        "ranged" => array(
+            "RegultHeavyParticleCannons", "RegultAutoCannons", "Regult313mmMRM"
+        ),
+        /** These are our weapons */
+        "handtohand" => array(
+            "Body Block", "Kick", "Jump Kick", "Stomp"
+        ),
     );
-    /** These are our weapons */
-    protected $ranged = array(
-        "RegultHeavyParticleCannons", "RegultAutoCannons", "Regult313mmMRM"
-    );
-    /** These are our weapons */
-    protected $handtohand = array(
-        "Body Block", "Kick", "Jump Kick", "Stomp"
-    );
-    
 }

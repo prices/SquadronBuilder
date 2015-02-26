@@ -43,8 +43,7 @@ require_once "BaseObject.php";
 require_once dirname(__FILE__)."/../abilities/Weapon.php";
 require_once dirname(__FILE__)."/../abilities/Mecha.php";
 require_once dirname(__FILE__)."/../abilities/HandToHand.php";
-require_once dirname(__FILE__)."/../mecha/GluuhaugRegult.php";
-require_once dirname(__FILE__)."/../mecha/Regult.php";
+require_once dirname(__FILE__)."/../force/core/RegultAttackSquadron.php";
 
 /**
  * This class deals with printing out a single mecha.
@@ -96,8 +95,7 @@ class Document extends BaseObject
         $Weapon = new \SquadronBuilder\abilities\Weapon($this->index);
         $Mecha  = new \SquadronBuilder\abilities\Mecha($this->index);
         $HtH  = new \SquadronBuilder\abilities\HandToHand($this->index);
-        $GRegult = new \SquadronBuilder\mecha\GluuhaugRegult($this->index);
-        $Regult = new \SquadronBuilder\mecha\Regult($this->index);
+        $squad = new \SquadronBuilder\force\core\RegultAttackSquadron($this->index);
 
         $text = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with SquadronBuilder (https://github.com/prices/SquadronBuilder) -->
@@ -117,9 +115,7 @@ class Document extends BaseObject
 ';
         $x = $this->margin;
         $y = $this->margin;
-        $text .= $Regult->encode($x, $y, 12);
-        $y    += $Regult->height() + 5;
-        $text .= $GRegult->encode($x, $y, 2);
+        $text .= $squad->encode($x, $y);
         
         $ax = $this->width - $this->margin - $Weapon->width();
         $ay = $this->margin;

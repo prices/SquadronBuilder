@@ -32,12 +32,12 @@
  * @link       https://github.com/prices/SquadronBuilder
  */
 /** This is our namespace */
-namespace SquadronBuilder\weapons;
+namespace SquadronBuilder\mecha;
 
 defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 
 /** These are our required files */
-require_once dirname(__FILE__)."/../core/Weapon.php";
+require_once dirname(__FILE__)."/../core/Mecha.php";
 
 /**
  * This class deals with printing out a single weapon.
@@ -50,31 +50,48 @@ require_once dirname(__FILE__)."/../core/Weapon.php";
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class RegultHeavyParticleCannons extends \SquadronBuilder\core\Weapon
+class Glaug extends \SquadronBuilder\core\Mecha
 {
     protected $params = array(
+
         /** This is our header for abilities **/
-        "name" => "Dual Heavy Particle Cannons",
-        /** This is our range **/
-        "range" => 18,
-        /** This is our damage **/
-        "damage" => 4,
+        "name" => "Glaug",
+        /** This is our speed **/
+        "speed" => 7,
+        /** This is our piloting **/
+        "piloting" => 3,
+        /** This is our gunnery **/
+        "gunnery" => 3,
+        /** This is our defense **/
+        "defense" => 7,
+        /** This is our defense **/
+        "damage" => 9,
         /** This is a list of the special abilities for this object */
         "abilities" => array(
-            "Accurate"      => true,
-            "Ammo"          => false,
-            "Anti-Missile"  => false,
-            "Blast"         => false,
-            "Fly Over"      => false,
-            "Inescapable"   => false,
-            "Indirect Fire" => false,
-            "Missile"       => false,
-            "Overwhelming"  => false,
-            "Rapid Fire"    => false,
-            "Rear Fire"     => false,
-            "Split Fire"    => false,
-            "Volley"        => false,
-            "Volley X"      => false,
+            'Afterburner'          => false,
+            'Aircraft'             => false,
+            'Battloid Restriction' => false,
+            'Cumbersome'           => false,
+            'Fast Mover'           => false,
+            'Flight'               => false,
+            'Focus Fire'           => true,
+            'Hands'                => false,
+            'Hover'                => false,
+            'Jettison'             => false,
+            'Leadership'           => 4,
+            'Leap'                 => true,
+            'Life is Cheap'        => false,
+            'Variable Modes'       => false,
+            'Zentraidi Infantry'   => false,
+        ),
+        /** These are our weapons */
+        "ranged" => array(
+            "GlaugChargedParticleCannon", "GlaugHeavyParticleCannons", 
+            "GlaugRailCannons", "RegultAutoCannons", "Glaug150mmSRM"
+        ),
+        /** These are our weapons */
+        "handtohand" => array(
+            "Body Block", "Kick", "Jump Kick", "Punch", "Power Punch", "Stomp"
         ),
     );
 }

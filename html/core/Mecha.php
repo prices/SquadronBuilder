@@ -72,8 +72,10 @@ class Mecha extends BaseObject
     {
         parent::__construct($index, $params, $x, $y);
         $ind = 0;
-        if (is_array($this->ranged) && (count($this->ranged) > 0)) {
-            foreach ($this->ranged as $class) {
+        $ranged = $this->get("ranged");
+        if (is_array($ranged) && (count($ranged) > 0)) {
+            foreach ($ranged as $class) {
+                include_once(dirname(__FILE__)."/../weapons/$class.php");
                 $class = '\SquadronBuilder\weapons\\'.$class;
                 if (class_exists($class)) {
                     $params["width"] = $this->width - ($this->padding * 2);
@@ -100,11 +102,13 @@ class Mecha extends BaseObject
     * 
     * @return string The svg text for the block
     */
-    public function encode($x = 0, $y = 0, $count = 1)
+    public function encode($x = 0, $y = 0)
     {
-        $text = "";
-        $dx = $x + $this->padding;
-        $dy = $y + $this->padding;
+        $text  = "";
+        $dx    = $x + $this->padding;
+        $dy    = $y + $this->padding;
+        $count = empty($this->get("count")) ? 1 : $this->get("count");
+        
         for ($i = 0; $i < $count; $i++) {
             $text .= $this->_name($dx, $dy);
         }
@@ -151,9 +155,10 @@ class Mecha extends BaseObject
     private function _handtohand(&$dx, &$dy)
     {
         $text = "";
-        if (is_array($this->handtohand) && (count($this->handtohand) > 0)) {
+        $handtohand = $this->get("handtohand");
+        if (is_array($handtohand) && (count($handtohand) > 0)) {
             $text .= $this->bold($dx, $dy, "Hand to Hand:");
-            $text .= $this->small($dx, $dy, implode(", ", $this->handtohand));
+            $text .= $this->small($dx, $dy, implode(", ", $handtohand));
         }
         return $text;
     }
@@ -172,16 +177,16 @@ class Mecha extends BaseObject
         $x = $dx + 1;
         $y = $dy;
         $dy = $y + self::NSIZE / 2;
-        $text .= $this->normal($x, $dy, "Speed: ".$this->speed);
+        $text .= $this->normal($x, $dy, "Speed: ".$this->get("speed"));
         $dy = $y + self::NSIZE / 2;
         $x += ($width / 4.5);
-        $text .= $this->normal($x, $dy, "Pilot: ".$this->piloting);
+        $text .= $this->normal($x, $dy, "Pilot: ".$this->get("piloting"));
         $dy = $y + self::NSIZE / 2;
         $x += ($width / 5);
-        $text .= $this->normal($x, $dy, "Gunnery: ".$this->gunnery);
+        $text .= $this->normal($x, $dy, "Gunnery: ".$this->get("gunnery"));
         $dy = $y + self::NSIZE / 2;
         $x += ($width / 4);
-        $text .= $this->normal($x, $dy, "Defense: ".$this->defense);
+        $text .= $this->normal($x, $dy, "Defense: ".$this->get("defense"));
         $height = $dy - $y;
         $dy += 2;
         $text .= $this->rect($dx, $y, $width, $height);
@@ -200,7 +205,7 @@ class Mecha extends BaseObject
         $text .= $this->bold($dx, $dy, "Special Abilities:");
         $abilities = "";
         $sep = "";
-        foreach ($this->abilities as $name => $value) {
+        foreach ($this->get("abilities") as $name => $value) {
             if ($value === true) {
                 $abilities .= $sep.$name;
                 $sep = ", ";
@@ -228,10 +233,10 @@ class Mecha extends BaseObject
         if ($hasammo) {
             $y += 1;
         }
-        $text  = $this->large($x, $y, $this->name);
+        $text  = $this->large($x, $y, $this->get("name"));
         $by    = $y - self::LSIZE - (self::DSIZE / 2);
-        $x    += (self::LSIZE * strlen($this->name)) / 1.75;
-        $text .= $this->damageBoxes($x, $by, $this->damage);
+        $x    += (self::LSIZE * strlen($this->get("name"))) / 1.75;
+        $text .= $this->damageBoxes($x, $by, $this->get("damage"));
         $x     = $dx + $this->padding;
         $ammo = $this->_ammo($x, $y);
         $height = $y - $dy;

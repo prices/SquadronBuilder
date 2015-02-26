@@ -52,28 +52,29 @@ require_once dirname(__FILE__)."/../core/Weapon.php";
  */
 class Regult313mmMRM extends \SquadronBuilder\core\Weapon
 {
-    /** This is our header for abilities **/
-    protected $name = "Dual 313mm Medium Range Missle Launchers";
-    /** This is our range **/
-    protected $range = 24;
-    /** This is our damage **/
-    protected $damage = "9/missile";
-    /** This is a list of the special abilities for this object */
-    protected $abilities = array(
-        "Accurate"      => false,
-        "Ammo"          => 4,
-        "Anti-Missile"  => false,
-        "Blast"         => false,
-        "Fly Over"      => false,
-        "Inescapable"   => false,
-        "Indirect Fire" => false,
-        "Missile"       => true,
-        "Overwhelming"  => false,
-        "Rapid Fire"    => false,
-        "Rear Fire"     => true,
-        "Split Fire"    => false,
-        "Volley"        => 6,
-        "Volley X"      => false,
+    protected $params = array(
+        /** This is our header for abilities **/
+        "name" => "Dual 313mm Medium Range Missle Launchers",
+        /** This is our range **/
+        "range" => 24,
+        /** This is our damage **/
+        "damage" => "9/missile",
+        /** This is a list of the special abilities for this object */
+        "abilities" => array(
+            "Accurate"      => false,
+            "Ammo"          => 4,
+            "Anti-Missile"  => false,
+            "Blast"         => false,
+            "Fly Over"      => false,
+            "Inescapable"   => false,
+            "Indirect Fire" => false,
+            "Missile"       => true,
+            "Overwhelming"  => false,
+            "Rapid Fire"    => false,
+            "Rear Fire"     => true,
+            "Split Fire"    => false,
+            "Volley"        => 6,
+            "Volley X"      => false,
+        ),
     );
-    
 }

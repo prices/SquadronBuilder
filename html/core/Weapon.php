@@ -52,52 +52,53 @@ require_once "BaseObject.php";
  */
 abstract class Weapon extends BaseObject
 {
-    /** This is our header for abilities **/
-    protected $name = "";
-    /** This is our range **/
-    protected $range = 0;
-    /** This is our damage **/
-    protected $damage = 0;
-    /** This is a list of the special abilities for this object */
-    protected $abilities = array(
-        "Accurate"      => false,
-        "Ammo"          => false,
-        "Anti-Missile"  => false,
-        "Blast"         => false,
-        "Fly Over"      => false,
-        "Inescapable"   => false,
-        "Indirect Fire" => false,
-        "Missile"       => false,
-        "Overwhelming"  => false,
-        "Rapid Fire"    => false,
-        "Rear Fire"     => false,
-        "Split Fire"    => false,
-        "Volley"        => false,
-        "Volley X"      => false,
+    protected $params = array(
+        /** This is our header for abilities **/
+        "name" => "",
+        /** This is our range **/
+        "range" => 0,
+        /** This is our damage **/
+        "damage" => 0,
+        /** This is a list of the special abilities for this object */
+        "abilities" => array(
+            "Accurate"      => false,
+            "Ammo"          => false,
+            "Anti-Missile"  => false,
+            "Blast"         => false,
+            "Fly Over"      => false,
+            "Inescapable"   => false,
+            "Indirect Fire" => false,
+            "Missile"       => false,
+            "Overwhelming"  => false,
+            "Rapid Fire"    => false,
+            "Rear Fire"     => false,
+            "Split Fire"    => false,
+            "Volley"        => false,
+            "Volley X"      => false,
+        ),
     );
     /**
     * This function exports the abilities list as a block
     *
     * @param int &$x     The x to translate
     * @param int &$y     The y to translate
-    * @param int &$count The number of mecha to encode
     * 
     * @return string The svg text for the block
     */
-    public function encode($x = 0, $y = 0, $count = 1)
+    public function encode($x = 0, $y = 0)
     {
         $text = "";
         $dx = $x + $this->padding;
         $dy = $y + ($this->padding * 1.4);
-        $abilities = "RG: ".$this->range.", MD: ".$this->damage;
-        foreach ($this->abilities as $name => $value) {
+        $abilities = "RG: ".$this->get("range").", MD: ".$this->get("damage");
+        foreach ($this->get("abilities") as $name => $value) {
             if ($value === true) {
                 $abilities .= ", ".$name;
             } else if ($value !== false) {
                 $abilities .= ", ".$name." ".$value;
             }
         }
-        $text .= $this->normal($dx, $dy, $this->name);
+        $text .= $this->normal($dx, $dy, $this->get("name"));
         $dy   += (self::NSIZE / 10);
         $text .= $this->small($dx, $dy, $abilities);
         $dy += ($this->padding * 0.6);
@@ -119,15 +120,16 @@ abstract class Weapon extends BaseObject
         if (!$this->hasAmmo()) {
             return "";
         }
-        $ammo = $this->abilities["Ammo"];
-        $dx    = $x;
-        $dy    = $y;
-        $text  = $this->small($dx, $dy, $this->name);
-        $diff  = $dy - $y;
+        $abilities = $this->get("abilities");
+        $ammo      = $abilities["Ammo"];
+        $dx        = $x;
+        $dy        = $y;
+        $text      = $this->small($dx, $dy, $this->get("name"));
+        $diff      = $dy - $y;
         
-        $dy    = $dy - self::SSIZE - (self::DSIZE / 2);
-        $dx    = $this->width - $this->padding - (self::DSIZE * $ammo);
-        $text .= $this->damageBoxes($dx, $dy, $ammo);
+        $dy        = $dy - self::SSIZE - (self::DSIZE / 2);
+        $dx        = $this->width - $this->padding - (self::DSIZE * $ammo);
+        $text     .= $this->damageBoxes($dx, $dy, $ammo);
         if ($diff < (self::DSIZE)) {
             $diff = self::DSIZE;
         }
@@ -141,10 +143,11 @@ abstract class Weapon extends BaseObject
     */
     public function hasAmmo()
     {
-        if (!isset($this->abilities["Ammo"])) {
+        $abilities = $this->get("abilities");
+        if (!isset($abilities["Ammo"])) {
             return false;
         }
-        $ammo = $this->abilities["Ammo"];
+        $ammo = $abilities["Ammo"];
         return is_int($ammo) && ($ammo > 0);
     }
 }

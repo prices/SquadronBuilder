@@ -50,15 +50,15 @@ require_once dirname(__FILE__)."/../core/Weapon.php";
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class RegultHeavyParticleCannons extends \SquadronBuilder\core\Weapon
+class GlaugChargedParticleCannon extends \SquadronBuilder\core\Weapon
 {
     protected $params = array(
         /** This is our header for abilities **/
-        "name" => "Dual Heavy Particle Cannons",
+        "name" => "Charged Particle Cannon",
         /** This is our range **/
-        "range" => 18,
+        "range" => 24,
         /** This is our damage **/
-        "damage" => 4,
+        "damage" => 6,
         /** This is a list of the special abilities for this object */
         "abilities" => array(
             "Accurate"      => true,
@@ -66,10 +66,10 @@ class RegultHeavyParticleCannons extends \SquadronBuilder\core\Weapon
             "Anti-Missile"  => false,
             "Blast"         => false,
             "Fly Over"      => false,
-            "Inescapable"   => false,
+            "Inescapable"   => true,
             "Indirect Fire" => false,
             "Missile"       => false,
-            "Overwhelming"  => false,
+            "Overwhelming"  => true,
             "Rapid Fire"    => false,
             "Rear Fire"     => false,
             "Split Fire"    => false,

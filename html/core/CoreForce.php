@@ -24,7 +24,7 @@
  *
  * @category   html
  * @package    core
- * @subpackage weapons
+ * @subpackage mecha
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -40,66 +40,66 @@ defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 require_once "BaseObject.php";
 
 /**
- * This class deals with printing out a single weapon.
+ * This class deals with printing out a single mecha.
  *
  * @category   html
  * @package    core
- * @subpackage weapons
+ * @subpackage mecha
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-abstract class Abilities extends BaseObject
-{
-    /** This is our width */
-    protected $width = 60;
-    /** This is a list of the special abilities for this object */
-    protected $name = "Abilities";
-    /** This is a list of the special abilities for this object */
-    protected $abilities = array(
-        "None"      => "No Abilities",
-    );
+class CoreForce extends BaseObject
+{    
+    /** These are the mecha that will be in the force */
+    protected $mecha = array();
+    /** This is the cache of mecha objects */
+    private $_mecha = array();
+    /**
+    * This is the constructor for the class
+    * 
+    * @param float &$x     The x coordinate to start at
+    * @param float &$y     The y coordinate to start at
+    * @param float &$index The start index for ids
+    * @param array $params The other parameters
+    *
+    * @return null
+    */
+    public function __construct(&$index, $params = array(), $x = 0, $y = 0)
+    {
+        parent::__construct($index, $params, $x, $y);
+        $ind = 0;
+        if (is_array($this->mecha) && (count($this->mecha) > 0)) {
+            foreach ($this->mecha as $class => $count) {
+                include_once(dirname(__FILE__)."/../mecha/$class.php");
+                $class = '\SquadronBuilder\mecha\\'.$class;
+                if (class_exists($class)) {
+                    $params["count"] = $count;
+                    $mecha = new $class($index, $params);
+                    $this->_mecha[] = $mecha;
+                }
+            }
+        }
+    }
     /**
     * This function exports the abilities list as a block
     *
     * @param int &$x     The x to translate
     * @param int &$y     The y to translate
+    * @param int &$count The number of mecha to encode
     * 
     * @return string The svg text for the block
     */
-    public function encode($x = 0, $y = 0)
+    public function encode($x = 0, $y = 0, $count = 1)
     {
         $text = "";
-        if (!is_array($this->abilities) || (count($this->abilities) == 0)) {
-            return $text;
+        $dy   = $y;
+        foreach ($this->_mecha as &$mecha) {
+            $text .= $mecha->encode($x, $dy);
+            $dy    += $mecha->height() + $this->padding;
         }
-        $dx = $x + $this->padding;
-        $dy = $y + $this->padding + (self::LSIZE * 0.3);
-        $text   .= $this->largebold($dx, $dy, $this->name);
-        foreach ($this->abilities as $value => $description) {
-            $text .= $this->bold($dx, $dy, $value);
-            $text .= $this->small($dx, $dy, $description);
-            $dy += 1;
-        }
-        $this->height = $dy - $y;
-        $text .= $this->rect($x, $y, $this->width, $this->height);
-        $text = $this->group($text, $x, $y);
+        $this->height =  $dy - $y + $this->padding;
         return $text;
     }
-    /**
-    * Prints small text
-    *
-    * @param float &$x   The xposition
-    * @param float &$y   The yposition
-    * @param array $text The text to output
-    * 
-    * @return string The svg text for the block
-    */
-    protected function small(&$x, &$y, $text)
-    {
-        $text = wordwrap($text, 58);
-        return parent::small($x, $y, $text);
-    }
-
 }

@@ -80,6 +80,7 @@ abstract class BaseObject
     /** This our defaults parameters */
     protected $defaults = array(
         "color" => "#000000",
+        "count" => 1,
     );
     
     /**
@@ -97,7 +98,9 @@ abstract class BaseObject
         $this->x      = $x;
         $this->y      = $y;
         $this->index  = &$index;
-        $this->params = (array)$params;
+        foreach ((array)$params as $key => $value) {
+            $this->params[$key] = $value;
+        }
         if (isset($params["padding"])) {
             $this->padding = $params["padding"];
         }
@@ -141,11 +144,10 @@ abstract class BaseObject
     *
     * @param int &$x     The x to translate
     * @param int &$y     The y to translate
-    * @param int &$count The number of mecha to encode
     * 
     * @return string The svg text for the block
     */
-    public function encode($x = 0, $y = 0, $count = 1)
+    public function encode($x = 0, $y = 0)
     {
         return "";
     }

@@ -52,28 +52,29 @@ require_once dirname(__FILE__)."/../core/Weapon.php";
  */
 class RegultAutoCannons extends \SquadronBuilder\core\Weapon
 {
-    /** This is our header for abilities **/
-    protected $name = "Dual 22.3mm Auto-Cannons";
-    /** This is our range **/
-    protected $range = 12;
-    /** This is our damage **/
-    protected $damage = 2;
-    /** This is a list of the special abilities for this object */
-    protected $abilities = array(
-        "Accurate"      => false,
-        "Ammo"          => false,
-        "Anti-Missile"  => false,
-        "Blast"         => false,
-        "Fly Over"      => false,
-        "Inescapable"   => false,
-        "Indirect Fire" => false,
-        "Missile"       => false,
-        "Overwhelming"  => false,
-        "Rapid Fire"    => false,
-        "Rear Fire"     => false,
-        "Split Fire"    => false,
-        "Volley"        => false,
-        "Volley X"      => false,
+    protected $params = array(
+        /** This is our header for abilities **/
+        "name" => "Dual 22.3mm Auto-Cannons",
+        /** This is our range **/
+        "range" => 12,
+        /** This is our damage **/
+        "damage" => 2,
+        /** This is a list of the special abilities for this object */
+        "abilities" => array(
+            "Accurate"      => false,
+            "Ammo"          => false,
+            "Anti-Missile"  => false,
+            "Blast"         => false,
+            "Fly Over"      => false,
+            "Inescapable"   => false,
+            "Indirect Fire" => false,
+            "Missile"       => false,
+            "Overwhelming"  => false,
+            "Rapid Fire"    => false,
+            "Rear Fire"     => false,
+            "Split Fire"    => false,
+            "Volley"        => false,
+            "Volley X"      => false,
+        ),
     );
-    
 }

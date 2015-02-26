@@ -38,9 +38,6 @@ defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 
 /** These are our required files */
 require_once dirname(__FILE__)."/../core/Mecha.php";
-require_once dirname(__FILE__)."/../weapons/RegultHeavyParticleCannons.php";
-require_once dirname(__FILE__)."/../weapons/RegultAutoCannons.php";
-require_once dirname(__FILE__)."/../weapons/RegultAirDefenseLasers.php";
 
 /**
  * This class deals with printing out a single weapon.
@@ -55,43 +52,45 @@ require_once dirname(__FILE__)."/../weapons/RegultAirDefenseLasers.php";
  */
 class Regult extends \SquadronBuilder\core\Mecha
 {
-    /** This is our header for abilities **/
-    protected $name = "Regult";
-    /** This is our speed **/
-    protected $speed = 5;
-    /** This is our piloting **/
-    protected $piloting = 2;
-    /** This is our gunnery **/
-    protected $gunnery = 1;
-    /** This is our defense **/
-    protected $defense = 6;
-    /** This is our defense **/
-    protected $damage = 5;
-    /** This is a list of the special abilities for this object */
-    protected $abilities = array(
-        'Afterburner'          => false,
-        'Aircraft'             => false,
-        'Battloid Restriction' => false,
-        'Cumbersome'           => false,
-        'Fast Mover'           => false,
-        'Flight'               => false,
-        'Focus Fire'           => true,
-        'Hands'                => false,
-        'Hover'                => false,
-        'Jettison'             => false,
-        'Leadership'           => false,
-        'Leap'                 => true,
-        'Life is Cheap'        => true,
-        'Variable Modes'       => false,
-        'Zentraidi Infantry'   => false,
-    );
-    /** These are our weapons */
-    protected $ranged = array(
-        "RegultHeavyParticleCannons", "RegultAutoCannons", "RegultAirDefenseLasers"
-    );
-    /** These are our weapons */
-    protected $handtohand = array(
-        "Body Block", "Kick", "Jump Kick", "Stomp"
+    protected $params = array(
+        /** This is our header for abilities **/
+        "name" => "Regult",
+        /** This is our speed **/
+        "speed" => 5,
+        /** This is our piloting **/
+        "piloting" => 2,
+        /** This is our gunnery **/
+        "gunnery" => 1,
+        /** This is our defense **/
+        "defense" => 6,
+        /** This is our defense **/
+        "damage" => 5,
+        /** This is a list of the special abilities for this object */
+        "abilities" => array(
+            'Afterburner'          => false,
+            'Aircraft'             => false,
+            'Battloid Restriction' => false,
+            'Cumbersome'           => false,
+            'Fast Mover'           => false,
+            'Flight'               => false,
+            'Focus Fire'           => true,
+            'Hands'                => false,
+            'Hover'                => false,
+            'Jettison'             => false,
+            'Leadership'           => false,
+            'Leap'                 => true,
+            'Life is Cheap'        => true,
+            'Variable Modes'       => false,
+            'Zentraidi Infantry'   => false,
+        ),
+        /** These are our weapons */
+        "ranged" => array(
+            "RegultHeavyParticleCannons", "RegultAutoCannons", "RegultAirDefenseLasers"
+        ),
+        /** These are our weapons */
+        "handtohand" => array(
+            "Body Block", "Kick", "Jump Kick", "Stomp"
+        ),
     );
     
 }

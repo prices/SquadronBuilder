@@ -36,6 +36,8 @@ namespace SquadronBuilder\core;
 
 /** This is a required class */
 require_once CODE_BASE.'core/Mecha.php';
+/** This is a required class */
+require_once CODE_BASE.'core/Weapon.php';
 
 /**
  * This class deals with printing out a single mecha.
@@ -132,41 +134,43 @@ class MechaTest extends \PHPUnit_Framework_TestCase
  */
 class MechaTest1 extends Mecha
 {
-    /** This is our header for abilities **/
-    protected $name = "Regult Test";
-    /** This is our speed **/
-    protected $speed = 5;
-    /** This is our piloting **/
-    protected $piloting = 2;
-    /** This is our gunnery **/
-    protected $gunnery = 2;
-    /** This is our defense **/
-    protected $defense = 5;
-    /** This is a list of the special abilities for this object */
-    protected $abilities = array(
-        'Afterburner'          => false,
-        'Aircraft'             => false,
-        'Battloid Restriction' => false,
-        'Cumbersome'           => false,
-        'Fast Mover'           => false,
-        'Flight'               => trues,
-        'Focus Fire'           => false,
-        'Hands'                => true,
-        'Hover'                => false,
-        'Jettison'             => "to something",
-        'Leadership'           => 4,
-        'Leap'                 => false,
-        'Life is Cheap'        => false,
-        'Variable Modes'       => false,
-        'Zentraidi Infantry'   => false,
-    );
-    /** These are our weapons */
-    protected $ranged = array(
-        "MechaWeaponTest1", "MechaWeaponTest2"
-    );
-    /** These are our weapons */
-    protected $handtohand = array(
-        "Body Block", "Kick", "Jump Kick", "Stomp"
+    protected $params = array(
+        /** This is our header for abilities **/
+        "name" => "Regult Test",
+        /** This is our speed **/
+        "speed" => 5,
+        /** This is our piloting **/
+        "piloting" => 2,
+        /** This is our gunnery **/
+        "gunnery" => 2,
+        /** This is our defense **/
+        "defense" => 5,
+        /** This is a list of the special abilities for this object */
+        "abilities" => array(
+            'Afterburner'          => false,
+            'Aircraft'             => false,
+            'Battloid Restriction' => false,
+            'Cumbersome'           => false,
+            'Fast Mover'           => false,
+            'Flight'               => trues,
+            'Focus Fire'           => false,
+            'Hands'                => true,
+            'Hover'                => false,
+            'Jettison'             => "to something",
+            'Leadership'           => 4,
+            'Leap'                 => false,
+            'Life is Cheap'        => false,
+            'Variable Modes'       => false,
+            'Zentraidi Infantry'   => false,
+        ),
+        /** These are our weapons */
+        "ranged" => array(
+            "MechaWeaponTest1", "MechaWeaponTest2"
+        ),
+        /** These are our weapons */
+        "handtohand" => array(
+            "Body Block", "Kick", "Jump Kick", "Stomp"
+        ),
     );
 }
 /**
