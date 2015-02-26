@@ -50,17 +50,16 @@ require_once dirname(__FILE__)."/../../core/CoreForce.php";
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class RegultAttackSquadron extends \SquadronBuilder\core\CoreForce
+class RegultAttritionSquadron extends \SquadronBuilder\core\CoreForce
 {
     protected $params = array(
         /** This is our header for abilities **/
-        "name" => "Regult Attack Squadron",
+        "name" => "Regult Attrition Squadron",
         /** These are our weapons */
         "mecha" => array(
-            "Glaug" => 1, 
-            "Regult" => 9, 
+            "Regult" => 12, 
         ),
-        "points" => 80,
+        "points" => 70,
     );
     /**
     * This function runs an upgrade
@@ -77,11 +76,6 @@ class RegultAttackSquadron extends \SquadronBuilder\core\CoreForce
                 $name = $this->get("name");
                 $name = "Veteran ".$name;
                 $this->set("name", $name);
-                $points = $this->get("points");
-                $points += 20;
-                $this->set("points", $points);
-                break;
-            case "Glaug-Eldare":
                 $points = $this->get("points");
                 $points += 25;
                 $this->set("points", $points);

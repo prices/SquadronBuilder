@@ -50,24 +50,21 @@ require_once dirname(__FILE__)."/../core/Mecha.php";
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class Glaug extends \SquadronBuilder\core\Mecha
+class QuelRegult extends \SquadronBuilder\core\Mecha
 {
     protected $params = array(
-
         /** This is our header for abilities **/
-        "name" => "Glaug",
+        "name" => "Quel-Regult",
         /** This is our speed **/
-        "speed" => 7,
+        "speed" => 6,
         /** This is our piloting **/
         "piloting" => 3,
         /** This is our gunnery **/
-        "gunnery" => 3,
+        "gunnery" => '-',
         /** This is our defense **/
-        "defense" => 7,
-        /** This is our damage **/
-        "damage" => 9,
-        /** This is our damage **/
-        "extradamage" => 10,
+        "defense" => 6,
+        /** This is our defense **/
+        "damage" => 5,
         /** This is a list of the special abilities for this object */
         "abilities" => array(
             'Afterburner'          => false,
@@ -76,11 +73,11 @@ class Glaug extends \SquadronBuilder\core\Mecha
             'Cumbersome'           => false,
             'Fast Mover'           => false,
             'Flight'               => false,
-            'Focus Fire'           => true,
+            'Focus Fire'           => false,
             'Hands'                => false,
             'Hover'                => false,
             'Jettison'             => false,
-            'Leadership'           => 4,
+            'Leadership'           => 2,
             'Leap'                 => true,
             'Life is Cheap'        => false,
             'Variable Modes'       => false,
@@ -88,69 +85,11 @@ class Glaug extends \SquadronBuilder\core\Mecha
         ),
         /** These are our weapons */
         "ranged" => array(
-            "GlaugChargedParticleCannon", "GlaugHeavyParticleCannons", 
-            "GlaugRailCannons", "RegultAutoCannons", "Glaug150mmSRM"
         ),
         /** These are our weapons */
         "handtohand" => array(
-            "Body Block", "Kick", "Jump Kick", "Punch", "Power Punch", "Stomp"
+            "Body Block", "Kick", "Jump Kick", "Stomp"
         ),
     );
-    /**
-    * This function runs an upgrade
-    *
-    * @param string $name  The name of the upgrade
-    * 
-    * @return true if ready to apply, false if already applied
-    */
-    public function upgrade($name)
-    {
-        if (parent::upgrade($name)) {
-            switch ($name) {
-            case "Glaug-Eldare":
-                $this->set("name", "Glaug-Eldare");
-                $this->set("gunnery", 3);
-                $this->set("piloting", 2);
-                $this->set("speed", 12);
-                $this->set(
-                    "abilities",
-                    array(
-                        'Afterburner'          => true,
-                        'Aircraft'             => true,
-                        'Battloid Restriction' => false,
-                        'Cumbersome'           => false,
-                        'Fast Mover'           => false,
-                        'Flight'               => true,
-                        'Focus Fire'           => false,
-                        'Hands'                => false,
-                        'Hover'                => false,
-                        'Jettison'             => " to Glaug",
-                        'Leadership'           => 4,
-                        'Leap'                 => false,
-                        'Life is Cheap'        => false,
-                        'Variable Modes'       => false,
-                        'Zentraidi Infantry'   => false,
-                    )
-                );
-                $this->set(
-                    "handtohand",
-                    array(
-                        "Body Block", "Punch", "Power Punch"
-                    )
-                );
-                $this->set(
-                    "ranged",
-                    array(
-                        "GlaugChargedParticleCannon", "GlaugHeavyParticleCannons", 
-                        "GlaugRailCannons", "RegultAutoCannons", "Glaug150mmSRM",
-                        "Glaug103mmMiniMissiles", "Glaug178mmSRM"
-                    )
-                );
-                $this->setupRanged();
-
-            }
-            return true;
-        }
-        return false;
-    }
+    
 }

@@ -77,6 +77,8 @@ abstract class BaseObject
     /** This is other parameters */
     protected $params = array(
     );
+    /** This is our upgrade status*/
+    private $_upgrades = array();
     /** This our defaults parameters */
     protected $defaults = array(
         "color" => "#000000",
@@ -122,10 +124,9 @@ abstract class BaseObject
         return $this->get($name);
     }
     /**
-    * This function sets a parameter
+    * This function gets a parameter
     *
-    * @param string $name  The name of the parameter
-    * @param mixed  $value The value to set the parameter to.
+    * @param string $name The name of the parameter
     * 
     * @return string The svg text for the block
     */
@@ -138,6 +139,21 @@ abstract class BaseObject
             return $this->defaults[$name];
         }
         return null;
+    }
+    /**
+    * This function runs an upgrade
+    *
+    * @param string $name  The name of the upgrade
+    * 
+    * @return true if ready to apply, false if already applied
+    */
+    public function upgrade($name)
+    {
+        if (isset($this->_upgrades[$name])) {
+            return false;
+        }
+        $this->_upgrades[$name] = true;
+        return true;
     }
     /**
     * This function exports the abilities list as a block
@@ -187,12 +203,16 @@ abstract class BaseObject
         if (strlen($text) == 0) {
             return "";
         }
-        $y += self::NSIZE * 0.5;
-        $ret = $this->text(
-            $text, $x, $y, "black", "none", self::NSIZE."mm", "text".$this->index++, ''
-        );
-        $y += self::SSIZE * 0.5;
-        $x += 0;
+        $values = explode("\n", $text);
+        $ret = "";
+        foreach ($values as $txt) {
+            $y += self::NSIZE * 0.5;
+            $ret .= $this->text(
+                $txt, $x, $y, "black", "none", self::NSIZE."mm", "text".$this->index++, ''
+            );
+            $y += self::NSIZE * 0.5;
+            $x += 0;
+        }
         return $ret;
     }
     /**

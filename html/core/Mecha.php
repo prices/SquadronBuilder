@@ -71,15 +71,26 @@ class Mecha extends BaseObject
     public function __construct(&$index, $params = array(), $x = 0, $y = 0)
     {
         parent::__construct($index, $params, $x, $y);
+        $this->setupRanged();
+    }
+    /**
+    * This sets up our ranged weapons
+    *
+    * @return string The svg text for the block
+    */
+    protected function setupRanged()
+    {
         $ind = 0;
         $ranged = $this->get("ranged");
+        $this->_weapons = array();
         if (is_array($ranged) && (count($ranged) > 0)) {
             foreach ($ranged as $class) {
+                $params = array();
                 include_once(dirname(__FILE__)."/../weapons/$class.php");
                 $class = '\SquadronBuilder\weapons\\'.$class;
                 if (class_exists($class)) {
                     $params["width"] = $this->width - ($this->padding * 2);
-                    $wpn = new $class($index, $params);
+                    $wpn = new $class($this->index, $params);
                     if ($wpn->hasAmmo()) {
                         $this->_usesAmmo = true;
                         $color = $this->_colors[$ind];
@@ -134,12 +145,15 @@ class Mecha extends BaseObject
     private function _ranged(&$dx, &$dy)
     {
         $text = "";
+        $text .= $this->bold($dx, $dy, "Ranged:");
         if (count($this->_weapons) > 0) {
-            $text .= $this->bold($dx, $dy, "Ranged:");
             foreach ($this->_weapons as &$obj) {
                 $text .= $obj->encode($dx,$dy);
                 $dy += $obj->height();
             }
+            $dy += 2;
+        } else {
+            $text .= $this->normal($dx, $dy, "None");
             $dy += 2;
         }
         return $text;
@@ -214,6 +228,7 @@ class Mecha extends BaseObject
                 $sep = ", ";
             }
         }
+        $abilities = wordwrap($abilities, 55);
         $text .= $this->normal($dx, $dy, $abilities);
         return $text;
     }

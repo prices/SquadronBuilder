@@ -70,14 +70,14 @@ class CoreForce extends BaseObject
     {
         parent::__construct($index, $params, $x, $y);
         $ind = 0;
-        if (is_array($this->mecha) && (count($this->mecha) > 0)) {
-            foreach ($this->mecha as $class => $count) {
+        $mecha = $this->get("mecha");
+        if (is_array($mecha) && (count($mecha) > 0)) {
+            foreach ($mecha as $class => $count) {
                 include_once(dirname(__FILE__)."/../mecha/$class.php");
                 $class = '\SquadronBuilder\mecha\\'.$class;
                 if (class_exists($class)) {
                     $params["count"] = $count;
-                    $mecha = new $class($index, $params);
-                    $this->_mecha[] = $mecha;
+                    $this->_mecha[] = new $class($index, $params);
                 }
             }
         }
@@ -93,8 +93,10 @@ class CoreForce extends BaseObject
     */
     public function encode($x = 0, $y = 0, $count = 1)
     {
-        $text = "";
-        $dy   = $y;
+        $text  = "";
+        $dy    = $y;
+        $text .= $this->header($x, $dy, $this->get("name"));
+        $text .= $this->largebold($x, $dy, $this->get("points")." Points");
         foreach ($this->_mecha as &$mecha) {
             $text .= $mecha->encode($x, $dy);
             $dy    += $mecha->height() + $this->padding;
@@ -102,4 +104,22 @@ class CoreForce extends BaseObject
         $this->height =  $dy - $y + $this->padding;
         return $text;
     }
+    /**
+    * This function runs an upgrade
+    *
+    * @param string $name  The name of the upgrade
+    * 
+    * @return true if ready to apply, false if already applied
+    */
+    public function upgrade($name)
+    {
+        if (parent::upgrade($name)) {
+            foreach ($this->_mecha as &$mecha) {
+                $mecha->upgrade($name);
+            }
+            return true;
+        }
+        return false;
+    }
+    
 }

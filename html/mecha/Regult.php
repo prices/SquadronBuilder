@@ -92,5 +92,28 @@ class Regult extends \SquadronBuilder\core\Mecha
             "Body Block", "Kick", "Jump Kick", "Stomp"
         ),
     );
+    /**
+    * This function runs an upgrade
+    *
+    * @param string $name  The name of the upgrade
+    * 
+    * @return true if ready to apply, false if already applied
+    */
+    public function upgrade($name)
+    {
+        if (parent::upgrade($name)) {
+            switch ($name) {
+            case "Veteran Warriors":
+                $gun = $this->get("gunnery");
+                $gun += 1;
+                $this->set("gunnery", $gun);
+                $pil = $this->get("piloting");
+                $pil += 1;
+                $this->set("piloting", $pil);
+            }
+            return true;
+        }
+        return false;
+    }
     
 }

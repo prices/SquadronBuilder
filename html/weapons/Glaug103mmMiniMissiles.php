@@ -32,12 +32,12 @@
  * @link       https://github.com/prices/SquadronBuilder
  */
 /** This is our namespace */
-namespace SquadronBuilder\force\core;
+namespace SquadronBuilder\weapons;
 
 defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 
 /** These are our required files */
-require_once dirname(__FILE__)."/../../core/CoreForce.php";
+require_once dirname(__FILE__)."/../core/Weapon.php";
 
 /**
  * This class deals with printing out a single weapon.
@@ -50,45 +50,32 @@ require_once dirname(__FILE__)."/../../core/CoreForce.php";
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class RegultAttackSquadron extends \SquadronBuilder\core\CoreForce
+class Glaug103mmMiniMissiles extends \SquadronBuilder\core\Weapon
 {
     protected $params = array(
         /** This is our header for abilities **/
-        "name" => "Regult Attack Squadron",
-        /** These are our weapons */
-        "mecha" => array(
-            "Glaug" => 1, 
-            "Regult" => 9, 
+        "name" => "103mm Mini-Missile Launchers",
+        /** This is our range **/
+        "range" => 12,
+        /** This is our damage **/
+        "damage" => "2/missile",
+        /** This is a list of the special abilities for this object */
+        "abilities" => array(
+            "Accurate"      => false,
+            "Ammo"          => 4,
+            "Anti-Missile"  => true,
+            "Blast"         => false,
+            "Fly Over"      => false,
+            "Inescapable"   => false,
+            "Indirect Fire" => false,
+            "Missile"       => true,
+            "Overwhelming"  => false,
+            "Rapid Fire"    => false,
+            "Rear Fire"     => false,
+            "Split Fire"    => false,
+            "Volley"        => 6,
+            "Volley X"      => false,
         ),
-        "points" => 80,
     );
-    /**
-    * This function runs an upgrade
-    *
-    * @param string $name  The name of the upgrade
-    * 
-    * @return true if ready to apply, false if already applied
-    */
-    public function upgrade($name)
-    {
-        if (parent::upgrade($name)) {
-            switch ($name) {
-            case "Veteran Warriors":
-                $name = $this->get("name");
-                $name = "Veteran ".$name;
-                $this->set("name", $name);
-                $points = $this->get("points");
-                $points += 20;
-                $this->set("points", $points);
-                break;
-            case "Glaug-Eldare":
-                $points = $this->get("points");
-                $points += 25;
-                $this->set("points", $points);
-                break;
-            }
-            return true;
-        }
-        return false;
-    }
+    
 }
