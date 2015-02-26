@@ -76,18 +76,31 @@ abstract class Abilities extends BaseObject
             return $text;
         }
         $dx = $x + $this->padding;
-        $dy = $y + $this->padding;
-        $text   .= $this->header($dx, $dy, $this->name);
+        $dy = $y + $this->padding + (self::LSIZE * 0.3);
+        $text   .= $this->largebold($dx, $dy, $this->name);
         foreach ($this->abilities as $value => $description) {
             $text .= $this->bold($dx, $dy, $value);
             $text .= $this->small($dx, $dy, $description);
             $dy += 1;
         }
-        $dy += $this->padding;
         $this->height = $dy - $y;
         $text .= $this->rect($x, $y, $this->width, $this->height);
         $text = $this->group($text, $x, $y);
         return $text;
     }
-    
+    /**
+    * Prints small text
+    *
+    * @param float &$x   The xposition
+    * @param float &$y   The yposition
+    * @param array $text The text to output
+    * 
+    * @return string The svg text for the block
+    */
+    protected function small(&$x, &$y, $text)
+    {
+        $text = wordwrap($text, 58);
+        return parent::small($x, $y, $text);
+    }
+
 }

@@ -58,7 +58,7 @@ class Weapon extends \SquadronBuilder\core\Abilities
     protected $abilities = array(
         "Accurate"      => "+1 to hit if no movement during this turns activation.",
         "Ammo #"        => "The number of shots available for this weapon.",
-        "Anti-Missile"  => "Can shoot down incoming missles with out spending command points",
+        "Anti-Missile"  => "Can shoot down missles without spending command points",
         "Blast"         => "Uses blast template, can scatter",
         "Fly Over"      => "Must fly over the target to attack it",
         "Inescapable"   => "Can not be dodged",
@@ -69,7 +69,7 @@ class Weapon extends \SquadronBuilder\core\Abilities
         "Rear Fire"     => "Can attack to the rear",
         "Split Fire"    => "May split the damage between two targets",
         "Volley"        => "Fires this many missiles in one shot.",
-        "Volley X"      => "One round of ammo is used per missile fired.  Any number of missiles\n fired up to the amount of ammo can be fired in a single volley.",
+        "Volley X"      => "One round of ammo is used per missile fired.  Any number of missiles up to the amount of ammo can be fired in a single volley.",
     );
     
 }

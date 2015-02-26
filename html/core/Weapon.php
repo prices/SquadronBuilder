@@ -88,7 +88,7 @@ abstract class Weapon extends BaseObject
     {
         $text = "";
         $dx = $x + $this->padding;
-        $dy = $y + $this->padding;
+        $dy = $y + ($this->padding * 1.4);
         $abilities = "RG: ".$this->range.", MD: ".$this->damage;
         foreach ($this->abilities as $name => $value) {
             if ($value === true) {
@@ -100,9 +100,9 @@ abstract class Weapon extends BaseObject
         $text .= $this->normal($dx, $dy, $this->name);
         $dy   += (self::NSIZE / 10);
         $text .= $this->small($dx, $dy, $abilities);
-        $dy += $this->padding - 1.5;
+        $dy += ($this->padding * 0.6);
         $this->height = $dy - $y;
-        $text .= $this->rect($x, $y, $this->width, $this->height);
+        $text .= $this->rect($x, $y, $this->width, $this->height, $this->get("color"));
         $text = $this->group($text, $x, $y);
         return $text;
     }
@@ -116,10 +116,10 @@ abstract class Weapon extends BaseObject
     */
     public function ammo(&$x = 0, &$y = 0)
     {
-        $ammo = $this->abilities["Ammo"];
-        if (!isset($ammo) || ($ammo == 0)) {
+        if (!$this->hasAmmo()) {
             return "";
         }
+        $ammo = $this->abilities["Ammo"];
         $dx    = $x;
         $dy    = $y;
         $text  = $this->small($dx, $dy, $this->name);
@@ -127,11 +127,24 @@ abstract class Weapon extends BaseObject
         
         $dy    = $dy - self::SSIZE - (self::DSIZE / 2);
         $dx    = $this->width - $this->padding - (self::DSIZE * $ammo);
-        $text .= $this->damageBoxes($dx, $dy, $ammo, $color);
-        if ($diff < (self::DSIZE * 1.5)) {
-            $diff = self::DSIZE * 1.5;
+        $text .= $this->damageBoxes($dx, $dy, $ammo);
+        if ($diff < (self::DSIZE)) {
+            $diff = self::DSIZE;
         }
         $y    += $diff;
         return $text;
+    }
+    /**
+    * Says if this weapon has ammo, or not.
+    *
+    * @return bool True if ammo is present, false otherwise
+    */
+    public function hasAmmo()
+    {
+        if (!isset($this->abilities["Ammo"])) {
+            return false;
+        }
+        $ammo = $this->abilities["Ammo"];
+        return is_int($ammo) && ($ammo > 0);
     }
 }

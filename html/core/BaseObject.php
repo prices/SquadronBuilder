@@ -59,15 +59,15 @@ abstract class BaseObject
     /** This is the size of normal text in mm */
     const LSIZE = 4;
     /** This is the size of normal text in mm */
-    const HSIZE = 4.5;
+    const HSIZE = 5;
     /** This is our font family */
-    const FONTFAMILY = "'DejaVu Sans', sans-serif";
+    const FONTFAMILY = "'Bitstream Vera Sans', sans-serif";
     /** This is our initial X coord */
     protected $x = 0;
     /** This is our initial Y coord */
     protected $y = 0;
     /** This is our padding value */
-    protected $padding = 2;
+    protected $padding = 1.5;
     /** This is our width */
     protected $width = 70;
     /** This is our width */
@@ -75,7 +75,12 @@ abstract class BaseObject
     /** This is our index */
     protected $index = 0;
     /** This is other parameters */
-    protected $params = array();
+    protected $params = array(
+    );
+    /** This our defaults parameters */
+    protected $defaults = array(
+        "color" => "#000000",
+    );
     
     /**
     * This is the constructor for the class
@@ -99,6 +104,37 @@ abstract class BaseObject
         if (isset($params["width"])) {
             $this->width   = $params["width"];
         }
+    }
+    /**
+    * This function sets a parameter
+    *
+    * @param string $name  The name of the parameter
+    * @param mixed  $value The value to set the parameter to.
+    * 
+    * @return string The svg text for the block
+    */
+    public function set($name, $value)
+    {
+        $this->params[$name] = $value;
+        return $this->get($name);
+    }
+    /**
+    * This function sets a parameter
+    *
+    * @param string $name  The name of the parameter
+    * @param mixed  $value The value to set the parameter to.
+    * 
+    * @return string The svg text for the block
+    */
+    public function get($name)
+    {
+        if (isset($this->params[$name])) {
+            return $this->params[$name];
+        }
+        if (isset($this->defaults[$name])) {
+            return $this->defaults[$name];
+        }
+        return null;
     }
     /**
     * This function exports the abilities list as a block
@@ -228,6 +264,28 @@ abstract class BaseObject
         return $ret;
     }
     /**
+    * Prints normal large text
+    *
+    * @param float &$x   The xposition
+    * @param float &$y   The yposition
+    * @param array $text The text to output
+    * 
+    * @return string The svg text for the block
+    */
+    protected function largebold(&$x, &$y, $text)
+    {
+        if (strlen($text) == 0) {
+            return "";
+        }
+        $y += self::LSIZE * 0.5;
+        $ret = $this->text(
+            $text, $x, $y, "black", "none", self::LSIZE."mm", "text".$this->index++, 'font-weight:bold;'
+        );
+        $y += self::LSIZE * 0.6;
+        $x += 0;
+        return $ret;
+    }
+    /**
     * Prints normal header text
     *
     * @param float &$x   The xposition
@@ -289,21 +347,23 @@ abstract class BaseObject
     /**
     * Prints a rectangle
     *
-    * @param float $x1     The top left corner
-    * @param float $y1     The top left corner
-    * @param float $width  The width
-    * @param float $height The height
+    * @param float  $x1     The top left corner
+    * @param float  $y1     The top left corner
+    * @param float  $width  The width
+    * @param float  $height The height
+    * @param string $stroke The stroke color
+    * @param string $fill   The fill color
     * 
     * @return string The svg text for the block
     */
-    protected function rect($x, $y, $width, $height)
+    protected function rect($x, $y, $width, $height, $stroke = "#000000", $fill = "none")
     {
         if (($height == 0) || ($width == 0)) {
             return "";
         }
         $ret = '<rect id="rect'.$this->index++.'" y="'.$y.'mm" x="'.$x.'mm"'
               .' height="'.(float)$height.'mm" width="'.(float)$width.'mm"'
-              .' style="fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1" />'."\n";
+              .' style="fill:'.$fill.';stroke:'.$stroke.';stroke-width:1.47185135;stroke-opacity:1" />'."\n";
         return $ret;
     }
     /**
@@ -318,10 +378,8 @@ abstract class BaseObject
     */
     protected function damageBox($x, $y)
     {
-        $color = isset($this->params["color"]) ? $this->params["color"] : "#000000";
-        $ret = '<rect id="rect'.$this->index++.'" y="'.$y.'mm" x="'.$x.'mm"'
-              .' height="'.self::DSIZE.'mm" width="'.self::DSIZE.'mm"'
-              .' style="fill:none;stroke:'.$color.';stroke-width:1.47185135;stroke-opacity:1" />'."\n";
+        $color = $this->get("color");
+        $ret = $this->rect($x, $y, self::DSIZE, self::DSIZE, $color);
         return $ret;
     }
     /**

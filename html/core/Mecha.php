@@ -53,9 +53,11 @@ require_once "BaseObject.php";
 class Mecha extends BaseObject
 {    
     /** These are the colors for the ranged weapons */
-    private $_colors = array("#7f0000", "#7f7f00", "#007f00");
+    private $_colors = array("#CF0000", "#CFCF00", "#00CF00");
     /** These are the colors for the ranged weapons */
     private $_weapons = array();
+    /** This says whether we use ammo or not */
+    private $_usesAmmo = false;
     /**
     * This is the constructor for the class
     * 
@@ -69,14 +71,22 @@ class Mecha extends BaseObject
     public function __construct(&$index, $params = array(), $x = 0, $y = 0)
     {
         parent::__construct($index, $params, $x, $y);
-        $index = 0;
+        $ind = 0;
         if (is_array($this->ranged) && (count($this->ranged) > 0)) {
             foreach ($this->ranged as $class) {
                 $class = '\SquadronBuilder\weapons\\'.$class;
                 if (class_exists($class)) {
                     $params["width"] = $this->width - ($this->padding * 2);
-                    $this->_weapons[$index] = new $class($index, $params);
-                    $index++;
+                    $wpn = new $class($index, $params);
+                    if ($wpn->hasAmmo()) {
+                        $this->_usesAmmo = true;
+                        $color = $this->_colors[$ind];
+                        if (is_string($color)) {
+                            $wpn->set("color", $color);
+                            $ind++;
+                        }
+                    }
+                    $this->_weapons[] = $wpn;
                 }
             }
         }
@@ -103,7 +113,7 @@ class Mecha extends BaseObject
         $text .= $this->_handtohand($dx, $dy);
         $text .= $this->_stats($dx, $dy);
         $text .= $this->_abilities($dx, $dy);
-        $dy += $this->padding - 1.5;
+        $dy += $this->padding;
         $this->height = $dy - $y;
         $text .= $this->rect($x, $y, $this->width, $this->height);
         $text = $this->group($text, $x, $y);
@@ -214,14 +224,18 @@ class Mecha extends BaseObject
     {
         $y     = $dy + $this->padding;
         $x     = $dx + $this->padding;
+        $hasammo = $this->_hasammo();
+        if ($hasammo) {
+            $y += 1;
+        }
         $text  = $this->large($x, $y, $this->name);
-        $by     = $y - self::LSIZE - (self::DSIZE / 2);
+        $by    = $y - self::LSIZE - (self::DSIZE / 2);
         $x    += (self::LSIZE * strlen($this->name)) / 1.75;
         $text .= $this->damageBoxes($x, $by, $this->damage);
         $x     = $dx + $this->padding;
         $ammo = $this->_ammo($x, $y);
         $height = $y - $dy;
-        if (strlen($ammo) > 0) {
+        if ($hasammo) {
             $text  .= $ammo;
             $width  = $this->width - ($this->padding * 2);
             $text  .= $this->rect($dx, $dy, $width, $height);
@@ -248,5 +262,14 @@ class Mecha extends BaseObject
             }
         }
         return $text;
+    }
+    /**
+    * This function returns the stats
+    *
+    * @return string The svg text for the block
+    */
+    private function _hasammo()
+    {
+        return $this->_usesAmmo;
     }
 }

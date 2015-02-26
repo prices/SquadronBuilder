@@ -117,9 +117,9 @@ class Document extends BaseObject
 ';
         $x = $this->margin;
         $y = $this->margin;
-        $text .= $Regult->encode($x, $y, 5);
-        $y    += $Regult->height();
-        $text .= $GRegult->encode($x, $y, 5);
+        $text .= $Regult->encode($x, $y, 12);
+        $y    += $Regult->height() + 5;
+        $text .= $GRegult->encode($x, $y, 2);
         
         $ax = $this->width - $this->margin - $Weapon->width();
         $ay = $this->margin;
@@ -142,8 +142,8 @@ class Document extends BaseObject
     */
     private function _font()
     {
-        $text = "\n<!-- Deja Vu Font license at http://dejavu-fonts.org/wiki/License -->\n";
-        $text .= file_get_contents(dirname(__FILE__)."/../ttf/DejaVuSans.svg");
+        $text = "\n<!-- Bitstream Vera can be obtained at http://ftp.gnome.org/pub/GNOME/sources/ttf-bitstream-vera/ -->\n";
+        $text .= file_get_contents(dirname(__FILE__)."/../ttf/Vera.svg");
         return $text;
    }
 }

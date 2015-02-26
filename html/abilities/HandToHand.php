@@ -56,14 +56,14 @@ class HandToHand extends \SquadronBuilder\core\Abilities
     protected $name = "Hand to Hand Attacks";
     /** This is a list of the special abilities for this object */
     protected $abilities = array(
-        'Body Block' => 'MD: 2, Blocked mecha is pushed 1d6 inches away from the attaking mecha',
-        'Club' => 'MD: 4, Mecha must have a club',
-        'Grab' => 'MD: None, Mecha grabbed can not leave combat',
-        'Kick' => 'MD: 3, Once per turn',
-        'Jump Kick' => 'MD: 5, Costs additional command point, can only be used once per turn',
-        'Punch' => 'MD: 2',
-        'Power Punch' => 'MD: 4, Costs additional command point',
-        'Stomp' =>  'MD: 4, Can only be done if the attacking mecha hits the target with another hand to hand attack this turn, can only be used once per turn',
+        'Body Block' => "MD: 2, Blocked mecha is pushed 1d6 inches away from the attaking mecha",
+        'Club' => "MD: 4, Mecha must have a club",
+        'Grab' => "MD: None, Mecha grabbed can not leave combat",
+        'Kick' => "MD: 3, Once per turn",
+        'Jump Kick' => "MD: 5, Costs additional command point. Only once per turn.",
+        'Punch' => "MD: 2",
+        'Power Punch' => "MD: 4, Costs additional command point",
+        'Stomp' =>  "MD: 4, Attacking mecha must hit the target with another hand to hand attack this turn. Only once per turn",
     );
     
 }

@@ -56,20 +56,20 @@ class Mecha extends \SquadronBuilder\core\Abilities
     protected $name = "Mecha Special Abilities";
     /** This is a list of the special abilities for this object */
     protected $abilities = array(
-        'Afterburner'          => "Must make a secondary movement of 1 facing change up to 90 degrees,\n then full movement rate straight in the direction the mecha is pointed.",
-        'Aircraft'             => "May make one facing change up to 90 degrees, then must move at least\n half movement rate in a straight line.",
-        'Battloid Restriction' => "When in battloid mode the Valkyrie can not fire the wing mounted\n missiles",
+        'Afterburner'          => "Must make a secondary movement of 1 facing change up to 90 degrees, then full movement rate straight in the direction the mecha is pointed.",
+        'Aircraft'             => "May make one facing change up to 90 degrees, then must move at least half movement rate in a straight line.",
+        'Battloid Restriction' => "When in battloid mode the Valkyrie can not fire the wing mounted missiles",
         'Cumbersome'           => "Rough terrain is counted as deadly terrain for purposes of movement.",
         'Fast Mover'           => "Command points can not be spent to fire multiple weapon systems.",
-        'Flight'               => "Treat all terrain as open terrain for the purposes of movement",
-        'Focus Fire'           => "Fire one additional weapon system for free if mecha did not move",
+        'Flight'               => "All terrain is open terrain for the purposes of movement",
+        'Focus Fire'           => "Fire one additional weapon for free if mecha did not move",
         'Hands'                => "May climb vertical surfaces, pick up weapons, etc",
-        'Hover'                => "Rough terrain treated as open terrain.  -1 to strike this mecha with\n ranged attacks",
+        'Hover'                => "Rough terrain treated as open terrain.  -1 to strike this mecha with ranged attacks",
         'Jettison'             => "Jettison attachements to get back to the base mecha.",
         'Leadership'           => "Extra command points per turn equal to this value",
         'Leap'                 => "May take a leap movement each turn equal to its total move",
         'Life is Cheap'        => "Does not generate command points.  Can be targeted by friendly mecha",
-        'Variable Modes'       => "Mode may be changed once turn, before movement.  Squadrons must all\n start in the same mode.",
+        'Variable Modes'       => "Mode may be changed once turn, before movement.  Squadrons must all start in the same mode.",
         'Zentraidi Infantry'   => "Uses PH instead of PIL.  Can not use command points to boost the speed.",
     );
     
