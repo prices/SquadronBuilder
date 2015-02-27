@@ -4,8 +4,7 @@
 
 This is a force builder for Robotech&reg; RPG Tactics&trade; 
 
-The game can be found at 
-https://palladium-store.com/1001/product/55100-Robotech-RPG-Tactics-Box-Set.html
+The game can be found at http://www.palladiumbooks.com/
 
 ## Goals
 
