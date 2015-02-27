@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a force builder for Robotech(R) RPG Tactics(tm) 
+This is a force builder for Robotech&reg; RPG Tactics(tm) 
 (https://palladium-store.com/1001/product/55100-Robotech-RPG-Tactics-Box-Set.html). 
 
 ## Goals
