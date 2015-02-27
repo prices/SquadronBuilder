@@ -52,6 +52,8 @@ require_once "BaseObject.php";
  */
 class Mecha extends BaseObject
 {    
+    /** This is the jettison color */
+    const JETTISON_COLOR = "#0000CF";
     /** These are the colors for the ranged weapons */
     private $_colors = array("#CF0000", "#CFCF00", "#00CF00");
     /** These are the colors for the ranged weapons */
@@ -74,7 +76,7 @@ class Mecha extends BaseObject
     {
         parent::__construct($index, $params, $x, $y);
         $this->setupRanged();
-        if ($class = $this->_jettison()) {
+        if ($class = $this->_hasJettison()) {
             include_once dirname(__FILE__)."/../mecha/$class.php";
             $class = '\SquadronBuilder\mecha\\'.$class;
             if (class_exists($class)) {
@@ -271,6 +273,14 @@ class Mecha extends BaseObject
         }
         $abilities = wordwrap($abilities, 55);
         $text .= $this->normal($dx, $dy, $abilities);
+        $extra = $this->get("extraabilities");
+        if (is_array($extra)) {
+            foreach ($extra as $name => $value) {
+                $text .= $this->bold($dx, $dy, $name);
+                $text .= $this->small($dx, $dy, $value);
+            }
+            
+        }
         return $text;
     }
     /**
@@ -291,19 +301,20 @@ class Mecha extends BaseObject
         }
         $text  = $this->large($x, $y, $this->get("name"));
         $by    = $y - self::LSIZE - (self::DSIZE / 2);
-        $x    += (self::LSIZE * strlen($this->get("name"))) / 2;
+        $x    += ((self::LSIZE * strlen($this->get("name"))) / 1.75) + 2;
         $text .= $this->damageBoxes($x, $by, $this->get("damage"));
         $extra = (int)$this->get("extradamage");
         if ($extra > 0) {
             $by += (self::DSIZE * 1.2);
-            $text .= $this->damageBoxes($x, $by, $extra, null, "#0000CF");
+            $text .= $this->damageBoxes($x, $by, $extra, null, self::JETTISON_COLOR);
             $y += (self::DSIZE * 1.2);
         }
         $x     = $dx + $this->padding;
-        $ammo = $this->_ammo($x, $y);
+        $ammo  = $this->_ammo($x, $y);
+        $jetti = $this->jettison($x, $y);
         $height = $y - $dy;
-        if ($hasammo) {
-            $text  .= $ammo;
+        if ($hasammo || $this->_hasJettison()) {
+            $text  .= $ammo.$jetti;
             $width  = $this->width - ($this->padding * 2);
             $text  .= $this->rect($dx, $dy, $width, $height);
         }
@@ -344,9 +355,40 @@ class Mecha extends BaseObject
     *
     * @return string The svg text for the block
     */
-    private function _jettison()
+    private function _hasJettison()
     {
         $attrib = $this->get("abilities");
         return $attrib["Jettison"];
+    }
+    /**
+    * This function exports the abilities list as a block
+    *
+    * @param int &$x     The x to translate
+    * @param int &$y     The y to translate
+    * 
+    * @return string The svg text for the block
+    */
+    protected function jettison(&$x = 0, &$y = 0)
+    {
+        if (!$this->_hasJettison()) {
+            return "";
+        }
+        $dx    = $x;
+        $dy    = $y;
+        $by    = $dy - (self::DSIZE/2);
+        $text .= $this->damageBoxes($dx, $by, 1, null, self::JETTISON_COLOR);
+        
+        $name .= "Jettison to ".$this->_jettisonto->get("name");
+        $dx   += (self::DSIZE * 1.4);
+        $text  .= $this->bold($dx, $dy, $name);
+        $diff  = $dy - $y;
+        
+        $dy    = $dy - self::NSIZE - (self::DSIZE / 2);
+        $dx    = $this->width - $this->padding - (self::DSIZE);
+        if ($diff < (self::DSIZE * 1.3)) {
+            $diff = self::DSIZE * 1.3;
+        }
+        $y    += $diff;
+        return $text;
     }
 }

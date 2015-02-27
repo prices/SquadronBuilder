@@ -32,23 +32,50 @@
  * @link       https://github.com/prices/SquadronBuilder
  */
 define("_SQUADRONBUILDER", true);
+
+$coreclass = $_GET["core"];
+$file  = dirname(__FILE__)."/force/core/$coreclass.php";
+if (!file_exists($file)) {
+    header("Location: index.php");
+}
+include_once $file;
+$class = '\SquadronBuilder\force\core\\'.$coreclass;
+if (!class_exists($class)) {
+    header("Location: index.php");
+}
+$core = new $class();
+$upgrades = (array)$core->get("upgrades");
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
     <head>
         <meta charset="UTF-8">
         <title>
-            Robotech RPG Tactics SquadronBuilder
+            <?php print $core->get("name"); ?>
         </title>
         <link rel="stylesheet" href="css/default.css" />
     </head>
     <body>
-        Pick a core force:
-        <ul>
-            <li><a href="coreforce.php?core=RegultAttackSquadron">Regult Attack Squadron</a></li>
-            <li><a href="coreforce.php?core=RegultAttritionSquadron">Regult Attrition Squadron</a></li>
-            <li><a href="coreforce.php?core=RegultReconSquadron">Regult Recon Squadron</a></li>
-        </ul>
+        <h2><?php print $core->get("name"); ?></h2>
+            <h3><?php print $core->get("points"); ?> Points</h3>
+            <a href="index.php">Choose a different Core Squadron</a>
+        <form action="document.php" method="get">
+            <input type="hidden" name="core" value="<?php print $coreclass; ?>" />
+            <h3>Upgrades:</h3>
+            <dl>
+            <?php foreach ($upgrades as $name => $upgrade): ?>
+                <dd>
+                    <input type="checkbox" name="upgrades[<?php print $name; ?>]" value="1" />
+                    <span style="font-weight: bold;"/>
+                        <?php print $name; ?>
+                        [<?php print ($upgrade["points"] > 0) ? "+" : "-"; ?><?php print $upgrade["points"]; ?> pts]
+                    </span>
+                    <?php print $upgrade["desc"]; ?>
+                </dd>  
+            <?php endforeach; ?>
+            </dl>
+            <input type="submit" name="submit" value="Submit" />
+        </form>
     </body>
 
 

@@ -71,7 +71,7 @@ class Regult313mmMRM extends \SquadronBuilder\core\Weapon
             "Missile"       => true,
             "Overwhelming"  => false,
             "Rapid Fire"    => false,
-            "Rear Fire"     => true,
+            "Rear Fire"     => false,
             "Split Fire"    => false,
             "Volley"        => 6,
             "Volley X"      => false,

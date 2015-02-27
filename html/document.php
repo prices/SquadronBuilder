@@ -34,10 +34,80 @@
  
 define("_SQUADRONBUILDER", true);
 
-require_once dirname(__FILE__)."/core/Document.php";
+/** These are our required files */
+require_once dirname(__FILE__)."/abilities/Weapon.php";
+require_once dirname(__FILE__)."/abilities/Mecha.php";
+require_once dirname(__FILE__)."/abilities/HandToHand.php";
 
-$document = new \SquadronBuilder\core\Document(array());
+$index = 0;
+$height = 279;
+$width = 216;
+$margin = 7;
+
+$class = $_GET["core"];
+$file  = dirname(__FILE__)."/force/core/$class.php";
+if (!file_exists($file)) {
+    header("Location: index.php");
+}
+include_once $file;
+$class = '\SquadronBuilder\force\core\\'.$class;
+if (!class_exists($class)) {
+    header("Location: index.php");
+}
+$core = new $class(
+    $index, 
+    array(
+        "maxheight" => ($height - $margin),
+    )
+);
+foreach ((array)$_GET["upgrades"] as $name => $value) {
+    if ($value == 1) {
+        $core->upgrade($name);
+    }
+}
+
+
+$Weapon = new \SquadronBuilder\abilities\Weapon($index);
+$Mecha  = new \SquadronBuilder\abilities\Mecha($index);
+$HtH  = new \SquadronBuilder\abilities\HandToHand($index);
+
+$name = str_replace(" ", "_", trim($core->get("name")));
+$name = empty($name) ? "Untitled.svg" : $name.".svg";
 
 header('Content-type: image/svg+xml');
+header('Content-Disposition: attachment; filename="'.$name.'"');
+print '<?xml version="1.0" encoding="UTF-8" standalone="no"?>'."\n";
+?>
 
-print $document->encode();
+<!-- Created with SquadronBuilder (https://github.com/prices/SquadronBuilder) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   width="<?php print $width; ?>mm"
+   height="<?php print $height; ?>mm"
+   id="svg<?php print $index++;?>"
+   version="1.1"
+   sodipodi:docname="<?php print $name; ?>">
+<?php
+        $x = $margin;
+        $y = $margin;
+        print $core->encode($x, $y);
+        
+        $ax = $width - $margin - $Weapon->width();
+        $ay = $margin;
+        
+        print $Weapon->encode($ax, $ay);
+        $ay += $Weapon->height();
+        print $Mecha->encode($ax, $ay);
+        $ay += $Mecha->height();
+        print $HtH->encode($ax, $ay);
+
+?>
+<!-- Bitstream Vera can be obtained at http://ftp.gnome.org/pub/GNOME/sources/ttf-bitstream-vera/ -->
+<?php print file_get_contents(dirname(__FILE__)."/ttf/Vera.svg"); ?>
+   
+</svg>

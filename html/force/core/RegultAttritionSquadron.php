@@ -60,6 +60,12 @@ class RegultAttritionSquadron extends \SquadronBuilder\core\CoreForce
             "Regult" => 12, 
         ),
         "points" => 70,
+        "upgrades" => array(
+            "Veteran Warriors" => array(
+                "desc" => "Regults, Serau-Ger and Gluu-Ger in this squadron get +1 to Piloting (or Physical) and +1 to Gunnery",
+                "points" => 25,
+            ),
+        ),
     );
     /**
     * This function runs an upgrade

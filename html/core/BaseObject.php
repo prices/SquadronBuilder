@@ -421,8 +421,8 @@ abstract class BaseObject
         $dy = $y;
         $ret = "";
         for ($i = 0; $i < $boxes; $i++) {
-            $dx += self::DSIZE * 1.2;
             $ret .= $this->damageBox($dx, $dy, $color);
+            $dx += self::DSIZE * 1.2;
         }
         return $ret;
     }

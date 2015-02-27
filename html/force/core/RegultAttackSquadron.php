@@ -61,6 +61,16 @@ class RegultAttackSquadron extends \SquadronBuilder\core\CoreForce
             "Regult" => 9, 
         ),
         "points" => 80,
+        "upgrades" => array(
+            "Veteran Warriors" => array(
+                "desc" => "Regults, Serau-Ger and Gluu-Ger in this squadron get +1 to Piloting (or Physical) and +1 to Gunnery",
+                "points" => 20,
+            ),
+            "Glaug-Eldare" => array(
+                "desc" => "Upgrade the Glaug in the squadron to a Glaug-Eldare",
+                "points" => 25,
+            ),
+        ),
     );
     /**
     * This function runs an upgrade
@@ -87,8 +97,11 @@ class RegultAttackSquadron extends \SquadronBuilder\core\CoreForce
                 $this->set("points", $points);
                 $mecha = $this->get("mecha");
                 unset($mecha["Glaug"]);
+                $mecha = array_reverse($mecha);
                 $mecha["GlaugEldare"] = 1;
+                $mecha = array_reverse($mecha);
                 $this->set("mecha", $mecha);
+                $this->setupMecha();
                 break;
             }
             return true;

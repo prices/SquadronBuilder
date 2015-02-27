@@ -90,6 +90,10 @@ class QuelRegult extends \SquadronBuilder\core\Mecha
         "handtohand" => array(
             "Body Block", "Kick", "Jump Kick", "Stomp"
         ),
+        "extraabilities" => array(
+            "Advanced Reconnaissance Suite" => "Spend 2 command points to give +1 to strike to mecha within 12\"",
+            "Electronic Attack Suite" => "Spend 1 command point to give -1 to strike to enemy mecha within 24\"",
+        ),
     );
     
 }

@@ -50,24 +50,21 @@ require_once dirname(__FILE__)."/../core/Mecha.php";
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class Glaug extends \SquadronBuilder\core\Mecha
+class GluuhaugRegult extends \SquadronBuilder\core\Mecha
 {
     protected $params = array(
-
         /** This is our header for abilities **/
-        "name" => "Glaug",
+        "name" => "Serauhaug-Regult",
         /** This is our speed **/
-        "speed" => 7,
+        "speed" => 4,
         /** This is our piloting **/
-        "piloting" => 3,
+        "piloting" => 2,
         /** This is our gunnery **/
-        "gunnery" => 3,
+        "gunnery" => 2,
         /** This is our defense **/
-        "defense" => 7,
-        /** This is our damage **/
-        "damage" => 9,
-        /** This is our damage **/
-        "extradamage" => 0,
+        "defense" => 5,
+        /** This is our defense **/
+        "damage" => 5,
         /** This is a list of the special abilities for this object */
         "abilities" => array(
             'Afterburner'          => false,
@@ -80,7 +77,7 @@ class Glaug extends \SquadronBuilder\core\Mecha
             'Hands'                => false,
             'Hover'                => false,
             'Jettison'             => false,
-            'Leadership'           => 4,
+            'Leadership'           => false,
             'Leap'                 => true,
             'Life is Cheap'        => false,
             'Variable Modes'       => false,
@@ -88,29 +85,12 @@ class Glaug extends \SquadronBuilder\core\Mecha
         ),
         /** These are our weapons */
         "ranged" => array(
-            "GlaugChargedParticleCannon", "GlaugHeavyParticleCannons", 
-            "GlaugRailCannons", "RegultAutoCannons", "Glaug150mmSRM"
+            "RegultHeavyParticleCannons", "RegultAutoCannons", 
+            "Regult791mmBallisticMissile"
         ),
         /** These are our weapons */
         "handtohand" => array(
-            "Body Block", "Kick", "Jump Kick", "Punch", "Power Punch", "Stomp"
+            "Body Block", "Kick", "Jump Kick", "Stomp"
         ),
     );
-    /**
-    * This function runs an upgrade
-    *
-    * @param string $name  The name of the upgrade
-    * 
-    * @return true if ready to apply, false if already applied
-    */
-    public function upgrade($name)
-    {
-        if (parent::upgrade($name)) {
-            switch ($name) {
-
-            }
-            return true;
-        }
-        return false;
-    }
 }
