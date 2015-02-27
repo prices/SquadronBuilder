@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a force builder for Robotech&reg; RPG Tactics&tm; 
+This is a force builder for Robotech&reg; RPG Tactics&trade; 
 
 It is for sale at: 
 https://palladium-store.com/1001/product/55100-Robotech-RPG-Tactics-Box-Set.html
@@ -53,5 +53,5 @@ of Harmony Gold USA, Inc.
 Palladium Books&reg;, game terms, names, titles, and other game related words, 
 sysem of play, and slogans are trademarks owned by Palladium Books, Inc.
 
-Robotech&reg; RPG Tactics&tm; is published by Palladium Books Inc. 
+Robotech&reg; RPG Tactics&trade; is published by Palladium Books Inc. 
 http://palladium-store.com/
