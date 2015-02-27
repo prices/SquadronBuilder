@@ -2,8 +2,10 @@
 
 ## Introduction
 
-This is a force builder for Robotech&reg; RPG Tactics(tm) 
-(https://palladium-store.com/1001/product/55100-Robotech-RPG-Tactics-Box-Set.html). 
+This is a force builder for Robotech&reg; RPG Tactics&tm; 
+
+It is for sale at: 
+https://palladium-store.com/1001/product/55100-Robotech-RPG-Tactics-Box-Set.html
 
 ## Goals
 
@@ -45,11 +47,11 @@ This project is not in any way affiliated with Palladium Books, Harmony Gold, or
 any other company.  It is purely written to make it easier for me to play the
 game.
 
-Robotech(R) and associated names, logos, and all related indicia are trademarks
+Robotech&reg; and associated names, logos, and all related indicia are trademarks
 of Harmony Gold USA, Inc.
 
-Palladium Books(R), game terms, names, titles, and other game related words, 
+Palladium Books&reg;, game terms, names, titles, and other game related words, 
 sysem of play, and slogans are trademarks owned by Palladium Books, Inc.
 
-Robotech(R) RPG Tactics(TM) is published by Palladium Books Inc. 
+Robotech&reg; RPG Tactics&tm; is published by Palladium Books Inc. 
 http://palladium-store.com/
