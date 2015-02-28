@@ -39,6 +39,9 @@ require_once dirname(__FILE__)."/abilities/Weapon.php";
 require_once dirname(__FILE__)."/abilities/Mecha.php";
 require_once dirname(__FILE__)."/abilities/HandToHand.php";
 
+
+$test = isset($_GET["test"]) ? (bool)$_GET["test"] : false;
+
 $index = 0;
 $height = 279;
 $width = 216;
@@ -74,8 +77,11 @@ $HtH  = new \SquadronBuilder\abilities\HandToHand($index);
 $name = str_replace(" ", "_", trim($core->get("name")));
 $name = empty($name) ? "Untitled.svg" : $name.".svg";
 
-header('Content-type: image/svg+xml');
-header('Content-Disposition: attachment; filename="'.$name.'"');
+if (!$test) {
+    header('Content-type: image/svg+xml');
+    header('Content-Disposition: attachment; filename="'.$name.'"');
+}
+
 print '<?xml version="1.0" encoding="UTF-8" standalone="no"?>'."\n";
 ?>
 

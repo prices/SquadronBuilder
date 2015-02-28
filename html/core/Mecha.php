@@ -303,6 +303,12 @@ class Mecha extends BaseObject
         $by    = $y - self::LSIZE - (self::DSIZE / 2);
         $x    += ((self::LSIZE * strlen($this->get("name"))) / 1.75) + 2;
         $text .= $this->damageBoxes($x, $by, $this->get("damage"));
+
+        $diff      = $y - $dy;
+        $diff = (abs($diff) > abs($by - $dy)) ? $diff : ($by - $dy);
+        
+        $y += $diff - (self::DSIZE * 1.5);
+        
         $extra = (int)$this->get("extradamage");
         if ($extra > 0) {
             $by += (self::DSIZE * 1.2);

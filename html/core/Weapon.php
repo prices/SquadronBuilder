@@ -125,14 +125,19 @@ abstract class Weapon extends BaseObject
         $dx        = $x;
         $dy        = $y;
         $text      = $this->small($dx, $dy, $this->get("name"));
-        $diff      = $dy - $y;
         
-        $dy        = $dy - self::SSIZE - (self::DSIZE / 2);
+        $by        = $dy - self::SSIZE - (self::DSIZE / 2);
         $dx        = $this->width - (self::DSIZE * ($ammo - 1));
-        $text     .= $this->damageBoxes($dx, $dy, $ammo);
+        $text     .= $this->damageBoxes($dx, $by, $ammo);
+        
+        $diff      = $dy - $y;
+        $diff = (abs($diff) > abs($by - $y)) ? $diff : ($by - $y);
+        
         if ($diff < (self::DSIZE * 1.3)) {
             $diff = self::DSIZE * 1.3;
         }
+        $diff += $this->padding;
+        
         $y    += $diff;
         return $text;
     }

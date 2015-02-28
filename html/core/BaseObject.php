@@ -405,25 +405,36 @@ abstract class BaseObject
     /**
     * Prints a rectangle
     *
-    * @param float  $x1    The top left corner
-    * @param float  $y1    The top left corner
+    * @param float  &$x    The top left corner
+    * @param float  &$y    The top left corner
     * @param int    $boxes The number of boxes
     * @param int    $rows  The number of rows
     * @param string $color The color of the boxes
     * 
     * @return string The svg text for the block
     */
-    protected function damageBoxes($x, $y, $boxes, $rows = null, $color = null)
+    protected function damageBoxes(&$x, &$y, $boxes, $rows = null, $color = null)
     {
-        $rows  = is_int($rows) ? $rows : 1;
+        if (($boxes >= 10) && is_null($rows)) {
+            $rows = 2;
+        } else {
+            $rows  = is_int($rows) ? $rows : 1;
+        }
         $color = is_string($color) ? $color : $this->get("color");
         $dx = $x;
         $dy = $y;
         $ret = "";
+        $cutoff = round($boxes / $rows);
         for ($i = 0; $i < $boxes; $i++) {
+            if (($i > 0) && (($i % $cutoff) == 0)) {
+                $dy += self::DSIZE * 1.2;
+                $dx = $x;
+            }
             $ret .= $this->damageBox($dx, $dy, $color);
             $dx += self::DSIZE * 1.2;
         }
+        $y += self::DSIZE * $rows * 1.2;
+        
         return $ret;
     }
 }
