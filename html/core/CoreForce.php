@@ -82,12 +82,12 @@ class CoreForce extends BaseObject
         $mecha = $this->get("mecha");
         $this->_mecha = array();
         if (is_array($mecha) && (count($mecha) > 0)) {
-            foreach ($mecha as $class => $count) {
-                include_once(dirname(__FILE__)."/../mecha/$class.php");
-                $class = '\SquadronBuilder\mecha\\'.$class;
+            foreach ($mecha as $classname => $count) {
+                include_once(dirname(__FILE__)."/../mecha/$classname.php");
+                $class = '\SquadronBuilder\mecha\\'.$classname;
                 if (class_exists($class)) {
                     $params["count"] = $count;
-                    $this->_mecha[] = new $class($index, $params);
+                    $this->_mecha[$classname] = new $class($index, $params);
                 }
             }
         }

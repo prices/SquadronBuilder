@@ -52,6 +52,11 @@ require_once dirname(__FILE__)."/../core/Mecha.php";
  */
 class GlaugEldare extends \SquadronBuilder\core\Mecha
 {
+    /** The number of rows in our damage boxes.  null for auto */
+    protected $rows = 1;
+    /** The number of rows in our extra damage boxes.  null for auto */
+    protected $extrarows = 1;
+    /** These are our parameters */
     protected $params = array(
 
         /** This is our header for abilities **/

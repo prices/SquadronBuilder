@@ -136,7 +136,6 @@ abstract class Weapon extends BaseObject
         if ($diff < (self::DSIZE * 1.3)) {
             $diff = self::DSIZE * 1.3;
         }
-        $diff += $this->padding;
         
         $y    += $diff;
         return $text;

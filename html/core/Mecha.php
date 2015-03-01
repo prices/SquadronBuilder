@@ -62,6 +62,10 @@ class Mecha extends BaseObject
     private $_usesAmmo = false;
     /** This says whether we have a jettison attribute */
     private $_jettisonto = false;
+    /** The number of rows in our damage boxes.  null for auto */
+    protected $rows = null;
+    /** The number of rows in our extra damage boxes.  null for auto */
+    protected $extrarows = null;
     /**
     * This is the constructor for the class
     * 
@@ -302,22 +306,25 @@ class Mecha extends BaseObject
         $text  = $this->large($x, $y, $this->get("name"));
         $by    = $y - self::LSIZE - (self::DSIZE / 2);
         $x    += ((self::LSIZE * strlen($this->get("name"))) / 1.75) + 2;
-        $text .= $this->damageBoxes($x, $by, $this->get("damage"));
+        $text .= $this->damageBoxes($x, $by, $this->get("damage"), $this->rows);
 
-        $diff      = $y - $dy;
-        $diff = (abs($diff) > abs($by - $dy)) ? $diff : ($by - $dy);
-        
-        $y += $diff - (self::DSIZE * 1.5);
-        
+        $y = $by;
+        if ($hasammo) {
+            $y += self::DSIZE * .5;
+        }
         $extra = (int)$this->get("extradamage");
         if ($extra > 0) {
-            $by += (self::DSIZE * 1.2);
-            $text .= $this->damageBoxes($x, $by, $extra, null, self::JETTISON_COLOR);
+            $text .= $this->damageBoxes($x, $by, $extra, $this->extrarows, self::JETTISON_COLOR);
             $y += (self::DSIZE * 1.2);
         }
-        $x     = $dx + $this->padding;
-        $ammo  = $this->_ammo($x, $y);
-        $jetti = $this->jettison($x, $y);
+        if ($hasammo) {
+            $x     = $dx + $this->padding;
+            $ammo  = $this->_ammo($x, $y);
+            $y    += $this->padding;
+        }
+        if ($this->_hasJettison()) {
+            $jetti = $this->jettison($x, $y);
+        }
         $height = $y - $dy;
         if ($hasammo || $this->_hasJettison()) {
             $text  .= $ammo.$jetti;
