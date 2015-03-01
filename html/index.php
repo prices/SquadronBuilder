@@ -48,6 +48,7 @@ define("_SQUADRONBUILDER", true);
             <li><a href="coreforce.php?core=RegultAttackSquadron">Regult Attack Squadron</a></li>
             <li><a href="coreforce.php?core=RegultAttritionSquadron">Regult Attrition Squadron</a></li>
             <li><a href="coreforce.php?core=RegultReconSquadron">Regult Recon Squadron</a></li>
+            <li><a href="coreforce.php?core=RegultArtillerySquadron">Regult Artillery Squadron</a></li>
             <li><a href="coreforce.php?core=NousjadeulGerSquadron">Nousdadeul-Ger Squadron</a></li>
         </ul>
     </body>

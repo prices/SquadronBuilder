@@ -44,6 +44,7 @@ if (!class_exists($class)) {
     header("Location: index.php");
 }
 $core = new $class();
+
 $upgrades = (array)$core->get("upgrades");
 ?>
 <!DOCTYPE html>
