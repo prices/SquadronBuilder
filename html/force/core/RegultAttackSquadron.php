@@ -95,13 +95,7 @@ class RegultAttackSquadron extends \SquadronBuilder\core\CoreForce
                 $points = $this->get("points");
                 $points += 25;
                 $this->set("points", $points);
-                $mecha = $this->get("mecha");
-                unset($mecha["Glaug"]);
-                $mecha = array_reverse($mecha);
-                $mecha["GlaugEldare"] = 1;
-                $mecha = array_reverse($mecha);
-                $this->set("mecha", $mecha);
-                $this->setupMecha();
+                $this->replaceMecha("Glaug", "GlaugEldare");
                 break;
             }
             return true;

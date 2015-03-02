@@ -69,28 +69,48 @@ class CoreForce extends BaseObject
     public function __construct(&$index, $params = array(), $x = 0, $y = 0)
     {
         parent::__construct($index, $params, $x, $y);
-        $this->setupMecha();
+        $this->_setupMecha();
     }
     /**
     * This sets up our ranged weapons
     *
     * @return string The svg text for the block
     */
-    protected function setupMecha()
+    private function _setupMecha()
     {
         $ind = 0;
         $mecha = $this->get("mecha");
         $this->_mecha = array();
         if (is_array($mecha) && (count($mecha) > 0)) {
             foreach ($mecha as $classname => $count) {
-                include_once(dirname(__FILE__)."/../mecha/$classname.php");
-                $class = '\SquadronBuilder\mecha\\'.$classname;
-                if (class_exists($class)) {
-                    $params["count"] = $count;
-                    $this->_mecha[$classname] = new $class($index, $params);
+                $mecha = $this->_loadMecha($classname, $count);
+                if (!is_null($mecha)) {
+                    $this->_mecha[] = $mecha;
                 }
             }
         }
+    }
+    /**
+    * This sets up our ranged weapons
+    *
+    * @param string $classname The name of the mecha to load
+    * @param int    $count     The number of mecha
+    *
+    * @return The mecha object
+    */
+    private function &_loadMecha($classname, $count = 1)
+    {
+        $mecha = null;
+        $file  = dirname(__FILE__)."/../mecha/$classname.php";
+        if (file_exists($file)) {
+            include_once $file;
+            $class = '\SquadronBuilder\mecha\\'.$classname;
+            if (class_exists($class)) {
+                $params["count"] = $count;
+                $mecha = new $class($index, $params);
+            }
+        }
+        return $mecha;
     }
     /**
     * This function exports the abilities list as a block
@@ -132,6 +152,39 @@ class CoreForce extends BaseObject
                 $mecha->upgrade($name);
             }
             return true;
+        }
+        return false;
+    }
+    /**
+    * This replaces mechs in our _mechas array.
+    *
+    * @param string $old   The name of the old mecha
+    * @param string $new   The name of the new mecha
+    * @param string $count The number of mecha to replace
+    * 
+    * @return pointer to new mecha on success, null otherwise
+    */
+    protected function replaceMecha($old, $new, $count = 1)
+    {
+        foreach ($this->_mecha as $key => &$mecha) {
+            if ($mecha->get("name") == $old) {
+                $actual = $mecha->get("count");
+                if ($actual > $count) {
+                    $add = $this->_loadMecha($new, $count);
+                    if (!is_null($add)) {
+                        $mecha->set("count", $actual - $count);
+                        array_splice($this->_mecha, $key, 0, array($add));
+                        return $this->_mecha[$key];
+                    }
+                } else {
+                    $add = $this->_loadMecha($new, $actual);
+                    if (!is_null($add)) {
+                        $this->_mecha[$key] = $add;
+                        return $this->_mecha[$key];
+                    }
+                    
+                }
+            }
         }
         return false;
     }
