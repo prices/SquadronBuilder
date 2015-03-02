@@ -158,6 +158,13 @@ class CoreForce extends BaseObject
     /**
     * This replaces mechs in our _mechas array.
     *
+    * This will also split off a group of mecha from a bunch.  So if you have 9
+    * Regults that will be printed out in a group, you could ask for 4 of them to
+    * be split off.  This would give you a group of 4 Regults, followed by a group
+    * of 5 regults.  This would be used if you are applying something (like a 
+    * character card) to only a subset of the mecha in a group.  You would split
+    * them out, then apply the card.
+    *
     * @param string $old   The name of the old mecha
     * @param string $new   The name of the new mecha
     * @param string $count The number of mecha to replace
@@ -170,17 +177,25 @@ class CoreForce extends BaseObject
         foreach ($this->_mecha as $key => &$mecha) {
             if ($mecha->get("name") == $old) {
                 if ($new == $old) {
+                    // If this is the same mecha, clone the one there to get any
+                    // changes made to it.
                     $add = clone $mecha;
                 } else {
+                    // If it is a new mecha, load it now.
                     $add = $this->_loadMecha($new, $count);
                 }
                 if (!is_null($add)) {
                     $actual = $mecha->get("count");
+                    // The next is chosen based on how many mechas are asked to be
+                    // split off.  
                     if ($actual > $count) {
+                        // This deals with if we are only splitting the mecha into
+                        // two groups.
                         $mecha->set("count", $actual - $count);
                         $add->set("count", $count);
                         array_splice($this->_mecha, $key, 0, array($add));
                     } else {
+                        // This deals with totally replacing the mecha
                         $add->set("count", $actual);
                         $this->_mecha[$key] = $add;
                     }
