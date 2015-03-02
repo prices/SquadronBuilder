@@ -166,27 +166,29 @@ class CoreForce extends BaseObject
     */
     protected function replaceMecha($old, $new, $count = 1)
     {
+        
         foreach ($this->_mecha as $key => &$mecha) {
             if ($mecha->get("name") == $old) {
-                $actual = $mecha->get("count");
-                if ($actual > $count) {
-                    $add = $this->_loadMecha($new, $count);
-                    if (!is_null($add)) {
-                        $mecha->set("count", $actual - $count);
-                        array_splice($this->_mecha, $key, 0, array($add));
-                        return $this->_mecha[$key];
-                    }
+                if ($new == $old) {
+                    $add = clone $mecha;
                 } else {
-                    $add = $this->_loadMecha($new, $actual);
-                    if (!is_null($add)) {
+                    $add = $this->_loadMecha($new, $count);
+                }
+                if (!is_null($add)) {
+                    $actual = $mecha->get("count");
+                    if ($actual > $count) {
+                        $mecha->set("count", $actual - $count);
+                        $add->set("count", $count);
+                        array_splice($this->_mecha, $key, 0, array($add));
+                    } else {
+                        $add->set("count", $actual);
                         $this->_mecha[$key] = $add;
-                        return $this->_mecha[$key];
                     }
-                    
+                    return $this->_mecha[$key];
                 }
             }
         }
-        return false;
+        return null;
     }
     
 }
