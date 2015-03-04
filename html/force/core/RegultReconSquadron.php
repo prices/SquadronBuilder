@@ -88,21 +88,9 @@ class RegultReconSquadron extends \SquadronBuilder\core\CoreForce
                 $name = $this->get("name");
                 $name = "Veteran ".$name;
                 $this->set("name", $name);
-                $points = $this->get("points");
-                $points += 10;
-                $this->set("points", $points);
                 break;
             case "Glaug-Eldare":
-                $points = $this->get("points");
-                $points += 25;
-                $this->set("points", $points);
-                $mecha = $this->get("mecha");
-                unset($mecha["Glaug"]);
-                $mecha = array_reverse($mecha);
-                $mecha["GlaugEldare"] = 1;
-                $mecha = array_reverse($mecha);
-                $this->set("mecha", $mecha);
-                $this->setupMecha();
+                $this->replaceMecha("Glaug", "GlaugEldare");
                 break;
             }
             return true;

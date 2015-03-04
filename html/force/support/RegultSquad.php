@@ -37,7 +37,7 @@ namespace SquadronBuilder\force\core;
 defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 
 /** These are our required files */
-require_once dirname(__FILE__)."/../../core/CoreForce.php";
+require_once dirname(__FILE__)."/../../core/SupportForce.php";
 
 /**
  * This class deals with printing out a single weapon.
@@ -50,50 +50,21 @@ require_once dirname(__FILE__)."/../../core/CoreForce.php";
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class RegultAttackSquadron extends \SquadronBuilder\core\CoreForce
+class RegultSquad extends \SquadronBuilder\core\SupportForce
 {
     protected $params = array(
         /** This is our header for abilities **/
-        "name" => "Regult Attack Squadron",
+        "name" => "Regult Squad",
         /** These are our weapons */
         "mecha" => array(
-            "Glaug" => 1, 
-            "Regult" => 9, 
+            "Regult" => 6, 
         ),
-        "points" => 80,
+        "points" => 35,
         "upgrades" => array(
             "Veteran Warriors" => array(
                 "desc" => "Regults, Serau-Ger and Gluu-Ger in this squadron get +1 to Piloting (or Physical) and +1 to Gunnery",
-                "points" => 20,
-            ),
-            "Glaug-Eldare" => array(
-                "desc" => "Upgrade the Glaug in the squadron to a Glaug-Eldare",
-                "points" => 25,
+                "points" => 10,
             ),
         ),
     );
-    /**
-    * This function runs an upgrade
-    *
-    * @param string $name  The name of the upgrade
-    * 
-    * @return true if ready to apply, false if already applied
-    */
-    public function upgrade($name)
-    {
-        if (parent::upgrade($name)) {
-            switch ($name) {
-            case "Veteran Warriors":
-                $name = $this->get("name");
-                $name = "Veteran ".$name;
-                $this->set("name", $name);
-                break;
-            case "Glaug-Eldare":
-                $this->replaceMecha("Glaug", "GlaugEldare");
-                break;
-            }
-            return true;
-        }
-        return false;
-    }
 }

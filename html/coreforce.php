@@ -62,6 +62,7 @@ $upgrades = (array)$core->get("upgrades");
             <a href="index.php">Choose a different Core Squadron</a>
         <form action="document.php" method="get">
             <input type="hidden" name="core" value="<?php print $coreclass; ?>" />
+            <input type="hidden" name="test" value="1" />
             <h3>Upgrades:</h3>
             <dl>
             <?php foreach ($upgrades as $name => $upgrade): ?>

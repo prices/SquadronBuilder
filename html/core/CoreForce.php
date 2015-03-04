@@ -52,10 +52,10 @@ require_once "BaseObject.php";
  */
 class CoreForce extends BaseObject
 {    
-    /** These are the mecha that will be in the force */
-    protected $mecha = array();
     /** This is the cache of mecha objects */
     private $_mecha = array();
+    /** This is the cache of support objects */
+    private $_support = array();
     /**
     * This is the constructor for the class
     * 
@@ -147,12 +147,54 @@ class CoreForce extends BaseObject
     */
     public function upgrade($name)
     {
-        if (parent::upgrade($name)) {
-            foreach ($this->_mecha as &$mecha) {
-                $mecha->upgrade($name);
+        $upgrades = $this->get("upgrades");
+        if (isset($upgrades[$name])) {
+            if (parent::upgrade($name)) {
+                foreach ($this->_mecha as &$mecha) {
+                    $mecha->upgrade($name);
+                }
+                // Set the points
+                $points = $this->get("points");
+                $points += $upgrades[$name]["points"];
+                $this->set("points", $points);
+                return true;
             }
-            return true;
         }
+        return false;
+    }
+    /**
+    * This function adds a support card to the core force
+    *
+    * @param string $name  The name of the support Card
+    * 
+    * @return true if ready to apply, false if already applied
+    */
+    public function support($name)
+    {
+        $upgrades = $this->get("upgrades");
+        if (isset($upgrades[$name])) {
+            if (parent::upgrade($name)) {
+                foreach ($this->_mecha as &$mecha) {
+                    $mecha->upgrade($name);
+                }
+                // Set the points
+                $points = $this->get("points");
+                $points += $upgrades[$name]["points"];
+                $this->set("points", $points);
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+    * This function runs an upgrade
+    *
+    * @param string $name  The name of the upgrade
+    * 
+    * @return true if ready to apply, false if already applied
+    */
+    public function character($name)
+    {
         return false;
     }
     /**
@@ -204,6 +246,33 @@ class CoreForce extends BaseObject
             }
         }
         return null;
+    }
+    /**
+    * This adds mechs in our _mecha array.  If the mecha already exists in the
+    * array, it will just increase the count.
+    *
+    * @param string $name  The name of the mecha to add
+    * @param string $count The number of mecha to replace
+    * 
+    * @return pointer to new mecha on success, null otherwise
+    */
+    protected function addMecha($name, $count = 1)
+    {
+        
+        foreach ($this->_mecha as $key => &$mecha) {
+            if ($mecha->get("name") == $name) {
+                $cnt = $mecha->get("count");
+                $cnt += $count;
+                $mecha->set("count", $cnt);
+                return;
+            }
+        }
+        // If it got here, the mecha was not found, so we add it.
+        $mecha = $this->_loadMecha($name, $count);
+        if (!is_null($mecha)) {
+            $this->_mecha[] = $mecha;
+        }
+        return;
     }
     
 }

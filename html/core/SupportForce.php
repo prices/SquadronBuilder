@@ -23,8 +23,8 @@
  * </pre>
  *
  * @category   html
- * @package    abilities
- * @subpackage weapons
+ * @package    core
+ * @subpackage mecha
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -32,60 +32,36 @@
  * @link       https://github.com/prices/SquadronBuilder
  */
 /** This is our namespace */
-namespace SquadronBuilder\force\core;
+namespace SquadronBuilder\core;
 
 defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 
 /** These are our required files */
-require_once dirname(__FILE__)."/../../core/CoreForce.php";
+require_once "BaseObject.php";
 
 /**
- * This class deals with printing out a single weapon.
+ * This class deals with printing out a single mecha.
  *
  * @category   html
- * @package    abilities
- * @subpackage weapons
+ * @package    core
+ * @subpackage mecha
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class RegultAttritionSquadron extends \SquadronBuilder\core\CoreForce
-{
-    protected $params = array(
-        /** This is our header for abilities **/
-        "name" => "Regult Attrition Squadron",
-        /** These are our weapons */
-        "mecha" => array(
-            "Regult" => 12, 
-        ),
-        "points" => 70,
-        "upgrades" => array(
-            "Veteran Warriors" => array(
-                "desc" => "Regults, Serau-Ger and Gluu-Ger in this squadron get +1 to Piloting (or Physical) and +1 to Gunnery",
-                "points" => 25,
-            ),
-        ),
-    );
+class SupportForce extends BaseObject
+{    
     /**
-    * This function runs an upgrade
-    *
-    * @param string $name  The name of the upgrade
+    * Checks to see if this card is compatible with the core force card
     * 
-    * @return true if ready to apply, false if already applied
+    * @param CoreForce $core The core force card
+    * 
+    * @return bool True if compatible, False otherwise
     */
-    public function upgrade($name)
+    public function check(CoreForce $core)
     {
-        if (parent::upgrade($name)) {
-            switch ($name) {
-            case "Veteran Warriors":
-                $name = $this->get("name");
-                $name = "Veteran ".$name;
-                $this->set("name", $name);
-                break;
-            }
-            return true;
-        }
-        return false;
+        return true;
     }
+    
 }
