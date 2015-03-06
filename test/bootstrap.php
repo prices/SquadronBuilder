@@ -43,4 +43,7 @@ define("_SQUADRONBUILDER", true);
 /** This define allows everything else to be included */
 define("_TESTMODE", true);
 
+/** This includes the base test class */
+require_once dirname(__FILE__)."/suite/TestBase.php";
+
 ?>

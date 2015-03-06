@@ -48,7 +48,7 @@ require_once CODE_BASE.'core/Weapon.php';
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class WeaponTest extends \PHPUnit_Framework_TestCase
+class WeaponTest extends \SquadronBuilder\TestBase
 {
     /** The object under test */
     protected $o = null;
@@ -96,21 +96,43 @@ class WeaponTest extends \PHPUnit_Framework_TestCase
                 '\SquadronBuilder\core\WeaponTest2',
                 0,
                 0,
-                '<g transform="translate(0mm, 0mm)" id="g3">
-         <text id="text0" x="3mm" y="4.75mm"  font-size="3.5mm" fill="black" stroke="none" style="font-weight:bold;">This is a weapon</text>
-<text id="text1" x="3mm" y="8mm"  font-size="2.5mm" fill="black" stroke="none" >RG: 18, MD: 4</text>
-<rect id="rect2" y="0mm" x="0mm" height="12.5mm" width="100mm" style="fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1" />
-</g>',
+                array(
+                    'text' => array(
+                        0 => 'This is a weapon',
+                        1 => 'RG: 18, MD: 4',
+                    ),
+                    'rect' => array(
+                        "attributes" => array(
+                            'id' => 'rect2',
+                            'y' => '0mm',
+                            'x' => '0mm',
+                            'height' => '7.95mm',
+                            'width' => '70mm',
+                            'style' => 'fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1',
+                        ),
+                    ),
+                ),
             ),
             array(
                 '\SquadronBuilder\core\WeaponTest1',
                 1,
                 5,
-                '<g transform="translate(1mm, 5mm)" id="g3">
-         <text id="text0" x="4mm" y="9.75mm"  font-size="3.5mm" fill="black" stroke="none" style="font-weight:bold;">This is a weapon</text>
-<text id="text1" x="4mm" y="13mm"  font-size="2.5mm" fill="black" stroke="none" >RG: 9, MD: 2, Accurate, Ammo 6, Anti-Missile, Inescapable, Missile, Volley X</text>
-<rect id="rect2" y="5mm" x="1mm" height="12.5mm" width="100mm" style="fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1" />
-</g>',
+                array(
+                    'text' => array(
+                        0 => 'This is a weapon',
+                        1 => 'RG: 9, MD: 2, Accurate, Ammo 6, Anti-Missile, Inescapable, Missile, Volley X',
+                    ),
+                    'rect' => array(
+                        "attributes" => array(
+                            'id' => 'rect2',
+                            'y' => '5mm',
+                            'x' => '1mm',
+                            'height' => '7.95mm',
+                            'width' => '70mm',
+                            'style' => 'fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1',
+                        ),
+                    ),
+                ),
             ),
         );
     }
@@ -129,7 +151,8 @@ class WeaponTest extends \PHPUnit_Framework_TestCase
     public function testRender($class, $x, $y, $expect)
     {
         $this->o = new $class($this->x, $this->y, $this->index, array());
-        $this->assertSame($expect, $this->o->render($x, $y));
+        $xml = $this->o->render($x, $y);
+        $this->assertEquals($expect, $this->xml2array($xml));
     }
 
 }
@@ -146,28 +169,30 @@ class WeaponTest extends \PHPUnit_Framework_TestCase
  */
 class WeaponTest1 extends Weapon
 {
-    /** This is our header for abilities **/
-    protected $name = "This is a weapon";
-    /** This is our range **/
-    protected $range = 9;
-    /** This is our damage **/
-    protected $damage = 2;
-    /** This is a list of the special abilities for this object */
-    protected $abilities = array(
-        "Accurate"      => true,
-        "Ammo"          => 6,
-        "Anti-Missile"  => true,
-        "Blast"         => false,
-        "Fly Over"      => false,
-        "Inescapable"   => true,
-        "Indirect Fire" => false,
-        "Missile"       => true,
-        "Overwhelming"  => false,
-        "Rapid Fire"    => false,
-        "Rear Fire"     => false,
-        "Split Fire"    => false,
-        "Volley"        => false,
-        "Volley X"      => true,
+    protected $params = array(
+        /** This is our header for abilities **/
+        "name" => "This is a weapon",
+        /** This is our range **/
+        "range" => 9,
+        /** This is our damage **/
+        "damage" => 2,
+        /** This is a list of the special abilities for this object */
+        "abilities" => array(
+            "Accurate"      => true,
+            "Ammo"          => 6,
+            "Anti-Missile"  => true,
+            "Blast"         => false,
+            "Fly Over"      => false,
+            "Inescapable"   => true,
+            "Indirect Fire" => false,
+            "Missile"       => true,
+            "Overwhelming"  => false,
+            "Rapid Fire"    => false,
+            "Rear Fire"     => false,
+            "Split Fire"    => false,
+            "Volley"        => false,
+            "Volley X"      => true,
+        )
     );
 
 }
@@ -184,14 +209,16 @@ class WeaponTest1 extends Weapon
  */
 class WeaponTest2 extends Weapon
 {
-    /** This is our header for abilities **/
-    protected $name = "This is a weapon";
-    /** This is our range **/
-    protected $range = 18;
-    /** This is our damage **/
-    protected $damage = 4;
-    /** This is a list of the special abilities for this object */
-    protected $abilities = array(
+    protected $params = array(
+        /** This is our header for abilities **/
+        "name" => "This is a weapon",
+        /** This is our range **/
+        "range" => 18,
+        /** This is our damage **/
+        "damage" => 4,
+        /** This is a list of the special abilities for this object */
+        "abilities" => array(
+        )
     );
 }
 ?>

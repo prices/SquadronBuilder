@@ -50,7 +50,7 @@ require_once CODE_BASE.'core/Weapon.php';
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class MechaTest extends \PHPUnit_Framework_TestCase
+class MechaTest extends \SquadronBuilder\TestBase
 {
     /** The object under test */
     protected $o = null;
@@ -71,7 +71,7 @@ class MechaTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->o = new MechaTest1($this->x, $this->y, $this->index, array());
+        $this->o = new \SquadronBuilder\mecha\MechaTest1($this->x, $this->y, $this->index, array());
     }
 
     /**
@@ -95,10 +95,27 @@ class MechaTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                '\SquadronBuilder\core\MechaTest1',
+                '\SquadronBuilder\mecha\MechaTest1',
                 1,
                 5,
-                '',
+                array(
+                    'g' => array(
+                    ),
+                    'text' => array(
+                        0 => 'Ranged:',
+                        1 => 'Hand to Hand:',
+                        2 => 'Body Block, Kick, Jump Kick, Stomp',
+                        3 => 'Speed: 5',
+                        4 => 'Pilot: 2',
+                        5 => 'Gunnery: 2',
+                        6 => 'Defense: 5',
+                        7 => 'Special Abilities:',
+                        8 => 'Flight trues, Hands, Jettison to Other Test, Leadership',
+                        9 => '4'
+                    ),
+                    'rect' => array(
+                    ),
+                ),
             ),
         );
     }
@@ -117,10 +134,12 @@ class MechaTest extends \PHPUnit_Framework_TestCase
     public function testRender($class, $x, $y, $expect)
     {
         $this->o = new $class($this->x, $this->y, $this->index, array());
-        $this->assertSame($expect, $this->o->render($x, $y));
+        $xml = $this->o->render($x, $y);
+        $this->assertEquals($expect, $this->xml2array($xml));
     }
 
 }
+namespace SquadronBuilder\mecha;
 /**
  * Test class for Mecha
  *
@@ -132,7 +151,7 @@ class MechaTest extends \PHPUnit_Framework_TestCase
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class MechaTest1 extends Mecha
+class MechaTest1 extends \SquadronBuilder\core\Mecha
 {
     protected $params = array(
         /** This is our header for abilities **/
@@ -156,7 +175,7 @@ class MechaTest1 extends Mecha
             'Focus Fire'           => false,
             'Hands'                => true,
             'Hover'                => false,
-            'Jettison'             => "to something",
+            'Jettison'             => "MechaTest2",
             'Leadership'           => 4,
             'Leap'                 => false,
             'Life is Cheap'        => false,
@@ -174,6 +193,59 @@ class MechaTest1 extends Mecha
     );
 }
 /**
+ * Test class for Mecha
+ *
+ * @category   html
+ * @package    core
+ * @subpackage mecha
+ * @author     Scott Price <prices@dflytech.com>
+ * @copyright  2015 Scott Price
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link       https://github.com/prices/SquadronBuilder
+ */
+class MechaTest2 extends \SquadronBuilder\core\Mecha
+{
+    protected $params = array(
+        /** This is our header for abilities **/
+        "name" => "Other Test",
+        /** This is our speed **/
+        "speed" => 5,
+        /** This is our piloting **/
+        "piloting" => 2,
+        /** This is our gunnery **/
+        "gunnery" => 2,
+        /** This is our defense **/
+        "defense" => 5,
+        /** This is a list of the special abilities for this object */
+        "abilities" => array(
+            'Afterburner'          => false,
+            'Aircraft'             => false,
+            'Battloid Restriction' => false,
+            'Cumbersome'           => false,
+            'Fast Mover'           => false,
+            'Flight'               => trues,
+            'Focus Fire'           => false,
+            'Hands'                => true,
+            'Hover'                => false,
+            'Jettison'             => false,
+            'Leadership'           => 4,
+            'Leap'                 => false,
+            'Life is Cheap'        => false,
+            'Variable Modes'       => false,
+            'Zentraidi Infantry'   => false,
+        ),
+        /** These are our weapons */
+        "ranged" => array(
+            "MechaWeaponTest1", "MechaWeaponTest2"
+        ),
+        /** These are our weapons */
+        "handtohand" => array(
+            "Body Block", "Kick", "Jump Kick", "Stomp"
+        ),
+    );
+}
+namespace SquadronBuilder\weapons;
+/**
  * Test class for Weapon
  *
  * @category   html
@@ -184,7 +256,7 @@ class MechaTest1 extends Mecha
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class MechaWeaponTest1 extends Weapon
+class MechaWeaponTest1 extends \SquadronBuilder\core\Weapon
 {
     /** This is our header for abilities **/
     protected $name = "This is a weapon";
@@ -222,7 +294,7 @@ class MechaWeaponTest1 extends Weapon
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class MechaWeaponTest2 extends Weapon
+class MechaWeaponTest2 extends \SquadronBuilder\core\Weapon
 {
     /** This is our header for abilities **/
     protected $name = "This is missile a weapon";

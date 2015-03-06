@@ -48,7 +48,7 @@ require_once CODE_BASE.'core/Abilities.php';
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class AbilitiesTest extends \PHPUnit_Framework_TestCase
+class AbilitiesTest extends \SquadronBuilder\TestBase
 {
     /** The object under test */
     protected $o = null;
@@ -96,22 +96,35 @@ class AbilitiesTest extends \PHPUnit_Framework_TestCase
                 '\SquadronBuilder\core\AbilitiesTest2',
                 0,
                 0,
-                "",
+                array(
+                    false
+                ),
             ),
             array(
                 '\SquadronBuilder\core\AbilitiesTest1',
                 1,
                 5,
-                '<g transform="translate(1mm, 5mm)" id="g8">
-         <text id="text0" x="4mm" y="11mm"  font-size="6mm" fill="black" stroke="none" style="font-weight:bold;">ASDF</text>
-<text id="text1" x="4mm" y="16.75mm"  font-size="3.5mm" fill="black" stroke="none" style="font-weight:bold;">Property1</text>
-<text id="text2" x="4mm" y="20mm"  font-size="2.5mm" fill="black" stroke="none" >Description for Property1</text>
-<text id="text3" x="4mm" y="24.25mm"  font-size="3.5mm" fill="black" stroke="none" style="font-weight:bold;">Property #</text>
-<text id="text4" x="4mm" y="27.5mm"  font-size="2.5mm" fill="black" stroke="none" >Description for Property #</text>
-<text id="text5" x="4mm" y="31.75mm"  font-size="3.5mm" fill="black" stroke="none" style="font-weight:bold;">Property X</text>
-<text id="text6" x="4mm" y="35mm"  font-size="2.5mm" fill="black" stroke="none" >Description for Property X</text>
-<rect id="rect7" y="5mm" x="1mm" height="35.5mm" width="100mm" style="fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1" />
-</g>',
+                array(
+                    "text" => array(
+                        0 => 'ASDF',
+                        1 => 'Property1',
+                        2 => 'Description for Property1',
+                        3 => 'Property #',
+                        4 => 'Description for Property #',
+                        5 => 'Property X',
+                        6 => 'Description for Property X',
+                    ),
+                    "rect" => array(
+                        "attributes" => array(
+                            'id' => 'rect7',
+                            'y' => '5mm',
+                            'x' => '1mm',
+                            'height' => '24.125mm',
+                            'width' => '60mm',
+                            'style' => 'fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1',
+                        ),
+                    ),
+                ),
             ),
         );
     }
@@ -130,7 +143,8 @@ class AbilitiesTest extends \PHPUnit_Framework_TestCase
     public function testRender($class, $x, $y, $expect)
     {
         $this->o = new $class($this->x, $this->y, $this->index, array());
-        $this->assertSame($expect, $this->o->render($x, $y));
+        $xml = $this->o->render($x, $y);
+        $this->assertEquals($expect, $this->xml2array($xml));
     }
 
 }

@@ -81,7 +81,7 @@ class Mecha extends BaseObject
         parent::__construct($index, $params, $x, $y);
         $this->setupRanged();
         if ($class = $this->_hasJettison()) {
-            include_once dirname(__FILE__)."/../mecha/$class.php";
+            $this->getFile(dirname(__FILE__)."/../mecha/$class.php");
             $class = '\SquadronBuilder\mecha\\'.$class;
             if (class_exists($class)) {
                 $this->_jettisonto = new $class($this->index);
@@ -101,7 +101,7 @@ class Mecha extends BaseObject
         if (is_array($ranged) && (count($ranged) > 0)) {
             foreach ($ranged as $class) {
                 $params = array();
-                include_once(dirname(__FILE__)."/../weapons/$class.php");
+                $this->getFile(dirname(__FILE__)."/../weapons/$class.php");
                 $class = '\SquadronBuilder\weapons\\'.$class;
                 if (class_exists($class)) {
                     $params["width"] = $this->width - ($this->padding * 2);

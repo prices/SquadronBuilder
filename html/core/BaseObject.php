@@ -403,6 +403,21 @@ abstract class BaseObject
         return $ret;
     }
     /**
+    * Includes a file if the file exists
+    *
+    * @param string $file The file to include
+    * 
+    * @return true if found, false otherwise
+    */
+    protected function getFile($file)
+    {
+        if (file_exists($file)) {
+            include_once $file;
+            return true;
+        }
+        return false;
+    }
+    /**
     * Prints a rectangle
     *
     * @param float  &$x    The top left corner
