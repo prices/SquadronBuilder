@@ -120,7 +120,7 @@ class CoreForce extends BaseObject
     * 
     * @return string The svg text for the block
     */
-    public function encode($x = 0, $y = 0)
+    public function render($x = 0, $y = 0)
     {
         $text  = "";
         $dy    = $y;
@@ -132,7 +132,7 @@ class CoreForce extends BaseObject
                 $x += $mecha->width() + $this->padding;
                 $dy = $savey;
             }
-            $text .= $mecha->encode($x, $dy);
+            $text .= $mecha->render($x, $dy);
             $dy    += $mecha->height() + $this->padding;
         }
         $this->height =  $dy - $y + $this->padding;

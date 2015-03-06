@@ -85,7 +85,7 @@ abstract class Weapon extends BaseObject
     * 
     * @return string The svg text for the block
     */
-    public function encode($x = 0, $y = 0)
+    public function render($x = 0, $y = 0)
     {
         $text = "";
         $dx = $x + $this->padding;

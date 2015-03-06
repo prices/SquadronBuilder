@@ -127,7 +127,7 @@ class Mecha extends BaseObject
     * 
     * @return string The svg text for the block
     */
-    public function encode($x = 0, $y = 0)
+    public function render($x = 0, $y = 0)
     {
         $text  = "";
         $dx    = $x + $this->padding;
@@ -191,7 +191,7 @@ class Mecha extends BaseObject
         $text .= $this->bold($dx, $dy, "Ranged:");
         if (count($this->_weapons) > 0) {
             foreach ($this->_weapons as &$obj) {
-                $text .= $obj->encode($dx,$dy);
+                $text .= $obj->render($dx,$dy);
                 $dy += $obj->height();
             }
             $dy += 2;

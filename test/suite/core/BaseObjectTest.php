@@ -89,7 +89,7 @@ class BaseObjectTest extends \PHPUnit_Framework_TestCase
     *
     * @return array
     */
-    public static function dataEncode()
+    public static function dataRender()
     {
         return array(
             array(
@@ -110,12 +110,12 @@ class BaseObjectTest extends \PHPUnit_Framework_TestCase
     *
     * @return null
     *
-    * @dataProvider dataEncode
+    * @dataProvider dataRender
     */
-    public function testEncode($class, $expect)
+    public function testRender($class, $expect)
     {
         $this->o = new $class($this->x, $this->y, $this->index, array());
-        $this->assertSame($expect, $this->o->encode());
+        $this->assertSame($expect, $this->o->render());
     }
 
 }

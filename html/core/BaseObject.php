@@ -163,7 +163,7 @@ abstract class BaseObject
     * 
     * @return string The svg text for the block
     */
-    public function encode($x = 0, $y = 0)
+    public function render($x = 0, $y = 0)
     {
         return "";
     }
@@ -175,7 +175,7 @@ abstract class BaseObject
     public function height()
     {
         if (empty($this->height)) {
-            $this->encode();
+            $this->render();
         }
         return $this->height;
     }

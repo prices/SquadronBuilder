@@ -101,16 +101,16 @@ print '<?xml version="1.0" encoding="UTF-8" standalone="no"?>'."\n";
 <?php
         $x = $margin;
         $y = $margin;
-        print $core->encode($x, $y);
+        print $core->render($x, $y);
         
         $ax = $width - $margin - $Weapon->width();
         $ay = $margin;
         
-        print $Weapon->encode($ax, $ay);
+        print $Weapon->render($ax, $ay);
         $ay += $Weapon->height();
-        print $Mecha->encode($ax, $ay);
+        print $Mecha->render($ax, $ay);
         $ay += $Mecha->height();
-        print $HtH->encode($ax, $ay);
+        print $HtH->render($ax, $ay);
 
 ?>
 <!-- Bitstream Vera can be obtained at http://ftp.gnome.org/pub/GNOME/sources/ttf-bitstream-vera/ -->
