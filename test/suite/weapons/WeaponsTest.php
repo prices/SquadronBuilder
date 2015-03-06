@@ -50,6 +50,7 @@ require_once 'WeaponTestBase.php';
  */
 class WeaponsTest extends WeaponTestBase
 {
+
     /** The object under test */
     protected static $classes = array(
         "Glaug103mmMiniMissiles", 
@@ -68,6 +69,14 @@ class WeaponsTest extends WeaponTestBase
         "RegultHeavyParticleCannons",
     );
 
+    public static function setUpBeforeClass()
+    {
+        // This includes all of the classes for us
+        foreach (self::$classes as $class) {
+            include_once CODE_BASE."/weapons/".$class.".php";
+        }
+    }
+
     /**
     * Data provider for testRemove
     *
@@ -77,7 +86,6 @@ class WeaponsTest extends WeaponTestBase
     {
         $return = array();
         foreach (self::$classes as $class) {
-            include_once CODE_BASE."/weapons/".$class.".php";
             $return = array_merge(
                 $return,
                 array(
@@ -115,6 +123,7 @@ class WeaponsTest extends WeaponTestBase
     {
         $class = (is_null($class)) ? $this->class : $class;
         $class = '\SquadronBuilder\weapons\\'.$class;
+        $this->assertTrue(class_exists($class), "Class $class doesn't exist");
         $this->o = new $class($this->index, array());
 
         $abilities = $this->o->get("abilities");
