@@ -70,7 +70,7 @@ class Mecha extends \SquadronBuilder\core\Abilities
         'Leap'                 => "May take a leap movement each turn equal to its total move",
         'Life is Cheap'        => "Does not generate command points.  Can be targeted by friendly mecha",
         'Variable Modes'       => "Mode may be changed once turn, before movement.  Squadrons must all start in the same mode.",
-        'Zentraidi Infantry'   => "Uses PH instead of PIL.  Can not use command points to boost the speed.",
+        'Zentraedi Infantry'   => "Uses PH instead of PIL.  Can not use command points to boost the speed.",
     );
     
 }
