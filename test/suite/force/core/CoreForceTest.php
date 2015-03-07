@@ -115,11 +115,13 @@ class CoreForceTest extends CoreTestBase
     */
     public function testMechaName($name, $count, $class = null)
     {
-        include_once dirname(__FILE__).'/../../mecha/MechasTest.php';
-        $this->assertSame(
-            array(), 
-            array_diff(array($name), \SquadronBuilder\mecha\MechasTest::classes()),
-            "Mecha $name from $class is not in classes array in test/suite/mecha/MechasTest.");
+        $class = '\SquadronBuilder\mecha\\'.$name;
+        $return = "Mecha $name does not exist. (Class $class not found)";
+        $file = CODE_BASE."/mecha/".$name.".php";
+        if (file_exists($file)) {
+            include_once $file;
+        }
+        $this->assertTrue(class_exists($class), $return);
     }
     /**
     * Tests the abilities to make sure that they are within spec

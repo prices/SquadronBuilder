@@ -92,6 +92,224 @@ abstract class MechaTestBase extends \SquadronBuilder\TestBase
         parent::tearDown();
         unset($this->o);
     }
+    /**
+    * Data provider for testRemove
+    *
+    * @return array
+    */
+    public static function dataAbilities()
+    {
+        $return = array(
+            array("Afterburner", "abilitiesTrueFalse"),
+            array("Aircraft", "abilitiesTrueFalse"),
+            array("Battloid Restriction", "abilitiesTrueFalse"),
+            array("Cumbersome", "abilitiesTrueFalse"),
+            array("Fast Mover", "abilitiesTrueFalse"),
+            array("Flight", "abilitiesTrueFalse"),
+            array("Focus Fire", "abilitiesTrueFalse"),
+            array("Hands", "abilitiesTrueFalse"),
+            array("Hover", "abilitiesTrueFalse"),
+            array("Jettison", "abilitiesFalseClass"),
+            array("Leadership", "abilitiesFalseInt"),
+            array("Leap", "abilitiesTrueFalse"),
+            array("Life is Cheap", "abilitiesTrueFalse"),
+            array("Variable Modes", "abilitiesTrueFalse"),
+            array("Zentraedi Infantry", "abilitiesTrueFalse"),
+        );
+        return $return;
+    }
+    /**
+    * Tests the abilities to make sure that they are within spec
+    *
+    * @param string $ability  The ability to test
+    * @param string $function The test function
+    *
+    * @return null
+    *
+    * @dataProvider dataAbilities
+    */
+    public function testAbilities($ability, $function)
+    {
+
+        $abilities = $this->o->get("abilities");
+        $this->assertInternalType("array", $abilities, "'abilities' must be an array");
+        if (isset($abilities[$ability])) {
+            $this->$function($ability, $abilities[$ability]);
+        }
+    }
+    /**
+    * Tests the abilities to make sure that they are within spec
+    *
+    * @param string $ability The ability to test
+    * @param string $value   The value of that ability
+    *
+    * @return null
+    *
+    * @dataProvider dataAbilities
+    */
+    public function abilitiesFalseClass($ability, $value)
+    {
+        $return = "Ability '$ability' must be false or a class in the \$classes array in this test class";
+        if (is_bool($value)) {
+            $this->assertFalse($value, $return);
+        } else {
+            $file = CODE_BASE."/mecha/".$value.".php";
+            if (file_exists($file)) {
+                include_once $file;
+            }
+            $this->assertTrue(class_exists(__NAMESPACE__."\\$value"), $return);
+        }
+    }
+    /**
+    * Checks the name
+    *
+    * @return null
+    */
+    public function testName()
+    {
+        $min = 5;
+        $max = 40;
+        $note = "Name must be a string between 5 and 40 characters in length";
+        $value = $this->o->get("name");
+        $this->assertInternalType("string", $value, $note);
+        $this->assertGreaterThanOrEqual($min, strlen($value), $note);
+        $this->assertLessThanOrEqual($max, strlen($value), $note);
+    }
+    /**
+    * Checks the range
+    *
+    * @return null
+    */
+    public function testPiloting()
+    {
+        $min = 1;
+        $max = 5;
+        $note = "Piloting must be an integer between $min and $max";
+        $value = $this->o->get("piloting");
+        $this->assertInternalType("int", $value, $note);
+        $this->assertGreaterThanOrEqual($min, $value, $note);
+        $this->assertLessThanOrEqual($max, $value, $note);
+    }
+    /**
+    * Checks the range
+    *
+    * @return null
+    */
+    public function testGunnery()
+    {
+        $min = 1;
+        $max = 5;
+        $note = "Gunnery must be an integer between $min and $max, or a '-' if the mecha has no weapons";
+        $value = $this->o->get("gunnery");
+        if ($value === "-") {
+            $ranged = $this->o->get("ranged");
+            $this->assertSame(array(), $ranged, "Mecha must not have any weapons if gunnery is '-'");
+        } else {
+            $this->assertInternalType("int", $value, $note);
+            $this->assertGreaterThanOrEqual($min, $value, $note);
+            $this->assertLessThanOrEqual($max, $value, $note);
+        }
+    }
+    /**
+    * Checks the range
+    *
+    * @return null
+    */
+    public function testSpeed()
+    {
+        $min = 1;
+        $max = 20;
+        $note = "Speed must be an integer between $min and $max";
+        $value = $this->o->get("speed");
+        $this->assertInternalType("int", $value, $note);
+        $this->assertGreaterThanOrEqual($min, $value, $note);
+        $this->assertLessThanOrEqual($max, $value, $note);
+    }
+    /**
+    * Checks the range
+    *
+    * @return null
+    */
+    public function testDamage()
+    {
+        $min = 1;
+        $max = 30;
+        $note = "Damage must be an integer between $min and $max";
+        $value = $this->o->get("damage");
+        $this->assertInternalType("int", $value, $note);
+        $this->assertGreaterThanOrEqual($min, $value, $note);
+        $this->assertLessThanOrEqual($max, $value, $note);
+    }
+    /**
+    * Checks the range
+    *
+    * @return null
+    */
+    public function testDefense()
+    {
+        $min = 4;
+        $max = 10;
+        $note = "Defense must be an integer between $min and $max";
+        $value = $this->o->get("defense");
+        $this->assertInternalType("int", $value, $note);
+        $this->assertGreaterThanOrEqual($min, $value, $note);
+        $this->assertLessThanOrEqual($max, $value, $note);
+    }
+    /**
+    * Checks the range
+    *
+    * @param string $class The class to test
+    *
+    * @return null
+    */
+    public function testExtraDamage()
+    {
+        $min = 0;
+        $max = 20;
+        $note = "Extradamage must be an integer between $min and $max, or null";
+        $value = $this->o->get("extradamage");
+        if (!is_null($value)) {
+            $this->assertInternalType("int", $value, $note);
+            $this->assertGreaterThanOrEqual($min, $value, $note);
+            $this->assertLessThanOrEqual($max, $value, $note);
+        }
+    }
+    /**
+    * Checks the range
+    *
+    * @return null
+    */
+    public function testHandtoHand()
+    {
+        $hth = array(
+            "Grab", "Body Block", "Kick", "Jump Kick", "Punch", "Power Punch", "Stomp", "Club"
+        );
+        
+        $note = "Hand to hand must only include ".implode(", ", $hth);
+        $value = $this->o->get("handtohand");
+        if (!is_null($value)) {
+            $this->assertInternalType("array", $value, $note);
+            $this->assertSame(array(), array_diff($value, $hth), $note);
+        }
+    }
+    /**
+    * Checks the range
+    *
+    * @return null
+    */
+    public function testRanged()
+    {
+        include_once dirname(__FILE__).'/../weapons/WeaponsTest.php';
+
+        $ranged = \SquadronBuilder\weapons\WeaponsTest::classes();
+        
+        $note = "Ranged weapon classes must be tested.  Please add the missing classes to test/suite/weapons/WeaponsTest::\$classes";
+        $value = $this->o->get("ranged");
+        if (!is_null($value)) {
+            $this->assertInternalType("array", $value, "'ranged' must be an array");
+            $this->assertSame(array(), array_diff($value, $ranged), $note);
+        }
+    }
 
 }
 
