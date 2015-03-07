@@ -259,7 +259,7 @@ class Mecha extends BaseObject
     */
     private function _abilities(&$dx, &$dy)
     {
-        $text .= $this->bold($dx, $dy, "Special Abilities:");
+        $text = $this->bold($dx, $dy, "Special Abilities:");
         $abilities = "";
         $sep = "";
         foreach ($this->get("abilities") as $name => $value) {
@@ -317,9 +317,10 @@ class Mecha extends BaseObject
             $text .= $this->damageBoxes($x, $by, $extra, $this->extrarows, self::JETTISON_COLOR);
             $y += (self::DSIZE * 1.2);
         }
+        $ammo = "";
         if ($hasammo) {
             $x     = $dx + $this->padding;
-            $ammo  = $this->_ammo($x, $y);
+            $ammo .= $this->_ammo($x, $y);
             $y    += $this->padding;
         }
         if ($this->_hasJettison()) {
@@ -383,6 +384,7 @@ class Mecha extends BaseObject
     */
     protected function jettison(&$x = 0, &$y = 0)
     {
+        $text = "";
         if (!$this->_hasJettison()) {
             return "";
         }
@@ -391,7 +393,7 @@ class Mecha extends BaseObject
         $by    = $dy - (self::DSIZE/2);
         $text .= $this->damageBoxes($dx, $by, 1, null, self::JETTISON_COLOR);
         
-        $name .= "Jettison to ".$this->_jettisonto->get("name");
+        $name = "Jettison to ".$this->_jettisonto->get("name");
         $dx   += (self::DSIZE * 1.4);
         $text  .= $this->bold($dx, $dy, $name);
         $diff  = $dy - $y;

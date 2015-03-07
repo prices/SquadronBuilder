@@ -113,7 +113,11 @@ abstract class TestBase extends \PHPUnit_Framework_TestCase
     {
         foreach ((array)$xml as $key => $obj) {
             $key = str_replace("@", "", $key);
-            $ret[$key] = (is_object($obj)) ? $this->_xml2array($obj) : $obj;
+            if (is_object($obj) || is_array($obj)) {
+	        $ret[$key] = $this->_xml2array($obj);
+	    } else {
+		$ret[$key] = $obj;
+	    }
         }
         return $ret;
     }
