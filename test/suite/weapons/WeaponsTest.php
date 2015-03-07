@@ -68,7 +68,22 @@ class WeaponsTest extends WeaponTestBase
         "NousjadeulGer32mmPlasmaMachinePistol",  
         "RegultHeavyParticleCannons",
     );
+    /**
+    * This function returns the classes we are testing
+    *
+    * @return array
+    */
+    public static function classes()
+    {
+        return self::$classes;
+    }
 
+    /**
+    * This function includes all of the class files before the tests
+    * are run.
+    *
+    * @return null
+    */
     public static function setUpBeforeClass()
     {
         // This includes all of the classes for us

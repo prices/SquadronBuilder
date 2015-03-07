@@ -36,6 +36,8 @@ namespace SquadronBuilder\mecha;
 
 /** This is a required class */
 require_once 'MechaTestBase.php';
+/** This is a required class */
+require_once dirname(__FILE__).'/../weapons/WeaponsTest.php';
 
 /**
  * This class deals with printing out a single mecha.
@@ -56,7 +58,22 @@ class mechasTest extends MechaTestBase
         "Glaug", "GlaugEldare", "GluuhaugRegult", "Regult",
         "SerauhaugRegult", "QuelRegult", "NousjadeulGer"
     );
+    /**
+    * This function returns the classes we are testing
+    *
+    * @return array
+    */
+    public static function classes()
+    {
+        return self::$classes;
+    }
 
+    /**
+    * This function includes all of the class files before the tests
+    * are run.
+    *
+    * @return null
+    */
     public static function setUpBeforeClass()
     {
         // This includes all of the classes for us
@@ -352,6 +369,56 @@ class mechasTest extends MechaTestBase
             $this->assertInternalType("int", $value, $note);
             $this->assertGreaterThanOrEqual($min, $value, $note);
             $this->assertLessThanOrEqual($max, $value, $note);
+        }
+    }
+    /**
+    * Checks the range
+    *
+    * @param string $class The class to test
+    *
+    * @return null
+    *
+    * @dataProvider dataClasses
+    */
+    public function testHandtoHand($class)
+    {
+        $class = (is_null($class)) ? $this->class : $class;
+        $class = __NAMESPACE__.'\\'.$class;
+        $this->o = new $class($this->index, array());
+
+        $hth = array(
+            "Grab", "Body Block", "Kick", "Jump Kick", "Punch", "Power Punch", "Stomp", "Club"
+        );
+        
+        $note = "Hand to hand must only include ".implode(", ", $hth);
+        $value = $this->o->get("handtohand");
+        if (!is_null($value)) {
+            $this->assertInternalType("array", $value, $note);
+            $this->assertSame(array(), array_diff($value, $hth), $note);
+        }
+    }
+    /**
+    * Checks the range
+    *
+    * @param string $class The class to test
+    *
+    * @return null
+    *
+    * @dataProvider dataClasses
+    */
+    public function testRanged($class)
+    {
+        $class = (is_null($class)) ? $this->class : $class;
+        $class = __NAMESPACE__.'\\'.$class;
+        $this->o = new $class($this->index, array());
+
+        $ranged = \SquadronBuilder\weapons\WeaponsTest::classes();
+        
+        $note = "Ranged weapon classes must be tested.  Please add the missing classes to test/suite/weapons/WeaponsTest::\$classes";
+        $value = $this->o->get("ranged");
+        if (!is_null($value)) {
+            $this->assertInternalType("array", $value, "'ranged' must be an array");
+            $this->assertSame(array(), array_diff($value, $ranged), $note);
         }
     }
 
