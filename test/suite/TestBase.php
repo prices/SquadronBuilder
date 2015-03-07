@@ -121,6 +121,39 @@ abstract class TestBase extends \PHPUnit_Framework_TestCase
         }
         return $ret;
     }
+    /**
+    * Tests the abilities to make sure that they are within spec
+    *
+    * @param string $ability The ability to test
+    * @param string $value   The value of that ability
+    *
+    * @return null
+    *
+    * @dataProvider dataAbilities
+    */
+    public function abilitiesTrueFalse($ability, $value)
+    {
+        $this->assertInternalType("bool", $value, "Ability '$ability' must be true or false");
+    }
+    /**
+    * Tests the abilities to make sure that they are within spec
+    *
+    * @param string $ability The ability to test
+    * @param string $value   The value of that ability
+    *
+    * @return null
+    *
+    * @dataProvider dataAbilities
+    */
+    public function abilitiesFalseInt($ability, $value)
+    {
+        $return = "Ability '$ability' must be false or a positive integer";
+        if (is_bool($value)) {
+            $this->assertFalse($value, $return);
+        } else {
+            $this->assertTrue(is_int($value) && ($value > 0), $return);
+        }
+    }
 
 }
 

@@ -128,7 +128,7 @@ class mechasTest extends MechaTestBase
     public function testAbilities($ability, $function, $class = null)
     {
         $class = (is_null($class)) ? $this->class : $class;
-        $class = '\SquadronBuilder\mecha\\'.$class;
+        $class = __NAMESPACE__.'\\'.$class;
         $this->assertTrue(class_exists($class), "Class $class doesn't exist");
         $this->o = new $class($this->index, array());
 
@@ -148,46 +148,13 @@ class mechasTest extends MechaTestBase
     *
     * @dataProvider dataAbilities
     */
-    public function abilitiesTrueFalse($ability, $value)
-    {
-        $this->assertInternalType("bool", $value, "Ability '$ability' must be true or false");
-    }
-    /**
-    * Tests the abilities to make sure that they are within spec
-    *
-    * @param string $ability The ability to test
-    * @param string $value   The value of that ability
-    *
-    * @return null
-    *
-    * @dataProvider dataAbilities
-    */
-    public function abilitiesFalseInt($ability, $value)
-    {
-        $return = "Ability '$ability' must be false or a positive integer";
-        if (is_bool($value)) {
-            $this->assertFalse($value, $return);
-        } else {
-            $this->assertTrue(is_int($value) && ($value > 0), $return);
-        }
-    }
-    /**
-    * Tests the abilities to make sure that they are within spec
-    *
-    * @param string $ability The ability to test
-    * @param string $value   The value of that ability
-    *
-    * @return null
-    *
-    * @dataProvider dataAbilities
-    */
     public function abilitiesFalseClass($ability, $value)
     {
-        $return = "Ability '$ability' must be false or a positive integer";
+        $return = "Ability '$ability' must be false or a class in the \$classes array in this test class";
         if (is_bool($value)) {
             $this->assertFalse($value, $return);
         } else {
-            $this->assertTrue(class_exists(__NAMESPACE__.'\\'.$value), $return);
+            $this->assertSame(array(), array_diff(array($value), self::classes()), $return);
         }
     }
     /**

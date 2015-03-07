@@ -48,7 +48,7 @@ require_once CODE_BASE.'core/Weapon.php';
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-abstract class WeaponTestBase extends \PHPUnit_Framework_TestCase
+abstract class WeaponTestBase extends \SquadronBuilder\TestBase
 {
     /** The object under test */
     protected $class = null;

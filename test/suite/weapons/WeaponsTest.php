@@ -137,7 +137,7 @@ class WeaponsTest extends WeaponTestBase
     public function testAbilities($ability, $function, $class = null)
     {
         $class = (is_null($class)) ? $this->class : $class;
-        $class = '\SquadronBuilder\weapons\\'.$class;
+        $class = __NAMESPACE__.'\\'.$class;
         $this->assertTrue(class_exists($class), "Class $class doesn't exist");
         $this->o = new $class($this->index, array());
 
@@ -145,39 +145,6 @@ class WeaponsTest extends WeaponTestBase
         $this->assertInternalType("array", $abilities, "'abilities' must be an array");
         if (isset($abilities[$ability])) {
             $this->$function($ability, $abilities[$ability]);
-        }
-    }
-    /**
-    * Tests the abilities to make sure that they are within spec
-    *
-    * @param string $ability The ability to test
-    * @param string $value   The value of that ability
-    *
-    * @return null
-    *
-    * @dataProvider dataAbilities
-    */
-    public function abilitiesTrueFalse($ability, $value)
-    {
-        $this->assertInternalType("bool", $value, "Ability '$ability' must be true or false");
-    }
-    /**
-    * Tests the abilities to make sure that they are within spec
-    *
-    * @param string $ability The ability to test
-    * @param string $value   The value of that ability
-    *
-    * @return null
-    *
-    * @dataProvider dataAbilities
-    */
-    public function abilitiesFalseInt($ability, $value)
-    {
-        $return = "Ability '$ability' must be false or a positive integer";
-        if (is_bool($value)) {
-            $this->assertFalse($value, $return);
-        } else {
-            $this->assertTrue(is_int($value) && ($value > 0), $return);
         }
     }
     /**
