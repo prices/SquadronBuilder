@@ -74,7 +74,7 @@ abstract class CoreTestBase extends \SquadronBuilder\TestBase
         parent::setUp();
         if (!is_null($this->class)) {
             include_once CODE_BASE."/force/core/".$this->class.".php";
-            $class = '\SquadronBuilder\mecha\\'.$this->class;
+            $class = '\SquadronBuilder\force\core\\'.$this->class;
             $this->o = new $class($this->index, array());
         }
     }
@@ -91,6 +91,208 @@ abstract class CoreTestBase extends \SquadronBuilder\TestBase
     {
         parent::tearDown();
         unset($this->o);
+    }
+    /**
+    * Data provider for testRemove
+    *
+    * @return array
+    */
+    public static function dataMecha()
+    {
+        $return = array();
+        $index = 0;
+        $classname = get_called_class();
+        $classname = explode('\\', $classname);
+        $classname = $classname[count($classname) - 1];
+        $classname = substr($classname, 0, strlen($classname) - 4);
+        $class = '\\'.__NAMESPACE__.'\\'.$classname;
+        include_once CODE_BASE."/force/core/".$classname.".php";
+        if (class_exists($class)) {
+            $o = new $class($index, array());
+            $mecha = $o->get("mecha");
+            foreach ((array)$mecha as $name => $count) {
+                $return[] = array($name, $count);
+            }
+        }
+        return $return;
+    }
+    /**
+    * Tests the abilities to make sure that they are within spec
+    *
+    * @param string $mecha The ability to test
+    * @param string $count The test function
+    *
+    * @return null
+    *
+    * @dataProvider dataMecha
+    */
+    public function testMechaName($name, $count)
+    {
+        $class = '\SquadronBuilder\mecha\\'.$name;
+        $return = "Mecha $name does not exist. (Class $class not found)";
+        $file = CODE_BASE."/mecha/".$name.".php";
+        if (file_exists($file)) {
+            include_once $file;
+        }
+        $this->assertTrue(class_exists($class), $return);
+    }
+    /**
+    * Tests the abilities to make sure that they are within spec
+    *
+    * @param string $mecha The ability to test
+    * @param string $count The test function
+    * @return null
+    *
+    * @dataProvider dataMecha
+    */
+    public function testMechaCount($name, $count)
+    {
+        $min = 1;
+        $max = 24;
+        $note = "Mecha $name count must be an integer between $min and $max";
+        $this->assertInternalType("int", $count, $note);
+        $this->assertGreaterThanOrEqual($min, $count, $note);
+        $this->assertLessThanOrEqual($max, $count, $note);
+    }
+    /**
+    * Data provider for testRemove
+    *
+    * @return array
+    */
+    public static function dataUpgrades()
+    {
+        $index = 0;
+        $classname = get_called_class();
+        $classname = explode('\\', $classname);
+        $classname = $classname[count($classname) - 1];
+        $classname = substr($classname, 0, strlen($classname) - 4);
+        $class = '\\'.__NAMESPACE__.'\\'.$classname;
+        include_once CODE_BASE."/force/core/".$classname.".php";
+        if (class_exists($class)) {
+            $o = new $class($index, array());
+            $upgrades = $o->get("upgrades");
+            foreach ((array)$upgrades as $name => $upgrade) {
+                $return[] = array($name, $upgrade);
+            }
+        }
+        return $return;
+    }
+    /**
+    * Tests the abilities to make sure that they are within spec
+    *
+    * @param string $mecha   The ability to test
+    * @param string $upgrade The upgrade array
+    *
+    * @return null
+    *
+    * @dataProvider dataUpgrades
+    */
+    public function testUpgradePoints($name, $upgrade)
+    {
+        if (is_array($upgrade)) {
+            $this->assertTrue(isset($upgrade["points"]), "Upgrade must have a 'points' field");
+            $min = 1;
+            $max = 100;
+            $note = "Points must be an integer between $min and $max";
+            $this->assertInternalType("int", $upgrade['points'], $note);
+            $this->assertGreaterThanOrEqual($min, $upgrade['points'], $note);
+            $this->assertLessThanOrEqual($max, $upgrade['points'], $note);
+        }
+    }
+    /**
+    * Tests the abilities to make sure that they are within spec
+    *
+    * @param string $mecha   The ability to test
+    * @param string $upgrade The upgrade array
+    *
+    * @return null
+    *
+    * @dataProvider dataUpgrades
+    */
+    public function testUpgradeDesc($name, $upgrade)
+    {
+        if (is_array($upgrade)) {
+            $this->assertTrue(isset($upgrade["desc"]), "Upgrade must have a 'desc' field");
+            $min = 5;
+            $max = 100;
+            $note = "Upgrade description must be a string between 5 and 40 characters in length";
+            $this->assertInternalType("string", $upgrade['desc'], $note);
+            $this->assertGreaterThanOrEqual($min, strlen($upgrade['desc']), $note);
+            $this->assertLessThanOrEqual($max, strlen($upgrade['desc']), $note);
+        }
+    }
+    /**
+    * Tests the abilities to make sure that they are within spec
+    *
+    * @param string $mecha   The ability to test
+    * @param string $upgrade The upgrade array
+    *
+    * @return null
+    *
+    * @dataProvider dataUpgrades
+    */
+    public function testUpgradeName($name, $upgrade)
+    {
+        $min = 5;
+        $max = 40;
+        $note = "Upgrade name must be a string between 5 and 40 characters in length";
+        $this->assertInternalType("string", $name, $note);
+        $this->assertGreaterThanOrEqual($min, strlen($name), $note);
+        $this->assertLessThanOrEqual($max, strlen($name), $note);
+    }
+
+    /**
+    * Checks the name
+    *
+    * @return null
+    */
+    public function testName()
+    {
+        $min = 5;
+        $max = 40;
+        $note = "Name must be a string between 5 and 40 characters in length";
+        $value = $this->o->get("name");
+        $this->assertInternalType("string", $value, $note);
+        $this->assertGreaterThanOrEqual($min, strlen($value), $note);
+        $this->assertLessThanOrEqual($max, strlen($value), $note);
+    }
+    /**
+    * Checks the range
+    *
+    * @return null
+    */
+    public function testPoints()
+    {
+        $min = 1;
+        $max = 100;
+        $note = "Points must be an integer between $min and $max";
+        $value = $this->o->get("points");
+        $this->assertInternalType("int", $value, $note);
+        $this->assertGreaterThanOrEqual($min, $value, $note);
+        $this->assertLessThanOrEqual($max, $value, $note);
+    }
+    /**
+    * Checks the range
+    *
+    * @return null
+    */
+    public function testMecha()
+    {
+        $note = "Mecha must be an array";
+        $value = $this->o->get("mecha");
+        $this->assertInternalType("array", $value, $note);
+    }
+
+    /**
+    * Checks the range
+    *
+    * @return null
+    */
+    public function testUpgrades()
+    {
+        $note = "Mecha must be an array";
+        $value = $this->o->get("upgrades");
+        $this->assertInternalType("array", $value, $note);
     }
 
 }
