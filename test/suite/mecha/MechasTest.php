@@ -36,8 +36,6 @@ namespace SquadronBuilder\mecha;
 
 /** This is a required class */
 require_once 'MechaTestBase.php';
-/** This is a required class */
-require_once dirname(__FILE__).'/../weapons/WeaponsTest.php';
 
 /**
  * This class deals with printing out a single mecha.
@@ -378,6 +376,8 @@ class mechasTest extends MechaTestBase
         $class = (is_null($class)) ? $this->class : $class;
         $class = __NAMESPACE__.'\\'.$class;
         $this->o = new $class($this->index, array());
+
+        include_once dirname(__FILE__).'/../weapons/WeaponsTest.php';
 
         $ranged = \SquadronBuilder\weapons\WeaponsTest::classes();
         
