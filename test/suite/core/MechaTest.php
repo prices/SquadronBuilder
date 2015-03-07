@@ -98,156 +98,128 @@ class MechaTest extends \SquadronBuilder\TestBase
                 '\SquadronBuilder\mecha\MechaTest1',
                 1,
                 5,
-                array (
-                    'g' => 
-                    array (
-                        0 => 
-                        array (
-                        'text' => 
-                        array (
+                array(
+                    'g' => array(
+                        0 => array(
+                        'text' => array(
                             0 => 'Regult Test',
                             1 => 'This is missile a weapon',
                             2 => 'Jettison to Other Test',
                         ),
-                        'rect' => 
-                        array (
-                            0 => 
-                            array (
-                            'attributes' => 
-                            array (
-                                'id' => 'rect2',
-                                'y' => '11.675mm',
-                                'x' => '52mm',
-                                'height' => '3mm',
-                                'width' => '3mm',
-                                'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                        'rect' => array(
+                            0 => array(
+                                'attributes' => array(
+                                    'id' => 'rect2',
+                                    'y' => '11.675mm',
+                                    'x' => '52mm',
+                                    'height' => '3mm',
+                                    'width' => '3mm',
+                                    'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
                             ),
+                            1 => array(
+                                'attributes' => array(
+                                    'id' => 'rect3',
+                                    'y' => '11.675mm',
+                                    'x' => '55.6mm',
+                                    'height' => '3mm',
+                                    'width' => '3mm',
+                                    'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
                             ),
-                            1 => 
-                            array (
-                            'attributes' => 
-                            array (
-                                'id' => 'rect3',
-                                'y' => '11.675mm',
-                                'x' => '55.6mm',
-                                'height' => '3mm',
-                                'width' => '3mm',
-                                'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                            2 => array(
+                                'attributes' => array(
+                                    'id' => 'rect4',
+                                    'y' => '11.675mm',
+                                    'x' => '59.2mm',
+                                    'height' => '3mm',
+                                    'width' => '3mm',
+                                    'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
                             ),
+                            3 => array(
+                                'attributes' => array(
+                                    'id' => 'rect5',
+                                    'y' => '11.675mm',
+                                    'x' => '62.8mm',
+                                    'height' => '3mm',
+                                    'width' => '3mm',
+                                    'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
                             ),
-                            2 => 
-                            array (
-                            'attributes' => 
-                            array (
-                                'id' => 'rect4',
-                                'y' => '11.675mm',
-                                'x' => '59.2mm',
-                                'height' => '3mm',
-                                'width' => '3mm',
-                                'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                            4 => array(
+                                'attributes' => array(
+                                    'id' => 'rect6',
+                                    'y' => '11.675mm',
+                                    'x' => '66.4mm',
+                                    'height' => '3mm',
+                                    'width' => '3mm',
+                                    'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
                             ),
+                            5 => array(
+                                'attributes' => array(
+                                    'id' => 'rect7',
+                                    'y' => '11.675mm',
+                                    'x' => '70mm',
+                                    'height' => '3mm',
+                                    'width' => '3mm',
+                                    'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
                             ),
-                            3 => 
-                            array (
-                            'attributes' => 
-                            array (
-                                'id' => 'rect5',
-                                'y' => '11.675mm',
-                                'x' => '62.8mm',
-                                'height' => '3mm',
-                                'width' => '3mm',
-                                'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                            6 => array(
+                                'attributes' => array(
+                                    'id' => 'rect8',
+                                    'y' => '16.9mm',
+                                    'x' => '4mm',
+                                    'height' => '3mm',
+                                    'width' => '3mm',
+                                    'style' => 'fill:none;stroke:#0000CF;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
                             ),
-                            ),
-                            4 => 
-                            array (
-                            'attributes' => 
-                            array (
-                                'id' => 'rect6',
-                                'y' => '11.675mm',
-                                'x' => '66.4mm',
-                                'height' => '3mm',
-                                'width' => '3mm',
-                                'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
-                            ),
-                            ),
-                            5 => 
-                            array (
-                            'attributes' => 
-                            array (
-                                'id' => 'rect7',
-                                'y' => '11.675mm',
-                                'x' => '70mm',
-                                'height' => '3mm',
-                                'width' => '3mm',
-                                'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
-                            ),
-                            ),
-                            6 => 
-                            array (
-                            'attributes' => 
-                            array (
-                                'id' => 'rect8',
-                                'y' => '16.9mm',
-                                'x' => '4mm',
-                                'height' => '3mm',
-                                'width' => '3mm',
-                                'style' => 'fill:none;stroke:#0000CF;stroke-width:1.47185135;stroke-opacity:1',
-                            ),
-                            ),
-                            7 => 
-                            array (
-                            'attributes' => 
-                            array (
-                                'id' => 'rect10',
-                                'y' => '6.5mm',
-                                'x' => '2.5mm',
-                                'height' => '15.8mm',
-                                'width' => '67mm',
-                                'style' => 'fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1',
-                            ),
+                            7 => array(
+                                'attributes' => array(
+                                    'id' => 'rect10',
+                                    'y' => '6.5mm',
+                                    'x' => '2.5mm',
+                                    'height' => '15.8mm',
+                                    'width' => '67mm',
+                                    'style' => 'fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
                             ),
                         ),
                         ),
-                        1 => 
-                        array (
-                        'text' => 
-                        array (
-                            0 => 'This is a weapon',
-                            1 => 'RG: 9, MD: 2, Accurate, Anti-Missile, Inescapable',
-                        ),
-                        'rect' => 
-                        array (
-                            'attributes' => 
-                            array (
-                            'id' => 'rect14',
-                            'y' => '26.55mm',
-                            'x' => '2.5mm',
-                            'height' => '7.95mm',
-                            'width' => '67mm',
-                            'style' => 'fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1',
+                        1 => array(
+                            'text' => array(
+                                0 => 'This is a weapon',
+                                1 => 'RG: 9, MD: 2, Accurate, Anti-Missile, Inescapable',
+                            ),
+                            'rect' => array(
+                                'attributes' => array(
+                                    'id' => 'rect14',
+                                    'y' => '26.55mm',
+                                    'x' => '2.5mm',
+                                    'height' => '7.95mm',
+                                    'width' => '67mm',
+                                    'style' => 'fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
                             ),
                         ),
-                        ),
-                        2 => 
-                        array (
-                        'text' => 
-                        array (
-                            0 => 'This is missile a weapon',
-                            1 => 'RG: 9, MD: 2, Accurate, Ammo 6, Anti-Missile, Inescapable, Missile, Volley X',
-                        ),
-                        'rect' => 
-                        array (
-                            'attributes' => 
-                            array (
-                            'id' => 'rect17',
-                            'y' => '34.5mm',
-                            'x' => '2.5mm',
-                            'height' => '7.95mm',
-                            'width' => '67mm',
-                            'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                        2 => array(
+                            'text' => array(
+                                0 => 'This is missile a weapon',
+                                1 => 'RG: 9, MD: 2, Accurate, Ammo 6, Anti-Missile, Inescapable, Missile, Volley X',
                             ),
-                        ),
+                            'rect' => array(
+                                'attributes' => array(
+                                    'id' => 'rect17',
+                                    'y' => '34.5mm',
+                                    'x' => '2.5mm',
+                                    'height' => '7.95mm',
+                                    'width' => '67mm',
+                                    'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
+                            ),
                         ),
                         3 => array(
                             'text' => array(
