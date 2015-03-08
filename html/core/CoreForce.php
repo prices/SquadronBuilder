@@ -209,11 +209,8 @@ class CoreForce extends BaseObject
             $class = '\SquadronBuilder\force\support\\'.$name;
             if (class_exists($class)) {
                 $supp = new $class($index);
-                $return = $supp->check($this);
-                if ($return) {
-                    $this->_support[] = $supp;
-                }
-                return $return;
+                $this->_support[] = $supp;
+                return true;
             }
         }
         return false;
@@ -233,11 +230,8 @@ class CoreForce extends BaseObject
             $class = '\SquadronBuilder\characters\\'.$name;
             if (class_exists($class)) {
                 $char = new $class($index);
-                $return = $char->check($this);
-                if ($return) {
-                    $this->_character[] = $char;
-                }
-                return $return;
+                $this->_character[] = $char;
+                return true;
             }
         }
         return false;
@@ -257,11 +251,8 @@ class CoreForce extends BaseObject
             $class = '\SquadronBuilder\force\special\\'.$name;
             if (class_exists($class)) {
                 $spec = new $class($index);
-                $return = $spec->check($this);
-                if ($return) {
-                    $this->_special[] = $spec;
-                }
-                return $return;
+                $this->_special[] = $spec;
+                return true;
             }
         }
         return false;
