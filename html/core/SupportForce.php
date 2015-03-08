@@ -61,7 +61,9 @@ class SupportForce extends BaseObject
     */
     public function check(CoreForce $core)
     {
-        return true;
+        $return  = true;
+        $return &= in_array($core->get("faction"), (array)$this->get("factions"));
+        return $return;
     }
     
 }

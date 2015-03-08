@@ -22,65 +22,72 @@
  * MA  02110-1301, USA.
  * </pre>
  *
- * @category   html
- * @package    abilities
- * @subpackage weapons
+ * @category   test
+ * @package    core
+ * @subpackage base
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version    GIT: $Id: $
  * @link       https://github.com/prices/SquadronBuilder
  */
-/** This is our namespace */
+/** This is the namespace */
 namespace SquadronBuilder\force\core;
 
-defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
-
-/** These are our required files */
-require_once dirname(__FILE__)."/../../core/CoreForce.php";
+/** This is a required class */
+require_once dirname(__FILE__)."/../ForceTestBase.php";
 
 /**
- * This class deals with printing out a single weapon.
+ * This class deals with printing out a single mecha.
  *
- * @category   html
- * @package    abilities
- * @subpackage weapons
+ * @category   test
+ * @package    core
+ * @subpackage base
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class RegultArtillerySquadron extends \SquadronBuilder\core\CoreForce
+abstract class ForceCoreTestBase extends \SquadronBuilder\force\ForceTestBase
 {
-    protected $params = array(
-        /** This is our header for abilities **/
-        "name" => "Regult Artillery Squadron",
-        /** These are our weapons */
-        "mecha" => array(
-            "GluuhaugRegult" => 4, 
-            "SerauhaugRegult" => 2, 
-        ),
-        /** This is the number of points this squadron costs */
-        "points" => 90,
-        /** These are our upgrades */
-        "upgrades" => array(),
-        "faction" => "Zentraedi",
-    );
     /**
-    * This function runs an upgrade
+    * Sets up the fixture, for example, opens a network connection.
+    * This method is called before a test is executed.
     *
-    * @param string $name  The name of the upgrade
-    * 
-    * @return true if ready to apply, false if already applied
+    * @access protected
+    *
+    * @return null
     */
-    public function upgrade($name)
+    protected function setUp()
     {
-        if (parent::upgrade($name)) {
-            switch ($name) {
-            case "":
-            }
-            return true;
-        }
-        return false;
+        parent::setUp();
     }
+
+    /**
+    * Tears down the fixture, for example, closes a network connection.
+    * This method is called after a test is executed.
+    *
+    * @access protected
+    *
+    * @return null
+    */
+    protected function tearDown()
+    {
+        parent::tearDown();
+    }
+    /**
+    * Checks the name
+    *
+    * @return null
+    */
+    public function testFaction()
+    {
+        $note = "'faction' must be a string and one of 'UEDF', 'Zentraedi', or 'Malcontents'";
+        $value = $this->o->get("faction");
+        $this->assertInternalType("string", $value, $note);
+        $this->assertTrue(in_array($value, array("UEDF", "Zentraedi", "Malcontents")), $note);
+    }
+
 }
+
+?>

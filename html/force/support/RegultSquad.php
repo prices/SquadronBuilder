@@ -66,5 +66,6 @@ class RegultSquad extends \SquadronBuilder\core\SupportForce
                 "points" => 10,
             ),
         ),
+        "factions" => array("Zentraedi", "Malcontents"),
     );
 }

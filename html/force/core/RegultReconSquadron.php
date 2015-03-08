@@ -72,6 +72,7 @@ class RegultReconSquadron extends \SquadronBuilder\core\CoreForce
                 "points" => 25,
             ),
         ),
+        "faction" => "Zentraedi",
     );
     /**
     * This function runs an upgrade

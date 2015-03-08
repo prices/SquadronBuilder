@@ -66,6 +66,7 @@ class NousjadeulGerSquadron extends \SquadronBuilder\core\CoreForce
                 "points" => 10,
             ),
         ),
+        "faction" => "Zentraedi",
     );
     /**
     * This function runs an upgrade

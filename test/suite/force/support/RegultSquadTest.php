@@ -35,7 +35,7 @@
 namespace SquadronBuilder\force\support;
 
 /** This is a required class */
-require_once dirname(__FILE__).'/../ForceTestBase.php';
+require_once 'ForceSupportTestBase.php';
 
 /**
  * This class deals with printing out a single mecha.
@@ -48,7 +48,7 @@ require_once dirname(__FILE__).'/../ForceTestBase.php';
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class RegultSquadTest extends \SquadronBuilder\force\ForceTestBase
+class RegultSquadTest extends \SquadronBuilder\force\support\ForceSupportTestBase
 {
 
 
