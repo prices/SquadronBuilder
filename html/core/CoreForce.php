@@ -52,10 +52,23 @@ require_once "BaseObject.php";
  */
 class CoreForce extends BaseObject
 {    
+    /** This is the max number of support cards */
+    const SUPPORT = 2;
+    /** This is the max number of support cards */
+    const SPECIAL = 1;
+    /** This is the max number of support cards */
+    const CHARACTERS = 1;
+    
     /** This is the cache of mecha objects */
     private $_mecha = array();
     /** This is the cache of support objects */
     private $_support = array();
+    /** This is the cache of special objects */
+    private $_special = array();
+    /** This is the cache of upgrade objects */
+    private $_upgrade = array();
+    /** This is the cache of character objects */
+    private $_character = array();
     /**
     * This is the constructor for the class
     * 
@@ -122,6 +135,7 @@ class CoreForce extends BaseObject
     */
     public function render($x = 0, $y = 0)
     {
+        $this->_apply();
         $text  = "";
         $dy    = $y;
         $text .= $this->header($x, $dy, $this->get("name"));
@@ -148,19 +162,37 @@ class CoreForce extends BaseObject
     public function upgrade($name)
     {
         $upgrades = $this->get("upgrades");
-        if (isset($upgrades[$name])) {
+        if (isset($upgrades[$name]) && is_array($this->_upgrade)) {
             if (parent::upgrade($name)) {
-                foreach ($this->_mecha as &$mecha) {
-                    $mecha->upgrade($name);
-                }
-                // Set the points
-                $points = $this->get("points");
-                $points += $upgrades[$name]["points"];
-                $this->set("points", $points);
+                $this->_upgrade[$name] = $upgrades[$name];
                 return true;
             }
         }
         return false;
+    }
+    /**
+    * This function applies all of the other stuff attached to this card
+    *
+    * @return null
+    */
+    private function _apply()
+    {
+        foreach (array("_support", "_special", "_character") as $type) {
+            foreach ($this->$type as &$obj) {
+                $obj->attach($this);
+            }
+            $this->$type = null;
+        }
+        foreach ($this->_upgrade as $name => $value) {
+            foreach ($this->_mecha as &$mecha) {
+                $mecha->upgrade($name);
+            }
+            // Set the points
+            $points = $this->get("points");
+            $points += $value["points"];
+            $this->set("points", $points);
+        }
+        $this->_upgrade = null;
     }
     /**
     * This function adds a support card to the core force
@@ -172,12 +204,16 @@ class CoreForce extends BaseObject
     public function support($name)
     {
         $file  = dirname(__FILE__)."/../force/support/$name.php";
-        if (file_exists($file)) {
+        if (file_exists($file) && is_array($this->_support) && (count($this->_support) <= self::SUPPORT)) {
             include_once $file;
             $class = '\SquadronBuilder\force\support\\'.$name;
             if (class_exists($class)) {
-                $support = new $class($index);
-                return $support->attach($this);
+                $supp = new $class($index);
+                $return = $supp->check($this);
+                if ($return) {
+                    $this->_support[] = $supp;
+                }
+                return $return;
             }
         }
         return false;
@@ -192,12 +228,16 @@ class CoreForce extends BaseObject
     public function character($name)
     {
         $file  = dirname(__FILE__)."/../characters/$name.php";
-        if (file_exists($file)) {
+        if (file_exists($file) && is_array($this->_character) && (count($this->_character) <= self::CHARACTERS)) {
             include_once $file;
             $class = '\SquadronBuilder\characters\\'.$name;
             if (class_exists($class)) {
                 $char = new $class($index);
-                return $char->attach($this);
+                $return = $char->check($this);
+                if ($return) {
+                    $this->_character[] = $char;
+                }
+                return $return;
             }
         }
         return false;
@@ -212,12 +252,16 @@ class CoreForce extends BaseObject
     public function special($name)
     {
         $file  = dirname(__FILE__)."/../force/special/$name.php";
-        if (file_exists($file)) {
+        if (file_exists($file) && is_array($this->_special) && (count($this->_special) <= self::SPECIAL)) {
             include_once $file;
             $class = '\SquadronBuilder\force\special\\'.$name;
             if (class_exists($class)) {
-                $special = new $class($index);
-                return $special->attach($this);
+                $spec = new $class($index);
+                $return = $spec->check($this);
+                if ($return) {
+                    $this->_special[] = $spec;
+                }
+                return $return;
             }
         }
         return false;
