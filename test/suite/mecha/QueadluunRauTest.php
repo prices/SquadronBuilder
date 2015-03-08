@@ -22,61 +22,38 @@
  * MA  02110-1301, USA.
  * </pre>
  *
- * @category   html
- * @package    abilities
- * @subpackage mecha
+ * @category   test
+ * @package    mecha
+ * @subpackage base
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version    GIT: $Id: $
  * @link       https://github.com/prices/SquadronBuilder
  */
-/** This is our namespace */
-namespace SquadronBuilder\characters;
+/** This is the namespace */
+namespace SquadronBuilder\mecha;
 
-defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
-
-/** These are our required files */
-require_once dirname(__FILE__)."/../core/Character.php";
+/** This is a required class */
+require_once 'MechaTestBase.php';
 
 /**
- * This class deals with printing out a single weapon.
+ * This class deals with printing out a single mecha.
  *
- * @category   html
- * @package    abilities
- * @subpackage mecha
+ * @category   test
+ * @package    mecha
+ * @subpackage base
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class Azonia extends \SquadronBuilder\core\Character
+class QueadluunRauTest extends MechaTestBase
 {
-    protected $params = array(
-        /** This is a list of the special abilities for this object */
-        "name" => "Azonia",
-        "mecha" => array(
-            "Glaug", "QueadluunRau"
-        ),
-        "points" => 5,
-        "factions" => array("Zentraedi", "Malcontents"),
-    );
-    /**
-    * Modifies the mecha that this character is given
-    * 
-    * @param \SquadronBuilder\core\Mecha &$mecha The mecha to modify
-    * 
-    * @return bool True if compatible, False otherwise
-    */
-    protected function modifyMecha(\SquadronBuilder\core\Mecha &$mecha)
-    {
-        $abilities = $mecha->get("abilities");
-        if (!isset($abilities["Leadership"])) {
-            $abilities["Leadership"] = 1;
-        } else {
-            $abilities["Leadership"] += 1;
-        }
-        $mecha->set("abilities", $abilities);
-    }
-    
+
+    /** The object under test */
+    protected $class = "QueadluunRau";
+
 }
+
+?>

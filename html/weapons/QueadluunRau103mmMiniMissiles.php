@@ -24,7 +24,7 @@
  *
  * @category   html
  * @package    abilities
- * @subpackage mecha
+ * @subpackage weapons
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -32,51 +32,50 @@
  * @link       https://github.com/prices/SquadronBuilder
  */
 /** This is our namespace */
-namespace SquadronBuilder\characters;
+namespace SquadronBuilder\weapons;
 
 defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 
 /** These are our required files */
-require_once dirname(__FILE__)."/../core/Character.php";
+require_once dirname(__FILE__)."/../core/Weapon.php";
 
 /**
  * This class deals with printing out a single weapon.
  *
  * @category   html
  * @package    abilities
- * @subpackage mecha
+ * @subpackage weapons
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class Azonia extends \SquadronBuilder\core\Character
+class QueadluunRau103mmMiniMissiles extends \SquadronBuilder\core\Weapon
 {
     protected $params = array(
+        /** This is our header for abilities **/
+        "name" => "Quad 103mm Mini-Missile Launchers",
+        /** This is our range **/
+        "range" => 12,
+        /** This is our damage **/
+        "damage" => "2/missile",
         /** This is a list of the special abilities for this object */
-        "name" => "Azonia",
-        "mecha" => array(
-            "Glaug", "QueadluunRau"
+        "abilities" => array(
+            "Accurate"      => false,
+            "Ammo"          => 16,
+            "Anti-Missile"  => true,
+            "Blast"         => false,
+            "Fly Over"      => false,
+            "Inescapable"   => false,
+            "Indirect Fire" => false,
+            "Missile"       => true,
+            "Overwhelming"  => false,
+            "Rapid Fire"    => true,
+            "Rear Fire"     => false,
+            "Split Fire"    => false,
+            "Volley"        => 8,
+            "Volley X"      => false,
         ),
-        "points" => 5,
-        "factions" => array("Zentraedi", "Malcontents"),
     );
-    /**
-    * Modifies the mecha that this character is given
-    * 
-    * @param \SquadronBuilder\core\Mecha &$mecha The mecha to modify
-    * 
-    * @return bool True if compatible, False otherwise
-    */
-    protected function modifyMecha(\SquadronBuilder\core\Mecha &$mecha)
-    {
-        $abilities = $mecha->get("abilities");
-        if (!isset($abilities["Leadership"])) {
-            $abilities["Leadership"] = 1;
-        } else {
-            $abilities["Leadership"] += 1;
-        }
-        $mecha->set("abilities", $abilities);
-    }
     
 }

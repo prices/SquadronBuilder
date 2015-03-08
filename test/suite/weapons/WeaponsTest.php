@@ -67,6 +67,9 @@ class WeaponsTest extends WeaponTestBase
         "RegultAutoCannons",
         "NousjadeulGer32mmPlasmaMachinePistol",  
         "RegultHeavyParticleCannons",
+        "QueadluunRau103mmMiniMissiles",
+        "QueadluunRauMedParticleCannons",
+        "QueadluunRau64mmGrenadeLauncher",
     );
     /**
     * This function returns the classes we are testing
@@ -221,7 +224,7 @@ class WeaponsTest extends WeaponTestBase
         $this->o = new $class($this->index, array());
 
         $min = 1;
-        $max = 10;
+        $max = 20;
         $value = $this->o->get("damage");
         $note  = "damage must be either an integer or a string of the form '#/missile' where ";
         $note .= "the number is between $min and $max.  The second form is only acceptable ";
