@@ -68,6 +68,9 @@ foreach ((array)$_GET["upgrades"] as $name => $value) {
         $core->upgrade($name);
     }
 }
+foreach ((array)$_GET["support"] as $value) {
+    $core->support($value);
+}
 
 
 $Weapon = new \SquadronBuilder\abilities\Weapon($index);

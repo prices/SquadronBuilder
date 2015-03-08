@@ -171,17 +171,13 @@ class CoreForce extends BaseObject
     */
     public function support($name)
     {
-        $upgrades = $this->get("upgrades");
-        if (isset($upgrades[$name])) {
-            if (parent::upgrade($name)) {
-                foreach ($this->_mecha as &$mecha) {
-                    $mecha->upgrade($name);
-                }
-                // Set the points
-                $points = $this->get("points");
-                $points += $upgrades[$name]["points"];
-                $this->set("points", $points);
-                return true;
+        $file  = dirname(__FILE__)."/../force/support/$name.php";
+        if (file_exists($file)) {
+            include_once $file;
+            $class = '\SquadronBuilder\force\support\\'.$name;
+            if (class_exists($class)) {
+                $support = new $class($index);
+                return $support->attach($this);
             }
         }
         return false;
@@ -256,9 +252,8 @@ class CoreForce extends BaseObject
     * 
     * @return pointer to new mecha on success, null otherwise
     */
-    protected function addMecha($name, $count = 1)
+    public function addMecha($name, $count = 1)
     {
-        
         foreach ($this->_mecha as $key => &$mecha) {
             if ($mecha->get("name") == $name) {
                 $cnt = $mecha->get("count");
@@ -283,7 +278,7 @@ class CoreForce extends BaseObject
     * 
     * @return null
     */
-    protected function addUpgrade($name, $points, $desc)
+    public function addUpgrade($name, $points, $desc)
     {
         $upgrades = $this->get("upgrades");
         if (isset($upgrades[$name])) {
