@@ -96,13 +96,24 @@ abstract class Character extends BaseObject
             foreach ((array)$this->get("mecha") as $mecha) {
                 $res = $core->replaceMecha($mecha, $mecha, 1);
                 if (is_object($res)) {
-                    $res->set("name", $res->get("name")." (".$this->get("name").")");
+                    $res->character($this->get("name"));
+                    $this->modifyMecha($res);
                     $return = true;
                     break;
                 }
             }
         }
         return $return;
+    }
+    /**
+    * Modifies the mecha that this character is given
+    * 
+    * @param \SquadronBuilder\core\Mecha &$mecha The mecha to modify
+    * 
+    * @return bool True if compatible, False otherwise
+    */
+    protected function modifyMecha(\SquadronBuilder\core\Mecha &$mecha)
+    {
     }
 
 }

@@ -62,6 +62,8 @@ class Mecha extends BaseObject
     private $_usesAmmo = false;
     /** This says whether we have a jettison attribute */
     private $_jettisonto = false;
+    /** This is the character in this mecha */
+    private $_character = null;
     /** The number of rows in our damage boxes.  null for auto */
     protected $rows = null;
     /** The number of rows in our extra damage boxes.  null for auto */
@@ -134,6 +136,12 @@ class Mecha extends BaseObject
         $dy    = $y + $this->padding;
         $count = empty($this->get("count")) ? 1 : $this->get("count");
         
+        if (is_string($this->_character)) {
+            $count = 1;
+            $dy += $this->padding;
+            $text .= $this->header($dx, $dy, $this->_character);
+            
+        }
         for ($i = 0; $i < $count; $i++) {
             $text .= $this->_name($dx, $dy);
         }
@@ -176,6 +184,19 @@ class Mecha extends BaseObject
         $this->height = $dy - $y;
         $text = $this->group($text, $x, $y);
         return $text;
+    }
+    /**
+    * Adds a character name to the mecha
+    *
+    * @param string $character The full name of the character to use
+    * 
+    * @return string The svg text for the block
+    */
+    public function character($name)
+    {
+        if (is_string($name)) {
+            $this->_character = $name;
+        }
     }
     /**
     * This function returns the ranged weapons

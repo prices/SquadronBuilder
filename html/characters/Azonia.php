@@ -55,14 +55,27 @@ class Azonia extends \SquadronBuilder\core\Character
     protected $params = array(
         /** This is a list of the special abilities for this object */
         "name" => "Azonia",
-        /** This is a list of the special abilities for this object */
-        "abilities" => array(
-            "Leadership"      => "+1",
-        ),
         "mecha" => array(
             "Glaug", "QuadluunRau"
         ),
         "factions" => array("Zentraedi", "Malcontents"),
     );
+    /**
+    * Modifies the mecha that this character is given
+    * 
+    * @param \SquadronBuilder\core\Mecha &$mecha The mecha to modify
+    * 
+    * @return bool True if compatible, False otherwise
+    */
+    protected function modifyMecha(\SquadronBuilder\core\Mecha &$mecha)
+    {
+        $abilities = $mecha->get("abilities");
+        if (!isset($abilities["Leadership"])) {
+            $abilities["Leadership"] = 1;
+        } else {
+            $abilities["Leadership"] += 1;
+        }
+        $mecha->set("abilities", $abilities);
+    }
     
 }
