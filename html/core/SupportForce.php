@@ -65,5 +65,30 @@ class SupportForce extends BaseObject
         $return &= in_array($core->get("faction"), (array)$this->get("factions"));
         return $return;
     }
+    /**
+    * Attaches this card to the given core force card
+    * 
+    * @param CoreForce &$core The core force card
+    * 
+    * @return bool True if compatible, False otherwise
+    */
+    public function attach(CoreForce &$core)
+    {
+        $return = $this->check($core);
+        if ($return) {
+            // Do the points
+            $points  = $core->get("points") + $this->get("points");
+            $core->set("points", $points);
+            // Do the mecha
+            foreach ((array)$this->get("mecha") as $mecha => $count) {
+                $core->addMecha($mecha, $count);
+            }
+            // Do the upgrades
+            foreach ((array)$this->get("upgrades") as $name => $upgrade) {
+                $core->addUpgrade($name, $upgrade["points"], $upgrade["desc"]);
+            }
+        }
+        return $return;
+    }
     
 }

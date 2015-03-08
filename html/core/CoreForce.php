@@ -274,5 +274,29 @@ class CoreForce extends BaseObject
         }
         return;
     }
+    /**
+    * Adds an upgrade to the array.
+    *
+    * @param string $name   The name of the mecha to add
+    * @param int    $points The number of points this upgrade is
+    * @param string $desc   The description of this upgrade
+    * 
+    * @return null
+    */
+    protected function addUpgrade($name, $points, $desc)
+    {
+        $upgrades = $this->get("upgrades");
+        if (isset($upgrades[$name])) {
+            $upgrades[$name]["points"] += $points;
+        } else {
+            // If it got here, the upgrade was not found.  Add it.
+            $upgrades[$name] = array(
+                "desc" => $desc,
+                "points" => $points,
+            );
+        }
+        $this->set("upgrades", $upgrades);
+        return;
+    }
     
 }
