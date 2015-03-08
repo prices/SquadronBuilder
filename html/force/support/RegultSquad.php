@@ -32,7 +32,7 @@
  * @link       https://github.com/prices/SquadronBuilder
  */
 /** This is our namespace */
-namespace SquadronBuilder\force\core;
+namespace SquadronBuilder\force\support;
 
 defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 

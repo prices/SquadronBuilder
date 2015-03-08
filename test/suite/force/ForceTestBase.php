@@ -32,7 +32,7 @@
  * @link       https://github.com/prices/SquadronBuilder
  */
 /** This is the namespace */
-namespace SquadronBuilder\force\core;
+namespace SquadronBuilder\force;
 
 /** This is a required class */
 require_once CODE_BASE.'core/CoreForce.php';
@@ -48,7 +48,7 @@ require_once CODE_BASE.'core/CoreForce.php';
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-abstract class CoreTestBase extends \SquadronBuilder\TestBase
+abstract class ForceTestBase extends \SquadronBuilder\TestBase
 {
     /** The object under test */
     protected $class = null;
@@ -72,9 +72,9 @@ abstract class CoreTestBase extends \SquadronBuilder\TestBase
     protected function setUp()
     {
         parent::setUp();
+        $this->class = static::getClass();
         if (!is_null($this->class)) {
-            include_once CODE_BASE."/force/core/".$this->class.".php";
-            $class = '\SquadronBuilder\force\core\\'.$this->class;
+            $class   = $this->class;
             $this->o = new $class($this->index, array());
         }
     }
@@ -93,6 +93,21 @@ abstract class CoreTestBase extends \SquadronBuilder\TestBase
         unset($this->o);
     }
     /**
+    * Includes the right file, and returns the class name
+    *
+    * @access protected
+    *
+    * @return string
+    */
+    protected static function getClass()
+    {
+        $classname = get_called_class();
+        $class = substr($classname, 0, strlen($classname) - 4);
+        $file  = implode("/", explode("\\", substr($class, strpos($class, "\\")))).".php";
+        include_once CODE_BASE.$file;
+        return $class;
+    }
+    /**
     * Data provider for testRemove
     *
     * @return array
@@ -101,12 +116,7 @@ abstract class CoreTestBase extends \SquadronBuilder\TestBase
     {
         $return = array();
         $index = 0;
-        $classname = get_called_class();
-        $classname = explode('\\', $classname);
-        $classname = $classname[count($classname) - 1];
-        $classname = substr($classname, 0, strlen($classname) - 4);
-        $class = '\\'.__NAMESPACE__.'\\'.$classname;
-        include_once CODE_BASE."/force/core/".$classname.".php";
+        $class = static::getClass();
         if (class_exists($class)) {
             $o = new $class($index, array());
             $mecha = $o->get("mecha");
@@ -163,12 +173,7 @@ abstract class CoreTestBase extends \SquadronBuilder\TestBase
     {
         $index = 0;
         $return = array();
-        $classname = get_called_class();
-        $classname = explode('\\', $classname);
-        $classname = $classname[count($classname) - 1];
-        $classname = substr($classname, 0, strlen($classname) - 4);
-        $class = '\\'.__NAMESPACE__.'\\'.$classname;
-        include_once CODE_BASE."/force/core/".$classname.".php";
+        $class = static::getClass();
         if (class_exists($class)) {
             $o = new $class($index, array());
             $upgrades = $o->get("upgrades");
