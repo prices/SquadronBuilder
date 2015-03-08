@@ -162,6 +162,7 @@ abstract class CoreTestBase extends \SquadronBuilder\TestBase
     public static function dataUpgrades()
     {
         $index = 0;
+        $return = array();
         $classname = get_called_class();
         $classname = explode('\\', $classname);
         $classname = $classname[count($classname) - 1];
@@ -174,6 +175,9 @@ abstract class CoreTestBase extends \SquadronBuilder\TestBase
             foreach ((array)$upgrades as $name => $upgrade) {
                 $return[] = array($name, $upgrade);
             }
+        }
+        if (empty($return)) {
+            $return[] = array(null, null);
         }
         return $return;
     }
@@ -233,12 +237,14 @@ abstract class CoreTestBase extends \SquadronBuilder\TestBase
     */
     public function testUpgradeName($name, $upgrade)
     {
-        $min = 5;
-        $max = 40;
-        $note = "Upgrade name must be a string between 5 and 40 characters in length";
-        $this->assertInternalType("string", $name, $note);
-        $this->assertGreaterThanOrEqual($min, strlen($name), $note);
-        $this->assertLessThanOrEqual($max, strlen($name), $note);
+        if (is_array($upgrade)) {
+            $min = 5;
+            $max = 40;
+            $note = "Upgrade name must be a string between 5 and 40 characters in length";
+            $this->assertInternalType("string", $name, $note);
+            $this->assertGreaterThanOrEqual($min, strlen($name), $note);
+            $this->assertLessThanOrEqual($max, strlen($name), $note);
+        }
     }
 
     /**
