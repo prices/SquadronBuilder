@@ -13,11 +13,34 @@ that will allow a player to create squadron cards to play the game with.  The
 squadron cards will be output is SVG format, which Firefox and Chrome will both
 open natively.  From there they can be printed.
 
+## Requirements
+### Running
+* PHP >= 5.3
+* Web server software (any that can run php)
+
+### Testing
+* phpunit >= 3.7
+
+
+## Installing
+
+The entire html/ directory needs to go into the web space of the web server.
+It can go in as a subdirectory or as the root directory.  It will work either
+way.
+
+## Testing
+
+Just run phpunit in the root directory of the git repository.  It will Run
+all of the tests automatically.
+
 ## Contributions
 
 Want to contribute?  Fork the repository, make your changes, the submit a pull
 request.  I welcome changes that are within the scope of the project.
 
+### Requirements
+* All code additions should include tests
+* All tests must pass
 
 ## License
 This is released under the GNU GPL V2.  You can find the complete text in the
@@ -50,7 +73,7 @@ Robotech&reg; and associated names, logos, and all related indicia are trademark
 of Harmony Gold USA, Inc.
 
 Palladium Books&reg;, game terms, names, titles, and other game related words, 
-sysem of play, and slogans are trademarks owned by Palladium Books, Inc.
+system of play, and slogans are trademarks owned by Palladium Books, Inc.
 
 Robotech&reg; RPG Tactics&trade; is published by Palladium Books Inc. 
 http://palladiumbooks.com/
