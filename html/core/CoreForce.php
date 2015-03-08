@@ -191,6 +191,15 @@ class CoreForce extends BaseObject
     */
     public function character($name)
     {
+        $file  = dirname(__FILE__)."/../characters/$name.php";
+        if (file_exists($file)) {
+            include_once $file;
+            $class = '\SquadronBuilder\characters\\'.$name;
+            if (class_exists($class)) {
+                $char = new $class($index);
+                return $char->attach($this);
+            }
+        }
         return false;
     }
     /**
@@ -229,7 +238,7 @@ class CoreForce extends BaseObject
     * 
     * @return pointer to new mecha on success, null otherwise
     */
-    protected function replaceMecha($old, $new, $count = 1)
+    public function replaceMecha($old, $new, $count = 1)
     {
         
         foreach ($this->_mecha as $key => &$mecha) {
@@ -281,7 +290,8 @@ class CoreForce extends BaseObject
                 $mecha->set("count", $cnt);
                 return;
             }
-            unset($mecha);            
+            // This is so that it is not carried through out of the loop
+            unset($mecha);
         }
         // If it got here, the mecha was not found, so we add it.
         $mecha = $this->_loadMecha($name, $count);

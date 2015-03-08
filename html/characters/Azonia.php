@@ -62,26 +62,7 @@ class Azonia extends \SquadronBuilder\core\Character
         "mecha" => array(
             "Glaug", "QuadluunRau"
         ),
+        "factions" => array("Zentraedi", "Malcontents"),
     );
-    /**
-    * Upgrades a mecha with this card.
-    *
-    * @param object &$mecha The mecha to upgrade
-    * 
-    * @return bool true if the mecha was upgraded
-    */
-    public function upgrade(&$mecha)
-    {
-        $name = $mecha->get("name");
-        if ($this->mecha($name)) {
-            $name .= " (".$this->get("name").")";
-            $mecha->set("name", $name);
-            $abilities = $mecha->get("abilities");
-            $abilities["Leadership"] += 1;
-            $mecha->set("abilities", $abilities);
-            return true;
-        }
-        return false;
-    }
     
 }

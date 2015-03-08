@@ -78,11 +78,7 @@ if (isset($_GET["special"])) {
     }
 }
 if (isset($_GET["character"])) {
-    foreach ((array)$_GET["character"] as $name => $value) {
-        if ($value == 1) {
-            $core->character($name);
-        }
-    }
+    $core->character($_GET["character"]);
 }
 if (isset($_GET["upgrades"])) {
     foreach ((array)$_GET["upgrades"] as $name => $value) {

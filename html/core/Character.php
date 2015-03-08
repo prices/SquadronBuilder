@@ -61,42 +61,48 @@ abstract class Character extends BaseObject
         ),
         "mecha" => array(
         ),
+        "factions" => array(
+        ),
     );
     /**
-    * This function exports the abilities list as a block
-    *
-    * @param int &$x     The x to translate
-    * @param int &$y     The y to translate
+    * Checks to see if this card is compatible with the core force card
     * 
-    * @return string The svg text for the block
+    * @param \SquadronBuilder\core\CoreForce $core The core force card
+    * 
+    * @return bool True if compatible, False otherwise
     */
-    public function render($x = 0, $y = 0)
+    public function check(\SquadronBuilder\core\CoreForce $core)
     {
+        $return  = true;
+        $return &= in_array($core->get("faction"), (array)$this->get("factions"));
+        return $return;
     }
     /**
-    * Checks if a character can use this mecha
-    *
-    * @param string $mecha The mecha to check
+    * Attaches this card to the given core force card
     * 
-    * @return bool true if this character can be in this mecha
+    * @param \SquadronBuilder\core\CoreForce &$core The core force card
+    * 
+    * @return bool True if compatible, False otherwise
     */
-    public function mecha($mecha)
+    public function attach(\SquadronBuilder\core\CoreForce &$core)
     {
-        if (array_search($mecha, $this->get("mecha")) !== false) {
-            return true;
+        $return = $this->check($core);
+        if ($return) {
+            // Do the points
+            $points  = $core->get("points") + $this->get("points");
+            $core->set("points", $points);
+            // Do the mecha
+            $return = false;
+            foreach ((array)$this->get("mecha") as $mecha) {
+                $res = $core->replaceMecha($mecha, $mecha, 1);
+                if (is_object($res)) {
+                    $res->set("name", $res->get("name")." (".$this->get("name").")");
+                    $return = true;
+                    break;
+                }
+            }
         }
-        false;
-    }
-    /**
-    * Upgrades a mecha with this card.
-    *
-    * @param object &$mecha The mecha to upgrade
-    * 
-    * @return bool true if the mecha was upgraded
-    */
-    public function upgrade(&$mecha)
-    {
-        return false;
+        return $return;
     }
 
 }
