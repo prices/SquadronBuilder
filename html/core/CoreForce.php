@@ -194,6 +194,26 @@ class CoreForce extends BaseObject
         return false;
     }
     /**
+    * This function runs an upgrade
+    *
+    * @param string $name  The name of the upgrade
+    * 
+    * @return true if ready to apply, false if already applied
+    */
+    public function special($name)
+    {
+        $file  = dirname(__FILE__)."/../force/special/$name.php";
+        if (file_exists($file)) {
+            include_once $file;
+            $class = '\SquadronBuilder\force\special\\'.$name;
+            if (class_exists($class)) {
+                $special = new $class($index);
+                return $special->attach($this);
+            }
+        }
+        return false;
+    }
+    /**
     * This replaces mechs in our _mechas array.
     *
     * This will also split off a group of mecha from a bunch.  So if you have 9
@@ -261,6 +281,7 @@ class CoreForce extends BaseObject
                 $mecha->set("count", $cnt);
                 return;
             }
+            unset($mecha);            
         }
         // If it got here, the mecha was not found, so we add it.
         $mecha = $this->_loadMecha($name, $count);
@@ -268,6 +289,21 @@ class CoreForce extends BaseObject
             $this->_mecha[] = $mecha;
         }
         return;
+    }
+    /**
+    * This returns the mecha in the _mecha array
+    *
+    * @return array of the form array(name => count)
+    */
+    public function getMecha()
+    {
+        $return = array();
+        foreach ($this->_mecha as $key => &$mecha) {
+            $class = get_class($mecha);
+            $name  = substr($class, strrpos($class, "\\") + 1);
+            $return[$name] = $mecha->get("count");
+        }
+        return $return;
     }
     /**
     * Adds an upgrade to the array.

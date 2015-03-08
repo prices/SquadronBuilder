@@ -63,16 +63,34 @@ $core = new $class(
         "maxheight" => ($height - $margin),
     )
 );
-foreach ((array)$_GET["upgrades"] as $name => $value) {
-    if ($value == 1) {
-        $core->upgrade($name);
+if (isset($_GET["support"])) {
+    foreach ((array)$_GET["support"] as $name => $value) {
+        if ($value == 1) {
+            $core->support($name);
+        }
     }
 }
-foreach ((array)$_GET["support"] as $value) {
-    $core->support($value);
+if (isset($_GET["special"])) {
+    foreach ((array)$_GET["special"] as $name => $value) {
+        if ($value == 1) {
+            $core->special($name);
+        }
+    }
 }
-
-
+if (isset($_GET["character"])) {
+    foreach ((array)$_GET["character"] as $name => $value) {
+        if ($value == 1) {
+            $core->character($name);
+        }
+    }
+}
+if (isset($_GET["upgrades"])) {
+    foreach ((array)$_GET["upgrades"] as $name => $value) {
+        if ($value == 1) {
+            $core->upgrade($name);
+        }
+    }
+}
 $Weapon = new \SquadronBuilder\abilities\Weapon($index);
 $Mecha  = new \SquadronBuilder\abilities\Mecha($index);
 $HtH  = new \SquadronBuilder\abilities\HandToHand($index);

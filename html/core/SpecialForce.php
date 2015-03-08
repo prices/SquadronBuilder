@@ -37,7 +37,7 @@ namespace SquadronBuilder\core;
 defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 
 /** These are our required files */
-require_once "BaseObject.php";
+require_once "SupportForce.php";
 
 /**
  * This class deals with printing out a single mecha.
@@ -50,45 +50,7 @@ require_once "BaseObject.php";
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class SupportForce extends BaseObject
+class SpecialForce extends SupportForce
 {    
-    /**
-    * Checks to see if this card is compatible with the core force card
-    * 
-    * @param \SquadronBuilder\core\CoreForce $core The core force card
-    * 
-    * @return bool True if compatible, False otherwise
-    */
-    public function check(\SquadronBuilder\core\CoreForce $core)
-    {
-        $return  = true;
-        $return &= in_array($core->get("faction"), (array)$this->get("factions"));
-        return $return;
-    }
-    /**
-    * Attaches this card to the given core force card
-    * 
-    * @param \SquadronBuilder\core\CoreForce &$core The core force card
-    * 
-    * @return bool True if compatible, False otherwise
-    */
-    public function attach(\SquadronBuilder\core\CoreForce &$core)
-    {
-        $return = $this->check($core);
-        if ($return) {
-            // Do the points
-            $points  = $core->get("points") + $this->get("points");
-            $core->set("points", $points);
-            // Do the mecha
-            foreach ((array)$this->get("mecha") as $mecha => $count) {
-                $core->addMecha($mecha, $count);
-            }
-            // Do the upgrades
-            foreach ((array)$this->get("upgrades") as $name => $upgrade) {
-                $core->addUpgrade($name, $upgrade["points"], $upgrade["desc"]);
-            }
-        }
-        return $return;
-    }
     
 }

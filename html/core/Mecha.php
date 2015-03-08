@@ -323,6 +323,7 @@ class Mecha extends BaseObject
             $ammo .= $this->_ammo($x, $y);
             $y    += $this->padding;
         }
+        $jetti = "";
         if ($this->_hasJettison()) {
             $jetti = $this->jettison($x, $y);
         }

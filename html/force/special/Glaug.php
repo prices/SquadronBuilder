@@ -23,8 +23,8 @@
  * </pre>
  *
  * @category   html
- * @package    core
- * @subpackage mecha
+ * @package    abilities
+ * @subpackage weapons
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -32,26 +32,42 @@
  * @link       https://github.com/prices/SquadronBuilder
  */
 /** This is our namespace */
-namespace SquadronBuilder\core;
+namespace SquadronBuilder\force\special;
 
 defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 
 /** These are our required files */
-require_once "BaseObject.php";
+require_once dirname(__FILE__)."/../../core/SpecialForce.php";
 
 /**
- * This class deals with printing out a single mecha.
+ * This class deals with printing out a single weapon.
  *
  * @category   html
- * @package    core
- * @subpackage mecha
+ * @package    abilities
+ * @subpackage weapons
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class SupportForce extends BaseObject
-{    
+class Glaug extends \SquadronBuilder\core\SpecialForce
+{
+    protected $params = array(
+        /** This is our header for abilities **/
+        "name" => "Glaug",
+        /** These are our weapons */
+        "mecha" => array(
+            "Glaug" => 1, 
+        ),
+        "points" => 20,
+        "upgrades" => array(
+            "Glaug-Eldare" => array(
+                "desc" => "Upgrade the Glaug in the squadron to a Glaug-Eldare",
+                "points" => 30,
+            ),
+        ),
+        "factions" => array("Zentraedi"),
+    );
     /**
     * Checks to see if this card is compatible with the core force card
     * 
@@ -61,31 +77,11 @@ class SupportForce extends BaseObject
     */
     public function check(\SquadronBuilder\core\CoreForce $core)
     {
-        $return  = true;
-        $return &= in_array($core->get("faction"), (array)$this->get("factions"));
-        return $return;
-    }
-    /**
-    * Attaches this card to the given core force card
-    * 
-    * @param \SquadronBuilder\core\CoreForce &$core The core force card
-    * 
-    * @return bool True if compatible, False otherwise
-    */
-    public function attach(\SquadronBuilder\core\CoreForce &$core)
-    {
-        $return = $this->check($core);
+        $return  = parent::check($core);
         if ($return) {
-            // Do the points
-            $points  = $core->get("points") + $this->get("points");
-            $core->set("points", $points);
-            // Do the mecha
-            foreach ((array)$this->get("mecha") as $mecha => $count) {
-                $core->addMecha($mecha, $count);
-            }
-            // Do the upgrades
-            foreach ((array)$this->get("upgrades") as $name => $upgrade) {
-                $core->addUpgrade($name, $upgrade["points"], $upgrade["desc"]);
+            $mecha = $core->getMecha();
+            if (isset($mecha["Glaug"])) {
+                $return = false;
             }
         }
         return $return;
