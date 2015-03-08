@@ -117,11 +117,11 @@ class CoreForce extends BaseObject
         $file  = dirname(__FILE__)."/../mecha/$classname.php";
         if (file_exists($file)) {
             include_once $file;
-            $class = '\SquadronBuilder\mecha\\'.$classname;
-            if (class_exists($class)) {
-                $params["count"] = $count;
-                $mecha = new $class($index, $params);
-            }
+        }
+        $class = '\SquadronBuilder\mecha\\'.$classname;
+        if (class_exists($class)) {
+            $params["count"] = $count;
+            $mecha = new $class($index, $params);
         }
         return $mecha;
     }
@@ -150,6 +150,7 @@ class CoreForce extends BaseObject
             $dy    += $mecha->height() + $this->padding;
         }
         $this->height =  $dy - $y + $this->padding;
+        $text = $this->group($text, $x, $y);
         return $text;
     }
     /**
@@ -374,5 +375,60 @@ class CoreForce extends BaseObject
         $this->set("upgrades", $upgrades);
         return;
     }
-    
+    /**
+    * Gets all of the files in a directory
+    *
+    * @return null
+    */
+    public function getMods()
+    {
+        $return = array();
+        $this->_apply();
+        $types = array(
+            "support" => "force/support",
+            "special" => "force/special",
+            "character" => "characters",
+        );
+        $prefix = dirname(__FILE__)."/../";
+        foreach ($types as $name => $dir) {
+            $return[$name] = array();
+            $files = $this->_getFiles($prefix.$dir);
+            foreach ($files as $file) {
+                if (file_exists($prefix.$dir."/".$file)) {
+                    include_once $prefix.$dir."/".$file;
+                    $classname = substr(trim($file), 0, strlen($file) - 4);
+                    $class = "\\SquadronBuilder\\".str_replace("/", "\\", $dir)."\\".$classname;
+                    if (class_exists($class)) {
+                        $obj = new $class($this->index);
+                        if ($obj->check($this)) {
+                            $return[$name][$classname] = $obj;
+                        }
+                    }
+                }
+            }
+        }
+        $return["upgrades"] = $this->get("upgrades");
+        return $return;
+    }
+    /**
+    * Gets all of the files in a directory
+    *
+    * @param string $dir The directory to get the files of
+    * 
+    * @return null
+    */
+    private function _getFiles($dir)
+    {
+        $return = array();
+        if ($handle = opendir($dir)) {
+            while (false !== ($entry = readdir($handle))) {
+                if (strtolower(substr(trim($entry), -4) == ".php")) {
+                    $return[] = $entry;
+                }
+            }
+            closedir($handle);
+        }
+        return $return;
+    }
+
 }
