@@ -119,8 +119,12 @@ class CoreForce extends BaseObject
             include_once $file;
         }
         $class = '\SquadronBuilder\mecha\\'.$classname;
+        
         if (class_exists($class)) {
-            $params["count"] = $count;
+            $params = array(
+                "count" => $count,
+                "width" => $this->width,
+            );
             $mecha = new $class($index, $params);
         }
         return $mecha;

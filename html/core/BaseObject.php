@@ -52,6 +52,8 @@ abstract class BaseObject
 {    
     /** This is the size of the damage squares in mm*/
     const DSIZE = 3;
+    /** This is the size of the damage squares in mm*/
+    const DMULT = 1.2;
     /** This is the size of normal text in mm */
     const SSIZE = 1.75;
     /** This is the size of normal text in mm */
@@ -442,13 +444,13 @@ abstract class BaseObject
         $cutoff = round($boxes / $rows);
         for ($i = 0; $i < $boxes; $i++) {
             if (($i > 0) && (($i % $cutoff) == 0)) {
-                $dy += self::DSIZE * 1.2;
+                $dy += self::DSIZE * self::DMULT;
                 $dx = $x;
             }
             $ret .= $this->damageBox($dx, $dy, $color);
-            $dx += self::DSIZE * 1.2;
+            $dx += self::DSIZE * self::DMULT;
         }
-        $y += self::DSIZE * $rows * 1.2;
+        $y += self::DSIZE * $rows * self::DMULT;
         
         return $ret;
     }
