@@ -297,7 +297,9 @@ class CoreForce extends BaseObject
     {
         
         foreach ($this->_mecha as $key => &$mecha) {
-            if ($mecha->get("name") == $old) {
+            $class = get_class($mecha);
+            $class = substr($class, strrpos($class, "\\")+1);
+            if ($class == $old) {
                 if ($new == $old) {
                     // If this is the same mecha, clone the one there to get any
                     // changes made to it.
