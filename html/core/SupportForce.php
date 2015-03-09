@@ -90,5 +90,16 @@ class SupportForce extends BaseObject
         }
         return $return;
     }
+    /**
+    * Runs upgrades for this card
+    * 
+    * @param \SquadronBuilder\core\CoreForce &$core   The core force card
+    * @param string                          $upgrade The upgrade to perform
+    * 
+    * @return bool True if compatible, False otherwise
+    */
+    public function upgrade(\SquadronBuilder\core\CoreForce &$core, $upgrade)
+    {
+    }
     
 }

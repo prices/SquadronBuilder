@@ -56,7 +56,7 @@ class Azonia extends \SquadronBuilder\core\Character
         /** This is a list of the special abilities for this object */
         "name" => "Azonia",
         "mecha" => array(
-            "Glaug", "QueadluunRau"
+            "Glaug", "GlaugEldare", "QueadluunRau"
         ),
         "points" => 5,
         "factions" => array("Zentraedi", "Malcontents"),

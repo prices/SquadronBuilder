@@ -86,5 +86,22 @@ class Glaug extends \SquadronBuilder\core\SpecialForce
         }
         return $return;
     }
+    /**
+    * Runs upgrades for this card
+    * 
+    * @param \SquadronBuilder\core\CoreForce &$core   The core force card
+    * @param string                          $upgrade The upgrade to perform
+    * 
+    * @return bool True if compatible, False otherwise
+    */
+    public function upgrade(\SquadronBuilder\core\CoreForce &$core, $upgrade)
+    {
+        switch ($upgrade) {
+        case "Glaug-Eldare":
+            $core->replaceMecha("Glaug", "GlaugEldare");
+            break;
+        }
+        return true;
+    }
     
 }

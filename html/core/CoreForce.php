@@ -163,9 +163,9 @@ class CoreForce extends BaseObject
     public function upgrade($name)
     {
         $upgrades = $this->get("upgrades");
-        if (isset($upgrades[$name]) && is_array($this->_upgrade)) {
+        if (is_array($this->_upgrade)) {
             if (parent::upgrade($name)) {
-                $this->_upgrade[$name] = $upgrades[$name];
+                $this->_upgrade[$name] = $name;
                 return true;
             }
         }
@@ -178,13 +178,17 @@ class CoreForce extends BaseObject
     */
     private function _apply()
     {
-        foreach (array("_support", "_special", "_character") as $type) {
+        $objects = array();
+        foreach (array("_support", "_special") as $type) {
             foreach ($this->$type as &$obj) {
                 $obj->attach($this);
+                $objects[] = $obj;
             }
             $this->$type = null;
         }
-        foreach ($this->_upgrade as $name => $value) {
+        $upgrades = $this->get("upgrades");
+        foreach ($this->_upgrade as $name) {
+            $value = $upgrades[$name];
             foreach ($this->_mecha as &$mecha) {
                 $mecha->upgrade($name);
             }
@@ -192,6 +196,15 @@ class CoreForce extends BaseObject
             $points = $this->get("points");
             $points += $value["points"];
             $this->set("points", $points);
+            foreach ($objects as &$obj) {
+                $obj->upgrade($this, $name);
+            }
+        }
+        foreach (array("_character") as $type) {
+            foreach ($this->$type as &$obj) {
+                $obj->attach($this);
+            }
+            $this->$type = null;
         }
         $this->_upgrade = null;
     }
