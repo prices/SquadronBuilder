@@ -43,9 +43,63 @@ $class = '\SquadronBuilder\force\core\\'.$coreclass;
 if (!class_exists($class)) {
     header("Location: index.php");
 }
-$core = new $class();
+require_once dirname(__FILE__)."/force/Force.php";
 
-$upgrades = (array)$core->get("upgrades");
+$index = 0;
+$core = new $class($index);
+
+$force = new \SquadronBuilder\force\Force($core->get("faction"));
+
+$done   = null;
+$hidden = "";
+$print  = "";
+if (isset($_GET["support"]) && is_array($_GET["support"])) {
+    $done = "support";
+    $print .= "<h3>Support</h3><ol>";
+    foreach ($_GET["support"] as $supp) {
+        if (!empty($supp)) {
+            $core->support($supp);
+            $hidden .= '<input type="hidden" name="support[]" value="'.$supp.'" />'."\n";
+            $print .= "<li>".$supp."</li>";
+        }
+    }
+    $print .= "</ol>";
+}
+if (isset($_GET["special"]) && is_array($_GET["special"])) {
+    $done = "special";
+    $print .= "<h3>Special</h3><ol>";
+    foreach ($_GET["special"] as $supp) {
+        if (!empty($supp)) {
+            $core->special($supp);
+            $hidden .= '<input type="hidden" name="special[]" value="'.$supp.'" />'."\n";
+            $print .= "<li>".$supp."</li>";
+        }
+    }
+    $print .= "</ol>";
+}
+if (isset($_GET["character"]) && is_string($_GET["character"])) {
+    $done = "character";
+    $print .= "<h3>Character</h3><ol>";
+    if (!empty($_GET["character"])) {
+        $core->character($_GET["character"]);
+        $hidden .= '<input type="hidden" name="character" value="'.$_GET["character"].'" />'."\n";
+        $print .= "<li>".$_GET["character"]."</li>";
+    }
+    $print .= "</ol>";
+}
+
+$target = "coreforce.php";
+if ($done == "character") {
+    $core->render();
+    $upgrades = (array)$core->get("upgrades");
+    $target = "document.php";
+} else if ($done == "special") {
+    $characters = $force->characters($core);
+} else if ($done == "support") {
+    $special = $force->special($core);
+} else {
+    $support = $force->support($core);
+}
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
@@ -60,22 +114,56 @@ $upgrades = (array)$core->get("upgrades");
         <h2><?php print $core->get("name"); ?></h2>
             <h3><?php print $core->get("points"); ?> Points</h3>
             <a href="index.php">Choose a different Core Squadron</a>
-        <form action="document.php" method="get">
+        <form action="<?php print $target; ?>" method="get">
             <input type="hidden" name="core" value="<?php print $coreclass; ?>" />
             <input type="hidden" name="test" value="1" />
-            <h3>Upgrades:</h3>
-            <dl>
-            <?php foreach ($upgrades as $name => $upgrade): ?>
-                <dd>
-                    <input type="checkbox" name="upgrades[<?php print $name; ?>]" value="1" />
-                    <span style="font-weight: bold;"/>
-                        <?php print $name; ?>
-                        [<?php print ($upgrade["points"] > 0) ? "+" : "-"; ?><?php print $upgrade["points"]; ?> pts]
-                    </span>
-                    <?php print $upgrade["desc"]; ?>
-                </dd>  
-            <?php endforeach; ?>
-            </dl>
+            <?php print $hidden.$print; ?>
+            <?php if (isset($support)): ?>
+                <h3>Support:</h3>
+                <select name="support[]">
+                    <option value="">None</option>
+                <?php foreach ($support as $name => $val): ?>
+                    <option value="<?php print $name; ?>"><?php print $val["name"]; ?></option>
+                <?php endforeach; ?>
+                </select>
+                <select name="support[]">
+                    <option value="">None</option>
+                <?php foreach ($support as $name => $val): ?>
+                    <option value="<?php print $name; ?>"><?php print $val["name"]; ?></option>
+                <?php endforeach; ?>
+                </select>
+            <?php elseif (isset($special)): ?>
+                <h3>Special Support:</h3>
+                <select name="special[]">
+                    <option value="">None</option>
+                <?php foreach ($special as $name => $val): ?>
+                    <option value="<?php print $name; ?>"><?php print $val["name"]; ?></option>
+                <?php endforeach; ?>
+                </select>
+            <?php elseif (isset($characters)): ?>
+                <h3>Characters:</h3>
+                <select name="character">
+                    <option value="">None</option>
+                <?php foreach ($characters as $name => $val): ?>
+                    <option value="<?php print $name; ?>"><?php print $val["name"]; ?></option>
+                <?php endforeach; ?>
+                </select>
+            <?php elseif (isset($upgrades)): ?>
+                <h3>Upgrades:</h3>
+                <dl>
+                <?php foreach ($upgrades as $name => $upgrade): ?>
+                    <dd>
+                        <input type="checkbox" name="upgrades[<?php print $name; ?>]" value="1" />
+                        <span style="font-weight: bold;"/>
+                            <?php print $name; ?>
+                            [<?php print ($upgrade["points"] > 0) ? "+" : "-"; ?><?php print $upgrade["points"]; ?> pts]
+                        </span>
+                        <?php print $upgrade["desc"]; ?>
+                    </dd>  
+                <?php endforeach; ?>
+                </dl>
+            <?php endif; ?>
+            <br />
             <input type="submit" name="submit" value="Submit" />
         </form>
     </body>

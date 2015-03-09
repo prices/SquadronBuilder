@@ -40,6 +40,8 @@ require_once CODE_BASE.'core/CoreForce.php';
 require_once CODE_BASE.'core/Mecha.php';
 /** This is a required class */
 require_once CODE_BASE.'core/Weapon.php';
+/** This is the test classes */
+require_once TEST_CONFIG_BASE.'files/TestClasses.php';
 
 /**
  * This class deals with printing out a single mecha.
@@ -342,63 +344,6 @@ class CoreForceTest extends \SquadronBuilder\TestBase
         $this->o = new $class($this->x, $this->y, $this->index, array());
         $xml = $this->o->render($x, $y);
         $this->assertEquals($expect, $this->xml2array($xml));
-    }
-    /**
-    * Data provider for testRemove
-    *
-    * @return array
-    */
-    public static function dataGetMods()
-    {
-        return array(
-            array(
-                '\SquadronBuilder\force\core\CoreForceTest1',
-                1,
-                5,
-                array(
-                    "support" => array(
-                        'RegultSquad' => 'SquadronBuilder\force\support\RegultSquad',
-                    ),
-                    "special" => array(
-                        'Glaug' => 'SquadronBuilder\force\special\Glaug',
-                    ),
-                    "character" => array(
-                        'Azonia' => 'SquadronBuilder\characters\Azonia',
-                    ),
-                    "upgrades" => array(
-                        "Veteran Warriors" => array(
-                            "desc" => "Regults, Serau-Ger and Gluu-Ger in this squadron get +1 to Piloting (or Physical) and +1 to Gunnery",
-                            "points" => 10,
-                        ),
-                    ),
-                ),
-            ),
-        );
-    }
-    /**
-    * Tests the iteration and preload functions
-    *
-    * @param string $class  The clas to use
-    * @param float  $x      The xcoord to translate to
-    * @param float  $y      The ycoord to translate to
-    * @param array  $expect The info to expect returned
-    *
-    * @return null
-    *
-    * @dataProvider dataGetMods
-    */
-    public function testGetMods($class, $x, $y, $expect)
-    {
-        $this->o = new $class($this->x, $this->y, $this->index, array());
-        $mods = $this->o->getMods();
-        foreach ($mods as $key => &$type) {
-            foreach ($type as $k => &$obj) {
-                if (is_object($obj)) {
-                    $obj = get_class($obj);
-                }
-            }
-        }
-        $this->assertEquals($expect, $mods);
     }
 
 }

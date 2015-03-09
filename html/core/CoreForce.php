@@ -205,8 +205,10 @@ class CoreForce extends BaseObject
     public function support($name)
     {
         $file  = dirname(__FILE__)."/../force/support/$name.php";
-        if (file_exists($file) && is_array($this->_support) && (count($this->_support) <= self::SUPPORT)) {
+        if (file_exists($file)) {
             include_once $file;
+        }
+        if (is_array($this->_support) && (count($this->_support) <= self::SUPPORT)) {
             $class = '\SquadronBuilder\force\support\\'.$name;
             if (class_exists($class)) {
                 $supp = new $class($index);
@@ -225,10 +227,12 @@ class CoreForce extends BaseObject
     */
     public function character($name)
     {
-        $file  = dirname(__FILE__)."/../characters/$name.php";
-        if (file_exists($file) && is_array($this->_character) && (count($this->_character) <= self::CHARACTERS)) {
+        $file  = dirname(__FILE__)."/../force/characters/$name.php";
+        if (file_exists($file)) {
             include_once $file;
-            $class = '\SquadronBuilder\characters\\'.$name;
+        }
+        if (is_array($this->_character) && (count($this->_character) <= self::CHARACTERS)) {
+            $class = '\SquadronBuilder\force\characters\\'.$name;
             if (class_exists($class)) {
                 $char = new $class($index);
                 $this->_character[] = $char;
@@ -247,8 +251,10 @@ class CoreForce extends BaseObject
     public function special($name)
     {
         $file  = dirname(__FILE__)."/../force/special/$name.php";
-        if (file_exists($file) && is_array($this->_special) && (count($this->_special) <= self::SPECIAL)) {
+        if (file_exists($file)) {
             include_once $file;
+        }
+        if (is_array($this->_special) && (count($this->_special) <= self::SPECIAL)) {
             $class = '\SquadronBuilder\force\special\\'.$name;
             if (class_exists($class)) {
                 $spec = new $class($index);
@@ -374,61 +380,6 @@ class CoreForce extends BaseObject
         }
         $this->set("upgrades", $upgrades);
         return;
-    }
-    /**
-    * Gets all of the files in a directory
-    *
-    * @return null
-    */
-    public function getMods()
-    {
-        $return = array();
-        $this->_apply();
-        $types = array(
-            "support" => "force/support",
-            "special" => "force/special",
-            "character" => "characters",
-        );
-        $prefix = dirname(__FILE__)."/../";
-        foreach ($types as $name => $dir) {
-            $return[$name] = array();
-            $files = $this->_getFiles($prefix.$dir);
-            foreach ($files as $file) {
-                if (file_exists($prefix.$dir."/".$file)) {
-                    include_once $prefix.$dir."/".$file;
-                    $classname = substr(trim($file), 0, strlen($file) - 4);
-                    $class = "\\SquadronBuilder\\".str_replace("/", "\\", $dir)."\\".$classname;
-                    if (class_exists($class)) {
-                        $obj = new $class($this->index);
-                        if ($obj->check($this)) {
-                            $return[$name][$classname] = $obj;
-                        }
-                    }
-                }
-            }
-        }
-        $return["upgrades"] = $this->get("upgrades");
-        return $return;
-    }
-    /**
-    * Gets all of the files in a directory
-    *
-    * @param string $dir The directory to get the files of
-    * 
-    * @return null
-    */
-    private function _getFiles($dir)
-    {
-        $return = array();
-        if ($handle = opendir($dir)) {
-            while (false !== ($entry = readdir($handle))) {
-                if (strtolower(substr(trim($entry), -4) == ".php")) {
-                    $return[] = $entry;
-                }
-            }
-            closedir($handle);
-        }
-        return $return;
     }
 
 }

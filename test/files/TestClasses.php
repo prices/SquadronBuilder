@@ -31,56 +31,12 @@
  * @version    GIT: $Id: $
  * @link       https://github.com/prices/SquadronBuilder
  */
-namespace SquadronBuilder\force\core;
-/**
- * This class deals with printing out a single weapon.
- *
- * @category   html
- * @package    abilities
- * @subpackage weapons
- * @author     Scott Price <prices@dflytech.com>
- * @copyright  2015 Scott Price
- * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link       https://github.com/prices/SquadronBuilder
- */
-class CoreForceTest1 extends \SquadronBuilder\core\CoreForce
-{
-    protected $params = array(
-        /** This is our header for abilities **/
-        "name" => "Test Squadron 1",
-        /** These are our weapons */
-        "mecha" => array(
-            "MechaTest1" => 1, 
-        ),
-        "points" => 50,
-        "upgrades" => array(
-            "Veteran Warriors" => array(
-                "desc" => "Regults, Serau-Ger and Gluu-Ger in this squadron get +1 to Piloting (or Physical) and +1 to Gunnery",
-                "points" => 10,
-            ),
-        ),
-        "faction" => "Zentraedi",
-    );
-    /**
-    * This function runs an upgrade
-    *
-    * @param string $name  The name of the upgrade
-    * 
-    * @return true if ready to apply, false if already applied
-    */
-    public function upgrade($name)
-    {
-        if (parent::upgrade($name)) {
-            switch ($name) {
-            case "":
-                break;
-            }
-            return true;
-        }
-        return false;
-    }
-}
 namespace SquadronBuilder\mecha;
+
+require_once CODE_BASE."/core/Mecha.php";
+require_once CODE_BASE."/core/Weapon.php";
+require_once dirname(__FILE__)."/force/core/CoreForceTest1.php";
+
 /**
  * Test class for Mecha
  *

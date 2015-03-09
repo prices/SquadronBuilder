@@ -32,6 +32,14 @@
  * @link       https://github.com/prices/SquadronBuilder
  */
 define("_SQUADRONBUILDER", true);
+
+require_once dirname(__FILE__)."/force/Force.php";
+
+if (isset($_GET["faction"])) {
+    $faction = $_GET["faction"];
+    $force = new \SquadronBuilder\force\Force($faction);
+    $core  = (array)$force->core();
+}
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
@@ -43,14 +51,26 @@ define("_SQUADRONBUILDER", true);
         <link rel="stylesheet" href="css/default.css" />
     </head>
     <body>
-        Pick a core force:
-        <ul>
-            <li><a href="coreforce.php?core=RegultAttackSquadron">Regult Attack Squadron</a></li>
-            <li><a href="coreforce.php?core=RegultAttritionSquadron">Regult Attrition Squadron</a></li>
-            <li><a href="coreforce.php?core=RegultReconSquadron">Regult Recon Squadron</a></li>
-            <li><a href="coreforce.php?core=RegultArtillerySquadron">Regult Artillery Squadron</a></li>
-            <li><a href="coreforce.php?core=NousjadeulGerSquadron">Nousdadeul-Ger Squadron</a></li>
-        </ul>
+    <?php if (isset($force)) : ?>
+        <h2>Pick a core force:</h2>
+        <dl>
+        <?php foreach ($core as $coreforce => $desc): ?>
+            <dt><a href="coreforce.php?faction=<?php print $faction; ?>&core=<?php print $coreforce; ?>"><?php print $desc["name"]." [".$desc["points"]."pts]"; ?></dt>
+            <dd></dd>
+        <?php endforeach; ?>
+        </dl>
+    <?php else : ?>
+        <h2>Pick a faction</h2>
+        <dl>
+            <dt><a href="index.php?faction=UEDF">United Earth Defense Force (UEDF)</dt>
+            <dd></dd>
+            <dt><a href="index.php?faction=Zentraedi">Zentraedi Armada</dt>
+            <dd></dd>
+            <dt><a href="index.php?faction=Malcontents">Malcontents</dt>
+            <dd></dd>
+            
+        </dl>
+    <?php endif; ?>
     </body>
 
 

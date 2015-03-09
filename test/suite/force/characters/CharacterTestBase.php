@@ -32,7 +32,7 @@
  * @link       https://github.com/prices/SquadronBuilder
  */
 /** This is the namespace */
-namespace SquadronBuilder\characters;
+namespace SquadronBuilder\force\characters;
 
 /** This is a required class */
 require_once CODE_BASE.'core/Character.php';

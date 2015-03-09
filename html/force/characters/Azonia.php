@@ -23,8 +23,8 @@
  * </pre>
  *
  * @category   html
- * @package    core
- * @subpackage weapons
+ * @package    abilities
+ * @subpackage mecha
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -32,83 +32,35 @@
  * @link       https://github.com/prices/SquadronBuilder
  */
 /** This is our namespace */
-namespace SquadronBuilder\core;
+namespace SquadronBuilder\force\characters;
 
 defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 
 /** These are our required files */
-require_once "BaseObject.php";
+require_once dirname(__FILE__)."/../../core/Character.php";
 
 /**
  * This class deals with printing out a single weapon.
  *
  * @category   html
- * @package    core
- * @subpackage weapons
+ * @package    abilities
+ * @subpackage mecha
  * @author     Scott Price <prices@dflytech.com>
  * @copyright  2015 Scott Price
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-abstract class Character extends BaseObject
+class Azonia extends \SquadronBuilder\core\Character
 {
     protected $params = array(
         /** This is a list of the special abilities for this object */
-        "name" => "Character",
-        /** This is a list of the special abilities for this object */
-        "abilities" => array(
-            "None"      => "No Abilities",
-        ),
+        "name" => "Azonia",
         "mecha" => array(
+            "Glaug", "QueadluunRau"
         ),
-        "factions" => array(
-        ),
+        "points" => 5,
+        "factions" => array("Zentraedi", "Malcontents"),
     );
-    /**
-    * Checks to see if this card is compatible with the core force card
-    * 
-    * @param \SquadronBuilder\core\CoreForce $core The core force card
-    * 
-    * @return bool True if compatible, False otherwise
-    */
-    public function check(\SquadronBuilder\core\CoreForce $core)
-    {
-        $return  = true;
-        $return &= in_array($core->get("faction"), (array)$this->get("factions"));
-        // Check to see if the right mecha is available.
-        $options = $this->get("mecha");
-        $mecha   = array_keys($core->getMecha());
-        $return &= (count(array_intersect($mecha, $options)) > 0);
-        return $return;
-    }
-    /**
-    * Attaches this card to the given core force card
-    * 
-    * @param \SquadronBuilder\core\CoreForce &$core The core force card
-    * 
-    * @return bool True if compatible, False otherwise
-    */
-    public function attach(\SquadronBuilder\core\CoreForce &$core)
-    {
-        $return = $this->check($core);
-        if ($return) {
-            // Do the points
-            $points  = $core->get("points") + $this->get("points");
-            $core->set("points", $points);
-            // Do the mecha
-            $return = false;
-            foreach ((array)$this->get("mecha") as $mecha) {
-                $res = $core->replaceMecha($mecha, $mecha, 1);
-                if (is_object($res)) {
-                    $res->character($this->get("name"));
-                    $this->modifyMecha($res);
-                    $return = true;
-                    break;
-                }
-            }
-        }
-        return $return;
-    }
     /**
     * Modifies the mecha that this character is given
     * 
@@ -118,6 +70,13 @@ abstract class Character extends BaseObject
     */
     protected function modifyMecha(\SquadronBuilder\core\Mecha &$mecha)
     {
+        $abilities = $mecha->get("abilities");
+        if (!isset($abilities["Leadership"])) {
+            $abilities["Leadership"] = 1;
+        } else {
+            $abilities["Leadership"] += 1;
+        }
+        $mecha->set("abilities", $abilities);
     }
-
+    
 }

@@ -64,17 +64,13 @@ $core = new $class(
     )
 );
 if (isset($_GET["support"])) {
-    foreach ((array)$_GET["support"] as $name => $value) {
-        if ($value == 1) {
-            $core->support($name);
-        }
+    foreach ((array)$_GET["support"] as $name) {
+        $core->support($name);
     }
 }
 if (isset($_GET["special"])) {
-    foreach ((array)$_GET["special"] as $name => $value) {
-        if ($value == 1) {
-            $core->special($name);
-        }
+    foreach ((array)$_GET["special"] as $name) {
+        $core->special($name);
     }
 }
 if (isset($_GET["character"])) {
