@@ -113,7 +113,7 @@ class MechaTest extends \SquadronBuilder\TestBase
                                 'attributes' => array(
                                     'id' => 'rect2',
                                     'y' => '11.675mm',
-                                    'x' => '52mm',
+                                    'x' => '47.15mm',
                                     'height' => '3mm',
                                     'width' => '3mm',
                                     'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
@@ -123,7 +123,7 @@ class MechaTest extends \SquadronBuilder\TestBase
                                 'attributes' => array(
                                     'id' => 'rect3',
                                     'y' => '11.675mm',
-                                    'x' => '55.6mm',
+                                    'x' => '50.75mm',
                                     'height' => '3mm',
                                     'width' => '3mm',
                                     'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
@@ -133,7 +133,7 @@ class MechaTest extends \SquadronBuilder\TestBase
                                 'attributes' => array(
                                     'id' => 'rect4',
                                     'y' => '11.675mm',
-                                    'x' => '59.2mm',
+                                    'x' => '54.35mm',
                                     'height' => '3mm',
                                     'width' => '3mm',
                                     'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
@@ -143,7 +143,7 @@ class MechaTest extends \SquadronBuilder\TestBase
                                 'attributes' => array(
                                     'id' => 'rect5',
                                     'y' => '11.675mm',
-                                    'x' => '62.8mm',
+                                    'x' => '57.95mm',
                                     'height' => '3mm',
                                     'width' => '3mm',
                                     'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
@@ -153,7 +153,7 @@ class MechaTest extends \SquadronBuilder\TestBase
                                 'attributes' => array(
                                     'id' => 'rect6',
                                     'y' => '11.675mm',
-                                    'x' => '66.4mm',
+                                    'x' => '61.55mm',
                                     'height' => '3mm',
                                     'width' => '3mm',
                                     'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
@@ -163,7 +163,7 @@ class MechaTest extends \SquadronBuilder\TestBase
                                 'attributes' => array(
                                     'id' => 'rect7',
                                     'y' => '11.675mm',
-                                    'x' => '70mm',
+                                    'x' => '65.15mm',
                                     'height' => '3mm',
                                     'width' => '3mm',
                                     'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',

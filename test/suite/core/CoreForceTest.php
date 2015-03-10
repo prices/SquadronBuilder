@@ -116,7 +116,7 @@ class CoreForceTest extends \SquadronBuilder\TestBase
                                         'attributes' => array(
                                             'id' => 'rect47',
                                             'y' => '21.575mm',
-                                            'x' => '52mm',
+                                            'x' => '118.65mm',
                                             'height' => '3mm',
                                             'width' => '3mm',
                                             'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
@@ -126,7 +126,7 @@ class CoreForceTest extends \SquadronBuilder\TestBase
                                         'attributes' => array(
                                             'id' => 'rect48',
                                             'y' => '21.575mm',
-                                            'x' => '55.6mm',
+                                            'x' => '122.25mm',
                                             'height' => '3mm',
                                             'width' => '3mm',
                                             'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
@@ -136,7 +136,7 @@ class CoreForceTest extends \SquadronBuilder\TestBase
                                         'attributes' => array(
                                             'id' => 'rect49',
                                             'y' => '21.575mm',
-                                            'x' => '59.2mm',
+                                            'x' => '125.85mm',
                                             'height' => '3mm',
                                             'width' => '3mm',
                                             'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
@@ -146,7 +146,7 @@ class CoreForceTest extends \SquadronBuilder\TestBase
                                         'attributes' => array(
                                             'id' => 'rect50',
                                             'y' => '21.575mm',
-                                            'x' => '62.8mm',
+                                            'x' => '129.45mm',
                                             'height' => '3mm',
                                             'width' => '3mm',
                                             'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
@@ -156,7 +156,7 @@ class CoreForceTest extends \SquadronBuilder\TestBase
                                         'attributes' => array(
                                             'id' => 'rect51',
                                             'y' => '21.575mm',
-                                            'x' => '66.4mm',
+                                            'x' => '133.05mm',
                                             'height' => '3mm',
                                             'width' => '3mm',
                                             'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
@@ -166,7 +166,7 @@ class CoreForceTest extends \SquadronBuilder\TestBase
                                         'attributes' => array(
                                             'id' => 'rect52',
                                             'y' => '21.575mm',
-                                            'x' => '70mm',
+                                            'x' => '136.65mm',
                                             'height' => '3mm',
                                             'width' => '3mm',
                                             'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',

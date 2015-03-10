@@ -145,11 +145,8 @@ class Mecha extends BaseObject
         for ($i = 0; $i < $count; $i++) {
             $text .= $this->_name($dx, $dy);
         }
-        $dy += $this->padding;
-        $text .= $this->_ranged($dx, $dy);
-        $text .= $this->_handtohand($dx, $dy);
-        $text .= $this->_stats($dx, $dy);
-        $text .= $this->_abilities($dx, $dy);
+        $dy   += $this->padding;
+        $text .= $this->_render($dx, $dy);
         if (is_object($this->_jettisonto)) {
             $text .= $this->_jettisonto->jettisonTo($x, $dy);
             $dy   += $this->_jettisonto->height();
@@ -157,6 +154,49 @@ class Mecha extends BaseObject
         $dy += $this->padding;
         $this->height = $dy - $y;
         $text .= $this->rect($x, $y, $this->width, $this->height);
+        $text = $this->group($text, $x, $y);
+        return $text;
+    }
+    /**
+    * This function exports the abilities list as a block
+    *
+    * @param int &$x The x to translate
+    * @param int &$y The y to translate
+    * 
+    * @return string The svg text for the block
+    */
+    private function _render(&$x = 0, &$y = 0)
+    {
+        $text  = "";
+        $text .= $this->_ranged($x, $y);
+        $text .= $this->_handtohand($x, $y);
+        $text .= $this->_stats($x, $y);
+        $text .= $this->_abilities($x, $y);
+        return $text;
+    }
+    /**
+    * This function exports the abilities list as a block
+    *
+    * @param int    &$x   The x to translate
+    * @param int    &$y   The y to translate
+    * @param string $mode The mode to render
+    * 
+    * @return string The svg text for the block
+    */
+    protected function mode($x = 0, $y = 0, $mode)
+    {
+        $text  = "";
+        $stats = $this->get($mode);
+        
+        $dy += $this->padding;
+        $text .= $this->largebold($dx, $dy, $mode);
+        $text .= $this->_ranged($dx, $dy, $stats["ranged"]);
+        $text .= $this->_handtohand($dx, $dy, $stats["handtohand"]);
+        $text .= $this->_stats($dx, $dy, $stats["stats"]);
+        $text .= $this->_abilities($dx, $dy, $stats["abilities"]);
+        $dy += $this->padding;
+        $this->height = $dy - $y;
+//        $text .= $this->rect($x, $y, $this->width, $this->height);
         $text = $this->group($text, $x, $y);
         return $text;
     }
@@ -176,10 +216,7 @@ class Mecha extends BaseObject
         
         $dy += $this->padding;
         $text .= $this->largebold($dx, $dy, "Jettison to ".$this->get("name"));
-        $text .= $this->_ranged($dx, $dy);
-        $text .= $this->_handtohand($dx, $dy);
-        $text .= $this->_stats($dx, $dy);
-        $text .= $this->_abilities($dx, $dy);
+        $text .= $this->_render($dx, $dy);
         $dy += $this->padding;
         $this->height = $dy - $y;
         $text = $this->group($text, $x, $y);
@@ -201,17 +238,19 @@ class Mecha extends BaseObject
     /**
     * This function returns the ranged weapons
     *
-    * @param int &$dx The x to translate
-    * @param int &$dy The y to translate
+    * @param int   &$dx     The x to translate
+    * @param int   &$dy     The y to translate
+    * @param array $weapons The weapons to use
     * 
     * @return string The svg text for the block
     */
-    private function _ranged(&$dx, &$dy)
+    private function _ranged(&$dx, &$dy, $weapons = null)
     {
         $text = "";
+        $weapons = is_array($weapons) ?  $weapons : $this->_weapons;
         $text .= $this->bold($dx, $dy, "Ranged:");
-        if (count($this->_weapons) > 0) {
-            foreach ($this->_weapons as &$obj) {
+        if (count($weapons) > 0) {
+            foreach ($weapons as &$obj) {
                 $text .= $obj->render($dx,$dy);
                 $dy += $obj->height();
             }
@@ -225,15 +264,16 @@ class Mecha extends BaseObject
     /**
     * This function returns the ranged weapons
     *
-    * @param int &$dx The x to translate
-    * @param int &$dy The y to translate
+    * @param int   &$dx The x to translate
+    * @param int   &$dy The y to translate
+    * @param array $hth The hand to hand array to use
     * 
     * @return string The svg text for the block
     */
-    private function _handtohand(&$dx, &$dy)
+    private function _handtohand(&$dx, &$dy, $hth = null)
     {
         $text = "";
-        $handtohand = $this->get("handtohand");
+        $handtohand = is_array($hth) ? $hth : $this->get("handtohand");
         if (is_array($handtohand) && (count($handtohand) > 0)) {
             $text .= $this->bold($dx, $dy, "Hand to Hand:");
             $text .= $this->small($dx, $dy, implode(", ", $handtohand));
@@ -243,28 +283,36 @@ class Mecha extends BaseObject
     /**
     * This function returns the stats
     *
-    * @param int &$dx The x to translate
-    * @param int &$dy The y to translate
-    * 
+    * @param int   &$dx   The x to translate
+    * @param int   &$dy   The y to translate
+    * @param array $stats The stats to use
     * @return string The svg text for the block
     */
-    private function _stats(&$dx, &$dy)
+    private function _stats(&$dx, &$dy, $stats = null)
     {
+        if (!is_array($stats)) {
+            $stats = array(
+                "speed" => $this->get("speed"),
+                "piloting" => $this->get("piloting"),
+                "gunnery" => $this->get("gunnery"),
+                "defense" => $this->get("defense"),
+            );
+        }
         $text = "";
         $width = $this->width - (2 * $this->padding);
         $x = $dx + 1;
         $y = $dy;
         $dy = $y + self::NSIZE / 2;
-        $text .= $this->normal($x, $dy, "Speed: ".$this->get("speed"));
+        $text .= $this->normal($x, $dy, "Speed: ".$stats["speed"]);
         $dy = $y + self::NSIZE / 2;
         $x += ($width / 4);
-        $text .= $this->normal($x, $dy, "Pilot: ".$this->get("piloting"));
+        $text .= $this->normal($x, $dy, "Pilot: ".$stats["piloting"]);
         $dy = $y + self::NSIZE / 2;
         $x += ($width / 5.5);
-        $text .= $this->normal($x, $dy, "Gunnery: ".$this->get("gunnery"));
+        $text .= $this->normal($x, $dy, "Gunnery: ".$stats["gunnery"]);
         $dy = $y + self::NSIZE / 2;
         $x += ($width / 3.5);
-        $text .= $this->normal($x, $dy, "Defense: ".$this->get("defense"));
+        $text .= $this->normal($x, $dy, "Defense: ".$stats["defense"]);
         $height = $dy - $y;
         $dy += 2;
         $text .= $this->rect($dx, $y, $width, $height);
@@ -273,17 +321,19 @@ class Mecha extends BaseObject
     /**
     * This function returns the stats
     *
-    * @param int &$dx The x to translate
-    * @param int &$dy The y to translate
+    * @param int   &$dx  The x to translate
+    * @param int   &$dy  The y to translate
+    * @param array $abil The abilities to use
     * 
     * @return string The svg text for the block
     */
-    private function _abilities(&$dx, &$dy)
+    private function _abilities(&$dx, &$dy, $abil = null)
     {
         $text = $this->bold($dx, $dy, "Special Abilities:");
         $abilities = "";
         $sep = "";
-        foreach ($this->get("abilities") as $name => $value) {
+        $abil = is_array($abil) ? $abil : $this->get("abilities");
+        foreach ($abil as $name => $value) {
             if ($value === true) {
                 $abilities .= $sep.$name;
                 $sep = ", ";
@@ -395,6 +445,16 @@ class Mecha extends BaseObject
     {
         $attrib = $this->get("abilities");
         return $attrib["Jettison"];
+    }
+    /**
+    * This function returns the stats
+    *
+    * @return string The svg text for the block
+    */
+    private function _hasModes()
+    {
+        $attrib = $this->get("abilities");
+        return $attrib["Variable Modes"];
     }
     /**
     * This function exports the abilities list as a block
