@@ -317,6 +317,229 @@ class MechaTest extends \SquadronBuilder\TestBase
                     ),
                 ),
             ),
+            /*
+            array(
+                '\SquadronBuilder\mecha\MechaTest3',
+                1,
+                5,
+                array(
+                    'g' => array(
+                        0 => array(
+                        'text' => array(
+                            0 => 'Regult Test',
+                            1 => 'This is missile a weapon',
+                            2 => 'Jettison to Other Test',
+                        ),
+                        'rect' => array(
+                            0 => array(
+                                'attributes' => array(
+                                    'id' => 'rect2',
+                                    'y' => '11.675mm',
+                                    'x' => '47.15mm',
+                                    'height' => '3mm',
+                                    'width' => '3mm',
+                                    'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
+                            ),
+                            1 => array(
+                                'attributes' => array(
+                                    'id' => 'rect3',
+                                    'y' => '11.675mm',
+                                    'x' => '50.75mm',
+                                    'height' => '3mm',
+                                    'width' => '3mm',
+                                    'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
+                            ),
+                            2 => array(
+                                'attributes' => array(
+                                    'id' => 'rect4',
+                                    'y' => '11.675mm',
+                                    'x' => '54.35mm',
+                                    'height' => '3mm',
+                                    'width' => '3mm',
+                                    'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
+                            ),
+                            3 => array(
+                                'attributes' => array(
+                                    'id' => 'rect5',
+                                    'y' => '11.675mm',
+                                    'x' => '57.95mm',
+                                    'height' => '3mm',
+                                    'width' => '3mm',
+                                    'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
+                            ),
+                            4 => array(
+                                'attributes' => array(
+                                    'id' => 'rect6',
+                                    'y' => '11.675mm',
+                                    'x' => '61.55mm',
+                                    'height' => '3mm',
+                                    'width' => '3mm',
+                                    'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
+                            ),
+                            5 => array(
+                                'attributes' => array(
+                                    'id' => 'rect7',
+                                    'y' => '11.675mm',
+                                    'x' => '65.15mm',
+                                    'height' => '3mm',
+                                    'width' => '3mm',
+                                    'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
+                            ),
+                            6 => array(
+                                'attributes' => array(
+                                    'id' => 'rect8',
+                                    'y' => '16.9mm',
+                                    'x' => '4mm',
+                                    'height' => '3mm',
+                                    'width' => '3mm',
+                                    'style' => 'fill:none;stroke:#0000CF;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
+                            ),
+                            7 => array(
+                                'attributes' => array(
+                                    'id' => 'rect10',
+                                    'y' => '6.5mm',
+                                    'x' => '2.5mm',
+                                    'height' => '15.8mm',
+                                    'width' => '67mm',
+                                    'style' => 'fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
+                            ),
+                        ),
+                        ),
+                        1 => array(
+                            'text' => array(
+                                0 => 'This is a weapon',
+                                1 => 'RG: 9, MD: 2, Accurate, Anti-Missile, Inescapable',
+                            ),
+                            'rect' => array(
+                                'attributes' => array(
+                                    'id' => 'rect14',
+                                    'y' => '26.55mm',
+                                    'x' => '2.5mm',
+                                    'height' => '7.95mm',
+                                    'width' => '67mm',
+                                    'style' => 'fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
+                            ),
+                        ),
+                        2 => array(
+                            'text' => array(
+                                0 => 'This is missile a weapon',
+                                1 => 'RG: 9, MD: 2, Accurate, Ammo 6, Anti-Missile, Inescapable, Missile, Volley X',
+                            ),
+                            'rect' => array(
+                                'attributes' => array(
+                                    'id' => 'rect17',
+                                    'y' => '34.5mm',
+                                    'x' => '2.5mm',
+                                    'height' => '7.95mm',
+                                    'width' => '67mm',
+                                    'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
+                            ),
+                        ),
+                        3 => array(
+                            'text' => array(
+                                0 => 'Jettison to Other Test',
+                                1 => 'Ranged:',
+                                2 => 'Hand to Hand:',
+                                3 => 'Body Block, Kick, Jump Kick, Stomp',
+                                4 => 'Speed: 5',
+                                5 => 'Pilot: 2',
+                                6 => 'Gunnery: 2',
+                                7 => 'Defense: 5',
+                                8 => 'Special Abilities:',
+                                9 => 'Flight, Hands, Leadership 4',
+                            ),
+                            'g' => array(
+                                0 => array(
+                                    'text' => array(
+                                        0 => 'This is a weapon',
+                                        1 => 'RG: 9, MD: 2, Accurate, Anti-Missile, Inescapable',
+                                    ),
+                                    'rect' => array(
+                                        'attributes' => array(
+                                            'id' => 'rect31',
+                                            'y' => '70.9mm',
+                                            'x' => '2.5mm',
+                                            'height' => '7.95mm',
+                                            'width' => '67mm',
+                                            'style' => 'fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1',
+                                        ),
+                                    ),
+                                ),
+                                1 => array(
+                                    'text' => array(
+                                        0 => 'This is missile a weapon',
+                                        1 => 'RG: 9, MD: 2, Accurate, Ammo 6, Anti-Missile, Inescapable, Missile, Volley X',
+                                    ),
+                                    'rect' => array(
+                                        'attributes' => array(
+                                            'id' => 'rect34',
+                                            'y' => '78.85mm',
+                                            'x' => '2.5mm',
+                                            'height' => '7.95mm',
+                                            'width' => '67mm',
+                                            'style' => 'fill:none;stroke:#CF0000;stroke-width:1.47185135;stroke-opacity:1',
+                                        ),
+                                    ),
+                                ),
+                            ),
+                            'rect' => array(
+                                'attributes' => array(
+                                    'id' => 'rect41',
+                                    'y' => '93.475mm',
+                                    'x' => '2.5mm',
+                                    'height' => '4.125mm',
+                                    'width' => '67mm',
+                                    'style' => 'fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1',
+                                ),
+                            ),
+                        ),
+                    ),
+                    'text' => array(
+                        0 => 'Ranged:',
+                        1 => 'Hand to Hand:',
+                        2 => 'Body Block, Kick, Jump Kick, Stomp',
+                        3 => 'Speed: 5',
+                        4 => 'Pilot: 2',
+                        5 => 'Gunnery: 2',
+                        6 => 'Defense: 5',
+                        7 => 'Special Abilities:',
+                        8 => 'Flight, Hands, Jettison to Other Test, Leadership 4',
+                    ),
+                    'rect' => array(
+                        0 => array(
+                            'attributes' => array(
+                                'id' => 'rect24',
+                                'y' => '49.125mm',
+                                'x' => '2.5mm',
+                                'height' => '4.125mm',
+                                'width' => '67mm',
+                                'style' => 'fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1',
+                            ),
+                        ),
+                        1 => array(
+                            'attributes' => array(
+                                'id' => 'rect44',
+                                'y' => '5mm',
+                                'x' => '1mm',
+                                'height' => '103.1mm',
+                                'width' => '70mm',
+                                'style' => 'fill:none;stroke:#000000;stroke-width:1.47185135;stroke-opacity:1',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+            */
         );
     }
     /**

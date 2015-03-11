@@ -81,7 +81,7 @@ class Mecha extends BaseObject
     public function __construct(&$index, $params = array(), $x = 0, $y = 0)
     {
         parent::__construct($index, $params, $x, $y);
-        $this->setupRanged();
+        $this->_weapons = $this->setupRanged();
         if ($class = $this->_hasJettison()) {
             $this->getFile(dirname(__FILE__)."/../mecha/$class.php");
             $class = '\SquadronBuilder\mecha\\'.$class;
@@ -93,13 +93,15 @@ class Mecha extends BaseObject
     /**
     * This sets up our ranged weapons
     *
+    * @param array $ranged Our ranged weapons
+    *
     * @return string The svg text for the block
     */
-    protected function setupRanged()
+    protected function &setupRanged($ranged = null)
     {
         $ind = 0;
-        $ranged = $this->get("ranged");
-        $this->_weapons = array();
+        $ranged = is_array($ranged) ? $ranged : $this->get("ranged");
+        $weapons = array();
         if (is_array($ranged) && (count($ranged) > 0)) {
             foreach ($ranged as $class) {
                 $params = array();
@@ -116,10 +118,11 @@ class Mecha extends BaseObject
                             $ind++;
                         }
                     }
-                    $this->_weapons[] = $wpn;
+                    $weapons[] = $wpn;
                 }
             }
         }
+        return $weapons;
     }
     /**
     * This function exports the abilities list as a block
@@ -168,34 +171,49 @@ class Mecha extends BaseObject
     private function _render(&$x = 0, &$y = 0)
     {
         $text  = "";
-        $text .= $this->_ranged($x, $y);
-        $text .= $this->_handtohand($x, $y);
-        $text .= $this->_stats($x, $y);
-        $text .= $this->_abilities($x, $y);
+        if ($this->_hasModes()) {
+            $modes = (array)$this->get("modes");
+            foreach ($modes as $mode) {
+                $this->_mode($x, $y, $mode);
+            }
+        } else {
+            $text .= $this->_ranged($x, $y);
+            $text .= $this->_handtohand($x, $y);
+            $text .= $this->_stats($x, $y);
+            $text .= $this->_abilities($x, $y);
+        }
         return $text;
     }
     /**
     * This function exports the abilities list as a block
     *
-    * @param int    &$x   The x to translate
-    * @param int    &$y   The y to translate
+    * @param int    &$dx  The x to translate
+    * @param int    &$dy  The y to translate
     * @param string $mode The mode to render
     * 
     * @return string The svg text for the block
     */
-    protected function mode($x = 0, $y = 0, $mode)
+    private function _mode(&$dx = 0, &$dy = 0, $mode)
     {
         $text  = "";
         $stats = $this->get($mode);
-        
+        $stat = array(
+            "speed" => $stats["speed"],
+            "piloting" => $stats["piloting"],
+            "gunnery" => $stats["gunnery"],
+            "defense" => $stats["defense"],
+        );
+        $weapons = $this->setupRanged($stats["ranged"]);
+        $x = $dx;
+        $y = $dy;
+
         $dy += $this->padding;
         $text .= $this->largebold($dx, $dy, $mode);
-        $text .= $this->_ranged($dx, $dy, $stats["ranged"]);
+        $text .= $this->_ranged($dx, $dy, $weapons);
         $text .= $this->_handtohand($dx, $dy, $stats["handtohand"]);
-        $text .= $this->_stats($dx, $dy, $stats["stats"]);
+        $text .= $this->_stats($dx, $dy, $stat);
         $text .= $this->_abilities($dx, $dy, $stats["abilities"]);
         $dy += $this->padding;
-        $this->height = $dy - $y;
 //        $text .= $this->rect($x, $y, $this->width, $this->height);
         $text = $this->group($text, $x, $y);
         return $text;

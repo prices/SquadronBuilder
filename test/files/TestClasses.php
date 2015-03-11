@@ -141,6 +141,114 @@ class MechaTest2 extends \SquadronBuilder\core\Mecha
         ),
     );
 }
+/**
+ * Test class for Mecha
+ *
+ * @category   html
+ * @package    core
+ * @subpackage mecha
+ * @author     Scott Price <prices@dflytech.com>
+ * @copyright  2015 Scott Price
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link       https://github.com/prices/SquadronBuilder
+ */
+class MechaTest3 extends \SquadronBuilder\core\Mecha
+{
+    protected $params = array(
+        /** This is our header for abilities **/
+        "name" => "Other Test",
+        /** This is a list of the special abilities for this object */
+        "abilities" => array(
+            'Afterburner'          => false,
+            'Aircraft'             => false,
+            'Battloid Restriction' => false,
+            'Cumbersome'           => false,
+            'Fast Mover'           => true,
+            'Flight'               => true,
+            'Focus Fire'           => false,
+            'Hands'                => true,
+            'Hover'                => false,
+            'Jettison'             => false,
+            'Leadership'           => false,
+            'Leap'                 => false,
+            'Life is Cheap'        => false,
+            'Variable Modes'       => true,
+            'Zentraidi Infantry'   => false,
+        ),
+        "modes" => array("Battloid", "Fighter"),
+        "Battloid" => array(
+            /** This is our speed **/
+            "speed" => 5,
+            /** This is our piloting **/
+            "piloting" => 2,
+            /** This is our gunnery **/
+            "gunnery" => 3,
+            /** This is our defense **/
+            "defense" => 5,
+            /** This is a list of the special abilities for this object */
+            "abilities" => array(
+                'Afterburner'          => false,
+                'Aircraft'             => false,
+                'Battloid Restriction' => true,
+                'Cumbersome'           => false,
+                'Fast Mover'           => false,
+                'Flight'               => true,
+                'Focus Fire'           => false,
+                'Hands'                => true,
+                'Hover'                => false,
+                'Jettison'             => false,
+                'Leadership'           => false,
+                'Leap'                 => false,
+                'Life is Cheap'        => false,
+                'Variable Modes'       => false,
+                'Zentraidi Infantry'   => false,
+            ),
+            /** These are our weapons */
+            "ranged" => array(
+                "MechaWeaponTest1", "MechaWeaponTest2"
+            ),
+            /** These are our weapons */
+            "handtohand" => array(
+                "Body Block", "Kick", "Jump Kick", "Stomp"
+            ),
+        ),
+        "Fighter" => array(
+            /** This is our speed **/
+            "speed" => 12,
+            /** This is our piloting **/
+            "piloting" => 3,
+            /** This is our gunnery **/
+            "gunnery" => 2,
+            /** This is our defense **/
+            "defense" => 6,
+            /** This is a list of the special abilities for this object */
+            "abilities" => array(
+                'Afterburner'          => false,
+                'Aircraft'             => false,
+                'Battloid Restriction' => true,
+                'Cumbersome'           => false,
+                'Fast Mover'           => false,
+                'Flight'               => true,
+                'Focus Fire'           => false,
+                'Hands'                => true,
+                'Hover'                => false,
+                'Jettison'             => false,
+                'Leadership'           => false,
+                'Leap'                 => false,
+                'Life is Cheap'        => false,
+                'Variable Modes'       => false,
+                'Zentraidi Infantry'   => false,
+            ),
+            /** These are our weapons */
+            "ranged" => array(
+                "MechaWeaponTest1"
+            ),
+            /** These are our weapons */
+            "handtohand" => array(
+            ),
+        ),
+    );
+}
 namespace SquadronBuilder\weapons;
 /**
  * Test class for Weapon
