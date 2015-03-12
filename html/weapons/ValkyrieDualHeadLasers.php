@@ -32,12 +32,12 @@
  * @link       https://github.com/prices/SquadronBuilder
  */
 /** This is our namespace */
-namespace SquadronBuilder\force\core;
+namespace SquadronBuilder\weapons;
 
 defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 
 /** These are our required files */
-require_once dirname(__FILE__)."/../../core/CoreForce.php";
+require_once dirname(__FILE__)."/../core/Weapon.php";
 
 /**
  * This class deals with printing out a single weapon.
@@ -50,51 +50,31 @@ require_once dirname(__FILE__)."/../../core/CoreForce.php";
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class ValkyrieSquadron extends \SquadronBuilder\core\CoreForce
+class ValkyrieDualHeadLasers extends \SquadronBuilder\core\Weapon
 {
     protected $params = array(
         /** This is our header for abilities **/
-        "name" => "Valkyrie Squadron",
-        /** These are our weapons */
-        "mecha" => array(
-            "VF1JValkyrie" => 1,
-            "VF1AValkyrie" => 3,
+        "name" => "Dual LLW-20 CIWS Valkyrie Head Laser",
+        /** This is our range **/
+        "range" => 9,
+        /** This is our damage **/
+        "damage" => 2,
+        /** This is a list of the special abilities for this object */
+        "abilities" => array(
+            "Accurate"      => false,
+            "Ammo"          => false,
+            "Anti-Missile"  => true,
+            "Blast"         => false,
+            "Fly Over"      => false,
+            "Inescapable"   => false,
+            "Indirect Fire" => false,
+            "Missile"       => false,
+            "Overwhelming"  => false,
+            "Rapid Fire"    => false,
+            "Rear Fire"     => false,
+            "Split Fire"    => false,
+            "Volley"        => false,
+            "Volley X"      => false,
         ),
-        "points" => 80,
-        "upgrades" => array(
-            "Veteran Warriors" => array(
-                "desc" => "Regults, Serau-Ger and Gluu-Ger in this squadron get +1 to Piloting (or Physical) and +1 to Gunnery",
-                "points" => 10,
-            ),
-            "Glaug-Eldare" => array(
-                "desc" => "Upgrade the Glaug in the squadron to a Glaug-Eldare",
-                "points" => 25,
-            ),
-        ),
-        "faction" => "UEDF",
     );
-    /**
-    * This function runs an upgrade
-    *
-    * @param string $name  The name of the upgrade
-    * 
-    * @return true if ready to apply, false if already applied
-    */
-    public function upgrade($name)
-    {
-        if (parent::upgrade($name)) {
-            switch ($name) {
-            case "Veteran Warriors":
-                $name = $this->get("name");
-                $name = "Veteran ".$name;
-                $this->set("name", $name);
-                break;
-            case "Glaug-Eldare":
-                $this->replaceMecha("Glaug", "GlaugEldare");
-                break;
-            }
-            return true;
-        }
-        return false;
-    }
 }

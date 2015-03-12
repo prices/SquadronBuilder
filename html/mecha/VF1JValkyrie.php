@@ -50,7 +50,7 @@ require_once dirname(__FILE__)."/../core/Mecha.php";
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class VF1AValkyrie extends \SquadronBuilder\core\Mecha
+class VF1JValkyrie extends \SquadronBuilder\core\Mecha
 {
     protected $params = array(
 
@@ -89,9 +89,9 @@ class VF1AValkyrie extends \SquadronBuilder\core\Mecha
             /** This is our speed **/
             "speed" => 5,
             /** This is our piloting **/
-            "piloting" => 2,
+            "piloting" => 3,
             /** This is our gunnery **/
-            "gunnery" => 3,
+            "gunnery" => 4,
             /** This is our defense **/
             "defense" => 5,
             /** This is a list of the special abilities for this object */
@@ -114,7 +114,7 @@ class VF1AValkyrie extends \SquadronBuilder\core\Mecha
             ),
             /** These are our weapons */
             "ranged" => array(
-                "GU11Battloid", "ValkyrieHeadLaser"
+                "GU11Battloid", "ValkyrieDualHeadLasers"
             ),
             /** These are our weapons */
             "handtohand" => array(
@@ -126,9 +126,9 @@ class VF1AValkyrie extends \SquadronBuilder\core\Mecha
             /** This is our speed **/
             "speed" => 10,
             /** This is our piloting **/
-            "piloting" => 3,
+            "piloting" => 4,
             /** This is our gunnery **/
-            "gunnery" => 2,
+            "gunnery" => 3,
             /** This is our defense **/
             "defense" => 5,
             /** This is a list of the special abilities for this object */
@@ -151,7 +151,7 @@ class VF1AValkyrie extends \SquadronBuilder\core\Mecha
             ),
             /** These are our weapons */
             "ranged" => array(
-                "GU11", "ValkyrieWingHardPoints", "ValkyrieHeadLaser"
+                "GU11", "ValkyrieWingHardPoints", "ValkyrieDualHeadLasers"
             ),
             /** These are our weapons */
             "handtohand" => array(
@@ -162,9 +162,9 @@ class VF1AValkyrie extends \SquadronBuilder\core\Mecha
             /** This is our speed **/
             "speed" => 12,
             /** This is our piloting **/
-            "piloting" => 2,
+            "piloting" => 3,
             /** This is our gunnery **/
-            "gunnery" => 2,
+            "gunnery" => 3,
             /** This is our defense **/
             "defense" => 6,
             /** This is a list of the special abilities for this object */
@@ -187,7 +187,7 @@ class VF1AValkyrie extends \SquadronBuilder\core\Mecha
             ),
             /** These are our weapons */
             "ranged" => array(
-                "GU11Fighter", "ValkyrieWingHardPoints", "ValkyrieHeadLaser"
+                "GU11Fighter", "ValkyrieWingHardPoints", "ValkyrieDualHeadLasers"
             ),
             /** These are our weapons */
             "handtohand" => array(

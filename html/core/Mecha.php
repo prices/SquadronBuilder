@@ -293,9 +293,11 @@ class Mecha extends BaseObject
     {
         $text = "";
         $handtohand = is_array($hth) ? $hth : $this->get("handtohand");
+        $text .= $this->bold($dx, $dy, "Hand to Hand:");
         if (is_array($handtohand) && (count($handtohand) > 0)) {
-            $text .= $this->bold($dx, $dy, "Hand to Hand:");
             $text .= $this->small($dx, $dy, implode(", ", $handtohand));
+        } else {
+            $text .= $this->small($dx, $dy, "None");
         }
         return $text;
     }
