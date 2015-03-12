@@ -87,13 +87,40 @@ abstract class TestBase extends \PHPUnit_Framework_TestCase
         parent::tearDown();
     }
     /**
+    * Includes the right file, and returns the class name
+    *
+    * @access protected
+    *
+    * @return string
+    */
+    protected static function getClass()
+    {
+        $classname = get_called_class();
+        $class = substr($classname, 0, strlen($classname) - 4);
+        $file  = implode("/", explode("\\", substr($class, strpos($class, "\\")))).".php";
+        include_once CODE_BASE.$file;
+        return $class;
+    }
+    /**
     * Tests the iteration and preload functions
     *
     * @param string $xml The simplexml object to work on
     *
     * @return null
+    */
+    protected static function getAttrib($attrib)
+    {
+        $index = 0;
+        $class = self::getClass();
+        $obj = new $class($index, array());
+        return $obj->get($attrib);
+    }
+    /**
+    * Tests the iteration and preload functions
     *
-    * @dataProvider dataRender
+    * @param string $xml The simplexml object to work on
+    *
+    * @return null
     */
     protected function xml2array($xml)
     {
@@ -126,28 +153,30 @@ abstract class TestBase extends \PHPUnit_Framework_TestCase
     *
     * @param string $ability The ability to test
     * @param string $value   The value of that ability
+    * @param string $extra   Extra text to add to the message
     *
     * @return null
     *
     * @dataProvider dataAbilities
     */
-    public function abilitiesTrueFalse($ability, $value)
+    public function abilitiesTrueFalse($ability, $value, $extra = "")
     {
-        $this->assertInternalType("bool", $value, "Ability '$ability' must be true or false");
+        $this->assertInternalType("bool", $value, "Ability '$ability' must be true or false".$extra);
     }
     /**
     * Tests the abilities to make sure that they are within spec
     *
     * @param string $ability The ability to test
     * @param string $value   The value of that ability
+    * @param string $extra   Extra text to add to the message
     *
     * @return null
     *
     * @dataProvider dataAbilities
     */
-    public function abilitiesFalseInt($ability, $value)
+    public function abilitiesFalseInt($ability, $value, $extra = "")
     {
-        $return = "Ability '$ability' must be false or a positive integer";
+        $return = "Ability '$ability' must be false or a positive integer".$extra;
         if (is_bool($value)) {
             $this->assertFalse($value, $return);
         } else {

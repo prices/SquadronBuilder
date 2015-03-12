@@ -93,21 +93,6 @@ abstract class ForceTestBase extends \SquadronBuilder\TestBase
         unset($this->o);
     }
     /**
-    * Includes the right file, and returns the class name
-    *
-    * @access protected
-    *
-    * @return string
-    */
-    protected static function getClass()
-    {
-        $classname = get_called_class();
-        $class = substr($classname, 0, strlen($classname) - 4);
-        $file  = implode("/", explode("\\", substr($class, strpos($class, "\\")))).".php";
-        include_once CODE_BASE.$file;
-        return $class;
-    }
-    /**
     * Data provider for testRemove
     *
     * @return array

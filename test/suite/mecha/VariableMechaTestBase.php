@@ -74,11 +74,6 @@ abstract class VariableMechaTestBase extends MechaTestBase
     protected function setUp()
     {
         parent::setUp();
-        if (!is_null($this->class)) {
-            include_once CODE_BASE."/mecha/".$this->class.".php";
-            $class = '\SquadronBuilder\mecha\\'.$this->class;
-            $this->o = new $class($this->index, array());
-        }
     }
 
     /**
@@ -101,23 +96,33 @@ abstract class VariableMechaTestBase extends MechaTestBase
     */
     public static function dataAbilities()
     {
-        $return = array(
-            array("Afterburner", "abilitiesTrueFalse"),
-            array("Aircraft", "abilitiesTrueFalse"),
-            array("Battloid Restriction", "abilitiesTrueFalse"),
-            array("Cumbersome", "abilitiesTrueFalse"),
-            array("Fast Mover", "abilitiesTrueFalse"),
-            array("Flight", "abilitiesTrueFalse"),
-            array("Focus Fire", "abilitiesTrueFalse"),
-            array("Hands", "abilitiesTrueFalse"),
-            array("Hover", "abilitiesTrueFalse"),
-            array("Jettison", "abilitiesFalseClass"),
-            array("Leadership", "abilitiesFalseInt"),
-            array("Leap", "abilitiesTrueFalse"),
-            array("Life is Cheap", "abilitiesTrueFalse"),
-            array("Variable Modes", "abilitiesTrueFalse"),
-            array("Zentraedi Infantry", "abilitiesTrueFalse"),
-        );
+        $modes = (array)self::getAttrib("modes");
+        $return = array();
+        foreach ($modes as $mode) {
+            $mod = self::getAttrib($mode);
+            $abilities = $mod["abilities"];
+            $extra = " in mode $mode";
+            $return = array_merge(
+                $return,
+                array(
+                    array("Afterburner", "abilitiesTrueFalse", $mod["abilities"], $extra),
+                    array("Aircraft", "abilitiesTrueFalse", $mod["abilities"], $extra),
+                    array("Battloid Restriction", "abilitiesTrueFalse", $mod["abilities"], $extra),
+                    array("Cumbersome", "abilitiesTrueFalse", $mod["abilities"], $extra),
+                    array("Fast Mover", "abilitiesTrueFalse", $mod["abilities"], $extra),
+                    array("Flight", "abilitiesTrueFalse", $mod["abilities"], $extra),
+                    array("Focus Fire", "abilitiesTrueFalse", $mod["abilities"], $extra),
+                    array("Hands", "abilitiesTrueFalse", $mod["abilities"], $extra),
+                    array("Hover", "abilitiesTrueFalse", $mod["abilities"], $extra),
+                    array("Jettison", "abilitiesFalseClass", $mod["abilities"], $extra),
+                    array("Leadership", "abilitiesFalseInt", $mod["abilities"], $extra),
+                    array("Leap", "abilitiesTrueFalse", $mod["abilities"], $extra),
+                    array("Life is Cheap", "abilitiesTrueFalse", $mod["abilities"], $extra),
+                    array("Variable Modes", "abilitiesTrueFalse", $mod["abilities"], $extra),
+                    array("Zentraedi Infantry", "abilitiesTrueFalse", $mod["abilities"], $extra),
+                )
+            );
+        }
         return $return;
     }
     /**
@@ -127,7 +132,13 @@ abstract class VariableMechaTestBase extends MechaTestBase
     */
     public static function dataPiloting()
     {
-        return array(array(null));
+        $modes = (array)self::getAttrib("modes");
+        $return = array();
+        foreach ($modes as $mode) {
+            $mod = self::getAttrib($mode);
+            $return[] = array($mod["piloting"], " in mode $mode");
+        }
+        return $return;
     }
     /**
     * Data provider for testRemove
@@ -136,7 +147,13 @@ abstract class VariableMechaTestBase extends MechaTestBase
     */
     public static function dataGunnery()
     {
-        return array(array(null));
+        $modes = (array)self::getAttrib("modes");
+        $return = array();
+        foreach ($modes as $mode) {
+            $mod = self::getAttrib($mode);
+            $return[] = array($mod["gunnery"], " in mode $mode");
+        }
+        return $return;
     }
 
     /**
@@ -146,7 +163,13 @@ abstract class VariableMechaTestBase extends MechaTestBase
     */
     public static function dataSpeed()
     {
-        return array(array(null));
+        $modes = (array)self::getAttrib("modes");
+        $return = array();
+        foreach ($modes as $mode) {
+            $mod = self::getAttrib($mode);
+            $return[] = array($mod["speed"], " in mode $mode");
+        }
+        return $return;
     }
     /**
     * Data provider for testRemove
@@ -155,7 +178,13 @@ abstract class VariableMechaTestBase extends MechaTestBase
     */
     public static function dataDefense()
     {
-        return array(array(null));
+        $modes = (array)self::getAttrib("modes");
+        $return = array();
+        foreach ($modes as $mode) {
+            $mod = self::getAttrib($mode);
+            $return[] = array($mod["defense"], " in mode $mode");
+        }
+        return $return;
     }
     /**
     * Data provider for testRemove
@@ -164,7 +193,13 @@ abstract class VariableMechaTestBase extends MechaTestBase
     */
     public static function dataHandtoHand()
     {
-        return array(array(null));
+        $modes = (array)self::getAttrib("modes");
+        $return = array();
+        foreach ($modes as $mode) {
+            $mod = self::getAttrib($mode);
+            $return[] = array($mod["handtohand"], " in mode $mode");
+        }
+        return $return;
     }
     /**
     * Data provider for testRemove
@@ -173,7 +208,13 @@ abstract class VariableMechaTestBase extends MechaTestBase
     */
     public static function dataRanged()
     {
-        return array(array(null));
+        $modes = (array)self::getAttrib("modes");
+        $return = array();
+        foreach ($modes as $mode) {
+            $mod = self::getAttrib($mode);
+            $return[] = array($mod["ranged"], " in mode $mode");
+        }
+        return $return;
     }
 
 }
