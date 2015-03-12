@@ -70,6 +70,9 @@ class WeaponsTest extends WeaponTestBase
         "QueadluunRau103mmMiniMissiles",
         "QueadluunRauMedParticleCannons",
         "QueadluunRau64mmGrenadeLauncher",
+        "GU11", "GU11Battloid", "GU11Fighter",
+        "ValkyrieWingHardPoints",
+        "ValkyrieHeadLaser",
     );
     /**
     * This function returns the classes we are testing

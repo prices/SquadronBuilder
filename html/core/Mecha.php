@@ -172,9 +172,10 @@ class Mecha extends BaseObject
     {
         $text  = "";
         if ($this->_hasModes()) {
+            $text .= $this->_abilities($x, $y);
             $modes = (array)$this->get("modes");
             foreach ($modes as $mode) {
-                $this->_mode($x, $y, $mode);
+                $text .= $this->_mode($x, $y, $mode);
             }
         } else {
             $text .= $this->_ranged($x, $y);
