@@ -214,7 +214,79 @@ abstract class VariableMechaTestBase extends MechaTestBase
             $mod = self::getAttrib($mode);
             $return[] = array($mod["ranged"], " in mode $mode");
         }
+        $return[] = array(self::getAttrib("ranged"));
         return $return;
+    }
+    /**
+    * Data provider for testRemove
+    *
+    * @return array
+    */
+    public static function dataRangedBaseInModes()
+    {
+        $modes = (array)self::getAttrib("modes");
+        $all = array();
+        foreach ($modes as $mode) {
+            $mod = self::getAttrib($mode);
+            $all = array_merge($all, $mod["ranged"]);
+        }
+        $ranged = (array)self::getAttrib("ranged");
+        $return = array();
+        foreach ($ranged as $wpn) {
+            $return[] = array($wpn, $all);
+        }
+        return $return;
+    }
+    /**
+    * Checks the name
+    * 
+    * @param string $weapon The weapon to check
+    * @param array  $all    The array of all weapons to check it against
+    *
+    * @return null
+    *
+    * @dataProvider dataRangedBaseInModes
+    */
+    public function testRangedBaseInModes($weapon, $all)
+    {
+        $this->assertContains(
+            $weapon, $all, "Ranged weapons in the base weapons array must be in at least one mode"
+        );
+    }
+    /**
+    * Data provider for testRemove
+    *
+    * @return array
+    */
+    public static function dataRangedModesInBase()
+    {
+        $ranged = (array)self::getAttrib("ranged");
+
+        $modes = (array)self::getAttrib("modes");
+        $return = array();
+        foreach ($modes as $mode) {
+            $mod = self::getAttrib($mode);
+            foreach ((array)$mod["ranged"] as $wpn) {
+                $return[] = array($wpn, $ranged);
+            }
+        }
+        return $return;
+    }
+    /**
+    * Checks the name
+    * 
+    * @param string $weapon The weapon to check
+    * @param array  $all    The array of all weapons to check it against
+    *
+    * @return null
+    *
+    * @dataProvider dataRangedModesInBase
+    */
+    public function testRangedModesInBase($weapon, $all)
+    {
+        $this->assertContains(
+            $weapon, $all, "Ranged weapons in a mode must also be in the base weapons array"
+        );
     }
 
 }

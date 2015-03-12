@@ -55,7 +55,7 @@ class VF1JValkyrie extends \SquadronBuilder\core\Mecha
     protected $params = array(
 
         /** This is our header for abilities **/
-        "name" => "VF-1A Valkyrie",
+        "name" => "VF-1J Valkyrie",
         /** This is our damage **/
         "damage" => 14,
         /** This is our damage **/
@@ -80,7 +80,8 @@ class VF1JValkyrie extends \SquadronBuilder\core\Mecha
         ),
         /** These are our weapons that have ammo */
         "ranged" => array(
-            "ValkyrieWingHardPoints"
+            "ValkyrieWingHardPoints", "ValkyrieDualHeadLasers",
+            "GU11Battloid", "GU11", "GU11Fighter"
         ),
         "modes" => array(
             "Battloid", "Guardian", "Fighter"
