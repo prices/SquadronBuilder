@@ -560,6 +560,201 @@ class MechaTest extends \SquadronBuilder\TestBase
         $xml = $this->o->render($x, $y);
         $this->assertEquals($expect, $this->xml2array($xml));
     }
+    /**
+    * Data provider for testReplaceWeapon
+    *
+    * @return array
+    */
+    public static function dataReplaceWeapon()
+    {
+        $return = array(
+            array( // Nothing to do
+                '\SquadronBuilder\mecha\MechaTest1', // class
+                "", // old
+                "", // new
+                "", // mode
+                array(
+                    "base" => array(
+                        'MechaWeaponTest1',
+                        'MechaWeaponTest2',
+                    ),
+                ) // expect
+            ),
+            array(  // Replace a weapon
+                '\SquadronBuilder\mecha\MechaTest1', // class
+                "MechaWeaponTest2", // old
+                "MechaWeaponTest3", // new
+                "", // mode
+                array(
+                    "base" => array(
+                        'MechaWeaponTest1',
+                        'MechaWeaponTest3',
+                    ),
+                ) // expect
+            ),
+            array(  // Remove a weapon
+                '\SquadronBuilder\mecha\MechaTest1', // class
+                "MechaWeaponTest2", // old
+                "", // new
+                "", // mode
+                array(
+                    "base" => array(
+                        'MechaWeaponTest1',
+                    ),
+                ) // expect
+            ),
+            array(  // Replace a weapon, variable modes
+                '\SquadronBuilder\mecha\MechaTest3', // class
+                "MechaWeaponTest2", // old
+                "MechaWeaponTest3", // new
+                "Battloid", // mode
+                array(
+                    "base" => array(
+                        'MechaWeaponTest1',
+                        'MechaWeaponTest3',
+                    ),
+                    "Battloid" => array(
+                        'MechaWeaponTest1',
+                        'MechaWeaponTest3',
+                    ),
+                    "Fighter" => array(
+                        'MechaWeaponTest1',
+                    ),
+                ) // expect
+            ),
+        );
+        return $return;
+    }
+    /**
+    * Tests the addWeapon routine
+    *
+    * @param string $class  The mecha class to use
+    * @param string $old    The test function
+    * @param string $new    The ability to test
+    * @param string $mode   Extra text to add to the message
+    * @param array  $expect The expected weapon array
+    *
+    * @return null
+    *
+    * @dataProvider dataReplaceWeapon
+    */
+    public function testReplaceWeapon($class, $old, $new, $mode, $expect)
+    {
+        $this->o = new $class($this->x, $this->y, $this->index, array());
+        $this->o->replaceWeapon($old, $new, $mode);
+        $ret = array(
+            "base" => $this->o->getWeapons()
+        );
+        $modes = (array)$this->o->get("modes");
+        if (!empty($modes)) {
+            foreach ($modes as $m) {
+                $ret[$m] = $this->o->getWeapons($m);
+            }
+        }
+        $this->assertSame($expect, $ret);
+    }
+    /**
+    * Data provider for testReplaceWeapon
+    *
+    * @return array
+    */
+    public static function dataAddWeapon()
+    {
+        $return = array(
+            array(  // Nothing done
+                '\SquadronBuilder\mecha\MechaTest1', // class
+                "", // name
+                "", // mode
+                array(
+                    "base" => array(
+                        'MechaWeaponTest1',
+                        'MechaWeaponTest2',
+                    ),
+                ) // expect
+            ),
+            array(  // Add a new weapon
+                '\SquadronBuilder\mecha\MechaTest1', // class
+                "MechaWeaponTest3", // name
+                "", // mode
+                array(
+                    "base" => array(
+                        'MechaWeaponTest1',
+                        'MechaWeaponTest2',
+                        'MechaWeaponTest3',
+                    ),
+                ) // expect
+            ),
+            array(  // Add a new weapon, variable modes
+                '\SquadronBuilder\mecha\MechaTest3', // class
+                "MechaWeaponTest3", // name
+                "Battloid", // mode
+                array(
+                    "base" => array(
+                        'MechaWeaponTest1',
+                        'MechaWeaponTest2',
+                        'MechaWeaponTest3',
+                    ),
+                    "Battloid" => array(
+                        'MechaWeaponTest1',
+                        'MechaWeaponTest2',
+                        'MechaWeaponTest3',
+                    ),
+                    "Fighter" => array(
+                        'MechaWeaponTest1',
+                    ),
+                ) // expect
+            ),
+            array(  // Add a new weapon, variable modes
+                '\SquadronBuilder\mecha\MechaTest3', // class
+                "MechaWeaponTest3", // name
+                array("Fighter", "Battloid"), // mode
+                array(
+                    "base" => array(
+                        'MechaWeaponTest1',
+                        'MechaWeaponTest2',
+                        'MechaWeaponTest3',
+                    ),
+                    "Battloid" => array(
+                        'MechaWeaponTest1',
+                        'MechaWeaponTest2',
+                        'MechaWeaponTest3',
+                    ),
+                    "Fighter" => array(
+                        'MechaWeaponTest1',
+                        'MechaWeaponTest3',
+                    ),
+                ) // expect
+            ),
+        );
+        return $return;
+    }
+    /**
+    * Tests the addWeapon routine
+    *
+    * @param string $class  The mecha class to use
+    * @param string $name   The name of the weapon to add
+    * @param string $mode   Extra text to add to the message
+    * @param array  $expect The expected weapon array
+    *
+    * @return null
+    *
+    * @dataProvider dataAddWeapon
+    */
+    public function testAddWeapon($class, $name, $mode, $expect)
+    {
+        $this->o = new $class($this->x, $this->y, $this->index, array());
+        $this->o->addWeapon($name, $mode);
+        $ret = array(
+            "base" => $this->o->getWeapons()
+        );
+        $modes = (array)$this->o->get("modes");
+        if (!empty($modes)) {
+            foreach ($modes as $m) {
+                $ret[$m] = $this->o->getWeapons($m);
+            }
+        }
+        $this->assertSame($expect, $ret);
+    }
 
 }
 

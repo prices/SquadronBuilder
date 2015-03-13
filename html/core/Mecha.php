@@ -509,4 +509,99 @@ class Mecha extends BaseObject
         $y    += $diff;
         return $text;
     }
+    /**
+    * This replaces a weapon in our _weapons array.
+    *
+    * @param string $old  The name of the old mecha
+    * @param string $new  The name of the new mecha
+    * @param string $mode The name of the mode to replace the weapon in
+    *
+    * @return pointer to new mecha on success, null otherwise
+    */
+    public function replaceWeapon($old, $new, $mode = "")
+    {
+        $ranged = (array)$this->get("ranged");
+        $key    = array_search($old, $ranged);
+        if ($key !== false) {
+            if (empty($new)) {
+                unset($ranged[$key]);
+            } else {
+                $ranged[$key] = $new;
+            }
+            $this->set("ranged", $ranged);
+        }
+        if (!empty($mode)) {
+            $mode = is_string($mode) ? array($mode) : (array)$mode;
+            foreach ($mode as $mod) {
+                $m = (array)$this->get($mod);
+                if (isset($m["ranged"]) && is_array($m["ranged"])) {
+                    $key    = array_search($old, $m["ranged"]);
+                    if ($key !== false) {
+                        if (empty($new)) {
+                            unset($ranged[$key]);
+                        } else {
+                            $m["ranged"][$key] = $new;
+                        }
+                        $this->set($mod, $m);
+                    }
+                }
+            }
+        }
+        $this->_weapons = $this->setupRanged();
+
+        return null;
+    }
+    /**
+    * This adds weapons in our array.  If the weapon already exists in the
+    * array, it will just add another
+    *
+    * @param string $name The name of the mecha to add
+    * @param string $mode The name of the mode to add the weapon in
+    *
+    * @return pointer to new mecha on success, null otherwise
+    */
+    public function addWeapon($name, $mode = "")
+    {
+        if (empty($name)) {
+            return;
+        }
+        $ranged = (array)$this->get("ranged");
+        $ranged[] = $name;
+        $this->set("ranged", $ranged);
+        if (!empty($mode)) {
+            $mode = is_string($mode) ? array($mode) : (array)$mode;
+            foreach ($mode as $mod) {
+                $m = (array)$this->get($mod);
+                if (isset($m["ranged"]) && is_array($m["ranged"])) {
+                    $m["ranged"][] = $name;
+                    $this->set($mod, $m);
+                }
+            }
+        }
+        $this->_weapons = $this->setupRanged();
+    }
+    /**
+    * This returns the mecha in the _mecha array
+    *
+    * @param string $mode The mode to get the weapons from
+    *
+    * @return array of the form array(name => count)
+    */
+    public function getWeapons($mode = "")
+    {
+        $return = array();
+        if (empty($mode)) {
+            foreach ($this->_weapons as $key => &$weapon) {
+                $class = get_class($weapon);
+                $name  = substr($class, strrpos($class, "\\") + 1);
+                $return[] = $name;
+            }
+        } else {
+            $m = (array)$this->get($mode);
+            if (isset($m["ranged"])) {
+                $return = (array)$m["ranged"];
+            }
+        }
+        return $return;
+    }
 }

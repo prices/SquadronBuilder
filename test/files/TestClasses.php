@@ -175,6 +175,10 @@ class MechaTest3 extends \SquadronBuilder\core\Mecha
             'Variable Modes'       => true,
             'Zentraidi Infantry'   => false,
         ),
+        /** These are our weapons */
+        "ranged" => array(
+            "MechaWeaponTest1", "MechaWeaponTest2"
+        ),
         "modes" => array("Battloid", "Fighter"),
         "Battloid" => array(
             /** This is our speed **/
@@ -325,6 +329,45 @@ class MechaWeaponTest2 extends \SquadronBuilder\core\Weapon
             "Split Fire"    => false,
             "Volley"        => false,
             "Volley X"      => true,
+        ),
+    );
+}
+/**
+ * Test class for Weapon
+ *
+ * @category   html
+ * @package    core
+ * @subpackage mecha
+ * @author     Scott Price <prices@dflytech.com>
+ * @copyright  2015 Scott Price
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link       https://github.com/prices/SquadronBuilder
+ */
+class MechaWeaponTest3 extends \SquadronBuilder\core\Weapon
+{
+    protected $params = array(
+        /** This is our header for abilities **/
+        "name" => "This is another missle",
+        /** This is our range **/
+        "range" => 18,
+        /** This is our damage **/
+        "damage" => "4/missile",
+        /** This is a list of the special abilities for this object */
+        "abilities" => array(
+            "Accurate"      => true,
+            "Ammo"          => 6,
+            "Anti-Missile"  => true,
+            "Blast"         => false,
+            "Fly Over"      => false,
+            "Inescapable"   => false,
+            "Indirect Fire" => false,
+            "Missile"       => true,
+            "Overwhelming"  => false,
+            "Rapid Fire"    => false,
+            "Rear Fire"     => false,
+            "Split Fire"    => false,
+            "Volley"        => 6,
+            "Volley X"      => false,
         ),
     );
 }
