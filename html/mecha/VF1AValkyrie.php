@@ -78,9 +78,10 @@ class VF1AValkyrie extends \SquadronBuilder\core\Mecha
             'Variable Modes'       => true,
             'Zentraidi Infantry'   => false,
         ),
-        /** These are our weapons that have ammo */
+        /** These are all of our weapons */
         "ranged" => array(
-            "ValkyrieWingHardPoints"
+            "ValkyrieWingHardPoints", "ValkyrieHeadLaser",
+            "GU11Battloid", "GU11", "GU11Fighter"
         ),
         "modes" => array(
             "Battloid", "Guardian", "Fighter"
