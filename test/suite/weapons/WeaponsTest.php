@@ -73,7 +73,7 @@ class WeaponsTest extends WeaponTestBase
         "GU11", "GU11Battloid", "GU11Fighter",
         "ValkyrieWingHardPoints", "ValkyrieMLOPs", "ValkyrieLRM",
         "ValkyrieGravityBombs", "SDF1AirWingNoseLasers",
-        "ValkyrieHeadLaser", "ValkyrieDualHeadLasers"
+        "ValkyrieHeadLaser", "ValkyrieDualHeadLasers", "ValkyrieQuadHeadLasers",
     );
     /**
     * This function returns the classes we are testing

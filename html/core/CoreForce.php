@@ -352,7 +352,9 @@ class CoreForce extends BaseObject
     public function addMecha($name, $count = 1)
     {
         foreach ($this->_mecha as $key => &$mecha) {
-            if ($mecha->get("name") == $name) {
+            $class = get_class($mecha);
+            $class = substr($class, strrpos($class, "\\")+1);
+            if ($class == $name) {
                 $cnt = $mecha->get("count");
                 $cnt += $count;
                 $mecha->set("count", $cnt);
