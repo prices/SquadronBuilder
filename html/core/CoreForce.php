@@ -191,8 +191,15 @@ class CoreForce extends BaseObject
             $this->$type = null;
         }
         $upgrades = $this->get("upgrades");
+        $exclusive = false;
         foreach ($this->_upgrade as $name) {
             $value = $upgrades[$name];
+            if ($value["exclusive"] === true) {
+                if ($exclusive === true) {
+                    continue;
+                }
+                $exclusive = true;
+            }
             foreach ($this->_mecha as &$mecha) {
                 $mecha->upgrade($name);
             }

@@ -37,7 +37,7 @@ namespace SquadronBuilder\mecha;
 defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 
 /** These are our required files */
-require_once dirname(__FILE__)."/../core/Mecha.php";
+require_once dirname(__FILE__)."/VF1AValkyrie.php";
 
 /**
  * This class deals with printing out a single weapon.
@@ -50,7 +50,7 @@ require_once dirname(__FILE__)."/../core/Mecha.php";
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class VF1JValkyrie extends \SquadronBuilder\core\Mecha
+class VF1JValkyrie extends VF1AValkyrie
 {
     protected $params = array(
 
@@ -195,21 +195,4 @@ class VF1JValkyrie extends \SquadronBuilder\core\Mecha
             ),
         ),
     );
-    /**
-    * This function runs an upgrade
-    *
-    * @param string $name  The name of the upgrade
-    * 
-    * @return true if ready to apply, false if already applied
-    */
-    public function upgrade($name)
-    {
-        if (parent::upgrade($name)) {
-            switch ($name) {
-
-            }
-            return true;
-        }
-        return false;
-    }
 }

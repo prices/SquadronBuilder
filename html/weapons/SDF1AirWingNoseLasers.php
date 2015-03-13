@@ -32,12 +32,12 @@
  * @link       https://github.com/prices/SquadronBuilder
  */
 /** This is our namespace */
-namespace SquadronBuilder\force\core;
+namespace SquadronBuilder\weapons;
 
 defined( '_SQUADRONBUILDER' ) or die( 'Restricted access' );
 
 /** These are our required files */
-require_once dirname(__FILE__)."/../../core/CoreForce.php";
+require_once dirname(__FILE__)."/../core/Weapon.php";
 
 /**
  * This class deals with printing out a single weapon.
@@ -50,54 +50,31 @@ require_once dirname(__FILE__)."/../../core/CoreForce.php";
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link       https://github.com/prices/SquadronBuilder
  */
-class ValkyrieSquadron extends \SquadronBuilder\core\CoreForce
+class SDF1AirWingNoseLasers extends \SquadronBuilder\core\Weapon
 {
     protected $params = array(
         /** This is our header for abilities **/
-        "name" => "Valkyrie Squadron",
-        /** These are our weapons */
-        "mecha" => array(
-            "VF1JValkyrie" => 1,
-            "VF1AValkyrie" => 3,
+        "name" => "SDF-1 Air Wing Nose Lasers",
+        /** This is our range **/
+        "range" => 18,
+        /** This is our damage **/
+        "damage" => 2,
+        /** This is a list of the special abilities for this object */
+        "abilities" => array(
+            "Accurate"      => false,
+            "Ammo"          => false,
+            "Anti-Missile"  => true,
+            "Blast"         => false,
+            "Fly Over"      => false,
+            "Inescapable"   => false,
+            "Indirect Fire" => false,
+            "Missile"       => false,
+            "Overwhelming"  => false,
+            "Rapid Fire"    => false,
+            "Rear Fire"     => false,
+            "Split Fire"    => false,
+            "Volley"        => false,
+            "Volley X"      => false,
         ),
-        "points" => 80,
-        "upgrades" => array(
-            "Valkyrie MLOPs" => array(
-                "desc" => "Changes the wing mounted hard points to RG:12, MD:2/missile, Ammo 8, Anti-missile, Missile, Vollley 8",
-                "points" => 5,
-                "exclusive" => true,
-            ),
-            "Valkyrie Long-Range Missiles" => array(
-                "desc" => "Changes the wing mounted hard points to RG:48, MD:9/missile, Ammo 8, Missile, Vollley X",
-                "points" => 20,
-                "exclusive" => true,
-            ),
-            "Valkyrie Gravity Bombs" => array(
-                "desc" => "Changes the wing mounted hard points to RG:-, MD:12, Ammo 4, Blast, Fly Over, Missile, Overwhelming",
-                "points" => 10,
-                "exclusive" => true,
-            ),
-            "SDF-1 Air Wing Nose Lasers" => array(
-                "desc" => "Adds nose lasers to Figher and Guardian modes.  RG:18, MD:2, Anti-Missile",
-                "points" => 5,
-            ),
-        ),
-        "faction" => "UEDF",
     );
-    /**
-    * This function runs an upgrade
-    *
-    * @param string $name  The name of the upgrade
-    * 
-    * @return true if ready to apply, false if already applied
-    */
-    public function upgrade($name)
-    {
-        if (parent::upgrade($name)) {
-            switch ($name) {
-            }
-            return true;
-        }
-        return false;
-    }
 }

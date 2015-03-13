@@ -206,6 +206,26 @@ class VF1AValkyrie extends \SquadronBuilder\core\Mecha
     {
         if (parent::upgrade($name)) {
             switch ($name) {
+            case "Valkyrie MLOPs":
+                $this->replaceWeapon(
+                    "ValkyrieWingHardPoints", "ValkyrieMLOPs", array("Guardian", "Fighter")
+                );
+                break;
+            case "Valkyrie Long-Range Missiles":
+                $this->replaceWeapon(
+                    "ValkyrieWingHardPoints", "ValkyrieLRM", array("Guardian", "Fighter")
+                );
+                break;
+            case "Valkyrie Gravity Bombs":
+                $this->replaceWeapon(
+                    "ValkyrieWingHardPoints", "ValkyrieGravityBombs", array("Guardian", "Fighter")
+                );
+                break;
+            case "SDF-1 Air Wing Nose Lasers":
+                $this->addWeapon(
+                    "SDF1AirWingNoseLasers", array("Guardian", "Fighter")
+                );
+                break;
 
             }
             return true;

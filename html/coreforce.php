@@ -155,6 +155,7 @@ if ($done == "character") {
                     <dd>
                         <input type="checkbox" name="upgrades[<?php print $name; ?>]" value="1" />
                         <span style="font-weight: bold;"/>
+                            <?php print ($upgrade["exclusive"] === true) ? "*" : ""; ?>
                             <?php print $name; ?>
                             [<?php print ($upgrade["points"] > 0) ? "+" : "-"; ?><?php print $upgrade["points"]; ?> pts]
                         </span>
@@ -162,6 +163,7 @@ if ($done == "character") {
                     </dd>  
                 <?php endforeach; ?>
                 </dl>
+                <strong>* Only one exclusive upgrade can be chosen</strong>
             <?php endif; ?>
             <br />
             <input type="submit" name="submit" value="Submit" />

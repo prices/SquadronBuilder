@@ -71,7 +71,8 @@ class WeaponsTest extends WeaponTestBase
         "QueadluunRauMedParticleCannons",
         "QueadluunRau64mmGrenadeLauncher",
         "GU11", "GU11Battloid", "GU11Fighter",
-        "ValkyrieWingHardPoints",
+        "ValkyrieWingHardPoints", "ValkyrieMLOPs", "ValkyrieLRM",
+        "ValkyrieGravityBombs", "SDF1AirWingNoseLasers",
         "ValkyrieHeadLaser", "ValkyrieDualHeadLasers"
     );
     /**
@@ -207,9 +208,11 @@ class WeaponsTest extends WeaponTestBase
         $min = 5;
         $max = 60;
         $value = $this->o->get("range");
-        $this->assertInternalType("int", $value, "Range must be an integer");
-        $this->assertGreaterThanOrEqual($min, $value, "Range must be $min or more");
-        $this->assertLessThanOrEqual($max, $value, "Range must be $max or less");
+        if ($value !== "-") {
+            $this->assertInternalType("int", $value, "Range must be an integer or '-' for gravity bombs");
+            $this->assertGreaterThanOrEqual($min, $value, "Range must be $min or more");
+            $this->assertLessThanOrEqual($max, $value, "Range must be $max or less");
+        }
     }
     /**
     * Checks the damage

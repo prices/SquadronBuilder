@@ -208,8 +208,8 @@ abstract class ForceTestBase extends \SquadronBuilder\TestBase
         if (is_array($upgrade)) {
             $this->assertTrue(isset($upgrade["desc"]), "Upgrade must have a 'desc' field");
             $min = 5;
-            $max = 100;
-            $note = "Upgrade description must be a string between 5 and 40 characters in length";
+            $max = 120;
+            $note = "Upgrade description must be a string between $min and $max characters in length";
             $this->assertInternalType("string", $upgrade['desc'], $note);
             $this->assertGreaterThanOrEqual($min, strlen($upgrade['desc']), $note);
             $this->assertLessThanOrEqual($max, strlen($upgrade['desc']), $note);
