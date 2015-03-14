@@ -3,3 +3,4 @@ build/
 *.kate-swp
 tmp/
 javascript/contrib/
+rel/
