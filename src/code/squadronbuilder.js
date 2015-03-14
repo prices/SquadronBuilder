@@ -1,6 +1,39 @@
 // This is our data
 
-SquadronBuilder.data = {};
+SquadronBuilder.data = {
+    //
+    // This returns a copy of a mecha object.
+    //
+    // Function Parameters:
+    //      mecha The name of the mecha to retrieve
+    //
+    // Return:
+    //      Mecha object or empty object
+    //
+    getMecha: function (mecha)
+    {
+        if (this.mecha[mecha]) {
+            return JSON.parse(JSON.stringify(this.mecha[mecha]));
+        }
+        return {};
+    },
+    //
+    // This returns a copy of a mecha object.
+    //
+    // Function Parameters:
+    //      mecha The name of the mecha to retrieve
+    //
+    // Return:
+    //      Mecha object or empty object
+    //
+    getWeapon: function (weapon)
+    {
+        if (this.weapons[weapon]) {
+            return JSON.parse(JSON.stringify(this.weapons[weapon]));
+        }
+        return {};
+    }
+};
 //
 // This class is what everything else is based on.  It is mostly just constants
 // and base functions for writing text and making boxes.
@@ -26,9 +59,13 @@ BaseClass.extend = function(properties)
     return ret;
 };
 BaseClass.prototype = {
+    // The default color if no other is specified
     _color: '#000000',
+    // The padding between things, in mm
     padding: 1,
+    // The size of our boxes, in mm
     boxsize: 3,
+    // Box spacing multiplier
     boxmult: 1.2,
     // This is the size of normal text in mm
     smallsize: 1.75,
@@ -40,6 +77,19 @@ BaseClass.prototype = {
     headersize: 5,
     // This is our font family
     fontfamily: "'Bitstream Vera Sans', sans-serif",
+    //
+    // Creates a row or more of boxes for damage, ammo, or other.
+    //
+    // Function Parameters:
+    //      x     The x coordinate of the top left of the first box
+    //      y     The y coordinate of the top left of the first box
+    //      boxes The number of boxes to print out
+    //      rows  The number of rows to print
+    //      color The color the boxes
+    //
+    // Return:
+    //      The height of the boxes
+    //
     boxes: function (x, y, boxes, rows, color)
     {
         if ((boxes >= 10) && !rows) {
@@ -65,6 +115,17 @@ BaseClass.prototype = {
         height = dy - y + (this.boxsize * this.boxmult);
         return height;
     },
+    //
+    // Creates large text
+    //
+    // Function Parameters:
+    //      x    The x coordinate of the top left of the first box
+    //      y    The y coordinate of the top left of the first box
+    //      text The text to print out
+    //
+    // Return:
+    //      The height of the text
+    //
     large: function(x, y, text)
     {
         return this._text(
@@ -76,6 +137,17 @@ BaseClass.prototype = {
             'normal'
         );
     },
+    //
+    // Creates large bold text
+    //
+    // Function Parameters:
+    //      x    The x coordinate of the top left of the first box
+    //      y    The y coordinate of the top left of the first box
+    //      text The text to print out
+    //
+    // Return:
+    //      The height of the text
+    //
     largebold: function(x, y, text)
     {
         return this._text(
@@ -87,6 +159,17 @@ BaseClass.prototype = {
             'bold'
         );
     },
+    //
+    // Creates normal text
+    //
+    // Function Parameters:
+    //      x    The x coordinate of the top left of the first box
+    //      y    The y coordinate of the top left of the first box
+    //      text The text to print out
+    //
+    // Return:
+    //      The height of the text
+    //
     normal: function(x, y, text)
     {
         return this._text(
@@ -98,6 +181,17 @@ BaseClass.prototype = {
             'normal'
         );
     },
+    //
+    // Creates normal bold text
+    //
+    // Function Parameters:
+    //      x    The x coordinate of the top left of the first box
+    //      y    The y coordinate of the top left of the first box
+    //      text The text to print out
+    //
+    // Return:
+    //      The height of the text
+    //
     bold: function(x, y, text)
     {
         return this._text(
@@ -109,6 +203,17 @@ BaseClass.prototype = {
             'bold'
         );
     },
+    //
+    // Creates small text
+    //
+    // Function Parameters:
+    //      x    The x coordinate of the top left of the first box
+    //      y    The y coordinate of the top left of the first box
+    //      text The text to print out
+    //
+    // Return:
+    //      The height of the text
+    //
     small: function(x, y, text)
     {
         return this._text(
@@ -120,6 +225,17 @@ BaseClass.prototype = {
             'normal'
         );
     },
+    //
+    // Creates header text
+    //
+    // Function Parameters:
+    //      x    The x coordinate of the top left of the first box
+    //      y    The y coordinate of the top left of the first box
+    //      text The text to print out
+    //
+    // Return:
+    //      The height of the text
+    //
     header: function(x, y, text)
     {
         return this._text(
@@ -131,12 +247,27 @@ BaseClass.prototype = {
             'bold'
         );
     },
+    //
+    // Creates large text
+    //
+    // Function Parameters:
+    //      x      The x coordinate of the top left of the first box
+    //      y      The y coordinate of the top left of the first box
+    //      text   The text to print out
+    //      font   The font to use to print out the text
+    //      weight Either 'normal' or 'bold'
+    //
+    // Return:
+    //      The height of the text
+    //
     _text: function(x, y, text, size, font, weight)
     {
         var height = 0;
+        // This moves us to the middle of the text, where the coordinates for text are
         y += size / 2;
         var print = text.split("\n");
         var print = this.canvas.text(function(add) {
+            // This accomodates multiple lines
             for (key in print) {
                 var span = add.tspan(print[key]);
                 if (height > 0) {
@@ -163,7 +294,7 @@ BaseClass.prototype = {
 //
 // Class Parameters:
 //      canvas The canvas to use
-//      weapon This should be a class from SquadronBuilder.data.weapons
+//      weapon The name of a weapon
 //      width  The width we are using for this class
 //
 // Public Properties:
@@ -179,7 +310,7 @@ BaseClass.prototype = {
 //      
 var Weapon = function (canvas, weapon, width) {
     this.canvas = canvas;
-    this.weapon = weapon;
+    this.weapon = SquadronBuilder.data.getWeapon(weapon);
     this.width  = width ? width : 70;
 };
 Weapon.prototype = BaseClass.extend({
@@ -287,7 +418,7 @@ Weapon.prototype = BaseClass.extend({
 //      
 SquadronBuilder.mecha = function (canvas, mecha, width) {
     this.canvas = canvas;
-    this.mecha  = mecha;
+    this.mecha  = SquadronBuilder.data.getMecha(mecha);
     this.width  = width ? width : 70;
     if (this.hasJettison()) {
         var jettison = SquadronBuilder.data.mecha[this.mecha.abilities.Jettison];
@@ -322,7 +453,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
             var wpn = this.mecha.ranged[key];
             weapon[key] = new Weapon(
                 this.canvas, 
-                SquadronBuilder.data.weapons[wpn], 
+                wpn,
                 width
             );
             if (weapon[key].hasAmmo()) {
@@ -507,7 +638,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
             var wpn = mecha.ranged[key];
             var weapon = new Weapon(
                 this.canvas, 
-                SquadronBuilder.data.weapons[wpn], 
+                wpn,
                 (this.width - (this.padding * 2))
             );
             if (weapon.hasAmmo()) {

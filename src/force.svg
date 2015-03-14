@@ -20,7 +20,7 @@
     <script type="text/javascript">
         <![CDATA[
             var canvas = SVG('svg0');
-            var mecha = new SquadronBuilder.mecha(canvas, SquadronBuilder.data.mecha.VF1AValkyrie);
+            var mecha = new SquadronBuilder.mecha(canvas, 'VF1AValkyrie');
             mecha.render(7, 7, 2);
         ]]>
         
