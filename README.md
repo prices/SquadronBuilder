@@ -8,25 +8,17 @@ The game can be found at http://www.palladiumbooks.com/
 
 ## Goals
 
-The goal of this project is to create a web interface in PHP and JavaScript
+The goal of this project is to create a web interface in HTML and JavaScript
 that will allow a player to create squadron cards to play the game with.  The
 squadron cards will be output is SVG format, which Firefox and Chrome will both
 open natively.  From there they can be printed.
 
 ## Requirements
-### Running
-* PHP >= 5.3
-* Web server software (any that can run php)
+ # A recent web broswer that supports JavaScript
 
-### Testing
-* phpunit >= 3.7
-
-
-## Installing
-
-The entire html/ directory needs to go into the web space of the web server.
-It can go in as a subdirectory or as the root directory.  It will work either
-way.
+I was thinking about the project, written in PHP, and realized that PHP was not
+the right language.  Using JavaScript worked much better, as a web server is not
+needed.  The files can just be opened in a web browser, and everything works.
 
 ## Testing
 
