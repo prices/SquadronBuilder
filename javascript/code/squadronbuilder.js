@@ -27,7 +27,6 @@ BaseClass.extend = function(properties)
 };
 BaseClass.prototype = {
     _color: '#000000',
-    wwchars: 50,
     padding: 1,
     boxsize: 3,
     boxmult: 1.2,
@@ -74,8 +73,7 @@ BaseClass.prototype = {
             text, 
             this.largesize, 
             this.fontfamily,
-            'normal',
-            parseInt(this.wwchars * .8, 10)
+            'normal'
         );
     },
     largebold: function(x, y, text)
@@ -86,8 +84,7 @@ BaseClass.prototype = {
             text, 
             this.largesize, 
             this.fontfamily,
-            'bold',
-            parseInt(this.wwchars * .7, 10)
+            'bold'
         );
     },
     normal: function(x, y, text)
@@ -98,8 +95,7 @@ BaseClass.prototype = {
             text, 
             this.normalsize, 
             this.fontfamily,
-            'normal',
-            this.wwchars
+            'normal'
         );
     },
     bold: function(x, y, text)
@@ -110,8 +106,7 @@ BaseClass.prototype = {
             text, 
             this.normalsize, 
             this.fontfamily,
-            'bold',
-            parseInt(this.wwchars * .95, 10)
+            'bold'
         );
     },
     small: function(x, y, text)
@@ -122,8 +117,7 @@ BaseClass.prototype = {
             text, 
             this.smallsize, 
             this.fontfamily,
-            'normal',
-            parseInt(this.wwchars * 1.5, 10)
+            'normal'
         );
     },
     header: function(x, y, text)
@@ -134,17 +128,23 @@ BaseClass.prototype = {
             text, 
             this.headersize, 
             this.fontfamily,
-            'bold',
-            1000
+            'bold'
         );
     },
-    _text: function(x, y, text, size, font, weight, chars)
+    _text: function(x, y, text, size, font, weight)
     {
+        var height = 0;
         y += size / 2;
-        text = this._wordwrap(text, chars);
-        var print = this.canvas.text(
-            text
-        ).x(
+        var print = text.split("\n");
+        var print = this.canvas.text(function(add) {
+            for (key in print) {
+                var span = add.tspan(print[key]);
+                if (height > 0) {
+                    span.x(x+'mm').dy(height+'mm');
+                }
+                height += size;
+            }
+        }).x(
             x+'mm'
         ).y(
             y+'mm'
@@ -155,22 +155,8 @@ BaseClass.prototype = {
             leading:  this.padding+'mm',
             'font-weight': weight,
         });
-        return print;
+        return height;
     },
-    _wordwrap: function(text, chars)
-    {
-        var print = [];
-        if (text.length < chars) {
-            print[0] = text;
-        } else {
-            print[0] = text;
-        }
-        return function(add) {
-            for (key in print) {
-                add.tspan(print[key]);
-            }
-        };
-    }
 };
 
 // This class deals with a weapon  It prints out everything to do with it.
@@ -525,22 +511,30 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         dy += this.normalsize;
         var sep = "";
         var abl = "";
+        var len = 0;
         for (key in mecha.abilities) {
             var abil = mecha.abilities[key];
+            var text = '';
             if (abil === true) {
-                abl += sep+key;
+                text = sep+key;
                 sep = ', ';
             } else if (abil !== false) {
                 if (key == 'Jettison') {
-                    abl += sep+key+' to '+this._jettisonto.mecha.name;
+                    text = sep+key+' to '+this._jettisonto.mecha.name;
                 } else {
-                    abl += sep+key+' '+abil;
+                    text = sep+key+' '+abil;
                 }
                 sep = ', ';
             }
+            if ((abl.length + text.length - len) > 50) {
+                len = abl.length;
+                abl += text.replace(', ', ", \n");
+            } else {
+                abl += text;
+            }
         }
-        this.normal(dx, dy, abl);
-        dy += this.normalsize;
+        dy += this.normal(dx, dy, abl);
+        //dy += this.normalsize;
         return dy - y;
     },
     //
