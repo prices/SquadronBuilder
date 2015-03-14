@@ -1,5 +1,6 @@
 JSFILES = src/code/squadronbuilder.js \
-	src/data/weapons.js src/data/mecha.js
+	src/data/weapons.js src/data/mecha.js \
+	src/force/core.js src/force/characters.js src/force/special.js src/force/support.js
 
 
 all: rel/squadronbuilder.min.js rel/index.html rel/force.svg rel/contrib/svg.min.js

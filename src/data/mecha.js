@@ -1,13 +1,6 @@
-/**
-* This is where weapons are specified
-*
-* @category   JavaScript
-* @package    Weapons
-* @subpackage JavaScript
-* @author     Scott Price <prices@dflytech.com>
-* @copyright  2015 Scott Price
-* @link       http://github.com/prices/SquadronBuilder
-*/
+//
+// The mecha are specified here
+//
 SquadronBuilder.data.mecha = {
     GlaugEldare: {
         name: 'Glaug-Eldare',

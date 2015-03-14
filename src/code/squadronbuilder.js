@@ -1,5 +1,6 @@
+//
 // This is our data
-
+//
 SquadronBuilder.data = {
     //
     // This returns a copy of a mecha object.
@@ -33,6 +34,27 @@ SquadronBuilder.data = {
         }
         return {};
     }
+};
+//
+// This is our force cards
+//
+SquadronBuilder.force = {
+    //
+    // This returns a copy of a mecha object.
+    //
+    // Function Parameters:
+    //      mecha The name of the mecha to retrieve
+    //
+    // Return:
+    //      Mecha object or empty object
+    //
+    getCore: function (mecha)
+    {
+        if (this.mecha[mecha]) {
+            return JSON.parse(JSON.stringify(this.mecha[mecha]));
+        }
+        return {};
+    },
 };
 //
 // This class is what everything else is based on.  It is mostly just constants
