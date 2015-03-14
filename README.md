@@ -14,7 +14,7 @@ squadron cards will be output is SVG format, which Firefox and Chrome will both
 open natively.  From there they can be printed.
 
 ## Requirements
- # A recent web broswer that supports JavaScript
+* A recent web broswer that supports JavaScript
 
 I was thinking about the project, written in PHP, and realized that PHP was not
 the right language.  Using JavaScript worked much better, as a web server is not
