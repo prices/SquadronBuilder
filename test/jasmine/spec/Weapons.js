@@ -63,22 +63,18 @@ describe("Weapons", function() {
             'Indirect Fire', 'Missile', 'Overwhelming', 'Rapid Fire',
             'Rear Fire', 'Split Fire', 'Volley X'];
 
-            for (akey in abilities) {
-                (function (k) {
-                    describe(key+ " has ability "+abilities[k], function() {
-                        it("set to true or false", function() {
+            describe(key+ " has its abilities set as ", function() {
+                for (akey in abilities) {
+                    (function (k) {
+                        it(abilities[k]+" set to true or false", function() {
                             expect(weapon.abilities[abilities[k]]).toBeBoolean();
                         });
-                    });
-                })(akey);
-            }
-            describe(key+ " has ability Ammo", function() {
-                it("set to false or an integer", function() {
+                    })(akey);
+                }
+                it("Ammo set to false or an integer", function() {
                     expect(weapon.abilities['Ammo']).toBeFalseOrInt();
                 });
-            });
-            describe(key+ " has ability Volley", function() {
-                it("set to false or an integer", function() {
+                it("Volley set to false or an integer", function() {
                     expect(weapon.abilities['Volley']).toBeFalseOrInt();
                 });
             });
