@@ -398,7 +398,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         return this;
     },
     //
-    // This function renders the main output for this object
+    // This function renders the jettison to output for this object
     // 
     // Function Parameters:
     //      x The x coordinate of the top left corner of this object
@@ -425,14 +425,15 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         return this;
     },
     //
-    // This function renders the main output for this object
+    // This function renders the main part of a mecha
     //
     // Function Parameters:
-    //      x The x coordinate of the top left corner of this object
-    //      y The y coordintate of the top left corner of this object
+    //      x     The x coordinate of the top left corner of this object
+    //      y     The y coordintate of the top left corner of this object
+    //      mecha The mecha object to render
     //
     // Return:
-    //      This object
+    //      The height of this render
     //
     _mechaRender: function (x, y, mecha)
     {
@@ -456,14 +457,15 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         return dy - y;
     },
     //
-    // This function renders the main output for this object
+    // This function renders the base part of a mecha, without the name or damage
     //
     // Function Parameters:
-    //      x The x coordinate of the top left corner of this object
-    //      y The y coordintate of the top left corner of this object
+    //      x     The x coordinate of the top left corner of this object
+    //      y     The y coordintate of the top left corner of this object
+    //      mecha The mecha object to render
     //
     // Return:
-    //      This object
+    //      The height of this render
     //
     _baseRender: function (x, y, mecha)
     {
@@ -484,6 +486,16 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         // This is the end
         return dy - y;
     },
+    // This function renders the ranged weapons for a mecha
+    //
+    // Function Parameters:
+    //      x     The x coordinate of the top left corner of this object
+    //      y     The y coordintate of the top left corner of this object
+    //      mecha The mecha object to render
+    //
+    // Return:
+    //      The height of this render
+    //
     _ranged: function(x, y, mecha)
     {
         var color = 0;
@@ -506,6 +518,16 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         }
         return dy - y;
     },
+    // This function renders the hand to hand combat for a mecha
+    //
+    // Function Parameters:
+    //      x     The x coordinate of the top left corner of this object
+    //      y     The y coordintate of the top left corner of this object
+    //      mecha The mecha object to render
+    //
+    // Return:
+    //      The height of this render
+    //
     _handtohand: function(x, y, mecha)
     {
         var dx = x;
@@ -530,6 +552,16 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         dy += this.normal(dx, dy, hth);
         return dy - y;
     },
+    // This function renders the stats of a mecha
+    //
+    // Function Parameters:
+    //      x     The x coordinate of the top left corner of this object
+    //      y     The y coordintate of the top left corner of this object
+    //      mecha The mecha object to render
+    //
+    // Return:
+    //      The height of this render
+    //
     _stats: function(x, y, mecha)
     {
         var width = this.width - (2 * this.padding);
@@ -548,6 +580,16 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         ).x(x+"mm").y(y+"mm").stroke("#000000").fill("none");
         return height;
     },
+    // This function renders the special abilities of a mecha
+    //
+    // Function Parameters:
+    //      x     The x coordinate of the top left corner of this object
+    //      y     The y coordintate of the top left corner of this object
+    //      mecha The mecha object to render
+    //
+    // Return:
+    //      The height of this render
+    //
     _abilities: function(x, y, mecha)
     {
         var dx = x;
@@ -591,6 +633,16 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
     {
         return (this.mecha.abilities.Jettison !== false);
     },
+    // This function renders the extra checkbox for a mecha with the Jettison
+    // special ability.
+    //
+    // Function Parameters:
+    //      x The x coordinate of the top left corner of this object
+    //      y The y coordintate of the top left corner of this object
+    //
+    // Return:
+    //      The height of this render
+    //
     _jettison: function (x, y)
     {
         if (!this.hasJettison()) {
