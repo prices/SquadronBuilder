@@ -445,6 +445,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
             dy += this._abilities(x, y, mecha);
             dy += this.padding;
             for (mode in mecha.modes) {
+                dy += this.padding;
                 dy += this.largebold(dx, dy, mode);
                 dy += this._baseRender(dx, dy, mecha.modes[mode]);
             }
@@ -552,7 +553,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         var dx = x;
         var dy = y;
         // Add in the hand to hand combat
-        this.bold(dx, dy, "Abilities:");
+        this.bold(dx, dy, "Special Abilities:");
         dy += this.normalsize;
         var sep = "";
         var abl = "";
