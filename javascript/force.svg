@@ -14,13 +14,13 @@
    version="1.1"
    >
     <script type="text/javascript" xlink:href="contrib/svg.min.js"></script>
-    <script type="text/javascript" xlink:href="squadronbuilder.min.js"></script>
+    <script type="text/javascript" xlink:href="squadronbuilder.js"></script>
     <script type="text/javascript" xlink:href="data/mecha.js"></script>
     <script type="text/javascript" xlink:href="data/weapons.js"></script>
     <script type="text/javascript">
         <![CDATA[
             var canvas = SVG('svg0');
-            var mecha = new SquadronBuilder.mecha(canvas, SquadronBuilder.data.mecha.GlaugEldare);
+            var mecha = new SquadronBuilder.mecha(canvas, SquadronBuilder.data.mecha.VF1AValkyrie);
             mecha.render(7, 7, 2);
         ]]>
         

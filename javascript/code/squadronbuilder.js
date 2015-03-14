@@ -62,7 +62,7 @@ BaseClass.prototype = {
             ).x(dx+"mm").y(dy+"mm").stroke(color).fill("none");
             dx += this.boxsize * this.boxmult;
         }
-        height = y - dy + (this.boxsize * this.boxmult);
+        height = dy - y + (this.boxsize * this.boxmult);
         return height;
     },
     large: function(x, y, text)
@@ -211,10 +211,8 @@ Weapon.prototype = BaseClass.extend({
         }
         x += this.padding;
         y += this.padding * 2;
-        var name = this.normal(x, y, this.weapon.name);
-        y += this.normalsize;
-        var attrib = this.small(x, y, abilities);
-        y += this.smallsize;
+        y += this.normal(x, y, this.weapon.name);
+        y += this.small(x, y, abilities);
         y += this.padding;
         this.height = y - dy;
 
@@ -262,7 +260,7 @@ Weapon.prototype = BaseClass.extend({
         var ammo = this.weapon.abilities.Ammo;
         var dx   = x;
         var dy   = y;
-        var name = this.small(dx, dy, this.weapon.name);
+        this.small(dx, dy, this.weapon.name);
 
         var bx = dx + this.width - (this.boxsize * ammo * this.boxmult) - (this.padding * 1.5);
         var by = dy + (this.smallsize / 2) - (this.boxsize / 2);
@@ -356,7 +354,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
 
             if (this.mecha.extradamage) {
                 // Put in the extradamage boxes
-                by += this.boxsize * this.boxmult;
+                by += h;
                 h += this.boxes(bx, by, this.mecha.extradamage, 1, this._jcolor);
             }
 
@@ -382,14 +380,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
             }
         }
         dy  = ny + (this.padding * 2);
-        dy += this._ranged(dx, dy, this.mecha);
-        dy += this.padding * 2;
-        dy += this._handtohand(dx, dy, this.mecha);
-        dy += this.padding;
-        dy += this._stats(dx, dy, this.mecha);
-        dy += this.padding * 2;
-        dy += this._abilities(dx, dy, this.mecha);
-        dy += this.padding;
+        dy += this._mechaRender(dx, dy, this.mecha);
         
         if (this.hasJettison()) {
             this._jettisonto.jettisonTo(dx, dy);
@@ -424,23 +415,73 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         var dx = x;
         dy += this.padding;
         
-        this.largebold(dx, dy, 'Jettison to '+this.mecha.name);
+        dy += this.largebold(dx, dy, 'Jettison to '+this.mecha.name);
+        dy += this.padding;
+        dy += this._mechaRender(dx, dy, this.mecha);
 
-        dy += this.largesize + this.padding;
-        dy += this._ranged(dx, dy, this.mecha);
-        dy += this.padding * 2;
-        dy += this._handtohand(dx, dy, this.mecha);
-        dy += this.padding;
-        dy += this._stats(dx, dy, this.mecha);
-        dy += this.padding * 2;
-        dy += this._abilities(dx, dy, this.mecha);
-        dy += this.padding;
-        
-        // Put a rectangle around it all
         this.height = dy - y;        
         
         // This is the end
         return this;
+    },
+    //
+    // This function renders the main output for this object
+    //
+    // Function Parameters:
+    //      x The x coordinate of the top left corner of this object
+    //      y The y coordintate of the top left corner of this object
+    //
+    // Return:
+    //      This object
+    //
+    _mechaRender: function (x, y, mecha)
+    {
+
+        // Set up the x and y
+        var dy = y;
+        var dx = x;
+
+        if (mecha.modes) {
+            dy += this._abilities(x, y, mecha);
+            dy += this.padding;
+            for (mode in mecha.modes) {
+                dy += this.largebold(dx, dy, mode);
+                dy += this._baseRender(dx, dy, mecha.modes[mode]);
+            }
+        } else {
+            dy += this._baseRender(x, y, mecha);
+        }
+        // This is the end
+        return dy - y;
+    },
+    //
+    // This function renders the main output for this object
+    //
+    // Function Parameters:
+    //      x The x coordinate of the top left corner of this object
+    //      y The y coordintate of the top left corner of this object
+    //
+    // Return:
+    //      This object
+    //
+    _baseRender: function (x, y, mecha)
+    {
+
+        // Set up the x and y
+        var dy = y;
+        var dx = x;
+
+        dy += this._ranged(dx, dy, mecha);
+        dy += this.padding * 2;
+        dy += this._handtohand(dx, dy, mecha);
+        dy += this.padding;
+        dy += this._stats(dx, dy, mecha);
+        dy += this.padding * 2;
+        dy += this._abilities(dx, dy, mecha);
+        dy += this.padding;
+
+        // This is the end
+        return dy - y;
     },
     _ranged: function(x, y, mecha)
     {
@@ -448,8 +489,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         var dx    = x;
         var dy    = y;
         // Add in the ranged weapons
-        this.bold(dx, dy, "Ranged:");
-        dy += this.normalsize;
+        dy += this.bold(dx, dy, "Ranged:");
         for (key in mecha.ranged) {
             var wpn = mecha.ranged[key];
             var weapon = new Weapon(
@@ -474,28 +514,33 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         dy += this.normalsize;
         var sep = "";
         var hth = "";
+        var len = 0;
         for (key in mecha.handtohand) {
-            hth += sep+mecha.handtohand[key];
+            text = sep + mecha.handtohand[key];
+            if ((hth.length + text.length - len) > 50) {
+                len = hth.length;
+                hth += text.replace(', ', ", \n");
+            } else {
+                hth += text;
+            }
+
             sep = ", ";
         }
-        this.normal(dx, dy, hth);
-        dy += this.normalsize;
+        dy += this.normal(dx, dy, hth);
         return dy - y;
     },
     _stats: function(x, y, mecha)
     {
         var width = this.width - (2 * this.padding);
         dx = x + this.padding;
-        dy = y + this.padding;
+        dy = y + (this.padding * 2);
         this.normal(dx, dy, "Speed: "+mecha.speed);
         dx += (width / 4);
         this.normal(dx, dy, "Pilot: "+mecha.piloting);
         dx += (width / 5.5);
         this.normal(dx, dy, "Gunnery: "+mecha.gunnery);
         dx += (width / 3.5);
-        this.normal(dx, dy, "Defense: "+mecha.defense);
-        dy += this.normalsize;
-        dy += this.padding;
+        dy += this.normal(dx, dy, "Defense: "+mecha.defense);
         height = dy - y;
         var rect = this.canvas.rect(
             width+"mm", height+"mm"
@@ -534,7 +579,6 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
             }
         }
         dy += this.normal(dx, dy, abl);
-        //dy += this.normalsize;
         return dy - y;
     },
     //
@@ -558,10 +602,10 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         
         this.boxes(dx, by, 1, null, this._jcolor);
         
-        name = "Jettison to "+this._jettisonto.mecha.name;
+        name  = "Jettison to "+this._jettisonto.mecha.name;
         dx   += (this.boxsize * 1.4);
-        this.bold(dx, dy, name);
-        diff  = this.normalsize + this.padding;
+        diff  = this.bold(dx, dy, name);
+        diff += this.padding;
 
         if (diff < (this.boxsize + this.padding)) {
             diff = this.boxsize + this.padding;
