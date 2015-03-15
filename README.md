@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a force builder for Robotech&reg; RPG Tactics&trade; 
+This is a force builder for Robotech® RPG Tactics™
 
 The game can be found at http://www.palladiumbooks.com/
 
