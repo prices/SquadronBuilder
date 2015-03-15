@@ -112,9 +112,24 @@ BaseClass.prototype = {
     // Return:
     //      The group
     //
+    canvas: function ()
+    {
+        return this._canvas;
+    },
+    //
+    // Creates a group with all of the items
+    //
+    // Function Parameters:
+    //      x     The x coordinate of the top left of the first box
+    //      y     The y coordinate of the top left of the first box
+    //      stuff The stuff to group.  This should be an array.
+    //
+    // Return:
+    //      The group
+    //
     _group: function (x, y, stuff)
     {
-        var group = this.canvas.group();
+        var group = this._canvas.group();
         for (k in stuff) {
             group.add(stuff[k]);
         }
@@ -144,7 +159,7 @@ BaseClass.prototype = {
     //
     box: function (x, y, width, height, color)
     {
-        var rect = this.canvas.rect(
+        var rect = this._canvas.rect(
             width+"mm", height+"mm"
         ).x(x+"mm").y(y+"mm").stroke(color).fill("none");
 
@@ -182,7 +197,7 @@ BaseClass.prototype = {
                 dy += this.boxsize * this.boxmult;
                 dx = x;
             }
-            rect[i] = this.canvas.rect(
+            rect[i] = this._canvas.rect(
                 this.boxsize+"mm", this.boxsize+"mm"
             ).x(dx+"mm").y(dy+"mm").stroke(color).fill("none");
             dx += this.boxsize * this.boxmult;
@@ -343,7 +358,7 @@ BaseClass.prototype = {
         // This moves us to the middle of the text, where the coordinates for text are
         y += size / 2;
         var print = text.split("\n");
-        var print = this.canvas.text(function(add) {
+        var print = this._canvas.text(function(add) {
             // This accomodates multiple lines
             for (key in print) {
                 var span = add.tspan(print[key]);
@@ -387,9 +402,10 @@ BaseClass.prototype = {
 //      color   Set the color of the boxes
 //      
 var Weapon = function (canvas, weapon, width) {
-    this.canvas = canvas;
-    this.weapon = SquadronBuilder.data.getWeapon(weapon);
-    this.width  = width ? width : 70;
+    this._canvas = canvas;
+    this.class   = weapon;
+    this.weapon  = SquadronBuilder.data.getWeapon(weapon);
+    this.width   = width ? width : 70;
 };
 Weapon.prototype = BaseClass.extend({
     _color: "#000000",
@@ -494,12 +510,13 @@ Weapon.prototype = BaseClass.extend({
 //      render  Render the object in SVG
 //      
 SquadronBuilder.mecha = function (canvas, mecha, width) {
-    this.canvas = canvas.nested();
-    this.mecha  = SquadronBuilder.data.getMecha(mecha);
-    this.width  = width ? width : 70;
+    this._canvas = canvas.nested();
+    this.class   = mecha;
+    this.mecha   = SquadronBuilder.data.getMecha(mecha);
+    this.width   = width ? width : 70;
     if (this.hasJettison()) {
         this._jettisonto = new SquadronBuilder.mecha(
-            this.canvas, this.mecha.abilities.Jettison, this.width
+            this._canvas, this.mecha.abilities.Jettison, this.width
         );
     }
 };
@@ -522,7 +539,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
     //
     render: function (x, y, count)
     {
-        this.canvas.x(x+'mm').y(y+'mm');
+        this._canvas.x(x+'mm').y(y+'mm');
         // Set up our weapons
         var color = 0;
         var weapon = [];
@@ -530,7 +547,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         for (key in this.mecha.ranged) {
             var wpn = this.mecha.ranged[key];
             weapon[key] = new Weapon(
-                this.canvas, 
+                this._canvas,
                 wpn,
                 width
             );
@@ -600,7 +617,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         this.height = dy - y;
         this.box(x, y, this.width, this.height, "#000000");
         
-        this.canvas.width(this.width+'mm').height(this.height+'mm');
+        this._canvas.width(this.width+'mm').height(this.height+'mm');
 
         // This is the end
         return this;
@@ -714,7 +731,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         for (key in mecha.ranged) {
             var wpn = mecha.ranged[key];
             var weapon = new Weapon(
-                this.canvas, 
+                this._canvas,
                 wpn,
                 (this.width - (this.padding * 2))
             );
@@ -942,13 +959,13 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
 //      render  Render the object in SVG
 //
 SquadronBuilder.coreforce = function (canvas, card, width) {
-    this.canvas = canvas;
+    this._canvas = canvas;
     this.card  = SquadronBuilder.force.getCore(card);
     this.width  = width ? width : 70;
     if (this.hasJettison()) {
         var jettison = SquadronBuilder.data.mecha[this.mecha.abilities.Jettison];
         this._jettisonto = new SquadronBuilder.mecha(
-            this.canvas, jettison, this.width
+            this._canvas, jettison, this.width
         );
     }
 };
