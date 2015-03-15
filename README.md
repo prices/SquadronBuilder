@@ -61,11 +61,11 @@ This project is not in any way affiliated with Palladium Books, Harmony Gold, or
 any other company.  It is purely written to make it easier for me to play the
 game.
 
-Robotech&reg; and associated names, logos, and all related indicia are trademarks
-of Harmony Gold USA, Inc.
+Robotech® and associated names, logos, and all related indicia are trademarks
+of Harmony Gold USA, Inc. http://www.harmonygold.com/
 
-Palladium Books&reg;, game terms, names, titles, and other game related words, 
+Palladium Books®, game terms, names, titles, and other game related words,
 system of play, and slogans are trademarks owned by Palladium Books, Inc.
 
-Robotech&reg; RPG Tactics&trade; is published by Palladium Books Inc. 
+Robotech® RPG Tactics™ is published by Palladium Books, Inc.
 http://palladiumbooks.com/
