@@ -100,7 +100,7 @@ BaseClass.prototype = {
     // This is our font family
     fontfamily: "'Bitstream Vera Sans', sans-serif",
     // This is our groups from all of this.
-    _groups: [],
+    _elements: [],
     //
     // Creates a group with all of the items
     //
@@ -112,14 +112,22 @@ BaseClass.prototype = {
     // Return:
     //      The group
     //
-    group: function (x, y, stuff)
+    _group: function (x, y, stuff)
     {
         var group = this.canvas.group();
         for (k in stuff) {
             group.add(stuff[k]);
         }
-        this._groups.push(group);
         return group;
+    },
+    //
+    // This function is used to check if this weapon uses ammo
+    //
+    // Return:
+    //      true if this weapon uses ammo
+    group: function ()
+    {
+        return this._group(this._elements);
     },
     //
     // Creates a box on the screen
@@ -140,7 +148,7 @@ BaseClass.prototype = {
             width+"mm", height+"mm"
         ).x(x+"mm").y(y+"mm").stroke(color).fill("none");
 
-        this._groups.shift(rect);
+        this._elements.shift(rect);
 
         return height;
     },
@@ -179,7 +187,7 @@ BaseClass.prototype = {
             ).x(dx+"mm").y(dy+"mm").stroke(color).fill("none");
             dx += this.boxsize * this.boxmult;
         }
-        this.group(x, y, rect);
+        this._elements.push(this._group(x, y, rect));
 
         height = dy - y + (this.boxsize * this.boxmult);
         return height;
@@ -355,7 +363,7 @@ BaseClass.prototype = {
             leading:  this.padding+'mm',
             'font-weight': weight,
         });
-        this._groups.shift(print);
+        this._elements.shift(print);
         return height;
     },
 };
@@ -486,7 +494,7 @@ Weapon.prototype = BaseClass.extend({
 //      render  Render the object in SVG
 //      
 SquadronBuilder.mecha = function (canvas, mecha, width) {
-    this.canvas = canvas;
+    this.canvas = canvas.nested();
     this.mecha  = SquadronBuilder.data.getMecha(mecha);
     this.width  = width ? width : 70;
     if (this.hasJettison()) {
@@ -514,6 +522,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
     //
     render: function (x, y, count)
     {
+        this.canvas.x(x+'mm').y(y+'mm');
         // Set up our weapons
         var color = 0;
         var weapon = [];
@@ -531,8 +540,8 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         }
 
         // Set up the x and y
-        var dy = y;
-        var dx = x;
+        var dy = y = 0;
+        var dx = x = 0;
         dx += this.padding;
         dy += this.padding;
         
@@ -589,6 +598,8 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         // Put a rectangle around it all
         this.height = dy - y;
         this.box(x, y, this.width, this.height, "#000000");
+        
+        this.canvas.width(this.width+'mm').height(this.height+'mm');
         
         // This is the end
         return this;
@@ -711,6 +722,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
             }
             weapon.render(dx, dy);
             dy += weapon.height;
+            this._elements.push(weapon.group());
         }
         return dy - y;
     },
