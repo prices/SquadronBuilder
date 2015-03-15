@@ -508,6 +508,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
     height: 0,
     _jettisonto: {},
     _colors: ['#CF0000', '#CFCF00', '#00CF00'],
+    _wpncolors: {},
     _jcolor: '#0000CF',
     _weapon: [],
     //
@@ -535,7 +536,8 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
                 width
             );
             if (weapon[key].hasAmmo()) {
-                weapon[key].color(this._colors[color++]);
+                this._wpncolors[wpn] = this._colors[color++];
+                weapon[key].color(this._wpncolors[wpn]);
             }
         }
 
@@ -705,7 +707,6 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
     //
     _ranged: function(x, y, mecha)
     {
-        var color = 0;
         var dx    = x;
         var dy    = y;
         // Add in the ranged weapons
@@ -718,7 +719,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
                 (this.width - (this.padding * 2))
             );
             if (weapon.hasAmmo()) {
-                weapon.color(this._colors[color++]);
+                weapon.color(this._wpncolors[wpn]);
             }
             weapon.render(dx, dy);
             dy += weapon.height;
