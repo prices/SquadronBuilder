@@ -24,7 +24,8 @@
                 var mecha = new SquadronBuilder.mecha(canvas, 'GlaugEldare');
                 mecha.addWeapon('GU11Battloid');
                 mecha.changeStat('piloting', 1);
-                mecha.changeStat('gunnery', -1);
+                mecha.changeAbility('Leadership', -1);
+                mecha.setAbility('Leap', true);
                 mecha.render(0, 0, 2);
                 mecha.canvas().x('20mm').y('20mm');
             }

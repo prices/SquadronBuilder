@@ -928,6 +928,42 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         }
     },
     //
+    // This function adds a weapon in one or more modes
+    //
+    // Function Parameters:
+    //      stat  The stat to change
+    //      vaue  The value to change it to
+    //
+    changeAbility: function(stat, value)
+    {
+        value = parseInt(value, 10) || 0;
+
+        if (typeof this.mecha.abilities[stat] === 'number') {
+            this.mecha.abilities[stat] += value;
+        }
+        if (this._jettisonto) {
+            // Fix up the jettison mecha also
+            this._jettisonto.changeAbility(stat, value);
+        }
+    },
+    //
+    // This function adds a weapon in one or more modes
+    //
+    // Function Parameters:
+    //      stat  The stat to change
+    //      vaue  The value to change it to
+    //
+    setAbility: function(stat, value)
+    {
+        if (typeof this.mecha.abilities[stat] !== 'undefined') {
+            this.mecha.abilities[stat] = value;
+        }
+        if (this._jettisonto) {
+            // Fix up the jettison mecha also
+            this._jettisonto.setAbility(stat, value);
+        }
+    },
+    //
     // This function is used to check if this weapon uses ammo
     // 
     // Return:
