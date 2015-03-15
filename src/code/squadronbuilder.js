@@ -695,6 +695,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         // This is the end
         return dy - y;
     },
+    //
     // This function renders the ranged weapons for a mecha
     //
     // Function Parameters:
@@ -727,6 +728,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         }
         return dy - y;
     },
+    //
     // This function renders the hand to hand combat for a mecha
     //
     // Function Parameters:
@@ -761,6 +763,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         dy += this.normal(dx, dy, hth);
         return dy - y;
     },
+    //
     // This function renders the stats of a mecha
     //
     // Function Parameters:
@@ -787,6 +790,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         this.box(x, y, width, height, '#000000');
         return height;
     },
+    //
     // This function renders the special abilities of a mecha
     //
     // Function Parameters:
@@ -831,7 +835,8 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         dy += this.normal(dx, dy, abl);
         return dy - y;
     },
-    // This function renders the special abilities of a mecha
+    //
+    // This function replaces a weapon in one or more modes
     //
     // Function Parameters:
     //      oldwpn The weapon to replace
@@ -854,7 +859,8 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
             }
         }
     },
-    // This function renders the special abilities of a mecha
+    //
+    // This function adds a weapon in one or more modes
     //
     // Function Parameters:
     //      wpn   The weapon to add
@@ -875,6 +881,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
     // 
     // Return:
     //      true if this weapon uses ammo
+    //
     hasJettison: function ()
     {
         return (this.mecha.abilities.Jettison !== false);
