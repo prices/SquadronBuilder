@@ -184,6 +184,15 @@ describe("Mecha", function() {
                                 })(qkey);
                             }
                         });
+                        describe(key+ " hand to hand attacks that are ", function() {
+                            for (tkey in mode.handtohand) {
+                                (function (t) {
+                                    it(mode.handtohand[t]+" is valid ", function() {
+                                        expect(mode.handtohand[t]).toBeValidHandToHand();
+                                    });
+                                })(tkey);
+                            }
+                        });
 
                     })(mkey);
                 }
@@ -253,6 +262,15 @@ describe("Mecha", function() {
                                 expect(mecha.ranged[r]).toBeDefinedWeapon();
                             });
                         })(rkey);
+                    }
+                });
+                describe(key+ " hand to hand attacks that are ", function() {
+                    for (skey in mecha.handtohand) {
+                        (function (s) {
+                            it(mecha.handtohand[s]+" is valid ", function() {
+                                expect(mecha.handtohand[s]).toBeValidHandToHand();
+                            });
+                        })(skey);
                     }
                 });
 
