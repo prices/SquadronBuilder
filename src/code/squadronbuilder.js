@@ -99,6 +99,51 @@ BaseClass.prototype = {
     headersize: 5,
     // This is our font family
     fontfamily: "'Bitstream Vera Sans', sans-serif",
+    // This is our groups from all of this.
+    _groups: [],
+    //
+    // Creates a group with all of the items
+    //
+    // Function Parameters:
+    //      x     The x coordinate of the top left of the first box
+    //      y     The y coordinate of the top left of the first box
+    //      stuff The stuff to group.  This should be an array.
+    //
+    // Return:
+    //      The group
+    //
+    group: function (x, y, stuff)
+    {
+        var group = this.canvas.group();
+        for (k in stuff) {
+            group.add(stuff[k]);
+        }
+        this._groups.push(group);
+        return group;
+    },
+    //
+    // Creates a box on the screen
+    //
+    // Function Parameters:
+    //      x      The x coordinate of the top left of the first box
+    //      y      The y coordinate of the top left of the first box
+    //      width  The width of the box
+    //      height The height of the box
+    //      color  The color the boxes
+    //
+    // Return:
+    //      The height of the box
+    //
+    box: function (x, y, width, height, color)
+    {
+        var rect = this.canvas.rect(
+            width+"mm", height+"mm"
+        ).x(x+"mm").y(y+"mm").stroke(color).fill("none");
+
+        this._groups.shift(rect);
+
+        return height;
+    },
     //
     // Creates a row or more of boxes for damage, ammo, or other.
     //
@@ -134,6 +179,8 @@ BaseClass.prototype = {
             ).x(dx+"mm").y(dy+"mm").stroke(color).fill("none");
             dx += this.boxsize * this.boxmult;
         }
+        this.group(x, y, rect);
+
         height = dy - y + (this.boxsize * this.boxmult);
         return height;
     },
@@ -308,6 +355,7 @@ BaseClass.prototype = {
             leading:  this.padding+'mm',
             'font-weight': weight,
         });
+        this._groups.shift(print);
         return height;
     },
 };
@@ -369,9 +417,8 @@ Weapon.prototype = BaseClass.extend({
         y += this.padding;
         this.height = y - dy;
 
-        var rect = this.canvas.rect(
-            this.width+"mm", this.height+"mm"
-        ).x(dx+"mm").y(dy+"mm").stroke(this._color).fill("none");
+        this.box(dx, dy, this.width, this.height, this._color);
+
         return this;
     },
     //
@@ -527,9 +574,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
             if (hasammo && (count > 1)) {
                 var height = ny - sy;
                 var width  = this.width - (this.padding * 2);
-                var rect = this.canvas.rect(
-                    width+"mm", height+"mm"
-                ).x(dx+"mm").y(sy+"mm").stroke("#000000").fill("none");
+                this.box(dx, sy, width, height, "#000000");
             }
         }
         dy  = ny + (this.padding * 2);
@@ -543,9 +588,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         
         // Put a rectangle around it all
         this.height = dy - y;
-        var rect = this.canvas.rect(
-            this.width+"mm", this.height+"mm"
-        ).x(x+"mm").y(y+"mm").stroke("#000000").fill("none");
+        this.box(x, y, this.width, this.height, "#000000");
         
         // This is the end
         return this;
@@ -728,9 +771,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         dx += (width / 3.5);
         dy += this.normal(dx, dy, "Defense: "+mecha.defense);
         height = dy - y;
-        var rect = this.canvas.rect(
-            width+"mm", height+"mm"
-        ).x(x+"mm").y(y+"mm").stroke("#000000").fill("none");
+        this.box(x, y, width, height, '#000000');
         return height;
     },
     // This function renders the special abilities of a mecha
@@ -818,4 +859,74 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         }
         return diff;
     }
+});
+//
+// This class deals with a mecha.  It prints out everything to do with it.
+//
+// Class Parameters:
+//      canvas The canvas to use
+//      mecha  This should be a class from SquadronBuilder.data.mecha
+//      width  The width we are using for this class
+//
+// Public Properties:
+//      width      The width of the rendered object.
+//      height     The height of the rendered object.  Only valid after rendering.
+//
+// Public Methods:
+//      render  Render the object in SVG
+//
+SquadronBuilder.coreforce = function (canvas, card, width) {
+    this.canvas = canvas;
+    this.card  = SquadronBuilder.force.getCore(card);
+    this.width  = width ? width : 70;
+    if (this.hasJettison()) {
+        var jettison = SquadronBuilder.data.mecha[this.mecha.abilities.Jettison];
+        this._jettisonto = new SquadronBuilder.mecha(
+            this.canvas, jettison, this.width
+        );
+    }
+};
+SquadronBuilder.coreforce.prototype = BaseClass.extend({
+    height: 0,
+    _weapon: [],
+    //
+    // This function renders the main output for this object
+    //
+    // Function Parameters:
+    //      x The x coordinate of the top left corner of this object
+    //      y The y coordintate of the top left corner of this object
+    //
+    // Return:
+    //      This object
+    //
+    render: function (x, y, count)
+    {
+    },
+    //
+    // This function renders the jettison to output for this object
+    //
+    // Function Parameters:
+    //      x The x coordinate of the top left corner of this object
+    //      y The y coordintate of the top left corner of this object
+    //
+    // Return:
+    //      This object
+    //
+    jettisonTo: function (x, y)
+    {
+
+        // Set up the x and y
+        var dy = y;
+        var dx = x;
+        dy += this.padding;
+
+        dy += this.largebold(dx, dy, 'Jettison to '+this.mecha.name);
+        dy += this.padding;
+        dy += this._mechaRender(dx, dy, this.mecha);
+
+        this.height = dy - y;
+
+        // This is the end
+        return this;
+    },
 });
