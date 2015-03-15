@@ -600,7 +600,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         this.box(x, y, this.width, this.height, "#000000");
         
         this.canvas.width(this.width+'mm').height(this.height+'mm');
-        
+
         // This is the end
         return this;
     },
@@ -829,6 +829,45 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         }
         dy += this.normal(dx, dy, abl);
         return dy - y;
+    },
+    // This function renders the special abilities of a mecha
+    //
+    // Function Parameters:
+    //      oldwpn The weapon to replace
+    //      newwpn The weapon to replace it with
+    //      modes  The modes to replace the weapon in
+    //
+    replaceWeapon: function(oldwpn, newwpn, modes)
+    {
+        var index = this.mecha.ranged.indexOf(oldwpn);
+        if (index >= 0) {
+            this.mecha.ranged[index] = newwpn;
+        }
+        if (this.mecha.modes) {
+            modes = modes ? modes : Object.keys(this.mecha.modes);
+            for (key in modes) {
+                var index = this.mecha.modes[modes[key]].ranged.indexOf(oldwpn);
+                if (index >= 0) {
+                    this.mecha.modes[modes[key]].ranged[index] = newwpn;
+                }
+            }
+        }
+    },
+    // This function renders the special abilities of a mecha
+    //
+    // Function Parameters:
+    //      wpn   The weapon to add
+    //      modes The modes to add it to
+    //
+    addWeapon: function(wpn, modes)
+    {
+        this.mecha.ranged.push(wpn);
+        if (this.mecha.modes) {
+            modes = modes ? modes : Object.keys(this.mecha.modes);
+            for (key in modes) {
+                this.mecha.modes[modes[key]].ranged.push(wpn);
+            }
+        }
     },
     //
     // This function is used to check if this weapon uses ammo
