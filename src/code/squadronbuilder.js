@@ -498,15 +498,14 @@ SquadronBuilder.mecha = function (canvas, mecha, width) {
     this.mecha  = SquadronBuilder.data.getMecha(mecha);
     this.width  = width ? width : 70;
     if (this.hasJettison()) {
-        var jettison = SquadronBuilder.data.mecha[this.mecha.abilities.Jettison];
         this._jettisonto = new SquadronBuilder.mecha(
-            this.canvas, jettison, this.width
+            this.canvas, this.mecha.abilities.Jettison, this.width
         );
     }
 };
 SquadronBuilder.mecha.prototype = BaseClass.extend({
     height: 0,
-    _jettisonto: {},
+    _jettisonto: null,
     _colors: ['#CF0000', '#CFCF00', '#00CF00'],
     _wpncolors: {},
     _jcolor: '#0000CF',
@@ -858,6 +857,10 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
                 }
             }
         }
+        if (this._jettisonto) {
+            // Fix up the jettison mecha also
+            this._jettisonto.replaceWeapon(oldwpn, newwpn, modes);
+        }
     },
     //
     // This function adds a weapon in one or more modes
@@ -874,6 +877,10 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
             for (key in modes) {
                 this.mecha.modes[modes[key]].ranged.push(wpn);
             }
+        }
+        if (this._jettisonto) {
+            // Fix up the jettison mecha also
+            this._jettisonto.addWeapon(wpn, modes);
         }
     },
     //

@@ -20,8 +20,8 @@
     <script type="text/javascript">
         <![CDATA[
             var canvas = SVG('svg0');
-            var mecha = new SquadronBuilder.mecha(canvas, 'VF1AValkyrie');
-            mecha.replaceWeapon('GU11Battloid', 'Glaug150mmSRM');
+            var mecha = new SquadronBuilder.mecha(canvas, 'GlaugEldare');
+            mecha.addWeapon('GU11Battloid');
             mecha.render(7, 7, 2);
             ]]>
         
