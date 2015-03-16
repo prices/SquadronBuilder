@@ -40,20 +40,68 @@ SquadronBuilder.data = {
 //
 SquadronBuilder.force = {
     //
-    // This returns a copy of a mecha object.
+    // This returns a copy of a core force object.
     //
     // Function Parameters:
-    //      mecha The name of the mecha to retrieve
+    //      card The name of card to retrieve
     //
     // Return:
-    //      Mecha object or empty object
+    //      Card object or empty object
     //
-    getCore: function (core)
+    getCore: function (card)
     {
-        if (this.core[core]) {
-            return this.core[core];
+        if (this.core[card]) {
+            return this.core[card];
         }
         return {};
+    },
+    //
+    // This returns a copy of a core force object.
+    //
+    // Function Parameters:
+    //      card The name of card to retrieve
+    //
+    // Return:
+    //      Card object or empty object
+    //
+    getSupport: function (card)
+    {
+        if (this.support[card]) {
+            return this.support[card];
+        }
+        return false;
+    },
+    //
+    // This returns a copy of a core force object.
+    //
+    // Function Parameters:
+    //      card The name of card to retrieve
+    //
+    // Return:
+    //      Card object or empty object
+    //
+    getSpecial: function (card)
+    {
+        if (this.special[card]) {
+            return this.special[card];
+        }
+        return false;
+    },
+    //
+    // This returns a copy of a core force object.
+    //
+    // Function Parameters:
+    //      card The name of card to retrieve
+    //
+    // Return:
+    //      Card object or empty object
+    //
+    getCharacter: function (card)
+    {
+        if (this.characters[card]) {
+            return this.characters[card];
+        }
+        return false;
     },
 };
 //
@@ -1053,37 +1101,11 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     {
         y += this.padding * 3;
         y += this.header(x, y, this.card.name);
+        y += this.largebold(x, y, this.card.points+" Points");
         for (key in this.mecha) {
             this.mecha[key].render(x, y);
             x += 70;
         }
-    },
-    //
-    // This function renders the jettison to output for this object
-    //
-    // Function Parameters:
-    //      x The x coordinate of the top left corner of this object
-    //      y The y coordintate of the top left corner of this object
-    //
-    // Return:
-    //      This object
-    //
-    jettisonTo: function (x, y)
-    {
-
-        // Set up the x and y
-        var dy = y;
-        var dx = x;
-        dy += this.padding;
-
-        dy += this.largebold(dx, dy, 'Jettison to '+this.mecha.name);
-        dy += this.padding;
-        dy += this._mechaRender(dx, dy, this.mecha);
-
-        this.height = dy - y;
-
-        // This is the end
-        return this;
     },
     //
     // This function adds an upgrade
@@ -1098,6 +1120,63 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     {
         if (this.card.upgrades[name]) {
             this.card.upgrades[name].execute(this);
+            this.card.points += this.card.upgrades[name].points;
+        }
+        return this;
+    },
+    //
+    // This function adds a support card
+    //
+    // Function Parameters:
+    //      name The name of the support card to add
+    //
+    // Return:
+    //      This object
+    //
+    support: function (name)
+    {
+        var card = SquadronBuilder.force.getSupport(name);
+        return this._support(card);
+    },
+    //
+    // This function adds a support card
+    //
+    // Function Parameters:
+    //      name The name of the upgrade to run
+    //
+    // Return:
+    //      This object
+    //
+    special: function (name)
+    {
+        var card = SquadronBuilder.force.getSpecial(name);
+        return this._support(card);
+    },
+    //
+    // This function adds an upgrade
+    //
+    // Function Parameters:
+    //      name The name of the upgrade to run
+    //
+    // Return:
+    //      This object
+    //
+    _support: function (card)
+    {
+        console.log(card);
+        if (card && card.check(this)) {
+            for (key in card.upgrades) {
+                if (this.card.upgrades[key]) {
+                    this.card.upgrades[key].points += card.upgrades[key].points;
+                } else if (card.upgrades[key].desc) {
+                    this.card.upgrades[key] = card.upgrades[key];
+                }
+            }
+            for (mecha in card.mecha) {
+                this.addMecha(mecha, card.mecha[mecha]);
+            }
+            this.card.points += card.points;
+            card.execute(this);
         }
         return this;
     },
@@ -1115,7 +1194,7 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     upgradeMecha: function (funct, applyTo)
     {
         for (key in this.mecha) {
-            if (applyTo.indexOf(this.mecha[key].class) > -1) {
+            if (!applyTo || applyTo.indexOf(this.mecha[key].class) > -1) {
                 funct(this.mecha[key]);
             }
         }
@@ -1174,5 +1253,20 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
             new SquadronBuilder.mecha(this._canvas, mecha, this.width, count)
         );
         return this;
+    },
+    //
+    // This function returns the classes of all the mecha
+    //
+    // Return:
+    //      The mecha classes in an array
+    //
+    getMecha: function ()
+    {
+
+        var mecha = [];
+        for (key in this.mecha) {
+            mecha.push(this.mecha[key].class);
+        }
+        return mecha;
     }
 });

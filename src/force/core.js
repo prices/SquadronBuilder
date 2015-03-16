@@ -29,7 +29,7 @@ SquadronBuilder.force.core = {
     RegultAttackSquadron: {
         name: 'Regult Attack Squadron',
         mecha: {
-            'Glaug': 2,
+            'Glaug': 1,
             'Regult': 9,
         },
         points: 80,
@@ -69,12 +69,13 @@ SquadronBuilder.force.core = {
                 points: 25,
                 execute: function (core)
                 {
+                    core.card.name = "Veteran "+core.card.name;
                     core.upgradeMecha(function(mecha) {
                         if (mecha.class == "Regult") {
                             mecha.changeStat('piloting', 1);
                             mecha.changeStat('gunnery', 1);
                         }
-                    });
+                    }, ["Regult", "SerauGer", "GluuGer"]);
                 }
             },
         },
@@ -94,12 +95,13 @@ SquadronBuilder.force.core = {
                 points: 10,
                 execute: function (core)
                 {
+                    core.card.name = "Veteran "+core.card.name;
                     core.upgradeMecha(function(mecha) {
                         if (mecha.class == "Regult") {
                             mecha.changeStat('piloting', 1);
                             mecha.changeStat('gunnery', 1);
                         }
-                    });
+                    }, ["Regult", "SerauGer", "GluuGer"]);
                 }
             },
             'Glaug-Eldare': {

@@ -12,17 +12,22 @@ SquadronBuilder.force.special = {
             'Glaug-Eldare': {
                 desc: 'Upgrade the Glaug in the squadron to a Glaug-Eldare',
                 points: 30,
+                execute: function (core)
+                {
+                    core.replaceMecha('Glaug', 'GlaugEldare');
+                }
             },
         },
         factions: ['Zentraedi'],
         check: function (core)
         {
             mecha = core.getMecha();
-            if (isset(mecha['Glaug'])) {
+            if (mecha.indexOf("Glaug") == -1) {
+                return true;
             }
             return false;
         },
-        upgrade: function (core, upgrade)
+        execute: function (core, upgrade)
         {
             switch (upgrade) {
             case 'Glaug-Eldare':
@@ -54,16 +59,16 @@ SquadronBuilder.force.special = {
             },
         },
         factions: ['UEDF'],
-    },
-    check: function (core)
-    {
-        return false;
-    },
-    upgrade: function (core, upgrade)
-    {
-        switch (upgrade) {
+        check: function (core)
+        {
+            return false;
+        },
+        execute: function (core, upgrade)
+        {
+            switch (upgrade) {
+            }
+            return true;
         }
-        return true;
-    }
-    
+    },
+
 }

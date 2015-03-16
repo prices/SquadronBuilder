@@ -21,7 +21,9 @@
         <![CDATA[
             window.onload = function() {
                 var canvas = SVG('svgmain');
-                var coreforce = new SquadronBuilder.coreforce(canvas, 'RegultAttackSquadron', 70);
+                var coreforce = new SquadronBuilder.coreforce(canvas, 'RegultAttritionSquadron', 70);
+                coreforce.support('RegultSquad');
+                coreforce.special('Glaug');
                 coreforce.upgrade('Veteran Warriors');
                 coreforce.upgrade('Glaug-Eldare');
                 coreforce.render(0, 0);

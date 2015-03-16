@@ -14,6 +14,12 @@ SquadronBuilder.force.support = {
             },
         },
         factions: ["Zentraedi", "Malcontents"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
     },
     ValkyrieSquad: {
         name: "Valkyrie Squad",
@@ -36,5 +42,11 @@ SquadronBuilder.force.support = {
             },
         },
         factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
     }
 }
