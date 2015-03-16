@@ -29,7 +29,7 @@ SquadronBuilder.force.core = {
     RegultAttackSquadron: {
         name: 'Regult Attack Squadron',
         mecha: {
-            'Glaug': 1,
+            'Glaug': 2,
             'Regult': 9,
         },
         points: 80,
@@ -37,27 +37,25 @@ SquadronBuilder.force.core = {
             'Veteran Warriors': {
                 desc: 'Regults, Serau-Ger and Gluu-Ger in this squadron get +1 to Piloting (or Physical) and +1 to Gunnery',
                 points: 20,
+                execute: function (core)
+                {
+                    core.card.name = "Veteran "+core.card.name;
+                    core.upgradeMecha(function(mecha) {
+                        mecha.changeStat('piloting', 1);
+                        mecha.changeStat('gunnery', 1);
+                    }, ["Regult", "SerauGer", "GluuGer"]);
+                }
             },
             'Glaug-Eldare': {
                 desc: 'Upgrade the Glaug in the squadron to a Glaug-Eldare',
                 points: 25,
+                execute: function (core)
+                {
+                    core.replaceMecha('Glaug', 'GlaugEldare');
+                }
             },
         },
         faction: 'Zentraedi',
-        upgrade: function (name)
-        {
-            switch (name) {
-            case 'Veteran Warriors':
-                name = this.get('name');
-                name = 'Veteran '.name;
-                this.set('name', name);
-                break;
-            case 'Glaug-Eldare':
-                this.replaceMecha('Glaug', 'GlaugEldare');
-                break;
-            }
-            return true;
-        }
     },
     RegultAttritionSquadron: {
         name: 'Regult Attrition Squadron',
@@ -69,19 +67,18 @@ SquadronBuilder.force.core = {
             'Veteran Warriors': {
                 desc: 'Regults, Serau-Ger and Gluu-Ger in this squadron get +1 to Piloting (or Physical) and +1 to Gunnery',
                 points: 25,
+                execute: function (core)
+                {
+                    core.upgradeMecha(function(mecha) {
+                        if (mecha.class == "Regult") {
+                            mecha.changeStat('piloting', 1);
+                            mecha.changeStat('gunnery', 1);
+                        }
+                    });
+                }
             },
         },
         faction: 'Zentraedi',
-        upgrade: function (name)
-        {
-            switch (name) {
-            case 'Veteran Warriors':
-                name = this.get('name');
-                name = 'Veteran '.name;
-                this.set('name', name);
-                break;
-            }
-        }
     },
     RegultReconSquadron: {
         name: 'Regult Recon Squadron',
@@ -95,27 +92,26 @@ SquadronBuilder.force.core = {
             'Veteran Warriors': {
                 desc: 'Regults, Serau-Ger and Gluu-Ger in this squadron get +1 to Piloting (or Physical) and +1 to Gunnery',
                 points: 10,
+                execute: function (core)
+                {
+                    core.upgradeMecha(function(mecha) {
+                        if (mecha.class == "Regult") {
+                            mecha.changeStat('piloting', 1);
+                            mecha.changeStat('gunnery', 1);
+                        }
+                    });
+                }
             },
             'Glaug-Eldare': {
                 desc: 'Upgrade the Glaug in the squadron to a Glaug-Eldare',
                 points: 25,
+                execute: function (core)
+                {
+                    core.replaceMecha('Glaug', 'GlaugEldare');
+                }
             },
         },
         faction: 'Zentraedi',
-        upgrade: function (name)
-        {
-            switch (name) {
-            case 'Veteran Warriors':
-                name = this.get('name');
-                name = 'Veteran '.name;
-                this.set('name', name);
-                break;
-            case 'Glaug-Eldare':
-                this.replaceMecha('Glaug', 'GlaugEldare');
-                break;
-            }
-            return true;
-        }
     },
     ValkyrieSquadron: {
         name: 'Valkyrie Squadron',

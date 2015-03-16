@@ -21,13 +21,11 @@
         <![CDATA[
             window.onload = function() {
                 var canvas = SVG('svgmain');
-                var mecha = new SquadronBuilder.mecha(canvas, 'GlaugEldare');
-                mecha.addWeapon('GU11Battloid');
-                mecha.changeStat('piloting', 1);
-                mecha.changeAbility('Leadership', -1);
-                mecha.setAbility('Leap', true);
-                mecha.render(0, 0, 2);
-                mecha.canvas().x('20mm').y('20mm');
+                var coreforce = new SquadronBuilder.coreforce(canvas, 'RegultAttackSquadron', 70);
+                coreforce.upgrade('Veteran Warriors');
+                coreforce.upgrade('Glaug-Eldare');
+                coreforce.render(0, 0);
+                //coreforce.canvas().x('20mm').y('20mm');
             }
             ]]>
         
