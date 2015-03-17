@@ -12,6 +12,7 @@
    height="279mm"
    id="svg0"
    version="1.1"
+   onload="window.opener.renderPage(window.name)"
    >
     <svg x="7mm" y="7mm" width="202mm" height="253mm" id="svgmain">
     </svg>

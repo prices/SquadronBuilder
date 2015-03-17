@@ -13,24 +13,34 @@
         <script src="data/mecha.js" type="text/javascript"></script>
     </head>
     <body>
-        <button onClick="renderCard()">Render</button>
+        <button onClick="render()">Render</button>
         <script type="text/javascript">
-            function renderCard()
+            var win = [];
+            var coreforce = [];
+            var pages = []
+            function render()
             {
-                var xml;
-                var win = window.open("force.svg");
-//                console.log(xml);
-//                .addEventListener('load', w.doSomething, true);
-                var svg = win.document.getElementById('svgmain');
-                console.log(svg);
-                var canvas = SVG(svg);
-                var coreforce = new SquadronBuilder.coreforce(canvas, 'RegultAttritionSquadron', 70);
-                coreforce.support('RegultSquad');
-                coreforce.special('Glaug');
-                coreforce.upgrade('Veteran Warriors');
-                coreforce.upgrade('Glaug-Eldare');
-                coreforce.render(0, 0);
+                var index = 0;
+                win.push(window.open("force.svg", index));
+                coreforce[index] = new SquadronBuilder.coreforce(null, 'RegultAttritionSquadron', 70);
+                coreforce[index].support('RegultSquad');
+                coreforce[index].special('Glaug');
+                coreforce[index].upgrade('Veteran Warriors');
+                //coreforce[index].upgrade('Glaug-Eldare');
+                pages[index] = 0;
                 //coreforce.canvas().x('20mm').y('20mm');
+            }
+            function renderPage(index)
+            {
+                var svg = win[index].document.getElementById('svgmain');
+                console.log(svg);
+                if (svg) {
+                    var height = parseInt(svg.getAttribute("height"), 10);
+                    var width = parseInt(svg.getAttribute("width"), 10);
+                    var canvas = SVG(svg);
+                    coreforce[index].canvas(canvas);
+                    coreforce[index].render(pages[index]++, width, height);
+                }
             }
         </script>
 

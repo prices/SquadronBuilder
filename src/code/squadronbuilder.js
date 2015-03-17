@@ -51,7 +51,9 @@ SquadronBuilder.force = {
     getCore: function (card)
     {
         if (this.core[card]) {
-            return this.core[card];
+            var cd = JSON.parse(JSON.stringify(this.core[card]));
+            cd.card = this.core[card];
+            return cd;
         }
         return {};
     },
@@ -67,7 +69,9 @@ SquadronBuilder.force = {
     getSupport: function (card)
     {
         if (this.support[card]) {
-            return this.support[card];
+            var cd = JSON.parse(JSON.stringify(this.support[card]));
+            cd.card = this.support[card];
+            return cd;
         }
         return false;
     },
@@ -83,7 +87,9 @@ SquadronBuilder.force = {
     getSpecial: function (card)
     {
         if (this.special[card]) {
-            return this.special[card];
+            var cd = JSON.parse(JSON.stringify(this.special[card]));
+            cd.card = this.special[card];
+            return cd;
         }
         return false;
     },
@@ -99,7 +105,9 @@ SquadronBuilder.force = {
     getCharacter: function (card)
     {
         if (this.characters[card]) {
-            return this.characters[card];
+            var cd = JSON.parse(JSON.stringify(this.characters[card]));
+            cd.card = this.characters[card];
+            return cd;
         }
         return false;
     },
@@ -150,18 +158,19 @@ BaseClass.prototype = {
     // This is our groups from all of this.
     _elements: [],
     //
-    // Creates a group with all of the items
+    // Returns the canvas
     //
     // Function Parameters:
-    //      x     The x coordinate of the top left of the first box
-    //      y     The y coordinate of the top left of the first box
-    //      stuff The stuff to group.  This should be an array.
+    //      canvas If set, the canvas is set to this
     //
     // Return:
     //      The group
     //
-    canvas: function ()
+    canvas: function (canvas)
     {
+        if (canvas) {
+            this._canvas = canvas;
+        }
         return this._canvas;
     },
     //
@@ -178,7 +187,7 @@ BaseClass.prototype = {
     _group: function (x, y, stuff)
     {
         var group = this._canvas.group();
-        for (k in stuff) {
+        for (var k in stuff) {
             group.add(stuff[k]);
         }
         return group;
@@ -240,7 +249,7 @@ BaseClass.prototype = {
         var dy = y;
         var cutoff = parseInt((boxes / rows), 10);
         var rect = [];
-        for (var i = 0; i < boxes; i++) {
+        for (var  i = 0; i < boxes; i++) {
             if ((i > 0) && ((i % cutoff) == 0)) {
                 dy += this.boxsize * this.boxmult;
                 dx = x;
@@ -408,7 +417,7 @@ BaseClass.prototype = {
         var print = text.split("\n");
         var print = this._canvas.text(function(add) {
             // This accomodates multiple lines
-            for (key in print) {
+            for (var key in print) {
                 var span = add.tspan(print[key]);
                 if (height > 0) {
                     span.x(x+'mm').dy(height+'mm');
@@ -428,6 +437,38 @@ BaseClass.prototype = {
         });
         this._elements.shift(print);
         return height;
+    },
+    //
+    // Changes the X-coordinate of this canvas
+    //
+    // Function Parameters:
+    //      x The x coordinate of the top left of the first box
+    //
+    // Return:
+    //      This object
+    //
+    x: function(x)
+    {
+        if (this._canvas) {
+            this._canvas.x(x+"mm")
+        }
+        return this;
+    },
+    //
+    // Changes the Y-coordinate of this canvas
+    //
+    // Function Parameters:
+    //      y The y coordinate of the top left of the first box
+    //
+    // Return:
+    //      This object
+    //
+    y: function(y)
+    {
+        if (this._canvas) {
+            this._canvas.y(y+"mm")
+        }
+        return this;
     },
 };
 
@@ -474,7 +515,7 @@ Weapon.prototype = BaseClass.extend({
         var dy = y;
         var dx = x;
         var abilities = 'RG: '+this.weapon.range+', MD: '+this.weapon.damage;
-        for (name in this.weapon.abilities) {
+        for (var name in this.weapon.abilities) {
             value = this.weapon.abilities[name];
             if (value === true) {
                 abilities += ', '+name;
@@ -558,7 +599,7 @@ Weapon.prototype = BaseClass.extend({
 //      render  Render the object in SVG
 //      
 SquadronBuilder.mecha = function (canvas, mecha, width, count) {
-    this._canvas = canvas.nested();
+    this._canvas = canvas;
     this.class   = mecha;
     this.count   = count;
     this.mecha   = SquadronBuilder.data.getMecha(mecha);
@@ -595,7 +636,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         var weapon = [];
         var width = this.width - (this.padding * 2);
         var hasammo = false;
-        for (key in this.mecha.ranged) {
+        for (var key in this.mecha.ranged) {
             var wpn = this.mecha.ranged[key];
             weapon[key] = new Weapon(
                 this._canvas,
@@ -619,7 +660,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         // This does the names and damage boxes
         var nx = dx + this.padding;
         var ny = dy + this.padding;
-        for (var i = 0; i < this.count; i++) {
+        for (var  i = 0; i < this.count; i++) {
             
             // Put in the mecha name
             sy = ny;
@@ -644,7 +685,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
                 ny += this.padding;
             }
             // Add any ammo boxes we need for this mecha
-            for (key in weapon) {
+            for (var key in weapon) {
                 if (weapon[key].hasAmmo()) {
                     ny += weapon[key].ammo(nx, ny);
                 }
@@ -674,6 +715,25 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
 
         // This is the end
         return this;
+    },
+    //
+    // Returns the canvas
+    //
+    // Function Parameters:
+    //      canvas If set, the canvas is set to this
+    //
+    // Return:
+    //      The group
+    //
+    canvas: function (canvas)
+    {
+        if (canvas) {
+            this._canvas = canvas;
+            if (this.hasJettison()) {
+                this._jettisonto.canvas(canvas);
+            }
+        }
+        return this._canvas;
     },
     //
     // This function renders the jettison to output for this object
@@ -723,7 +783,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         if (mecha.modes) {
             dy += this._abilities(x, y, mecha);
             dy += this.padding;
-            for (mode in mecha.modes) {
+            for (var mode in mecha.modes) {
                 dy += this.padding;
                 dy += this.largebold(dx, dy, mode);
                 dy += this._baseRender(dx, dy, mecha.modes[mode]);
@@ -781,7 +841,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         var dy    = y;
         // Add in the ranged weapons
         dy += this.bold(dx, dy, "Ranged:");
-        for (key in mecha.ranged) {
+        for (var key in mecha.ranged) {
             var wpn = mecha.ranged[key];
             var weapon = new Weapon(
                 this._canvas,
@@ -818,7 +878,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         var sep = "";
         var hth = "";
         var len = 0;
-        for (key in mecha.handtohand) {
+        for (var key in mecha.handtohand) {
             text = sep + mecha.handtohand[key];
             if ((hth.length + text.length - len) > 50) {
                 len = hth.length;
@@ -880,7 +940,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         var sep = "";
         var abl = "";
         var len = 0;
-        for (key in mecha.abilities) {
+        for (var key in mecha.abilities) {
             var abil = mecha.abilities[key];
             var text = '';
             if (abil === true) {
@@ -920,7 +980,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         }
         if (this.mecha.modes) {
             modes = modes ? modes : Object.keys(this.mecha.modes);
-            for (key in modes) {
+            for (var key in modes) {
                 var index = this.mecha.modes[modes[key]].ranged.indexOf(oldwpn);
                 if (index >= 0) {
                     this.mecha.modes[modes[key]].ranged[index] = newwpn;
@@ -944,7 +1004,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         this.mecha.ranged.push(wpn);
         if (this.mecha.modes) {
             modes = modes ? modes : Object.keys(this.mecha.modes);
-            for (key in modes) {
+            for (var key in modes) {
                 this.mecha.modes[modes[key]].ranged.push(wpn);
             }
         }
@@ -969,7 +1029,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         }
         if (this.mecha.modes) {
             modes = modes ? modes : Object.keys(this.mecha.modes);
-            for (key in this.mecha.modes) {
+            for (var key in this.mecha.modes) {
                 if (typeof this.mecha.modes[key][stat] === 'number') {
                     this.mecha.modes[key][stat] += value;
                 }
@@ -1074,38 +1134,78 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
 // Public Methods:
 //      render  Render the object in SVG
 //
-SquadronBuilder.coreforce = function (canvas, card, width) {
+SquadronBuilder.coreforce = function (canvas, card, width, height) {
     this._canvas = canvas;
     this.card  = SquadronBuilder.force.getCore(card);
     this.width  = width ? width : 70;
+    this.height  = height ? height : 200;
     this.mecha = [];
-    for (mecha in this.card.mecha) {
+    for (var mecha in this.card.mecha) {
         this.addMecha(mecha, this.card.mecha[mecha]);
     }
 
 };
 SquadronBuilder.coreforce.prototype = BaseClass.extend({
     height: 0,
+    columnwidth: 70,
     _weapon: [],
     //
     // This function renders the main output for this object
     //
     // Function Parameters:
-    //      x The x coordinate of the top left corner of this object
-    //      y The y coordintate of the top left corner of this object
+    //      page   The page to render
+    //      width  The width of the page
+    //      height The height of the page
     //
     // Return:
     //      This object
     //
-    render: function (x, y)
+    render: function (page, width, height)
     {
+        this.width  = width ? width : this.width;
+        this.height  = height ? height : this.height;
+        var x = 0;
+        var y = 0;
         y += this.padding * 3;
         y += this.header(x, y, this.card.name);
         y += this.largebold(x, y, this.card.points+" Points");
-        for (key in this.mecha) {
-            this.mecha[key].render(x, y);
-            x += 70;
+        var dy = y;
+        console.log(dy);
+        for (var key in this.mecha) {
+            this.mecha[key].render(x, dy);
+            var h = this.mecha[key].height;
+            h += this.padding;
+            console.log(this.mecha[key].class);
+            console.log(key);
+            if ((dy + h) > this.height) {
+                x += this.columnwidth;
+                dy = h;
+                this.mecha[key].x(x);
+                this.mecha[key].y(y);
+            } else {
+                dy += h;
+            }
         }
+        return 0;
+    },
+    //
+    // Returns the canvas
+    //
+    // Function Parameters:
+    //      canvas If set, the canvas is set to this
+    //
+    // Return:
+    //      The group
+    //
+    canvas: function (canvas)
+    {
+        if (canvas) {
+            this._canvas = canvas;
+            for (var key in this.mecha) {
+                this.mecha[key].canvas(canvas.nested());
+            }
+        }
+        return this._canvas;
     },
     //
     // This function adds an upgrade
@@ -1119,7 +1219,7 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     upgrade: function (name)
     {
         if (this.card.upgrades[name]) {
-            this.card.upgrades[name].execute(this);
+            this.card.card.upgrades[name].execute(this);
             this.card.points += this.card.upgrades[name].points;
         }
         return this;
@@ -1153,6 +1253,22 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         return this._support(card);
     },
     //
+    // Sets the height of the page
+    //
+    // Function Parameters:
+    //      height if set, then set the height to this.
+    //
+    // Return:
+    //      The height
+    //
+    height: function (height)
+    {
+        if (name) {
+            this.height = height;
+        }
+        return this.height;
+    },
+    //
     // This function adds an upgrade
     //
     // Function Parameters:
@@ -1164,19 +1280,19 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     _support: function (card)
     {
         console.log(card);
-        if (card && card.check(this)) {
-            for (key in card.upgrades) {
+        if (card && card.card.check(this)) {
+            for (var key in card.upgrades) {
                 if (this.card.upgrades[key]) {
                     this.card.upgrades[key].points += card.upgrades[key].points;
                 } else if (card.upgrades[key].desc) {
                     this.card.upgrades[key] = card.upgrades[key];
                 }
             }
-            for (mecha in card.mecha) {
+            for (var mecha in card.mecha) {
                 this.addMecha(mecha, card.mecha[mecha]);
             }
             this.card.points += card.points;
-            card.execute(this);
+            card.card.execute(this);
         }
         return this;
     },
@@ -1193,7 +1309,7 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     //
     upgradeMecha: function (funct, applyTo)
     {
-        for (key in this.mecha) {
+        for (var key in this.mecha) {
             if (!applyTo || applyTo.indexOf(this.mecha[key].class) > -1) {
                 funct(this.mecha[key]);
             }
@@ -1213,7 +1329,7 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     //
     replaceMecha: function (oldmecha, newmecha, count)
     {
-        for (key in this.mecha) {
+        for (var key in this.mecha) {
             if (this.mecha[key].class == oldmecha) {
                 if (oldmecha == newmecha) {
                     this.mecha[key].count -= count;
@@ -1242,7 +1358,7 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     {
         force = force ? true : false;
         if (!force) {
-            for (key in this.mecha) {
+            for (var key in this.mecha) {
                 if (this.mecha[key].class == mecha) {
                     this.mecha[key].count += count;
                     return this;
@@ -1264,7 +1380,7 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     {
 
         var mecha = [];
-        for (key in this.mecha) {
+        for (var key in this.mecha) {
             mecha.push(this.mecha[key].class);
         }
         return mecha;
