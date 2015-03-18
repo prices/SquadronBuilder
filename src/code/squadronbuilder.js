@@ -130,22 +130,22 @@ SquadronBuilder.force = {
         };
         for (var card in this.core) {
             if (this.core[card].factions.indexOf(faction) != -1) {
-                cards.core[this.core[card].name] = this.getCore(card);
+                cards.core[card] = this.getCore(card);
             }
         }
         for (var card in this.support) {
             if (this.support[card].factions.indexOf(faction) != -1) {
-                cards.support[this.support[card].name] = this.getSupport(card);
+                cards.support[card] = this.getSupport(card);
             }
         }
         for (var card in this.special) {
             if (this.special[card].factions.indexOf(faction) != -1) {
-                cards.special[this.special[card].name] = this.getSpecial(card);
+                cards.special[card] = this.getSpecial(card);
             }
         }
         for (var card in this.characters) {
             if (this.characters[card].factions.indexOf(faction) != -1) {
-                cards.characters[this.characters[card].name] = this.getCharacter(card);
+                cards.characters[card] = this.getCharacter(card);
             }
         }
         return cards;
@@ -1455,6 +1455,7 @@ SquadronBuilder.faction = function (container, canvas, faction) {
 };
 SquadronBuilder.faction.prototype = BaseClass.extend({
     index: 0,
+    forces: [],
     //
     // This function renders the main output for this object
     //
@@ -1476,6 +1477,54 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
         this._container.innerHTML = '';
         this.renderChoice();
     },
+    updateChoice: function(index)
+    {
+        var c = document.getElementById('corechoice'+index);
+        var core = c.options[c.selectedIndex].value;
+        var s1 = document.getElementById('supportchoice1'+index);
+        var support1 = s1.options[s1.selectedIndex].value;
+        var s2 = document.getElementById('supportchoice2'+index);
+        var support2 = s2.options[s2.selectedIndex].value;
+        var sp = document.getElementById('specialchoice'+index);
+        var special = sp.options[sp.selectedIndex].value;
+        var ch = document.getElementById('characterchoice'+index);
+        var character = ch.options[ch.selectedIndex].value;
+
+        if (core) {
+            document.getElementById('supportchoice1'+index).disabled = false;
+            document.getElementById('supportchoice2'+index).disabled = false;
+            document.getElementById('specialchoice'+index).disabled = false;
+            document.getElementById('characterchoice'+index).disabled = false;
+            console.log(core);
+            this.forces[index] = new SquadronBuilder.coreforce(null, core, 70);
+            if (support1) {
+                this.forces[index].support(support1);
+            }
+            if (support2) {
+                this.forces[index].support(support2);
+            }
+            if (special) {
+                this.forces[index].special(special);
+            }
+            if (character) {
+                this.forces[index].character(character);
+            }
+
+            console.log(this.forces[index]);
+            var points = this.forces[index].card.points ? this.forces[index].card.points : 0;
+
+            document.getElementById('points'+index).innerHTML = points;
+
+
+        } else {
+            document.getElementById('supportchoice1'+index).disabled = true;
+            document.getElementById('supportchoice2'+index).disabled = true;
+            document.getElementById('specialchoice'+index).disabled = true;
+            document.getElementById('characterchoice'+index).disabled = true;
+        }
+
+    },
+
     renderChoice: function()
     {
         this._container.innerHTML = this._container.innerHTML + '<div id="choice'+this.index+'"></div>';
@@ -1484,8 +1533,11 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
         this._renderChoiceSpecial(this.index);
         this._renderChoiceCharacters(this.index);
 
+
         var c = document.getElementById('choice'+this.index);
         c.innerHTML = c.innerHTML + '<span id="points'+this.index+'">0</span> Points';
+
+        this.updateChoice(this.index);
 
         this.index++;
     },
@@ -1493,7 +1545,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
     {
         var c = document.getElementById('choice'+index);
         var text = '';
-        text += '<select name="corechoice['+index+']" id="corechoice'+index+'" onChange="">';
+        text += '<select name="corechoice['+index+']" id="corechoice'+index+'" onChange="faction.updateChoice('+index+')">';
         text += '<option value="" selected="selected">Core Force Card</option>';
         for (var k in this.faction.core) {
             text += '<option value="'+k+'">'+this.faction.core[k].name+'</option>';
@@ -1509,13 +1561,13 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
 
         var c = document.getElementById('choice'+index);
         var text = '';
-        text += '<select name="supportchoice1['+index+']" onChange="">';
+        text += '<select name="supportchoice1['+index+']" id="supportchoice1'+index+'" onChange="faction.updateChoice('+index+')">';
         text += '<option value="" selected="selected">Support Force Card</option>';
         for (var k in this.faction.support) {
             text += '<option value="'+k+'">'+this.faction.support[k].name+'</option>';
         }
         text += '</select>';
-        text += '<select name="supportchoice2['+index+']" onChange="">';
+        text += '<select name="supportchoice2['+index+']" id="supportchoice2'+index+'" onChange="faction.updateChoice('+index+')">';
         text += '<option value="" selected="selected">Support Force Card</option>';
         for (var k in this.faction.support) {
             text += '<option value="'+k+'">'+this.faction.support[k].name+'</option>';
@@ -1530,7 +1582,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
 
         var c = document.getElementById('choice'+index);
         var text = '';
-        text += '<select name="specialchoice['+index+']" onChange="">';
+        text += '<select name="specialchoice['+index+']" id="specialchoice'+index+'" onChange="faction.updateChoice('+index+')">';
         text += '<option value="" selected="selected">Special Force Card</option>';
         for (var k in this.faction.special) {
             text += '<option value="'+k+'">'+this.faction.special[k].name+'</option>';
@@ -1546,7 +1598,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
 
         var c = document.getElementById('choice'+index);
         var text = '';
-        text += '<select name="characterschoice['+index+']" onChange="">';
+        text += '<select name="characterchoice['+index+']" id="characterchoice'+index+'" onChange="faction.updateChoice('+index+')">';
         text += '<option value="" selected="selected">Character</option>';
         for (var k in this.faction.characters) {
             text += '<option value="'+k+'">'+this.faction.characters[k].name+'</option>';

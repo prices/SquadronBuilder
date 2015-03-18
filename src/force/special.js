@@ -61,7 +61,7 @@ SquadronBuilder.force.special = {
         factions: ['UEDF'],
         check: function (core)
         {
-            return false;
+            return true;
         },
         execute: function (core, upgrade)
         {
