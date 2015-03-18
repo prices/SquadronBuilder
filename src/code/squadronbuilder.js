@@ -1456,6 +1456,7 @@ SquadronBuilder.faction = function (container, canvas, faction) {
 SquadronBuilder.faction.prototype = BaseClass.extend({
     index: 0,
     forces: [],
+    cards: [],
     //
     // This function renders the main output for this object
     //
@@ -1477,41 +1478,56 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
         this._container.innerHTML = '';
         this.renderChoice();
     },
+    getCoreForce: function ()
+    {
+        return this.forces;
+    },
+    getCount: function ()
+    {
+        return this.index;
+    },
+    _getCoreForce: function (index)
+    {
+        this.forces[index] = {};
+        this.cards[index] = {};
+        var c = document.getElementById('corechoice'+index);
+        this.cards[index].core = c.options[c.selectedIndex].value;
+        var s1 = document.getElementById('supportchoice1'+index);
+        this.cards[index].support1 = s1.options[s1.selectedIndex].value;
+        var s2 = document.getElementById('supportchoice2'+index);
+        this.cards[index].support2 = s2.options[s2.selectedIndex].value;
+        var sp = document.getElementById('specialchoice'+index);
+        this.cards[index].special = sp.options[sp.selectedIndex].value;
+        var ch = document.getElementById('characterchoice'+index);
+        this.cards[index].character = ch.options[ch.selectedIndex].value;
+
+        if (this.cards[index].core) {
+            this.forces[index] = new SquadronBuilder.coreforce(null, this.cards[index].core, 70);
+            if (this.cards[index].support1) {
+                this.forces[index].support(this.cards[index].support1);
+            }
+            if (this.cards[index].support2) {
+                this.forces[index].support(this.cards[index].support2);
+            }
+            if (this.cards[index].special) {
+                this.forces[index].special(this.cards[index].special);
+            }
+            if (this.cards[index].character) {
+                this.forces[index].character(this.cards[index].character);
+            }
+        }
+        return this.forces[index]
+    },
     updateChoice: function(index)
     {
-        var c = document.getElementById('corechoice'+index);
-        var core = c.options[c.selectedIndex].value;
-        var s1 = document.getElementById('supportchoice1'+index);
-        var support1 = s1.options[s1.selectedIndex].value;
-        var s2 = document.getElementById('supportchoice2'+index);
-        var support2 = s2.options[s2.selectedIndex].value;
-        var sp = document.getElementById('specialchoice'+index);
-        var special = sp.options[sp.selectedIndex].value;
-        var ch = document.getElementById('characterchoice'+index);
-        var character = ch.options[ch.selectedIndex].value;
-
-        if (core) {
+        var core = this._getCoreForce(index);
+        if (core.card) {
             document.getElementById('supportchoice1'+index).disabled = false;
             document.getElementById('supportchoice2'+index).disabled = false;
             document.getElementById('specialchoice'+index).disabled = false;
             document.getElementById('characterchoice'+index).disabled = false;
-            console.log(core);
-            this.forces[index] = new SquadronBuilder.coreforce(null, core, 70);
-            if (support1) {
-                this.forces[index].support(support1);
-            }
-            if (support2) {
-                this.forces[index].support(support2);
-            }
-            if (special) {
-                this.forces[index].special(special);
-            }
-            if (character) {
-                this.forces[index].character(character);
-            }
-
-            console.log(this.forces[index]);
-            var points = this.forces[index].card.points ? this.forces[index].card.points : 0;
+console.log(core);
+            var points = core.card.points ? core.card.points : 0;
 
             document.getElementById('points'+index).innerHTML = points;
 

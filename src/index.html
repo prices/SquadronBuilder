@@ -39,15 +39,11 @@
             }
             function render()
             {
-                var index = 0;
-                win.push(window.open("force.svg", index+'.0'));
-                coreforce[index] = new SquadronBuilder.coreforce(null, 'RegultAttritionSquadron', 70);
-                coreforce[index].support('RegultSquad');
-                coreforce[index].special('Glaug');
-                coreforce[index].upgrade('Veteran Warriors');
-                //coreforce[index].upgrade('Glaug-Eldare');
-                pages[index] = 0;
-                //coreforce.canvas().x('20mm').y('20mm');
+                coreforce = faction.getCoreForce();
+                for (var i = 0; i < faction.getCount(); i++) {
+                    win.push(window.open("force.svg", i+'.0'));
+                    pages[i] = 0;
+                }
             }
             function renderPage(name)
             {
