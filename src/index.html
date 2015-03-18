@@ -12,16 +12,35 @@
         <script src="data/weapons.js" type="text/javascript"></script>
         <script src="data/mecha.js" type="text/javascript"></script>
     </head>
-    <body>
+    <body onload="load()">
+        <h3>Choose a Faction</h3>
+        <select name="faction" id="faction" onChange="faction.resetChoices(this.value)">
+            <option value="" selected="selected">Choose a faction</option>
+            <option value="UEDF">United Earth Defense Force</option>
+            <option value="Zentraedi">Zentraedi Armada</option>
+            <option value="Malcontents">Malcontents</option>
+        </select>
+        <h3>Force Choices</h3>
+        <div id="choices">
+        </div>
+
         <button onClick="render()">Render</button>
         <script type="text/javascript">
             var win = [];
             var coreforce = [];
             var pages = []
+            var faction = new SquadronBuilder.faction("choices");
+
+            function load()
+            {
+                var f = document.getElementById('faction');
+                var fact = f.options[f.selectedIndex].value;
+                faction.resetChoices(fact);
+            }
             function render()
             {
                 var index = 0;
-                win.push(window.open("force.svg", index));
+                win.push(window.open("force.svg", index+'.0'));
                 coreforce[index] = new SquadronBuilder.coreforce(null, 'RegultAttritionSquadron', 70);
                 coreforce[index].support('RegultSquad');
                 coreforce[index].special('Glaug');
@@ -30,8 +49,13 @@
                 pages[index] = 0;
                 //coreforce.canvas().x('20mm').y('20mm');
             }
-            function renderPage(index)
+            function renderPage(name)
             {
+                var ind = name.split('.');
+                var index = ind[0];
+                var page  = ind[1];
+                console.log(index);
+                console.log(page);
                 var svg = win[index].document.getElementById('svgmain');
                 console.log(svg);
                 if (svg) {
@@ -39,7 +63,7 @@
                     var width = parseInt(svg.getAttribute("width"), 10);
                     var canvas = SVG(svg);
                     coreforce[index].canvas(canvas);
-                    coreforce[index].render(pages[index]++, width, height);
+                    coreforce[index].render(page, width, height);
                 }
             }
         </script>

@@ -14,7 +14,7 @@ SquadronBuilder.force.core = {
                 points: 10,
             }
         },
-        faction: 'Zentraedi',
+        factions: ['Zentraedi'],
     },
     RegultArtillerySquadron: {
         name: 'Regult Artillery Squadron',
@@ -24,7 +24,7 @@ SquadronBuilder.force.core = {
         },
         points: 90,
         upgrades: {},
-        faction: 'Zentraedi',
+        factions: ['Zentraedi'],
     },
     RegultAttackSquadron: {
         name: 'Regult Attack Squadron',
@@ -55,7 +55,7 @@ SquadronBuilder.force.core = {
                 }
             },
         },
-        faction: 'Zentraedi',
+        factions: ['Zentraedi'],
     },
     RegultAttritionSquadron: {
         name: 'Regult Attrition Squadron',
@@ -79,7 +79,7 @@ SquadronBuilder.force.core = {
                 }
             },
         },
-        faction: 'Zentraedi',
+        factions: ['Zentraedi'],
     },
     RegultReconSquadron: {
         name: 'Regult Recon Squadron',
@@ -113,7 +113,7 @@ SquadronBuilder.force.core = {
                 }
             },
         },
-        faction: 'Zentraedi',
+        factions: ['Zentraedi'],
     },
     ValkyrieSquadron: {
         name: 'Valkyrie Squadron',
@@ -143,7 +143,7 @@ SquadronBuilder.force.core = {
                 points: 5,
             },
         },
-        faction: 'UEDF',
+        factions: ['UEDF'],
         upgrade: function (name)
         {
             switch (name) {

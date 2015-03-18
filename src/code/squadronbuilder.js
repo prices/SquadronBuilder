@@ -111,6 +111,45 @@ SquadronBuilder.force = {
         }
         return false;
     },
+    //
+    // This returns all of the cards for a faction.
+    //
+    // Function Parameters:
+    //      faction The faction to retrieve
+    //
+    // Return:
+    //      object containing cards
+    //
+    getFaction: function (faction)
+    {
+        var cards = {
+            core: {},
+            support: {},
+            special: {},
+            characters: {},
+        };
+        for (var card in this.core) {
+            if (this.core[card].factions.indexOf(faction) != -1) {
+                cards.core[this.core[card].name] = this.getCore(card);
+            }
+        }
+        for (var card in this.support) {
+            if (this.support[card].factions.indexOf(faction) != -1) {
+                cards.support[this.support[card].name] = this.getSupport(card);
+            }
+        }
+        for (var card in this.special) {
+            if (this.special[card].factions.indexOf(faction) != -1) {
+                cards.special[this.special[card].name] = this.getSpecial(card);
+            }
+        }
+        for (var card in this.characters) {
+            if (this.characters[card].factions.indexOf(faction) != -1) {
+                cards.characters[this.characters[card].name] = this.getCharacter(card);
+            }
+        }
+        return cards;
+    },
 };
 //
 // This class is what everything else is based on.  It is mostly just constants
@@ -1171,20 +1210,26 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         y += this.largebold(x, y, this.card.points+" Points");
         var dy = y;
         console.log(dy);
+        var count = 0;
         for (var key in this.mecha) {
+            count++;
             this.mecha[key].render(x, dy);
             var h = this.mecha[key].height;
             h += this.padding;
             console.log(this.mecha[key].class);
             console.log(key);
             if ((dy + h) > this.height) {
-                x += this.columnwidth;
+                x += this.columnwidth + this.padding;
                 dy = h;
                 this.mecha[key].x(x);
                 this.mecha[key].y(y);
             } else {
                 dy += h;
             }
+        }
+        if (count == 2) {
+            this.mecha[key].x(this.columnwidth + this.padding);
+            this.mecha[key].y(y);
         }
         return 0;
     },
@@ -1385,4 +1430,129 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         }
         return mecha;
     }
+});
+//
+// This class deals with a mecha.  It prints out everything to do with it.
+//
+// Class Parameters:
+//      canvas The canvas to use
+//      mecha  This should be a class from SquadronBuilder.data.mecha
+//      width  The width we are using for this class
+//
+// Public Properties:
+//      width      The width of the rendered object.
+//      height     The height of the rendered object.  Only valid after rendering.
+//
+// Public Methods:
+//      render  Render the object in SVG
+//
+SquadronBuilder.faction = function (container, canvas, faction) {
+    this._canvas = canvas;
+    this._container = document.getElementById(container);
+    if (faction) {
+        this.resetChoices(faction);
+    }
+};
+SquadronBuilder.faction.prototype = BaseClass.extend({
+    index: 0,
+    //
+    // This function renders the main output for this object
+    //
+    // Function Parameters:
+    //      page   The page to render
+    //      width  The width of the page
+    //      height The height of the page
+    //
+    // Return:
+    //      This object
+    //
+    render: function ()
+    {
+    },
+    resetChoices: function(faction)
+    {
+        this.faction = SquadronBuilder.force.getFaction(faction)
+        this.index = 0;
+        this._container.innerHTML = '';
+        this.renderChoice();
+    },
+    renderChoice: function()
+    {
+        this._container.innerHTML = this._container.innerHTML + '<div id="choice'+this.index+'"></div>';
+        this._renderChoiceCore(this.index);
+        this._renderChoiceSupport(this.index);
+        this._renderChoiceSpecial(this.index);
+        this._renderChoiceCharacters(this.index);
+
+        var c = document.getElementById('choice'+this.index);
+        c.innerHTML = c.innerHTML + '<span id="points'+this.index+'">0</span> Points';
+
+        this.index++;
+    },
+    _renderChoiceCore: function(index)
+    {
+        var c = document.getElementById('choice'+index);
+        var text = '';
+        text += '<select name="corechoice['+index+']" id="corechoice'+index+'" onChange="">';
+        text += '<option value="" selected="selected">Core Force Card</option>';
+        for (var k in this.faction.core) {
+            text += '<option value="'+k+'">'+this.faction.core[k].name+'</option>';
+        }
+        text += '</select>';
+        c.innerHTML = c.innerHTML + text;
+
+    },
+    _renderChoiceSupport: function(index)
+    {
+        var s = document.getElementById('corechoice'+index);
+        var core = s.options[s.selectedIndex].value;
+
+        var c = document.getElementById('choice'+index);
+        var text = '';
+        text += '<select name="supportchoice1['+index+']" onChange="">';
+        text += '<option value="" selected="selected">Support Force Card</option>';
+        for (var k in this.faction.support) {
+            text += '<option value="'+k+'">'+this.faction.support[k].name+'</option>';
+        }
+        text += '</select>';
+        text += '<select name="supportchoice2['+index+']" onChange="">';
+        text += '<option value="" selected="selected">Support Force Card</option>';
+        for (var k in this.faction.support) {
+            text += '<option value="'+k+'">'+this.faction.support[k].name+'</option>';
+        }
+        text += '</select>';
+        c.innerHTML = c.innerHTML + text;
+    },
+    _renderChoiceSpecial: function(index)
+    {
+        var s = document.getElementById('corechoice'+index);
+        var core = s.options[s.selectedIndex].value;
+
+        var c = document.getElementById('choice'+index);
+        var text = '';
+        text += '<select name="specialchoice['+index+']" onChange="">';
+        text += '<option value="" selected="selected">Special Force Card</option>';
+        for (var k in this.faction.special) {
+            text += '<option value="'+k+'">'+this.faction.special[k].name+'</option>';
+        }
+        text += '</select>';
+        c.innerHTML = c.innerHTML + text;
+
+    },
+    _renderChoiceCharacters: function(index)
+    {
+        var s = document.getElementById('corechoice'+index);
+        var core = s.options[s.selectedIndex].value;
+
+        var c = document.getElementById('choice'+index);
+        var text = '';
+        text += '<select name="characterschoice['+index+']" onChange="">';
+        text += '<option value="" selected="selected">Character</option>';
+        for (var k in this.faction.characters) {
+            text += '<option value="'+k+'">'+this.faction.characters[k].name+'</option>';
+        }
+        text += '</select>';
+        c.innerHTML = c.innerHTML + text;
+
+    },
 });
