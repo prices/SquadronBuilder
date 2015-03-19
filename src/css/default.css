@@ -6,9 +6,16 @@ button.render {
     color: white;
     font-weight: bold;
 }
+button.reset {
+    background: red;
+    color: white;
+    font-weight: bold;
+    float: right;
+}
 .points {
     padding-left: 1em;
     text-align: center;
+    float: right;
 }
 .toolbar {
     padding-top: 5em;
@@ -22,4 +29,14 @@ button.render {
 .choices div.choice {
     padding-top: 0.5em;
     padding-bottom: 0.5em;
+}
+div.total div {
+    float: right;
+}
+div.totalpoints {
+    text-align: center;
+}
+div.totallabel {
+    text-align: right;
+    font-weight: bold;
 }

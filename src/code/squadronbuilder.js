@@ -1446,17 +1446,20 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
 // Public Methods:
 //      render  Render the object in SVG
 //
-SquadronBuilder.faction = function (container, canvas, faction) {
-    this._canvas = canvas;
+SquadronBuilder.faction = function (container, updateFct) {
     this._container = document.getElementById(container);
     if (faction) {
         this.resetChoices(faction);
     }
+    this._updateFct = updateFct ? updateFct : null;
+    console.log(updateFct);
 };
 SquadronBuilder.faction.prototype = BaseClass.extend({
+    _canvas: null,
     index: 0,
     forces: [],
     cards: [],
+    _maxlines: 30,
     //
     // This function renders the main output for this object
     //
@@ -1476,6 +1479,10 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
         this.faction = SquadronBuilder.force.getFaction(faction)
         this.index = 0;
         this._container.innerHTML = '';
+        for (var i = 0; i < this._maxlines; i++) {
+            this._container.innerHTML += '<div class="'+this.faction+' row'+((i % 2 == 0)?1:0)+' grid choice" id="choice'+i+'"></div>';
+            document.getElementById('choice'+i).style.display = 'none';
+        }
         this.renderChoice();
     },
     getCoreForce: function ()
@@ -1490,7 +1497,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
     {
         var total = 0;
         for (var i = 0; i < this.index; i++) {
-            var d = document.getElementById('points'+this.index);
+            var d = document.getElementById('points'+i);
             if (d) {
                 var p = parseInt(d.textContent, 10);
                 if (!isNaN(p)) {
@@ -1551,12 +1558,15 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
             document.getElementById('specialchoice'+index).disabled = true;
             document.getElementById('characterchoice'+index).disabled = true;
         }
+        if (this._updateFct) {
+            this._updateFct(index);
+        }
 
     },
 
-    renderChoice: function(id)
+    renderChoice: function()
     {
-        this._container.innerHTML += '<div class="'+this.faction+' row'+((this.index % 2 == 0)?1:0)+' grid choice" id="choice'+this.index+'"></div>';
+        document.getElementById('choice'+this.index).style.display = 'block';
         this._renderChoice(this.index);
 
 
@@ -1567,7 +1577,6 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
     _renderChoice: function(index)
     {
         var text = "";
-        var c = document.getElementById('choice'+index);
         var types = {
             'core': { card: 'core', name: 'Core Force Card' },
             'support1': { card: 'support', name: 'Support Force Card' },
@@ -1577,7 +1586,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
         };
         for (var type in types) {
             text += '<select id="'+type+'choice'+index+'" onChange="faction.updateChoice('+index+')" class="'+type+' '+types[type].card+' col-2-12">';
-            text += '<option value="" selected="selected">'+types[type].name+'</option>';
+            text += '<option value="">'+types[type].name+'</option>';
             for (var k in this.faction[types[type].card]) {
                 text += '<option id="'+type+'choice'+index+'.'+k+'" value="'+k+'">'+this.faction[types[type].card][k].name+' ['+this.faction[types[type].card][k].points+' pts]</option>';
             }
@@ -1585,7 +1594,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
         }
         var c = document.getElementById('choice'+this.index);
         text += '<div class="points col-2-12"><span id="points'+this.index+'">0</span> Points</div>';
-        c.innerHTML = c.innerHTML + text;
+        c.innerHTML += text;
 
     },
 });

@@ -24,16 +24,28 @@
         <div id="choices" class="choices">
         </div>
         <hr />
+        <div class="grid total">
+            <div class="col-2-12 totalpoints"><span id="totalpoints">0</span> Points</div>
+            <div class="col-2-12 push-right totallabel">Total:</div>
+        </div>
         <div class="grid grid-pad toolbar">
             <button class="col-2-12 addRow" onClick="addrow()">Add Row</button>
             <button class="col-2-12 render" onClick="render()">Render</button>
+            <button class="col-2-12 reset" onClick="load()">Reset</button>
         </div>
         <script type="text/javascript">
             var win = [];
             var coreforce = [];
             var pages = []
-            var faction = new SquadronBuilder.faction("choices");
+            var faction = new SquadronBuilder.faction("choices", function (index) {
+                var points = faction.getPointTotal();
+                document.getElementById('totalpoints').innerHTML = points;
+            });
 
+            function addrow()
+            {
+                faction.renderChoice();
+            }
             function load()
             {
                 var f = document.getElementById('faction');
