@@ -8,4 +8,18 @@ button.render {
 }
 .points {
     padding-left: 1em;
+    text-align: center;
+}
+.toolbar {
+    padding-top: 5em;
+}
+.row0 {
+    background: #E0E0E0;
+}
+.row1 {
+    background: #C0C0C0;
+}
+.choices div.choice {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
 }

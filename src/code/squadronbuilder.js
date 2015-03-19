@@ -1556,7 +1556,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
 
     renderChoice: function(id)
     {
-        this._container.innerHTML += '<div class="'+this.faction+' row'+((this.index % 2 == 0)?1:0)+' grid" id="choice'+this.index+'"></div>';
+        this._container.innerHTML += '<div class="'+this.faction+' row'+((this.index % 2 == 0)?1:0)+' grid choice" id="choice'+this.index+'"></div>';
         this._renderChoice(this.index);
 
 
