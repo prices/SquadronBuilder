@@ -3,19 +3,21 @@ JSFILES = src/code/squadronbuilder.js \
 	src/force/core.js src/force/characters.js src/force/special.js src/force/support.js
 
 
-all: rel/squadronbuilder.min.js rel/index.html rel/force.svg rel/contrib/svg.min.js
+all: rel/js/squadronbuilder.min.js rel/index.html rel/force.svg rel/css/default.css
+
+contrib: rel/contrib/svg.min.js rel/contrib/simplegrid.css rel/contrib/underscore.js
 
 
-rel/squadronbuilder.js: rel $(JSFILES) src/head.js src/tail.js
-	cat src/head.js > rel/squadronbuilder.js;
+rel/js/squadronbuilder.js: rel/js $(JSFILES) src/head.js src/tail.js
+	cat src/head.js > rel/js/squadronbuilder.js;
 	@for file in $(JSFILES); do \
-	    echo "cat $$file >> rel/squadronbuilder.js"; \
-	    cat $$file >> rel/squadronbuilder.js; \
+	    echo "cat $$file >> rel/js/squadronbuilder.js"; \
+	    cat $$file >> rel/js/squadronbuilder.js; \
 	done
-	cat src/tail.js >> rel/squadronbuilder.js;
+	cat src/tail.js >> rel/js/squadronbuilder.js;
 
-rel/squadronbuilder.min.js: rel/squadronbuilder.js
-	uglifyjs -o rel/squadronbuilder.min.js rel/squadronbuilder.js
+rel/js/squadronbuilder.min.js: rel/js/squadronbuilder.js
+	uglifyjs -o rel/js/squadronbuilder.min.js rel/js/squadronbuilder.js
 
 rel/index.html: rel src/index.html
 	cp src/index.html rel/index.html
@@ -23,15 +25,33 @@ rel/index.html: rel src/index.html
 rel/force.svg: rel src/force.svg
 	cp src/force.svg rel/force.svg
 
+rel/css/default.css: rel/css src/css/default.css
+	cp src/css/default.css rel/css/default.css
+
 rel/contrib/svg.min.js: rel/contrib
 	wget https://raw.github.com/wout/svg.js/master/dist/svg.min.js -O rel/contrib/svg.min.js
-	
+
+rel/contrib/underscore.js: rel/contrib
+	wget http://underscorejs.org/underscore.js -O rel/contrib/underscore.js
+
+rel/contrib/underscore-min.js: rel/contrib
+	wget http://underscorejs.org/underscore-min.js -O rel/contrib/underscore-min.js
+
+rel/contrib/simplegrid.css: rel/contrib
+	wget https://github.com/ThisIsDallas/Simple-Grid/raw/master/simplegrid.css -O rel/contrib/simplegrid.css
+
 rel:
 	mkdir -p rel
 	
 rel/contrib: rel
 	mkdir -p rel/contrib
-	
+
+rel/js: rel
+	mkdir -p rel/js
+
+rel/css: rel
+	mkdir -p rel/css
+
 clean:
 	rm -f rel/*.js rel/*.html
 	

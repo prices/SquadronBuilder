@@ -1486,15 +1486,29 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
     {
         return this.index;
     },
+    getPointTotal: function ()
+    {
+        var total = 0;
+        for (var i = 0; i < this.index; i++) {
+            var d = document.getElementById('points'+this.index);
+            if (d) {
+                var p = parseInt(d.textContent, 10);
+                if (!isNaN(p)) {
+                    total += p;
+                }
+            }
+        }
+        return total;
+    },
     _getCoreForce: function (index)
     {
         this.forces[index] = {};
         this.cards[index] = {};
         var c = document.getElementById('corechoice'+index);
         this.cards[index].core = c.options[c.selectedIndex].value;
-        var s1 = document.getElementById('supportchoice1'+index);
+        var s1 = document.getElementById('support1choice'+index);
         this.cards[index].support1 = s1.options[s1.selectedIndex].value;
-        var s2 = document.getElementById('supportchoice2'+index);
+        var s2 = document.getElementById('support2choice'+index);
         this.cards[index].support2 = s2.options[s2.selectedIndex].value;
         var sp = document.getElementById('specialchoice'+index);
         this.cards[index].special = sp.options[sp.selectedIndex].value;
@@ -1522,104 +1536,55 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
     {
         var core = this._getCoreForce(index);
         if (core.card) {
-            document.getElementById('supportchoice1'+index).disabled = false;
-            document.getElementById('supportchoice2'+index).disabled = false;
+            document.getElementById('support1choice'+index).disabled = false;
+            document.getElementById('support2choice'+index).disabled = false;
             document.getElementById('specialchoice'+index).disabled = false;
             document.getElementById('characterchoice'+index).disabled = false;
-console.log(core);
-            var points = core.card.points ? core.card.points : 0;
 
+            var points = core.card.points ? core.card.points : 0;
             document.getElementById('points'+index).innerHTML = points;
 
 
         } else {
-            document.getElementById('supportchoice1'+index).disabled = true;
-            document.getElementById('supportchoice2'+index).disabled = true;
+            document.getElementById('support1choice'+index).disabled = true;
+            document.getElementById('support2choice'+index).disabled = true;
             document.getElementById('specialchoice'+index).disabled = true;
             document.getElementById('characterchoice'+index).disabled = true;
         }
 
     },
 
-    renderChoice: function()
+    renderChoice: function(id)
     {
-        this._container.innerHTML = this._container.innerHTML + '<div id="choice'+this.index+'"></div>';
-        this._renderChoiceCore(this.index);
-        this._renderChoiceSupport(this.index);
-        this._renderChoiceSpecial(this.index);
-        this._renderChoiceCharacters(this.index);
+        this._container.innerHTML += '<div class="'+this.faction+' row'+((this.index % 2 == 0)?1:0)+' grid" id="choice'+this.index+'"></div>';
+        this._renderChoice(this.index);
 
-
-        var c = document.getElementById('choice'+this.index);
-        c.innerHTML = c.innerHTML + '<span id="points'+this.index+'">0</span> Points';
 
         this.updateChoice(this.index);
 
         this.index++;
     },
-    _renderChoiceCore: function(index)
+    _renderChoice: function(index)
     {
+        var text = "";
         var c = document.getElementById('choice'+index);
-        var text = '';
-        text += '<select name="corechoice['+index+']" id="corechoice'+index+'" onChange="faction.updateChoice('+index+')">';
-        text += '<option value="" selected="selected">Core Force Card</option>';
-        for (var k in this.faction.core) {
-            text += '<option value="'+k+'">'+this.faction.core[k].name+'</option>';
+        var types = {
+            'core': { card: 'core', name: 'Core Force Card' },
+            'support1': { card: 'support', name: 'Support Force Card' },
+            'support2': { card: 'support', name: 'Support Force Card' },
+            'special': { card: 'special', name: 'Special Force Card' },
+            'character': { card: 'characters', name: 'Character Card' },
+        };
+        for (var type in types) {
+            text += '<select id="'+type+'choice'+index+'" onChange="faction.updateChoice('+index+')" class="'+type+' '+types[type].card+' col-2-12">';
+            text += '<option value="" selected="selected">'+types[type].name+'</option>';
+            for (var k in this.faction[types[type].card]) {
+                text += '<option id="'+type+'choice'+index+'.'+k+'" value="'+k+'">'+this.faction[types[type].card][k].name+' ['+this.faction[types[type].card][k].points+' pts]</option>';
+            }
+            text += '</select>';
         }
-        text += '</select>';
-        c.innerHTML = c.innerHTML + text;
-
-    },
-    _renderChoiceSupport: function(index)
-    {
-        var s = document.getElementById('corechoice'+index);
-        var core = s.options[s.selectedIndex].value;
-
-        var c = document.getElementById('choice'+index);
-        var text = '';
-        text += '<select name="supportchoice1['+index+']" id="supportchoice1'+index+'" onChange="faction.updateChoice('+index+')">';
-        text += '<option value="" selected="selected">Support Force Card</option>';
-        for (var k in this.faction.support) {
-            text += '<option value="'+k+'">'+this.faction.support[k].name+'</option>';
-        }
-        text += '</select>';
-        text += '<select name="supportchoice2['+index+']" id="supportchoice2'+index+'" onChange="faction.updateChoice('+index+')">';
-        text += '<option value="" selected="selected">Support Force Card</option>';
-        for (var k in this.faction.support) {
-            text += '<option value="'+k+'">'+this.faction.support[k].name+'</option>';
-        }
-        text += '</select>';
-        c.innerHTML = c.innerHTML + text;
-    },
-    _renderChoiceSpecial: function(index)
-    {
-        var s = document.getElementById('corechoice'+index);
-        var core = s.options[s.selectedIndex].value;
-
-        var c = document.getElementById('choice'+index);
-        var text = '';
-        text += '<select name="specialchoice['+index+']" id="specialchoice'+index+'" onChange="faction.updateChoice('+index+')">';
-        text += '<option value="" selected="selected">Special Force Card</option>';
-        for (var k in this.faction.special) {
-            text += '<option value="'+k+'">'+this.faction.special[k].name+'</option>';
-        }
-        text += '</select>';
-        c.innerHTML = c.innerHTML + text;
-
-    },
-    _renderChoiceCharacters: function(index)
-    {
-        var s = document.getElementById('corechoice'+index);
-        var core = s.options[s.selectedIndex].value;
-
-        var c = document.getElementById('choice'+index);
-        var text = '';
-        text += '<select name="characterchoice['+index+']" id="characterchoice'+index+'" onChange="faction.updateChoice('+index+')">';
-        text += '<option value="" selected="selected">Character</option>';
-        for (var k in this.faction.characters) {
-            text += '<option value="'+k+'">'+this.faction.characters[k].name+'</option>';
-        }
-        text += '</select>';
+        var c = document.getElementById('choice'+this.index);
+        text += '<div class="points col-2-12"><span id="points'+this.index+'">0</span> Points</div>';
         c.innerHTML = c.innerHTML + text;
 
     },

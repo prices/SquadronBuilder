@@ -1,0 +1,11 @@
+body {
+    padding: 2em;
+}
+button.render {
+    background: green;
+    color: white;
+    font-weight: bold;
+}
+.points {
+    padding-left: 1em;
+}
