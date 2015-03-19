@@ -11,7 +11,15 @@ SquadronBuilder.force.characters = {
         factions: ["Zentraedi", "Malcontents"],
         modifyMecha: function (mecha)
         {
-            mecha.abilities.Leadership = parseInt(mecha.abilities.Leadership, 10) + 1;
+            mecha.changeAbility("Leadership", 1);
+        },
+        check: function (core)
+        {
+            mecha = core.getMecha();
+            if (mecha.indexOf("Glaug") == -1) {
+                return false;
+            }
+            return true;
         }
     }
 }

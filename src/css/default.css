@@ -14,6 +14,7 @@ button.reset {
 }
 .points {
     padding-left: 1em;
+    padding-right: 1em;
     text-align: center;
     float: right;
 }
@@ -35,6 +36,8 @@ div.total div {
 }
 div.totalpoints {
     text-align: center;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 div.totallabel {
     text-align: right;
