@@ -1600,7 +1600,6 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
 
 
             var types = {
-                'core': { card: 'core', name: 'Core Force Card' },
                 'support1': { card: 'support', name: 'Support Force Card' },
                 'support2': { card: 'support', name: 'Support Force Card' },
                 'special': { card: 'special', name: 'Special Force Card' },
@@ -1610,6 +1609,9 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
                 for (var k in this.faction[types[type].card]) {
                     var option = document.getElementById(type+'choice'+index+'.'+k);
                     var card = this.faction[types[type].card][k].card;
+                    console.log(k);
+                    console.log(this.faction[types[type].card]);
+                    console.log(card);
                     if (card.check(core)) {
                         option.disabled = false;
                     } else {
