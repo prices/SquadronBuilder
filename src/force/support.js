@@ -48,5 +48,41 @@ SquadronBuilder.force.support = {
         execute: function (core) {
             return true;
         },
+    },
+    TomahawkSquad: {
+        name: "Tomahawk Squad",
+        mecha: {
+            "Tomahawk": 2,
+        },
+        points: 40,
+        upgrades: {
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    DefenderSquad: {
+        name: "Defender Squad",
+        mecha: {
+            "Defender": 2,
+        },
+        points: 20,
+        upgrades: {
+            'Defender Air-Burst Munitions': {
+                desc: 'Changes Dual M-996 78mm Auto-Cannons to RG:36, MD:4, Accurate, Anti-missile, Blast, Rapid Fire, Rear Fire, Split Fire',
+                points: 5,
+            },
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
     }
 }

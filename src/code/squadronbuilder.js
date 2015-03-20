@@ -196,6 +196,13 @@ BaseClass.prototype = {
     fontfamily: "'Bitstream Vera Sans', sans-serif",
     // This is our groups from all of this.
     _elements: [],
+    // This is statistics from our last text written
+    _textstats: {
+        size: 0,
+        weight: 'normal',
+        length: 0,
+        lines: 0
+    },
     //
     // Returns the canvas
     //
@@ -453,8 +460,11 @@ BaseClass.prototype = {
         var height = 0;
         // This moves us to the middle of the text, where the coordinates for text are
         y += size / 2;
+        var self = this;
         var print = text.split("\n");
-        var print = this._canvas.text(function(add) {
+        var len = 0;
+        var lines = 0;
+        var text = this._canvas.text(function(add) {
             // This accomodates multiple lines
             for (var key in print) {
                 var span = add.tspan(print[key]);
@@ -462,6 +472,11 @@ BaseClass.prototype = {
                     span.x(x+'mm').dy(height+'mm');
                 }
                 height += size;
+                console.log(len);
+                if (print[key].length > length) {
+                    len = print[key].length;
+                }
+                lines++;
             }
         }).x(
             x+'mm'
@@ -474,7 +489,13 @@ BaseClass.prototype = {
             leading:  this.padding+'mm',
             'font-weight': weight,
         });
-        this._elements.shift(print);
+        this._elements.shift(text);
+        this._textstats = {
+            size: size,
+            weight: weight,
+            len: len,
+            lines: lines
+        };
         return height;
     },
     //
@@ -508,6 +529,15 @@ BaseClass.prototype = {
             this._canvas.y(y+"mm")
         }
         return this;
+    },
+    //
+    // This guesses the width of text
+    //
+    textwidth: function()
+    {
+        console.log(this._textstats);
+        var width = ((this._textstats.size * this._textstats.len / 1.5) + 2);
+        return width;
     },
 };
 
@@ -720,7 +750,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
             this.large(nx, ny, this.mecha.name);
             
             // Put in the damage boxes
-            var bx = nx + ((this.largesize * this.mecha.name.length / 1.5) + 2);
+            var bx = nx + this.textwidth();
             var by = ny + (this.largesize / 2) - (this.boxsize / 2) - this.padding;
             var h = this.boxes(bx, by, this.mecha.damage);
 
@@ -730,7 +760,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
                 h += this.boxes(bx, by, this.mecha.extradamage, 1, this._jcolor);
             }
 
-            ny  = (h > this.largesize) ? ny + h : ny + this.largesize;
+            ny  = (h > this.largesize) ? ny + h + this.padding: ny + this.largesize;
             if (hasammo) {
                 ny += this.padding;
             }
@@ -1451,8 +1481,6 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     //
     replaceMecha: function (oldmecha, newmecha, count)
     {
-        console.log(oldmecha);
-        console.log(newmecha);
         for (var key in this.mecha) {
             if (this.mecha[key].class == oldmecha) {
                 if ((oldmecha == newmecha) && (this.mecha[key].count > count)) {
@@ -1637,9 +1665,6 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
                 for (var k in this.faction[types[type].card]) {
                     var option = document.getElementById(type+'choice'+index+'.'+k);
                     var card = this.faction[types[type].card][k].card;
-                    console.log(k);
-                    console.log(this.faction[types[type].card]);
-                    console.log(card);
                     if (card.check(core)) {
                         option.disabled = false;
                     } else {

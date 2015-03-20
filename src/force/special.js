@@ -27,13 +27,8 @@ SquadronBuilder.force.special = {
             }
             return false;
         },
-        execute: function (core, upgrade)
+        execute: function (core)
         {
-            switch (upgrade) {
-            case 'Glaug-Eldare':
-                core.replaceMecha('Glaug', 'GlaugEldare');
-                break;
-            }
             return true;
         }
 
@@ -63,10 +58,111 @@ SquadronBuilder.force.special = {
         {
             return true;
         },
-        execute: function (core, upgrade)
+        execute: function (core)
         {
-            switch (upgrade) {
+        }
+    },
+    CommandDestroidDefender: {
+        name: 'Command Defender Upgrade',
+        mecha: {
+        },
+        points: 10,
+        upgrades: {
+        },
+        factions: ['UEDF'],
+        check: function (core)
+        {
+            mecha = core.getMecha();
+            if (mecha.indexOf("Defender") == -1) {
+                return false;
             }
+            return true;
+        },
+        execute: function (core)
+        {
+            var mecha = core.replaceMecha('Defender', 'Defender', 1);
+            mecha.changeStat('piloting', 1);
+            mecha.changeStat('gunnery', 1);
+            mecha.setAbility('Leadership', 2);
+            mecha.mecha.name = "Command\n"+mecha.mecha.name;
+            return true;
+        }
+    },
+    CommandDestroidTomahawk: {
+        name: 'Command Tomahawk Upgrade',
+        mecha: {
+        },
+        points: 10,
+        upgrades: {
+        },
+        factions: ['UEDF'],
+        check: function (core)
+        {
+            mecha = core.getMecha();
+            if (mecha.indexOf("Tomahawk") == -1) {
+                return false;
+            }
+            return true;
+        },
+        execute: function (core)
+        {
+            var mecha = core.replaceMecha('Tomahawk', 'Tomahawk', 1);
+            mecha.changeStat('piloting', 1);
+            mecha.changeStat('gunnery', 1);
+            mecha.setAbility('Leadership', 2);
+            mecha.mecha.name = "Command\n"+mecha.mecha.name;
+            return true;
+        }
+    },
+    CommandDestroidSpartan: {
+        name: 'Command Spartan Upgrade',
+        mecha: {
+        },
+        points: 10,
+        upgrades: {
+        },
+        factions: ['UEDF'],
+        check: function (core)
+        {
+            mecha = core.getMecha();
+            if (mecha.indexOf("Spartan") == -1) {
+                return false;
+            }
+            return true;
+        },
+        execute: function (core)
+        {
+            var mecha = core.replaceMecha('Spartan', 'Spartan', 1);
+            mecha.changeStat('piloting', 1);
+            mecha.changeStat('gunnery', 1);
+            mecha.setAbility('Leadership', 2);
+            mecha.mecha.name = "Command\n"+mecha.mecha.name;
+            return true;
+        }
+    },
+    CommandDestroidPhalanx: {
+        name: 'Command Phalanx Upgrade',
+        mecha: {
+        },
+        points: 10,
+        upgrades: {
+        },
+        factions: ['UEDF'],
+        check: function (core)
+        {
+            mecha = core.getMecha();
+            if (mecha.indexOf("Phalanx") == -1) {
+                return false;
+            }
+            return true;
+        },
+        execute: function (core)
+        {
+            var mecha = core.replaceMecha('Phalanx', 'Phalanx', 1);
+            mecha.changeStat('piloting', 1);
+            mecha.changeStat('gunnery', 1);
+            mecha.setAbility('Leadership', 2);
+            mecha.mecha.name = "Command\n"+mecha.mecha.name;
             return true;
         }
     },
