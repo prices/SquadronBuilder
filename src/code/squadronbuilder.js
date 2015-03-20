@@ -1548,6 +1548,26 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
             document.getElementById('specialchoice'+index).disabled = false;
             document.getElementById('characterchoice'+index).disabled = false;
 
+
+            var types = {
+                'core': { card: 'core', name: 'Core Force Card' },
+                'support1': { card: 'support', name: 'Support Force Card' },
+                'support2': { card: 'support', name: 'Support Force Card' },
+                'special': { card: 'special', name: 'Special Force Card' },
+                'character': { card: 'characters', name: 'Character Card' },
+            };
+            for (var type in types) {
+                for (var k in this.faction[types[type].card]) {
+                    var option = document.getElementById(type+'choice'+index+'.'+k);
+                    var card = this.faction[types[type].card][k].card;
+                    if (card.check(core)) {
+                        option.disabled = false;
+                    } else {
+                        option.disabled = true;
+                    }
+                }
+            }
+
             var points = core.card.points ? core.card.points : 0;
             document.getElementById('points'+index).innerHTML = points;
 
