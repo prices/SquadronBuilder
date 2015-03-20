@@ -1,5 +1,6 @@
-body {
+.body {
     padding: 2em;
+    padding-bottom: 10em;
 }
 button.render {
     background: green;
@@ -14,6 +15,7 @@ button.reset {
 }
 .points {
     padding-left: 1em;
+    padding-right: 1em;
     text-align: center;
     float: right;
 }
@@ -35,8 +37,20 @@ div.total div {
 }
 div.totalpoints {
     text-align: center;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 div.totallabel {
     text-align: right;
     font-weight: bold;
+}
+div.copyright {
+    height: 7em; 
+    position: fixed;
+    left: 0;
+    bottom: 0; 
+    
+    background: #F0F0F0;
+    padding: 0.5em;
+    width: 100%;
 }

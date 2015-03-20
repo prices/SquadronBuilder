@@ -30,6 +30,8 @@ rel/css/default.css: rel/css src/css/default.css
 
 rel/contrib/svg.min.js: rel/contrib
 	wget https://raw.github.com/wout/svg.js/master/dist/svg.min.js -O rel/contrib/svg.min.js
+	wget https://raw.github.com/wout/svg.js/master/README.md -O rel/contrib/svg.js.README.md
+	wget https://raw.github.com/wout/svg.js/master/MIT-LICENSE -O rel/contrib/svg.js.LICENSE
 
 rel/contrib/underscore.js: rel/contrib
 	wget http://underscorejs.org/underscore.js -O rel/contrib/underscore.js
@@ -39,7 +41,8 @@ rel/contrib/underscore-min.js: rel/contrib
 
 rel/contrib/simplegrid.css: rel/contrib
 	wget https://github.com/ThisIsDallas/Simple-Grid/raw/master/simplegrid.css -O rel/contrib/simplegrid.css
-
+	wget https://github.com/ThisIsDallas/Simple-Grid/raw/master/README.md -O rel/contrib/simplegrid.README.md
+	
 rel:
 	mkdir -p rel
 	

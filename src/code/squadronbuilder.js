@@ -656,6 +656,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
     _wpncolors: {},
     _jcolor: '#0000CF',
     _weapon: [],
+    _character: false,
     //
     // This function renders the main output for this object
     // 
@@ -672,6 +673,9 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         // Set up our weapons
         var color = 0;
         this.count = count ? count : this.count;
+        if (this.count == 0) {
+            return;
+        }
         var weapon = [];
         var width = this.width - (this.padding * 2);
         var hasammo = false;
@@ -695,10 +699,17 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         dx += this.padding;
         dy += this.padding;
         
+        if (this._character) {
+            dy += this.padding * 2;
+            dy += this.header(dx, dy, this._character);
+            this.count = 1;
+        } else {
+            dy += this.padding;
+        }
         
         // This does the names and damage boxes
         var nx = dx + this.padding;
-        var ny = dy + this.padding;
+        var ny = dy;
         for (var  i = 0; i < this.count; i++) {
             
             // Put in the mecha name
@@ -1099,6 +1110,20 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         }
     },
     //
+    // Attaches a character to this mecha
+    //
+    // Function Parameters:
+    //      name The name of the character
+    //
+    // Return:
+    //      true if successful, false otherwise
+    character: function(name)
+    {
+        if (this.count == 1) {
+            this._character = name;
+        }
+    },
+    //
     // This function adds a weapon in one or more modes
     //
     // Function Parameters:
@@ -1123,7 +1148,10 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
     //
     hasJettison: function ()
     {
-        return (this.mecha.abilities.Jettison !== false);
+        if (this.mecha.abilities) {
+            return (this.mecha.abilities.Jettison !== false);
+        }
+        return false;
     },
     // This function renders the extra checkbox for a mecha with the Jettison
     // special ability.
@@ -1209,15 +1237,12 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         y += this.header(x, y, this.card.name);
         y += this.largebold(x, y, this.card.points+" Points");
         var dy = y;
-        console.log(dy);
         var count = 0;
         for (var key in this.mecha) {
             count++;
             this.mecha[key].render(x, dy);
             var h = this.mecha[key].height;
             h += this.padding;
-            console.log(this.mecha[key].class);
-            console.log(key);
             if ((dy + h) > this.height) {
                 x += this.columnwidth + this.padding;
                 dy = h;
@@ -1298,6 +1323,31 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         return this._support(card);
     },
     //
+    // This function adds a character card
+    //
+    // Function Parameters:
+    //      name The name of the upgrade to run
+    //
+    // Return:
+    //      This object
+    //
+    character: function (name)
+    {
+        var card = SquadronBuilder.force.getCharacter(name);
+        if (card && card.card.check(this)) {
+            for (var key in card.mecha) {
+                var mecha = this.replaceMecha(card.mecha[key], card.mecha[key], 1);
+                if (mecha) {
+                    mecha.character(card.name);
+                    card.card.modifyMecha(mecha);
+                    break;
+                }
+            }
+            this.card.points += card.points;
+        }
+        return this;
+    },
+    //
     // Sets the height of the page
     //
     // Function Parameters:
@@ -1324,7 +1374,6 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     //
     _support: function (card)
     {
-        console.log(card);
         if (card && card.card.check(this)) {
             for (var key in card.upgrades) {
                 if (this.card.upgrades[key]) {
@@ -1374,19 +1423,21 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     //
     replaceMecha: function (oldmecha, newmecha, count)
     {
+        console.log(oldmecha);
+        console.log(newmecha);
         for (var key in this.mecha) {
             if (this.mecha[key].class == oldmecha) {
-                if (oldmecha == newmecha) {
+                if ((oldmecha == newmecha) && (this.mecha[key].count > count)) {
                     this.mecha[key].count -= count;
-                    this.addMecha(oldmecha, count, true);
-                    return this;
+                    return this.addMecha(oldmecha, count, true);
                 } else {
                     count = this.mecha[key].count;
                     this.mecha[key] = new SquadronBuilder.mecha(this._canvas, newmecha, this.width, count);
+                    return this.mecha[key];
                 }
             }
         }
-        return this;
+        return false;
     },
     //
     // This function adds a mecha.
@@ -1413,7 +1464,7 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         this.mecha.push(
             new SquadronBuilder.mecha(this._canvas, mecha, this.width, count)
         );
-        return this;
+        return this.mecha[this.mecha.length - 1];
     },
     //
     // This function returns the classes of all the mecha
@@ -1452,7 +1503,6 @@ SquadronBuilder.faction = function (container, updateFct) {
         this.resetChoices(faction);
     }
     this._updateFct = updateFct ? updateFct : null;
-    console.log(updateFct);
 };
 SquadronBuilder.faction.prototype = BaseClass.extend({
     _canvas: null,
