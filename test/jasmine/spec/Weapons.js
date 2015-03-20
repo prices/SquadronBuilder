@@ -10,7 +10,7 @@ describe("Weapons", function() {
             var weapon = SquadronBuilder.data.weapons[key];
             describe(key+ " has a name that", function() {
                 var min = 5;
-                var max = 40;
+                var max = 45;
                 it("is a string", function() {
                     expect(typeof weapon.name).toBe("string");
                 });

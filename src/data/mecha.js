@@ -2,6 +2,7 @@
 // The mecha are specified here
 //
 SquadronBuilder.data.mecha = {
+    //       Zentraedi
     GlaugEldare: {
         name: 'Glaug-Eldare',
         speed: 12,
@@ -260,6 +261,136 @@ SquadronBuilder.data.mecha = {
         handtohand: [
             'Body Block', 'Kick', 'Jump Kick', 'Stomp'
         ],
+    },
+    // UEDF
+    Tomahawk: {
+        name: 'Tomahawk',
+        speed: 5,
+        piloting: 2,
+        gunnery: 2,
+        defense: 5,
+        damage: 19,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : false,
+            'Focus Fire'          : true,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+            'HPC155CParticleCannon', 'DualTZIVGunClusters', 'MDSL12MultipleMissilePods',
+            'MDSM6AirDefenseMissilePod', 'RDS2RocketLauncherBoxes',
+            'GAU20A150CalMachineguns'
+        ],
+        handtohand: [
+            'Body Block', 'Kick', 'Jump Kick', 'Punch', 'Stomp'
+        ],
+    },
+    Defender: {
+        name: 'Defender',
+        speed: 6,
+        piloting: 2,
+        gunnery: 2,
+        defense: 5,
+        damage: 11,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : false,
+            'Focus Fire'          : false,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+            'M99678mmAutoCannon'
+        ],
+        handtohand: [
+            'Body Block', 'Kick', 'Jump Kick', 'Punch', 'Stomp'
+        ],
+    },
+    Phalanx: {
+        name: 'Phalanx',
+        speed: 5,
+        piloting: 2,
+        gunnery: 2,
+        defense: 5,
+        damage: 11,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : false,
+            'Focus Fire'          : false,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+            'MDSH22DerringerMissileLaunchers'
+        ],
+        handtohand: [
+            'Body Block', 'Kick', 'Stomp'
+        ],
+    },
+    Spartan: {
+        name: 'Spartan',
+        speed: 7,
+        piloting: 2,
+        gunnery: 2,
+        defense: 6,
+        damage: 16,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : false,
+            'Focus Fire'          : true,
+            'Hands'               : true,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+            'MDSL12MultipleMissilePods', 'TZIVGunClusters', 'LWS20PointDefenseLaserTurret'
+        ],
+        handtohand: [
+            'Body Block', 'Kick', 'Stomp'
+        ],
+        extraabilities: {
+            'Brawler': '1 free hand to hand attack per turn.  All hand to hand attacks do +2 MDC',
+        }
     },
     VF1AValkyrie: {
         name: 'VF-1A Valkyrie',

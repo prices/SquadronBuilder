@@ -144,11 +144,57 @@ SquadronBuilder.force.core = {
             },
         },
         factions: ['UEDF'],
-        upgrade: function (name)
-        {
-            switch (name) {
-            }
-            return true;
-        }
+    },
+    AreaDenialDestroidSquadron: {
+        name: 'Area Denial Destroid Squadron',
+        mecha: {
+            'Tomahawk': 2,
+            'Defender': 2,
+        },
+        points: 60,
+        upgrades: {
+            'Defender Air-Burst Munitions': {
+                desc: 'Changes Dual M-996 78mm Auto-Cannons to RG:36, MD:4, Accurate, Anti-missile, Blast, Rapid Fire, Rear Fire, Split Fire',
+                points: 5,
+            },
+        },
+        factions: ['UEDF'],
+    },
+    CloseQuartersDestroidSquadron: {
+        name: 'Close Quarters Destroid Squadron',
+        mecha: {
+            'Spartan': 4,
+        },
+        points: 60,
+        upgrades: {
+            'GU-11 Gun Pod': {
+                desc: 'RG:24, MD:6, Rapid Fire',
+                points: 20,
+            },
+            'Spartan Shock Baton': {
+                desc: 'Clubbing weapon.  Reduces target\'s speed to 0 for the turn.',
+                points: 10,
+            },
+        },
+        factions: ['UEDF'],
+    },
+    BrawlerDestroidSquadron: {
+        name: 'Brawler Destroid Squadron',
+        mecha: {
+            'Tomahawk': 2,
+            'Spartan': 2,
+        },
+        points: 70,
+        upgrades: {
+            'GU-11 Gun Pod': {
+                desc: 'RG:24, MD:6, Rapid Fire',
+                points: 10,
+            },
+            'Spartan Shock Baton': {
+                desc: 'Clubbing weapon.  Reduces target\'s speed to 0 for the turn.',
+                points: 5,
+            },
+        },
+        factions: ['UEDF'],
     }
 }

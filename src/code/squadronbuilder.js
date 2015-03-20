@@ -286,7 +286,7 @@ BaseClass.prototype = {
         color = color ? color : this._color;
         var dx = x;
         var dy = y;
-        var cutoff = parseInt((boxes / rows), 10);
+        var cutoff = parseInt((boxes / rows) + 1, 10);
         var rect = [];
         for (var  i = 0; i < boxes; i++) {
             if ((i > 0) && ((i % cutoff) == 0)) {
@@ -720,7 +720,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
             this.large(nx, ny, this.mecha.name);
             
             // Put in the damage boxes
-            var bx = nx + ((this.largesize * this.mecha.name.length / 1.75) + 2);
+            var bx = nx + ((this.largesize * this.mecha.name.length / 1.5) + 2);
             var by = ny + (this.largesize / 2) - (this.boxsize / 2) - this.padding;
             var h = this.boxes(bx, by, this.mecha.damage);
 
@@ -831,7 +831,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         var dx = x;
 
         if (mecha.modes) {
-            dy += this._abilities(x, y, mecha);
+            dy += this._abilities(dx, dy, mecha);
             dy += this.padding;
             for (var mode in mecha.modes) {
                 dy += this.padding;
@@ -839,8 +839,9 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
                 dy += this._baseRender(dx, dy, mecha.modes[mode]);
             }
         } else {
-            dy += this._baseRender(x, y, mecha);
+            dy += this._baseRender(dx, dy, mecha);
         }
+        dy += this._extraabilities(dx, dy, mecha);
         // This is the end
         return dy - y;
     },
@@ -941,6 +942,33 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         }
         dy += this.normal(dx, dy, hth);
         return dy - y;
+    },
+    //
+    // This function renders the hand to hand combat for a mecha
+    //
+    // Function Parameters:
+    //      x     The x coordinate of the top left corner of this object
+    //      y     The y coordintate of the top left corner of this object
+    //      mecha The mecha object to render
+    //
+    // Return:
+    //      The height of this render
+    //
+    _extraabilities: function(x, y, mecha)
+    {
+        var dx = x;
+        var dy = y;
+        if (mecha.extraabilities) {
+            // Add in the hand to hand combat
+            dy += this.bold(dx, dy, "Extra Abilities:");
+            var len = 0;
+            for (var key in mecha.extraabilities) {
+                dy += this.normal(dx, dy, key);
+                dy += this.small(dx, dy, mecha.extraabilities[key]);
+            }
+        }
+        return dy - y;
+
     },
     //
     // This function renders the stats of a mecha
