@@ -995,6 +995,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
             for (var key in mecha.extraabilities) {
                 dy += this.normal(dx, dy, key);
                 dy += this.small(dx, dy, mecha.extraabilities[key]);
+                dy += this.padding;
             }
         }
         return dy - y;
