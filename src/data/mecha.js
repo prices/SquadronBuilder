@@ -386,7 +386,7 @@ SquadronBuilder.data.mecha = {
             'MDSL12MultipleMissilePods', 'TZIVGunClusters', 'LWS20PointDefenseLaserTurret'
         ],
         handtohand: [
-            'Body Block', 'Kick', 'Stomp'
+            'Body Block', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
         ],
         extraabilities: {
             'Brawler': '1 free hand to hand attack per turn.  All hand to hand attacks do +2 MDC',

@@ -1200,6 +1200,27 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         }
     },
     //
+    // This function adds an extra ability to the mecha
+    //
+    // Function Parameters:
+    //      name The name of the ability
+    //      desc The description of the ability
+    //
+    addExtraAbility: function(name, value)
+    {
+        this.mecha.extraabilities[name] = value;
+    },
+    //
+    // This function adds an extra hand to hand ability to the mecha
+    //
+    // Function Parameters:
+    //      name The name of the ability
+    //
+    addHandToHand: function(name)
+    {
+        this.mecha.handtohand.push(name);
+    },
+    //
     // This function is used to check if this weapon uses ammo
     // 
     // Return:
@@ -1347,9 +1368,9 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     //
     upgrade: function (name)
     {
-        if (this.card.upgrades[name]) {
-            this.card.card.upgrades[name].execute(this);
-            this.card.points += this.card.upgrades[name].points;
+        if (this.card.upgrades[name] && SquadronBuilder.force.upgrades[name]) {
+            SquadronBuilder.force.upgrades[name].execute(this);
+            this.card.points += this.card.upgrades[name];
             this.upgrades.push(name);
         }
         return this;
@@ -1692,18 +1713,21 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
             var upgrades = [];
             console.log(core.upgrades);
             for (var key in core.card.upgrades) {
-                upgrades.push(key);
-                var upgrade = core.card.upgrades[key];
-                text += '<div>';
-                text += '<input type="checkbox" id="upgrade.'+key+index+'" onChange="faction.updateChoice('+index+')"';
-                text += ((core.upgrades.indexOf(key) != -1) ? 'checked="checked"' : '')+'/>';
-                text += '<span class="name"/>'
-                text += upgrade.exclusive ? "*" : "";
-                text += upgrade.name;
-                text += '<span class="points">['+((upgrade.points > 0) ? "+" : "-")+upgrade.points + 'pts]</span>';
-                text += '</span>';
-                text += '<span class="description">'+upgrade.desc+'</span>';
-                text += '</div>';
+                if (SquadronBuilder.force.upgrades[key]) {
+                    upgrades.push(key);
+                    var points = core.card.upgrades[key];
+                    var upgrade = SquadronBuilder.force.upgrades[key];
+                    text += '<div>';
+                    text += '<input type="checkbox" id="upgrade.'+key+index+'" onChange="faction.updateChoice('+index+')"';
+                    text += ((core.upgrades.indexOf(key) != -1) ? 'checked="checked"' : '')+'/>';
+                    text += '<span class="name"/>'
+                    text += upgrade.exclusive ? "*" : "";
+                    text += upgrade.name;
+                    text += '<span class="points">['+((points > 0) ? "+" : "-")+points + 'pts]</span>';
+                    text += '</span>';
+                    text += '<span class="description">'+upgrade.desc+'</span>';
+                    text += '</div>';
+                }
             }
             document.getElementById('upgrades'+index).innerHTML = text;
             this.upgrades = upgrades;

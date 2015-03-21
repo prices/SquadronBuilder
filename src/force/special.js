@@ -9,15 +9,7 @@ SquadronBuilder.force.special = {
         },
         points: 20,
         upgrades: {
-            'GlaugEldare': {
-                name: 'Glaug-Eldare',
-                desc: 'Upgrade the Glaug in the squadron to a Glaug-Eldare',
-                points: 25,
-                execute: function (core)
-                {
-                    core.replaceMecha('Glaug', 'GlaugEldare');
-                }
-            },
+            'GlaugEldare': 25,
         },
         factions: ['Zentraedi'],
         check: function (core)
@@ -41,29 +33,10 @@ SquadronBuilder.force.special = {
         },
         points: 30,
         upgrades: {
-            'ValkyrieMLOPs': {
-                name: 'Valkyrie MLOPs',
-                desc: 'Changes the wing mounted hard points to RG:12, MD:2/missile, Ammo 8, Anti-missile, Missile, Vollley 8',
-                points: 1,
-                exclusive: true,
-            },
-            'ValkyrieLongRangeMissiles': {
-                name: 'Valkyrie Long-Range Missiles',
-                desc: 'Changes the wing mounted hard points to RG:48, MD:9/missile, Ammo 8, Missile, Vollley X',
-                points: 5,
-                exclusive: true,
-            },
-            'Valkyrie Gravity Bombs': {
-                name: 'Valkyrie Gravity Bombs',
-                desc: 'Changes the wing mounted hard points to RG:-, MD:12, Ammo 4, Blast, Fly Over, Missile, Overwhelming',
-                points: 3,
-                exclusive: true,
-            },
-            'SDF1AirWingNoseLasers': {
-                name: 'SDF-1 Air Wing Nose Lasers',
-                desc: 'Adds nose lasers to Figher and Guardian modes.  RG:18, MD:2, Anti-Missile',
-                points: 1,
-            },
+            'ValkyrieMLOPs': 1,
+            'ValkyrieLongRangeMissiles': 5,
+            'Valkyrie Gravity Bombs': 3,
+            'SDF1AirWingNoseLasers': 1,
         },
         factions: ['UEDF'],
         check: function (core)
