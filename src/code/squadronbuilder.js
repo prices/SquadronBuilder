@@ -472,7 +472,6 @@ BaseClass.prototype = {
                     span.x(x+'mm').dy(height+'mm');
                 }
                 height += size;
-                console.log(len);
                 if (print[key].length > length) {
                     len = print[key].length;
                 }
@@ -535,7 +534,6 @@ BaseClass.prototype = {
     //
     textwidth: function()
     {
-        console.log(this._textstats);
         var width = ((this._textstats.size * this._textstats.len / 1.70) + 3);
         return width;
     },
@@ -1458,8 +1456,8 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         if (card && card.card.check(this)) {
             for (var key in card.upgrades) {
                 if (this.card.upgrades[key]) {
-                    this.card.upgrades[key].points += card.upgrades[key].points;
-                } else if (card.upgrades[key].desc) {
+                    this.card.upgrades[key] += card.upgrades[key];
+                } else {
                     this.card.upgrades[key] = card.upgrades[key];
                 }
             }
@@ -1644,7 +1642,6 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
         delete this.cards[index];
         this.cards[index] = {};
         var c = document.getElementById('corechoice'+index);
-        console.log(c);
         this.cards[index].core = c.options[c.selectedIndex].value;
         var s1 = document.getElementById('support1choice'+index);
         this.cards[index].support1 = s1.options[s1.selectedIndex].value;
@@ -1674,7 +1671,6 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
                     this.forces[index].upgrade(this.upgrades[key]);
                 }
             }
-            console.log(this.forces[index]);
         }
         return this.forces[index]
     },
@@ -1711,7 +1707,6 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
 
             var text = "";
             var upgrades = [];
-            console.log(core.upgrades);
             for (var key in core.card.upgrades) {
                 if (SquadronBuilder.force.upgrades[key]) {
                     upgrades.push(key);

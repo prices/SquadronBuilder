@@ -29,6 +29,9 @@ SquadronBuilder.force.upgrades = {
         desc: 'Changes Dual M-996 78mm Auto-Cannons to RG:36, MD:4, Accurate, Anti-missile, Blast, Rapid Fire, Rear Fire, Split Fire',
         execute: function (core)
         {
+            core.upgradeMecha(function(mecha) {
+                mecha.replaceWeapon('M99678mmAutoCannon', 'M99678mmAutoCannonAirBurst');
+            }, ["Defender"]);
         }
     },
     'GU11GunPod': {

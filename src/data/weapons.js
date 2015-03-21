@@ -557,6 +557,27 @@ SquadronBuilder.data.weapons = {
             'Volley X'     : false,
         }
     },
+    M99678mmAutoCannonAirBurst: {
+        name: 'Dual M-996 78mm Auto-Cannons (Air Burst)',
+        range: 36,
+        damage: 4,
+        abilities: {
+            'Accurate'     : true,
+            'Ammo'         : false,
+            'Anti-Missile' : true,
+            'Blast'        : true,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : false,
+            'Overwhelming' : false,
+            'Rapid Fire'   : true,
+            'Rear Fire'    : true,
+            'Split Fire'   : true,
+            'Volley'       : false,
+            'Volley X'     : false,
+        }
+    },
     MDSH22DerringerMissileLaunchers: {
         name: 'Dual MDS-H-22 Derringer Missile Launchers',
         range: 48,
