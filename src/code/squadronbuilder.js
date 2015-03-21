@@ -1694,9 +1694,15 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
                 for (var k in this.faction[types[type].card]) {
                     var option = document.getElementById(type+'choice'+index+'.'+k);
                     var card = this.faction[types[type].card][k].card;
+
                     if (card.check(core)) {
                         option.disabled = false;
                     } else {
+                        var c = document.getElementById(type+'choice'+index);
+                        var value = c.options[c.selectedIndex].value;
+                        if (value == option.value) {
+                            c.selectedIndex = 0;
+                        }
                         option.disabled = true;
                     }
                 }
