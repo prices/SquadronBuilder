@@ -168,6 +168,16 @@ SquadronBuilder.force.core = {
         },
         factions: ['UEDF'],
     },
+    ArmoredDestroidSquadron: {
+        name: 'Armored Destroid Squadron',
+        mecha: {
+            'Tomahawk': 4,
+        },
+        points: 80,
+        upgrades: {
+        },
+        factions: ['UEDF'],
+    },
     CloseQuartersDestroidSquadron: {
         name: 'Close Quarters Destroid Squadron',
         mecha: {

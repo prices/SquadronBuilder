@@ -536,7 +536,7 @@ BaseClass.prototype = {
     textwidth: function()
     {
         console.log(this._textstats);
-        var width = ((this._textstats.size * this._textstats.len / 1.5) + 2);
+        var width = ((this._textstats.size * this._textstats.len / 1.70) + 3);
         return width;
     },
 };
@@ -1269,7 +1269,7 @@ SquadronBuilder.coreforce = function (canvas, card, width, height) {
     for (var mecha in this.card.mecha) {
         this.addMecha(mecha, this.card.mecha[mecha]);
     }
-
+    this.upgrades = [];
 };
 SquadronBuilder.coreforce.prototype = BaseClass.extend({
     height: 0,
@@ -1350,6 +1350,7 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         if (this.card.upgrades[name]) {
             this.card.card.upgrades[name].execute(this);
             this.card.points += this.card.upgrades[name].points;
+            this.upgrades.push(name);
         }
         return this;
     },
@@ -1566,6 +1567,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
     index: 0,
     forces: [],
     cards: [],
+    upgrades:[],
     _maxlines: 30,
     //
     // This function renders the main output for this object
@@ -1616,9 +1618,12 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
     },
     _getCoreForce: function (index)
     {
+        delete this.forces[index];
         this.forces[index] = {};
+        delete this.cards[index];
         this.cards[index] = {};
         var c = document.getElementById('corechoice'+index);
+        console.log(c);
         this.cards[index].core = c.options[c.selectedIndex].value;
         var s1 = document.getElementById('support1choice'+index);
         this.cards[index].support1 = s1.options[s1.selectedIndex].value;
@@ -1628,7 +1633,6 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
         this.cards[index].special = sp.options[sp.selectedIndex].value;
         var ch = document.getElementById('characterchoice'+index);
         this.cards[index].character = ch.options[ch.selectedIndex].value;
-
         if (this.cards[index].core) {
             this.forces[index] = new SquadronBuilder.coreforce(null, this.cards[index].core, 70);
             if (this.cards[index].support1) {
@@ -1643,6 +1647,13 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
             if (this.cards[index].character) {
                 this.forces[index].character(this.cards[index].character);
             }
+            for (var key in this.upgrades) {
+                var up = document.getElementById('upgrade.'+this.upgrades[key]+index);
+                if (up && up.checked) {
+                    this.forces[index].upgrade(this.upgrades[key]);
+                }
+            }
+            console.log(this.forces[index]);
         }
         return this.forces[index]
     },
@@ -1677,20 +1688,25 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
             var points = core.card.points ? core.card.points : 0;
             document.getElementById('points'+index).innerHTML = points;
 
-            var upgrades = "";
+            var text = "";
+            var upgrades = [];
+            console.log(core.upgrades);
             for (var key in core.card.upgrades) {
+                upgrades.push(key);
                 var upgrade = core.card.upgrades[key];
-                upgrades += '<div>';
-                upgrades += '<input type="checkbox" id="upgrade.'+key+'"value="1" />';
-                upgrades += '<span class="name"/>'
-                upgrades += upgrade.exclusive ? "*" : "";
-                upgrades += upgrade.name;
-                upgrades += '<span class="points">['+((upgrade.points > 0) ? "+" : "-")+upgrade.points + 'pts]</span>';
-                upgrades += '</span>';
-                upgrades += '<span class="description">'+upgrade.desc+'</span>';
-                upgrades += '</div>';
+                text += '<div>';
+                text += '<input type="checkbox" id="upgrade.'+key+index+'" onChange="faction.updateChoice('+index+')"';
+                text += ((core.upgrades.indexOf(key) != -1) ? 'checked="checked"' : '')+'/>';
+                text += '<span class="name"/>'
+                text += upgrade.exclusive ? "*" : "";
+                text += upgrade.name;
+                text += '<span class="points">['+((upgrade.points > 0) ? "+" : "-")+upgrade.points + 'pts]</span>';
+                text += '</span>';
+                text += '<span class="description">'+upgrade.desc+'</span>';
+                text += '</div>';
             }
-            document.getElementById('upgrades'+index).innerHTML = upgrades;
+            document.getElementById('upgrades'+index).innerHTML = text;
+            this.upgrades = upgrades;
 
         } else {
             document.getElementById('support1choice'+index).disabled = true;

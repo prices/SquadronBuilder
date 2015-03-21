@@ -23,7 +23,7 @@ SquadronBuilder.force.special = {
         check: function (core)
         {
             mecha = core.getMecha();
-            if (mecha.indexOf("Glaug") == -1) {
+            if ((mecha.indexOf("Glaug") == -1) && (mecha.indexOf("GlaugEldare") == -1)) {
                 return true;
             }
             return false;
