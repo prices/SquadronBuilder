@@ -1735,7 +1735,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
                     text += '<span class="name"/>'
                     text += upgrade.exclusive ? "*" : "";
                     text += upgrade.name;
-                    text += '<span class="points">['+((points > 0) ? "+" : "-")+points + 'pts]</span>';
+                    text += ' <span class="points">['+((points > 0) ? "+" : "-")+points + 'pts]</span>';
                     text += '</span>';
                     text += '<span class="description">'+upgrade.desc+'</span>';
                     text += '</label>';

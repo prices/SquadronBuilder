@@ -19,6 +19,54 @@ SquadronBuilder.force.support = {
             return true;
         },
     },
+    GluuhaugRegultSquad: {
+        name: "Gluuhaug-Regult Squad",
+        mecha: {
+            "GluuhaugRegult": 2,
+        },
+        points: 25,
+        upgrades: {
+        },
+        factions: ["Zentraedi"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    SerauhaugRegultSquad: {
+        name: "Serauhaug-Regult Squad",
+        mecha: {
+            "SerauhaugRegult": 2,
+        },
+        points: 40,
+        upgrades: {
+        },
+        factions: ["Zentraedi"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    TelnestaRegultSquad: {
+        name: "Telnesta-Regult Squad",
+        mecha: {
+            "TelnestaRegult": 2,
+        },
+        points: 15,
+        upgrades: {
+        },
+        factions: ["Zentraedi"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
     ValkyrieSquad: {
         name: "Valkyrie Squad",
         mecha: {
@@ -87,5 +135,22 @@ SquadronBuilder.force.support = {
         execute: function (core) {
             return true;
         },
-    }
+    },
+    RegultSquadMalcontents: {
+        name: "Regult Support Squad",
+        mecha: {
+            "GluuhaugRegult": 2,
+            "SerauhaugRegult": 2,
+        },
+        points: 65,
+        upgrades: {
+        },
+        factions: ["Malcontents"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
 }

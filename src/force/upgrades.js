@@ -25,6 +25,39 @@ SquadronBuilder.force.upgrades = {
         },
         blocks: []
     },
+    ZPRMkVIIIParticleAssaultRifle: {
+        name: 'Z-PR Mk. VIII Particle Assault Rifle',
+        desc: 'RG:12, MD: 5, Accurate',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.addWeapon('ZPRMkVIIIParticleAssaultRifle');
+            }, ["Spartan"]);
+        },
+        blocks: ['GU11GunPod', 'ZTFGMkVTacticalFlechetteCannon', 'ZMLMkIIShoulderFiredMissileLauncher']
+    },
+    ZTFGMkVTacticalFlechetteCannon: {
+        name: 'Z-TFG Mk. V Tactical Flechette Cannon',
+        desc: 'RG:9, MD: 4, Ammo 8, Blast',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.addWeapon('ZTFGMkVTacticalFlechetteCannon');
+            }, ["Spartan"]);
+        },
+        blocks: ['GU11GunPod', 'ZPRMkVIIIParticleAssaultRifle', 'ZMLMkIIShoulderFiredMissileLauncher']
+    },
+    ZMLMkIIShoulderFiredMissileLauncher: {
+        name: 'Z-ML Mk. II Shoulder-Fired Missile Launcher',
+        desc: 'RG:18, MD: 6/missile, Ammo 5, Anti-Missile, Blast',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.addWeapon('ZMLMkIIShoulderFiredMissileLauncher');
+            }, ["Spartan"]);
+        },
+        blocks: ['GU11GunPod', 'ZTFGMkVTacticalFlechetteCannon', 'ZPRMkVIIIParticleAssaultRifle']
+    },
     // UEDF
     DefenderAirBurstMunitions: {
         name: 'Defender Air-Burst Munitions',
@@ -46,7 +79,7 @@ SquadronBuilder.force.upgrades = {
                 mecha.addWeapon('GU11Battloid');
             }, ["Spartan"]);
         },
-        blocks: []
+        blocks: ['ZTFGMkVTacticalFlechetteCannon', 'ZPRMkVIIIParticleAssaultRifle', 'ZMLMkIIShoulderFiredMissileLauncher']
     },
     SpartanShockBaton: {
         name: 'Spartan Shock Baton',

@@ -262,6 +262,38 @@ SquadronBuilder.data.mecha = {
             'Body Block', 'Kick', 'Jump Kick', 'Stomp'
         ],
     },
+    TelnestaRegult: {
+        name: 'Telnesta-Regult',
+        speed: 4,
+        piloting: 2,
+        gunnery: 2,
+        defense: 5,
+        damage: 5,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : false,
+            'Focus Fire'          : true,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : false,
+            'Leap'                : true,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'RegultHeavyParticleCannons', 'RegultAutoCannons',
+        'RegultDualChargedParticleCannons'
+        ],
+        handtohand: [
+        'Body Block', 'Kick', 'Jump Kick', 'Stomp'
+        ],
+    },
     // UEDF
     Tomahawk: {
         name: 'Tomahawk',

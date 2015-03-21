@@ -121,5 +121,34 @@ SquadronBuilder.force.core = {
             'SpartanShockBaton': 5
         },
         factions: ['UEDF'],
-    }
+    },
+    // Malcontents
+    HeavyDestroidSquadron: {
+        name: 'Heavy Destroid Squadron',
+        mecha: {
+            'Tomahawk': 2,
+            'Spartan': 2,
+            'Glaug': 1
+        },
+        points: 90,
+        upgrades: {
+            GU11GunPod: 10,
+            ZPRMkVIIIParticleAssaultRifle: 5,
+            ZTFGMkVTacticalFlechetteCannon: 15,
+            ZMLMkIIShoulderFiredMissileLauncher: 10
+        },
+        factions: ['Malcontents'],
+    },
+    AirDefenseSquadron: {
+        name: 'Air Defense Squadron',
+        mecha: {
+            'GluuhaugRegult': 4,
+            'Defender': 2,
+        },
+        points: 70,
+        upgrades: {
+            'DefenderAirBurstMunitions': 5,
+        },
+        factions: ['Malcontents'],
+    },
 }
