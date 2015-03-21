@@ -16,6 +16,10 @@ button.reset {
 .upgrades div {
     padding-left: 1em;
 }
+.upgrades input[type=checkbox][disabled] + label {
+    color: #888;
+    font-style: italic;
+}
 .upgrades div span.description {
     padding-left: 0.5em;
     font-size: 75%;

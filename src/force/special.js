@@ -35,7 +35,7 @@ SquadronBuilder.force.special = {
         upgrades: {
             'ValkyrieMLOPs': 1,
             'ValkyrieLongRangeMissiles': 5,
-            'Valkyrie Gravity Bombs': 3,
+            'ValkyrieGravityBombs': 3,
             'SDF1AirWingNoseLasers': 1,
         },
         factions: ['UEDF'],

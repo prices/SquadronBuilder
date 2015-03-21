@@ -70,7 +70,7 @@ SquadronBuilder.force.core = {
         upgrades: {
             'ValkyrieMLOPs': 5,
             'ValkyrieLongRangeMissiles': 20,
-            'Valkyrie Gravity Bombs': 10,
+            'ValkyrieGravityBombs': 10,
             'SDF1AirWingNoseLasers': 5
         },
         factions: ['UEDF'],

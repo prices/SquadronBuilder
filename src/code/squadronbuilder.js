@@ -1713,20 +1713,32 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
 
             var text = "";
             var upgrades = [];
+            var blocked = [];
+            for (var key in core.upgrades) {
+                console.log(SquadronBuilder.force.upgrades[core.upgrades[key]].blocks);
+                blocked = blocked.concat(SquadronBuilder.force.upgrades[core.upgrades[key]].blocks);
+            }
+            console.log(blocked);
             for (var key in core.card.upgrades) {
                 if (SquadronBuilder.force.upgrades[key]) {
                     upgrades.push(key);
+                    var block = (blocked.indexOf(key) != -1);
                     var points = core.card.upgrades[key];
                     var upgrade = SquadronBuilder.force.upgrades[key];
+                    var name = 'upgrade.'+key+index;
                     text += '<div>';
-                    text += '<input type="checkbox" id="upgrade.'+key+index+'" onChange="faction.updateChoice('+index+')"';
-                    text += ((core.upgrades.indexOf(key) != -1) ? 'checked="checked"' : '')+'/>';
+                    text += '<input type="checkbox" name="'+name+'" id="'+name+'" onChange="faction.updateChoice('+index+')"';
+                    text += ((core.upgrades.indexOf(key) != -1) ? 'checked="checked"' : '');
+                    text += (block ? 'disabled="disabled"' : '');
+                    text += ' />';
+                    text += '<label for="'+name+'">';
                     text += '<span class="name"/>'
                     text += upgrade.exclusive ? "*" : "";
                     text += upgrade.name;
                     text += '<span class="points">['+((points > 0) ? "+" : "-")+points + 'pts]</span>';
                     text += '</span>';
                     text += '<span class="description">'+upgrade.desc+'</span>';
+                    text += '</label>';
                     text += '</div>';
                 }
             }
