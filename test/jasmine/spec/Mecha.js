@@ -256,7 +256,7 @@ describe("Mecha", function() {
                     });
                 });
                 describe(key+ " weapons that are ", function() {
-                    for (rkey in mecha.ranged) {
+                    for (var rkey in mecha.ranged) {
                         (function (r) {
                             it(mecha.ranged[r]+" is a defined weapon", function() {
                                 expect(mecha.ranged[r]).toBeDefinedWeapon();
@@ -265,7 +265,7 @@ describe("Mecha", function() {
                     }
                 });
                 describe(key+ " hand to hand attacks that are ", function() {
-                    for (skey in mecha.handtohand) {
+                    for (var skey in mecha.handtohand) {
                         (function (s) {
                             it(mecha.handtohand[s]+" is valid ", function() {
                                 expect(mecha.handtohand[s]).toBeValidHandToHand();

@@ -49,6 +49,26 @@ beforeEach(function () {
                 }
             }
         };
+    },
+    toBeDefinedUpgrade: function () {
+        return {
+            compare: function (actual, expected) {
+
+                return {
+                    pass: typeof SquadronBuilder.force.upgrades[actual] == 'object'
+                }
+            }
+        };
+    },
+    toBeValidID: function () {
+        return {
+            compare: function (actual, expected) {
+
+                return {
+                    pass: /^[^\s]+$/.test(actual)
+                }
+            }
+        };
     }
   });
 });
