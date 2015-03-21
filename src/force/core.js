@@ -117,8 +117,8 @@ SquadronBuilder.force.core = {
         },
         points: 70,
         upgrades: {
-            'GU11GunPod': 20,
-            'SpartanShockBaton': 10
+            'GU11GunPod': 10,
+            'SpartanShockBaton': 5
         },
         factions: ['UEDF'],
     }
