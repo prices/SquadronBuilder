@@ -1677,6 +1677,20 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
             var points = core.card.points ? core.card.points : 0;
             document.getElementById('points'+index).innerHTML = points;
 
+            var upgrades = "";
+            for (var key in core.card.upgrades) {
+                var upgrade = core.card.upgrades[key];
+                upgrades += '<div>';
+                upgrades += '<input type="checkbox" id="upgrade.'+key+'"value="1" />';
+                upgrades += '<span class="name"/>'
+                upgrades += upgrade.exclusive ? "*" : "";
+                upgrades += upgrade.name;
+                upgrades += '<span class="points">['+((upgrade.points > 0) ? "+" : "-")+upgrade.points + 'pts]</span>';
+                upgrades += '</span>';
+                upgrades += '<span class="description">'+upgrade.desc+'</span>';
+                upgrades += '</div>';
+            }
+            document.getElementById('upgrades'+index).innerHTML = upgrades;
 
         } else {
             document.getElementById('support1choice'+index).disabled = true;
@@ -1719,8 +1733,9 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
             text += '</select>';
         }
         var c = document.getElementById('choice'+this.index);
-        text += '<div class="points col-2-12"><span id="points'+this.index+'">0</span> Points</div>';
-        c.innerHTML += text;
+        text += '<div class="totalpoints col-2-12"><span id="points'+this.index+'">0</span> Points</div>';
+        text += '<div id="upgrades'+this.index+'" class="upgrades"></div>';
+        c.innerHTML = text;
 
     },
 });

@@ -9,10 +9,6 @@ SquadronBuilder.force.core = {
         },
         points: 50,
         upgrades: {
-            'Veteran Warriors': {
-                desc: 'Regults, Serau-Ger and Gluu-Ger in this squadron get +1 to Piloting (or Physical) and +1 to Gunnery',
-                points: 10,
-            }
         },
         factions: ['Zentraedi'],
     },
@@ -34,19 +30,23 @@ SquadronBuilder.force.core = {
         },
         points: 80,
         upgrades: {
-            'Veteran Warriors': {
+            'VeteranWarriors': {
+                name: 'Veteran Warriors',
                 desc: 'Regults, Serau-Ger and Gluu-Ger in this squadron get +1 to Piloting (or Physical) and +1 to Gunnery',
-                points: 20,
+                points: 10,
                 execute: function (core)
                 {
                     core.card.name = "Veteran "+core.card.name;
                     core.upgradeMecha(function(mecha) {
-                        mecha.changeStat('piloting', 1);
-                        mecha.changeStat('gunnery', 1);
+                        if (mecha.class == "Regult") {
+                            mecha.changeStat('piloting', 1);
+                            mecha.changeStat('gunnery', 1);
+                        }
                     }, ["Regult", "SerauGer", "GluuGer"]);
                 }
             },
-            'Glaug-Eldare': {
+            'GlaugEldare': {
+                name: 'Glaug-Eldare',
                 desc: 'Upgrade the Glaug in the squadron to a Glaug-Eldare',
                 points: 25,
                 execute: function (core)
@@ -64,9 +64,10 @@ SquadronBuilder.force.core = {
         },
         points: 70,
         upgrades: {
-            'Veteran Warriors': {
+            'VeteranWarriors': {
+                name: 'Veteran Warriors',
                 desc: 'Regults, Serau-Ger and Gluu-Ger in this squadron get +1 to Piloting (or Physical) and +1 to Gunnery',
-                points: 25,
+                points: 10,
                 execute: function (core)
                 {
                     core.card.name = "Veteran "+core.card.name;
@@ -90,7 +91,8 @@ SquadronBuilder.force.core = {
         },
         points: 70,
         upgrades: {
-            'Veteran Warriors': {
+            'VeteranWarriors': {
+                name: 'Veteran Warriors',
                 desc: 'Regults, Serau-Ger and Gluu-Ger in this squadron get +1 to Piloting (or Physical) and +1 to Gunnery',
                 points: 10,
                 execute: function (core)
@@ -104,7 +106,8 @@ SquadronBuilder.force.core = {
                     }, ["Regult", "SerauGer", "GluuGer"]);
                 }
             },
-            'Glaug-Eldare': {
+            'GlaugEldare': {
+                name: 'Glaug-Eldare',
                 desc: 'Upgrade the Glaug in the squadron to a Glaug-Eldare',
                 points: 25,
                 execute: function (core)
@@ -123,22 +126,26 @@ SquadronBuilder.force.core = {
         },
         points: 80,
         upgrades: {
-            'Valkyrie MLOPs': {
+            'ValkyrieMLOPs': {
+                name: 'Valkyrie MLOPs',
                 desc: 'Changes the wing mounted hard points to RG:12, MD:2/missile, Ammo 8, Anti-missile, Missile, Vollley 8',
                 points: 5,
                 exclusive: true,
             },
-            'Valkyrie Long-Range Missiles': {
+            'ValkyrieLongRangeMissiles': {
+                name: 'Valkyrie Long-Range Missiles',
                 desc: 'Changes the wing mounted hard points to RG:48, MD:9/missile, Ammo 8, Missile, Vollley X',
                 points: 20,
                 exclusive: true,
             },
             'Valkyrie Gravity Bombs': {
+                name: 'Valkyrie Gravity Bombs',
                 desc: 'Changes the wing mounted hard points to RG:-, MD:12, Ammo 4, Blast, Fly Over, Missile, Overwhelming',
                 points: 10,
                 exclusive: true,
             },
-            'SDF-1 Air Wing Nose Lasers': {
+            'SDF1AirWingNoseLasers': {
+                name: 'SDF-1 Air Wing Nose Lasers',
                 desc: 'Adds nose lasers to Figher and Guardian modes.  RG:18, MD:2, Anti-Missile',
                 points: 5,
             },
@@ -153,7 +160,8 @@ SquadronBuilder.force.core = {
         },
         points: 60,
         upgrades: {
-            'Defender Air-Burst Munitions': {
+            'DefenderAirBurstMunitions': {
+                name: 'Defender Air-Burst Munitions',
                 desc: 'Changes Dual M-996 78mm Auto-Cannons to RG:36, MD:4, Accurate, Anti-missile, Blast, Rapid Fire, Rear Fire, Split Fire',
                 points: 5,
             },
@@ -167,11 +175,13 @@ SquadronBuilder.force.core = {
         },
         points: 60,
         upgrades: {
-            'GU-11 Gun Pod': {
+            'GU11GunPod': {
+                name: 'GU-11 Gun Pod',
                 desc: 'RG:24, MD:6, Rapid Fire',
                 points: 20,
             },
-            'Spartan Shock Baton': {
+            'SpartanShockBaton': {
+                name: 'Spartan Shock Baton',
                 desc: 'Clubbing weapon.  Reduces target\'s speed to 0 for the turn.',
                 points: 10,
             },
@@ -186,13 +196,15 @@ SquadronBuilder.force.core = {
         },
         points: 70,
         upgrades: {
-            'GU-11 Gun Pod': {
+            'GU11GunPod': {
+                name: 'GU-11 Gun Pod',
                 desc: 'RG:24, MD:6, Rapid Fire',
-                points: 10,
+                points: 20,
             },
-            'Spartan Shock Baton': {
+            'SpartanShockBaton': {
+                name: 'Spartan Shock Baton',
                 desc: 'Clubbing weapon.  Reduces target\'s speed to 0 for the turn.',
-                points: 5,
+                points: 10,
             },
         },
         factions: ['UEDF'],

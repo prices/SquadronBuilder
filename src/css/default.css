@@ -13,7 +13,22 @@ button.reset {
     font-weight: bold;
     float: right;
 }
-.points {
+.upgrades div {
+    padding-left: 1em;
+}
+.upgrades div span.description {
+    padding-left: 0.5em;
+    font-size: 75%;
+}
+.upgrades div span.points {
+    font-weight: bold;
+    font-size: 75%;
+}
+.upgrades div span.name {
+    font-weight: bold;
+    font-size: 90%;
+}
+.totalpoints {
     padding-left: 1em;
     padding-right: 1em;
     text-align: center;
@@ -45,6 +60,7 @@ div.totallabel {
     font-weight: bold;
 }
 div.copyright {
+    font-size: 60%;
     height: 7em; 
     position: fixed;
     left: 0;
@@ -53,4 +69,7 @@ div.copyright {
     background: #F0F0F0;
     padding: 0.5em;
     width: 100%;
+}
+div.upgrades{
+    clear: both;
 }
