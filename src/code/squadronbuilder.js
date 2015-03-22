@@ -193,7 +193,7 @@ BaseClass.prototype = {
     // This is the size of normal text in mm
     headersize: 5,
     // This is our font family
-    fontfamily: "'Bitstream Vera Sans', sans-serif",
+    fontfamily: "sans-serif",
     // This is our groups from all of this.
     _elements: [],
     // This is statistics from our last text written
@@ -262,13 +262,14 @@ BaseClass.prototype = {
     //
     box: function (x, y, width, height, color)
     {
+        console.log(color);
         var rect = this._canvas.rect(
             width+"mm", height+"mm"
-        ).x(x+"mm").y(y+"mm").stroke(color).fill("none");
+        ).x(x+"mm").y(y+"mm").stroke({ color: color, opacity: 1, width: '0.3mm' }).fill("none");
 
         this._elements.shift(rect);
 
-        return height;
+        return rect;
     },
     //
     // Creates a row or more of boxes for damage, ammo, or other.
@@ -302,7 +303,7 @@ BaseClass.prototype = {
             }
             rect[i] = this._canvas.rect(
                 this.boxsize+"mm", this.boxsize+"mm"
-            ).x(dx+"mm").y(dy+"mm").stroke(color).fill("none");
+            ).x(dx+"mm").y(dy+"mm").stroke({ color: color, opacity: 1, width: '0.3mm' }).fill("none");
             dx += this.boxsize * this.boxmult;
         }
         this._elements.push(this._group(x, y, rect));

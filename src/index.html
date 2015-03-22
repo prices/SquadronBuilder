@@ -42,6 +42,7 @@
             <div><a target="_blank" href="http://github.com/wout/svg.js">SVG.js</a> is released under the MIT License</div>
             <div><a target="_blank" href="https://thisisdallas.github.io/Simple-Grid/">Simple Grid</a> is released under the MIT License</div>
         </div>
+        <div id="svgcanvas" style="display: none;"></div>
         <script type="text/javascript">
             var win = [];
             var coreforce = [];
@@ -63,27 +64,64 @@
             }
             function render()
             {
+                document.getElementById('svgcanvas').innerHTML = '';
                 coreforce = faction.getCoreForce();
                 for (var i = 0; i < faction.getCount(); i++) {
                     if (coreforce[i].canvas) {
-                        win.push(window.open("force.svg", i+'.0'));
-                        pages[i] = 0;
+                        //win.push(window.open("force.svg", i+'.0'));
+                        //pages[i] = 0;
+                        renderPage(i+'.0');
                     }
                 }
             }
             function renderPage(name)
             {
+                document.getElementById('svgcanvas').innerHTML += '<svg id="SVG'+name+'"></svg>';
                 var ind = name.split('.');
                 var index = ind[0];
                 var page  = ind[1];
-                var svg = win[index].document.getElementById('svgmain');
+                var svg = document.getElementById('SVG'+name);
                 if (svg && coreforce[index].canvas) {
                     var height = parseInt(svg.getAttribute("height"), 10);
                     var width = parseInt(svg.getAttribute("width"), 10);
-                    var canvas = SVG(svg);
+                    var fullpage = SVG(svg);
+                    // This adds all the copyright information.
+                    var legal = fullpage.nested().x('7mm').y('260mm');
+                    copyright(legal);
+                    // This sets up our writeable page.
+                    var canvas = fullpage.nested().x("7mm").y("7mm").width("202mm").height("253mm");
                     coreforce[index].canvas(canvas);
                     coreforce[index].render(page, width, height);
+                    var svgExport = fullpage.exportSvg({ whitespace: true, width: '216mm', height: '279mm' })
+
+                    open("data:image/svg+xml," + encodeURIComponent(svgExport));
+
+                    svg.destroy();
                 }
+            }
+            function copyright(canvas)
+            {
+                canvas.text('Copyright © 2015 Scott Price.  Built with SquadronBuilder http://github.com/prices/SquadronBuilder/'
+                ).x('1mm').y('3mm').font({
+                    family:   'sans-serif',
+                    size:     '2.75mm',
+                    anchor:   'start',
+                    'font-weight': 'normal',
+                });
+                canvas.text('Robotech® is a registered trademark of Harmony Gold http://www.harmonygold.com/'
+                ).x('1mm').y('6mm').font({
+                    family:   'sans-serif',
+                    size:     '2.75mm',
+                    anchor:   'start',
+                    'font-weight': 'normal',
+                });
+                canvas.text('Robotech® RPG Tactics™ and associated game materials and terms are trademarks of Palladium Books, Inc http://palladiumbooks.com/'
+                ).x('1mm').y('9mm').font({
+                    family:   'sans-serif',
+                    size:     '2.75mm',
+                    anchor:   'start',
+                    'font-weight': 'normal',
+                });
             }
         </script>
     </body>
