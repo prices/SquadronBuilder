@@ -1,6 +1,10 @@
-.body {
-    padding: 2em;
-    padding-bottom: 10em;
+body {
+    border: thin solid blue;
+}
+.content {
+    padding: 0.5em;
+    padding-bottom: 100px;
+    border: thin solid red;
 }
 button.render {
     background: green;
@@ -12,6 +16,11 @@ button.reset {
     color: white;
     font-weight: bold;
     float: right;
+}
+h1 {
+    font-size: 150%;
+    font-weight: bold;
+    border-bottom: 2px solid gray;
 }
 .upgrades div {
     padding-left: 1em;
@@ -31,6 +40,9 @@ button.reset {
 .upgrades div span.name {
     font-weight: bold;
     font-size: 90%;
+}
+.info.mecha {
+    padding: 0.5em;
 }
 .totalpoints {
     padding-left: 1em;
@@ -63,13 +75,11 @@ div.totallabel {
     text-align: right;
     font-weight: bold;
 }
-div.copyright {
+div.footer {
     font-size: 60%;
-    height: 7em; 
     position: fixed;
     left: 0;
-    bottom: 0; 
-    
+    bottom: 0;
     background: #F0F0F0;
     padding: 0.5em;
     width: 100%;

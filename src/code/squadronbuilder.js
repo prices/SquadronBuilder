@@ -1332,11 +1332,10 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
             console.log(this.mecha[key].class);
             console.log(this.mecha[key].height);
         }
-        /*
         if (count == 2) {
             this.mecha[key].x(this.columnwidth + this.padding);
             this.mecha[key].y(y);
-        }*/
+        }
         return 0;
     },
     //
@@ -1749,7 +1748,15 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
             document.getElementById(this._id('upgrades'+index)).innerHTML = text;
             this.upgrades = upgrades;
 
+            var text = '';
+            for (var key in core.mecha) {
+                console.log(core.mecha[key].mecha);
+                text += '<div class="mecha">'+core.mecha[key].mecha.name+': '+core.mecha[key].count+'</div>';
+            }
+            document.getElementById(this._id('info'+index)).innerHTML = text;
+
         } else {
+            document.getElementById(this._id('info'+index)).innerHTML = "<div>No Mecha</div>";
             document.getElementById(this._id('support1choice'+index)).disabled = true;
             document.getElementById(this._id('support2choice'+index)).disabled = true;
             document.getElementById(this._id('specialchoice'+index)).disabled = true;
@@ -1773,7 +1780,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
     },
     _renderChoice: function(index)
     {
-        var text = '<div id="'+this._id('info'+index)+'"></div>';
+        var text = '<div id="'+this._id('info'+index)+'" class="grid mecha info"></div>';
         var types = {
             'core': { card: 'core', name: 'Core Force Card' },
             'support1': { card: 'support', name: 'Support Force Card' },
