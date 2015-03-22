@@ -1588,28 +1588,29 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
     cards: [],
     upgrades:[],
     _maxlines: 30,
+    _factionid: '',
     //
-    // This function renders the main output for this object
+    // This function creates an HTML id
     //
     // Function Parameters:
-    //      page   The page to render
-    //      width  The width of the page
-    //      height The height of the page
+    //      id This is the stuff to work with.
     //
     // Return:
-    //      This object
+    //      The id
     //
-    render: function ()
+    _id: function (id)
     {
+        return this._factionid+'.'+id;
     },
     resetChoices: function(faction)
     {
+        this._factionid = faction;
         this.faction = SquadronBuilder.force.getFaction(faction)
         this.index = 0;
         this._container.innerHTML = '';
         for (var i = 0; i < this._maxlines; i++) {
-            this._container.innerHTML += '<div class="'+this.faction+' row'+((i % 2 == 0)?1:0)+' grid choice" id="choice'+i+'"></div>';
-            document.getElementById('choice'+i).style.display = 'none';
+            this._container.innerHTML += '<div class="'+this._factionid+' row'+((i % 2 == 0)?1:0)+' grid choice" id="'+this._id('choice'+i)+'"></div>';
+            document.getElementById(this._id('choice'+i)).style.display = 'none';
         }
         this.renderChoice();
     },
@@ -1625,7 +1626,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
     {
         var total = 0;
         for (var i = 0; i < this.index; i++) {
-            var d = document.getElementById('points'+i);
+            var d = document.getElementById(this._id('points'+i));
             if (d) {
                 var p = parseInt(d.textContent, 10);
                 if (!isNaN(p)) {
@@ -1641,15 +1642,15 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
         this.forces[index] = {};
         delete this.cards[index];
         this.cards[index] = {};
-        var c = document.getElementById('corechoice'+index);
+        var c = document.getElementById(this._id('corechoice'+index));
         this.cards[index].core = c.options[c.selectedIndex].value;
-        var s1 = document.getElementById('support1choice'+index);
+        var s1 = document.getElementById(this._id('support1choice'+index));
         this.cards[index].support1 = s1.options[s1.selectedIndex].value;
-        var s2 = document.getElementById('support2choice'+index);
+        var s2 = document.getElementById(this._id('support2choice'+index));
         this.cards[index].support2 = s2.options[s2.selectedIndex].value;
-        var sp = document.getElementById('specialchoice'+index);
+        var sp = document.getElementById(this._id('specialchoice'+index));
         this.cards[index].special = sp.options[sp.selectedIndex].value;
-        var ch = document.getElementById('characterchoice'+index);
+        var ch = document.getElementById(this._id('characterchoice'+index));
         this.cards[index].character = ch.options[ch.selectedIndex].value;
         if (this.cards[index].core) {
             this.forces[index] = new SquadronBuilder.coreforce(null, this.cards[index].core, 70);
@@ -1666,7 +1667,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
                 this.forces[index].character(this.cards[index].character);
             }
             for (var key in this.upgrades) {
-                var up = document.getElementById('upgrade.'+this.upgrades[key]+index);
+                var up = document.getElementById(this._id('upgrade.'+this.upgrades[key]+index));
                 if (up && up.checked) {
                     this.forces[index].upgrade(this.upgrades[key]);
                 }
@@ -1678,10 +1679,10 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
     {
         var core = this._getCoreForce(index);
         if (core.card) {
-            document.getElementById('support1choice'+index).disabled = false;
-            document.getElementById('support2choice'+index).disabled = false;
-            document.getElementById('specialchoice'+index).disabled = false;
-            document.getElementById('characterchoice'+index).disabled = false;
+            document.getElementById(this._id('support1choice'+index)).disabled = false;
+            document.getElementById(this._id('support2choice'+index)).disabled = false;
+            document.getElementById(this._id('specialchoice'+index)).disabled = false;
+            document.getElementById(this._id('characterchoice'+index)).disabled = false;
 
 
             var types = {
@@ -1692,13 +1693,13 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
             };
             for (var type in types) {
                 for (var k in this.faction[types[type].card]) {
-                    var option = document.getElementById(type+'choice'+index+'.'+k);
+                    var option = document.getElementById(this._id(type+'choice'+index+'.'+k));
                     var card = this.faction[types[type].card][k].card;
 
                     if (card.check(core)) {
                         option.disabled = false;
                     } else {
-                        var c = document.getElementById(type+'choice'+index);
+                        var c = document.getElementById(this._id(type+'choice'+index));
                         var value = c.options[c.selectedIndex].value;
                         if (value == option.value) {
                             c.selectedIndex = 0;
@@ -1709,7 +1710,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
             }
 
             var points = core.card.points ? core.card.points : 0;
-            document.getElementById('points'+index).innerHTML = points;
+            document.getElementById(this._id('points'+index)).innerHTML = points;
 
             var text = "";
             var upgrades = [];
@@ -1725,7 +1726,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
                     var block = (blocked.indexOf(key) != -1);
                     var points = core.card.upgrades[key];
                     var upgrade = SquadronBuilder.force.upgrades[key];
-                    var name = 'upgrade.'+key+index;
+                    var name = this._id('upgrade.'+key+index);
                     text += '<div>';
                     text += '<input type="checkbox" name="'+name+'" id="'+name+'" onChange="faction.updateChoice('+index+')"';
                     text += ((core.upgrades.indexOf(key) != -1) ? 'checked="checked"' : '');
@@ -1742,14 +1743,14 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
                     text += '</div>';
                 }
             }
-            document.getElementById('upgrades'+index).innerHTML = text;
+            document.getElementById(this._id('upgrades'+index)).innerHTML = text;
             this.upgrades = upgrades;
 
         } else {
-            document.getElementById('support1choice'+index).disabled = true;
-            document.getElementById('support2choice'+index).disabled = true;
-            document.getElementById('specialchoice'+index).disabled = true;
-            document.getElementById('characterchoice'+index).disabled = true;
+            document.getElementById(this._id('support1choice'+index)).disabled = true;
+            document.getElementById(this._id('support2choice'+index)).disabled = true;
+            document.getElementById(this._id('specialchoice'+index)).disabled = true;
+            document.getElementById(this._id('characterchoice'+index)).disabled = true;
         }
         if (this._updateFct) {
             this._updateFct(index);
@@ -1759,7 +1760,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
 
     renderChoice: function()
     {
-        document.getElementById('choice'+this.index).style.display = 'block';
+        document.getElementById(this._id('choice'+this.index)).style.display = 'block';
         this._renderChoice(this.index);
 
 
@@ -1778,16 +1779,16 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
             'character': { card: 'characters', name: 'Character Card' },
         };
         for (var type in types) {
-            text += '<select id="'+type+'choice'+index+'" onChange="faction.updateChoice('+index+')" class="'+type+' '+types[type].card+' col-2-12">';
+            text += '<select id="'+this._id(type+'choice'+index)+'" onChange="faction.updateChoice('+index+')" class="'+type+' '+types[type].card+' col-2-12">';
             text += '<option value="">'+types[type].name+'</option>';
             for (var k in this.faction[types[type].card]) {
-                text += '<option id="'+type+'choice'+index+'.'+k+'" value="'+k+'">'+this.faction[types[type].card][k].name+' ['+this.faction[types[type].card][k].points+' pts]</option>';
+                text += '<option id="'+this._id(type+'choice'+index+'.'+k)+'" value="'+k+'">'+this.faction[types[type].card][k].name+' ['+this.faction[types[type].card][k].points+' pts]</option>';
             }
             text += '</select>';
         }
-        var c = document.getElementById('choice'+this.index);
-        text += '<div class="totalpoints col-2-12"><span id="points'+this.index+'">0</span> Points</div>';
-        text += '<div id="upgrades'+this.index+'" class="upgrades"></div>';
+        var c = document.getElementById(this._id('choice'+this.index));
+        text += '<div class="totalpoints col-2-12"><span id="'+this._id('points'+this.index)+'">0</span> Points</div>';
+        text += '<div id="'+this._id('upgrades'+this.index)+'" class="upgrades"></div>';
         c.innerHTML = text;
 
     },
