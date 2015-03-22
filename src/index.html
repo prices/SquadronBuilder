@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="css/default.css" />
         <link rel="stylesheet" href="contrib/simplegrid.css" />
         <script src="contrib/svg.min.js" type="text/javascript"></script>
+        <script src="contrib/svg.export.js" type="text/javascript"></script>
         <script src="js/squadronbuilder.js" type="text/javascript"></script>
     </head>
     <body onload="load()">
@@ -64,8 +65,10 @@
             {
                 coreforce = faction.getCoreForce();
                 for (var i = 0; i < faction.getCount(); i++) {
-                    win.push(window.open("force.svg", i+'.0'));
-                    pages[i] = 0;
+                    if (coreforce[i].canvas) {
+                        win.push(window.open("force.svg", i+'.0'));
+                        pages[i] = 0;
+                    }
                 }
             }
             function renderPage(name)
@@ -73,11 +76,8 @@
                 var ind = name.split('.');
                 var index = ind[0];
                 var page  = ind[1];
-                console.log(index);
-                console.log(page);
                 var svg = win[index].document.getElementById('svgmain');
-                console.log(svg);
-                if (svg) {
+                if (svg && coreforce[index].canvas) {
                     var height = parseInt(svg.getAttribute("height"), 10);
                     var width = parseInt(svg.getAttribute("width"), 10);
                     var canvas = SVG(svg);

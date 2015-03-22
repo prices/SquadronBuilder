@@ -1329,8 +1329,6 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
             } else {
                 dy += h;
             }
-            console.log(this.mecha[key].class);
-            console.log(this.mecha[key].height);
         }
         if (count == 2) {
             this.mecha[key].x(this.columnwidth + this.padding);
@@ -1718,10 +1716,8 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
             var upgrades = [];
             var blocked = [];
             for (var key in core.upgrades) {
-                console.log(SquadronBuilder.force.upgrades[core.upgrades[key]].blocks);
                 blocked = blocked.concat(SquadronBuilder.force.upgrades[core.upgrades[key]].blocks);
             }
-            console.log(blocked);
             for (var key in core.card.upgrades) {
                 if (SquadronBuilder.force.upgrades[key]) {
                     upgrades.push(key);
@@ -1750,7 +1746,6 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
 
             var text = '';
             for (var key in core.mecha) {
-                console.log(core.mecha[key].mecha);
                 text += '<div class="mecha">'+core.mecha[key].mecha.name+': '+core.mecha[key].count+'</div>';
             }
             document.getElementById(this._id('info'+index)).innerHTML = text;
