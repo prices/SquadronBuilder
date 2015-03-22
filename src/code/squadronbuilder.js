@@ -1323,17 +1323,20 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
             h += this.padding;
             if ((dy + h) > this.height) {
                 x += this.columnwidth + this.padding;
-                dy = h;
+                dy = y + h;
                 this.mecha[key].x(x);
                 this.mecha[key].y(y);
             } else {
                 dy += h;
             }
+            console.log(this.mecha[key].class);
+            console.log(this.mecha[key].height);
         }
+        /*
         if (count == 2) {
             this.mecha[key].x(this.columnwidth + this.padding);
             this.mecha[key].y(y);
-        }
+        }*/
         return 0;
     },
     //
@@ -1770,7 +1773,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
     },
     _renderChoice: function(index)
     {
-        var text = "";
+        var text = '<div id="'+this._id('info'+index)+'"></div>';
         var types = {
             'core': { card: 'core', name: 'Core Force Card' },
             'support1': { card: 'support', name: 'Support Force Card' },
