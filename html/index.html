@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            Robotech® RPG Tactics™ SquadronBuilder
+        </title>
+        <link rel="stylesheet" href="css/default.css" />
+        <link rel="stylesheet" href="contrib/simplegrid.css" />
+        <script src="contrib/svg.min.js" type="text/javascript"></script>
+        <script src="contrib/svg.export.js" type="text/javascript"></script>
+        <script src="js/squadronbuilder.js" type="text/javascript"></script>
+    </head>
+    <body onload="load()">
+        <div class="body content">
+            <h1>Robotech® RPG Tactics™ SquadronBuilder</h1>
+            <div class="small">
+                This will pop up new windows for each SVG page created.  Popups must be enabled
+                for this to work.  Once these windows pop up, they can be printed directly,
+                or saved to a file.
+            </div>
+            <h3>Choose a Faction</h3>
+            <select name="faction" id="faction" onChange="faction.resetChoices(this.value)" class="faction">
+                <option value="UEDF">United Earth Defense Force</option>
+                <option value="Zentraedi">Zentraedi Armada</option>
+                <option value="Malcontents">Malcontents</option>
+            </select>
+            <h3>Force Choices</h3>
+            <hr />
+            <div id="choices" class="choices">
+            </div>
+            <hr />
+            <div class="grid total">
+                <div class="col-2-12 totalpoints"><span id="totalpoints">0</span> Points</div>
+                <div class="col-2-12 push-right totallabel">Total:</div>
+            </div>
+            <div class="grid grid-pad toolbar">
+                <button class="col-2-12 addRow" onClick="addrow()">Add Core Force Card</button>
+                <button class="col-2-12 render" onClick="render()">Render</button>
+                <button class="col-2-12 reset" onClick="load()">Reset</button>
+            </div>
+        </div>
+        <div class="copyright footer">
+            <div>SquadronBuilder Copyright © 2015 Scott Price.  Source can be found at <a target="_blank" href="http://github.com/prices/SquadronBuilder/">http://github.com/prices/SquadronBuilder/</a></div>
+            <div>Robotech® is a registered trademark of Harmony Gold <a target="_blank" href="http://www.harmonygold.com/">http://www.harmonygold.com/</a></div>
+            <div>Robotech® RPG Tactics™ and associated game materials and terms are trademarks of Palladium Books, Inc <a target="_blank" href="http://palladiumbooks.com/">http://palladiumbooks.com/</a></div>
+            <div><a target="_blank" href="http://github.com/wout/svg.js">SVG.js</a> is released under the MIT License</div>
+            <div><a target="_blank" href="https://thisisdallas.github.io/Simple-Grid/">Simple Grid</a> is released under the MIT License</div>
+        </div>
+        <div id="svgcanvas" style="display: none;"></div>
+        <script type="text/javascript">
+            var win = [];
+            var coreforce = [];
+            var pages = []
+            var faction = new SquadronBuilder.faction("choices", function (index) {
+                var points = faction.getPointTotal();
+                document.getElementById('totalpoints').innerHTML = points;
+            });
+
+            function addrow()
+            {
+                faction.renderChoice();
+            }
+            function load()
+            {
+                var f = document.getElementById('faction');
+                var fact = f.options[f.selectedIndex].value;
+                faction.resetChoices(fact);
+            }
+            function render()
+            {
+                document.getElementById('svgcanvas').innerHTML = '';
+                coreforce = faction.getCoreForce();
+                for (var i = 0; i < faction.getCount(); i++) {
+                    if (coreforce[i].canvas) {
+                        //win.push(window.open("force.svg", i+'.0'));
+                        //pages[i] = 0;
+                        renderPage(i+'.0');
+                    }
+                }
+            }
+            function renderPage(name)
+            {
+                document.getElementById('svgcanvas').innerHTML += '<svg id="SVG'+name+'"></svg>';
+                var ind = name.split('.');
+                var index = ind[0];
+                var page  = ind[1];
+                var svg = document.getElementById('SVG'+name);
+                if (svg && coreforce[index].canvas) {
+                    var height = parseInt(svg.getAttribute("height"), 10);
+                    var width = parseInt(svg.getAttribute("width"), 10);
+                    var fullpage = SVG(svg);
+                    // This adds all the copyright information.
+                    var legal = fullpage.nested().x('7mm').y('260mm');
+                    copyright(legal);
+                    // This sets up our writeable page.
+                    var canvas = fullpage.nested().x("7mm").y("7mm").width("202mm").height("253mm");
+                    coreforce[index].canvas(canvas);
+                    coreforce[index].render(page, width, height);
+                    var svgExport = fullpage.exportSvg({ whitespace: true, width: '216mm', height: '279mm' })
+
+                    open("data:image/svg+xml," + encodeURIComponent(svgExport));
+
+                    svg.destroy();
+                }
+            }
+            function copyright(canvas)
+            {
+                canvas.text('Copyright © 2015 Scott Price.  Built with SquadronBuilder http://github.com/prices/SquadronBuilder/'
+                ).x('1mm').y('3mm').font({
+                    family:   'sans-serif',
+                    size:     '2.75mm',
+                    anchor:   'start',
+                    'font-weight': 'normal',
+                });
+                canvas.text('Robotech® is a registered trademark of Harmony Gold http://www.harmonygold.com/'
+                ).x('1mm').y('6mm').font({
+                    family:   'sans-serif',
+                    size:     '2.75mm',
+                    anchor:   'start',
+                    'font-weight': 'normal',
+                });
+                canvas.text('Robotech® RPG Tactics™ and associated game materials and terms are trademarks of Palladium Books, Inc http://palladiumbooks.com/'
+                ).x('1mm').y('9mm').font({
+                    family:   'sans-serif',
+                    size:     '2.75mm',
+                    anchor:   'start',
+                    'font-weight': 'normal',
+                });
+            }
+        </script>
+    </body>
+</html>
+

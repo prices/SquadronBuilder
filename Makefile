@@ -3,50 +3,56 @@ JSFILES = src/code/squadronbuilder.js \
 	src/force/core.js src/force/characters.js src/force/special.js src/force/support.js src/force/upgrades.js
 
 
-all: rel/js/squadronbuilder.min.js rel/index.html rel/css/default.css
+all: html/js/squadronbuilder.min.js html/index.html html/css/default.css html/README.md html/LICENSE
 
-contrib: rel/contrib/svg.min.js rel/contrib/simplegrid.css
+contrib: html/contrib/svg.min.js html/contrib/simplegrid.css
 
 
-rel/js/squadronbuilder.js: rel/js $(JSFILES) src/head.js src/tail.js
-	cat src/head.js > rel/js/squadronbuilder.js;
+html/js/squadronbuilder.js: html/js $(JSFILES) src/head.js src/tail.js
+	cat src/head.js > html/js/squadronbuilder.js;
 	@for file in $(JSFILES); do \
-	    echo "cat $$file >> rel/js/squadronbuilder.js"; \
-	    cat $$file >> rel/js/squadronbuilder.js; \
+	    echo "cat $$file >> html/js/squadronbuilder.js"; \
+	    cat $$file >> html/js/squadronbuilder.js; \
 	done
-	cat src/tail.js >> rel/js/squadronbuilder.js;
+	cat src/tail.js >> html/js/squadronbuilder.js;
 
-rel/js/squadronbuilder.min.js: rel/js/squadronbuilder.js
-	uglifyjs -o rel/js/squadronbuilder.min.js rel/js/squadronbuilder.js
+html/js/squadronbuilder.min.js: html/js/squadronbuilder.js
+	uglifyjs -o html/js/squadronbuilder.min.js html/js/squadronbuilder.js
 
-rel/index.html: rel src/index.html
-	cp src/index.html rel/index.html
+html/index.html: html src/index.html
+	cp src/index.html html/index.html
 
-rel/css/default.css: rel/css src/css/default.css
-	cp src/css/default.css rel/css/default.css
+html/css/default.css: html/css src/css/default.css
+	cp src/css/default.css html/css/default.css
 
-rel/contrib/svg.min.js: rel/contrib
-	wget https://raw.github.com/wout/svg.js/master/dist/svg.min.js -O rel/contrib/svg.min.js
-	wget https://raw.github.com/wout/svg.js/master/README.md -O rel/contrib/svg.js.README.md
-	wget https://raw.github.com/wout/svg.js/master/MIT-LICENSE -O rel/contrib/svg.js.LICENSE
-	wget https://github.com/wout/svg.export.js/raw/master/svg.export.js -O rel/contrib/svg.export.js
+html/contrib/svg.min.js: html/contrib
+	wget https://raw.github.com/wout/svg.js/master/dist/svg.min.js -O html/contrib/svg.min.js
+	wget https://raw.github.com/wout/svg.js/master/README.md -O html/contrib/svg.js.README.md
+	wget https://raw.github.com/wout/svg.js/master/MIT-LICENSE -O html/contrib/svg.js.LICENSE
+	wget https://github.com/wout/svg.export.js/raw/master/svg.export.js -O html/contrib/svg.export.js
 
-rel/contrib/simplegrid.css: rel/contrib
-	wget https://github.com/ThisIsDallas/Simple-Grid/raw/master/simplegrid.css -O rel/contrib/simplegrid.css
-	wget https://github.com/ThisIsDallas/Simple-Grid/raw/master/README.md -O rel/contrib/simplegrid.README.md
+html/contrib/simplegrid.css: html/contrib
+	wget https://github.com/ThisIsDallas/Simple-Grid/raw/master/simplegrid.css -O html/contrib/simplegrid.css
+	wget https://github.com/ThisIsDallas/Simple-Grid/raw/master/README.md -O html/contrib/simplegrid.README.md
 	
-rel:
-	mkdir -p rel
+html:
+	mkdir -p html
 	
-rel/contrib: rel
-	mkdir -p rel/contrib
+html/contrib: html
+	mkdir -p html/contrib
 
-rel/js: rel
-	mkdir -p rel/js
+html/js: html
+	mkdir -p html/js
 
-rel/css: rel
-	mkdir -p rel/css
+html/css: html
+	mkdir -p html/css
+
+html/README.md: README.md
+	cp README.md html/README.md
+
+html/LICENSE: LICENSE
+	cp LICENSE html/LICENSE
 
 clean:
-	rm -f rel/*.js rel/*.html
+	rm -f html/*.js html/*.html
 	

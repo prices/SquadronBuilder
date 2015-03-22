@@ -1,0 +1,90 @@
+body {
+}
+.content {
+    padding: 0.5em;
+    padding-bottom: 100px;
+}
+button.render {
+    background: green;
+    color: white;
+    font-weight: bold;
+}
+button.reset {
+    background: red;
+    color: white;
+    font-weight: bold;
+    float: right;
+}
+h1 {
+    font-size: 150%;
+    font-weight: bold;
+    border-bottom: 2px solid gray;
+}
+.small {
+    font-size: 75%;
+}
+.upgrades div {
+    padding-left: 1em;
+}
+.upgrades input[type=checkbox][disabled] + label {
+    color: #888;
+    font-style: italic;
+}
+.upgrades div span.description {
+    padding-left: 0.5em;
+    font-size: 75%;
+}
+.upgrades div span.points {
+    font-weight: bold;
+    font-size: 75%;
+}
+.upgrades div span.name {
+    font-weight: bold;
+    font-size: 90%;
+}
+.info.mecha {
+    padding: 0.5em;
+}
+.totalpoints {
+    padding-left: 1em;
+    padding-right: 1em;
+    text-align: center;
+    float: right;
+}
+.toolbar {
+    padding-top: 5em;
+}
+.row0 {
+    background: #E0E0E0;
+}
+.row1 {
+    background: #C0C0C0;
+}
+.choices div.choice {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+div.total div {
+    float: right;
+}
+div.totalpoints {
+    text-align: center;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+div.totallabel {
+    text-align: right;
+    font-weight: bold;
+}
+div.footer {
+    font-size: 60%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background: #F0F0F0;
+    padding: 0.5em;
+    width: 100%;
+}
+div.upgrades{
+    clear: both;
+}
