@@ -20,6 +20,9 @@ h1 {
     font-weight: bold;
     border-bottom: 2px solid gray;
 }
+.small {
+    font-size: 75%;
+}
 .upgrades div {
     padding-left: 1em;
 }
