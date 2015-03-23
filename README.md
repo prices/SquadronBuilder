@@ -6,6 +6,11 @@ This is a force builder for Robotech® RPG Tactics™
 
 The game can be found at http://www.palladiumbooks.com/
 
+## Status
+This is still a work in progress.  There are bugs, and some of the rendering is not
+correct.  However, it is in a usable state.  Most things work.  It will output actual
+SVG files now, instead of ones that you can't save to disk.
+
 ## Goals
 
 The goal of this project is to create a web interface in HTML and JavaScript
@@ -14,7 +19,7 @@ squadron cards will be output is SVG format, which Firefox and Chrome will both
 open natively.  From there they can be printed.
 
 ## Requirements
-* A recent web broswer that supports JavaScript
+* A recent web broswer that supports JavaScript and HTML5
 
 I was thinking about the project, written in PHP, and realized that PHP was not
 the right language.  Using JavaScript worked much better, as a web server is not
