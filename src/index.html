@@ -51,7 +51,6 @@
         <script type="text/javascript">
             var win = [];
             var coreforce = [];
-            var pages = []
             var faction = new SquadronBuilder.faction("choices", function (index) {
                 var points = faction.getPointTotal();
                 document.getElementById('totalpoints').innerHTML = points;
@@ -75,7 +74,9 @@
                     if (coreforce[i].canvas) {
                         //win.push(window.open("force.svg", i+'.0'));
                         //pages[i] = 0;
-                        renderPage(i+'.0');
+                        if (!renderPage(i+'.0')) {
+                            renderPage(i+'.1');
+                        }
                     }
                 }
             }
@@ -86,6 +87,8 @@
                 var index = ind[0];
                 var page  = ind[1];
                 var svg = document.getElementById('SVG'+name);
+                var done = true;
+                var pages = 1;
                 if (svg && coreforce[index].canvas) {
                     var height = parseInt(svg.getAttribute("height"), 10);
                     var width = parseInt(svg.getAttribute("width"), 10);
@@ -96,13 +99,15 @@
                     // This sets up our writeable page.
                     var canvas = fullpage.nested().x("7mm").y("7mm").width("202mm").height("253mm");
                     coreforce[index].canvas(canvas);
-                    coreforce[index].render(page, width, height);
+                    done = coreforce[index].render(page, width, height);
+                    pageNumber(canvas, page, (done && (page != 1)) ? 1 : 2);
                     var svgExport = fullpage.exportSvg({ whitespace: true, width: '216mm', height: '279mm' })
 
                     open("data:image/svg+xml," + encodeURIComponent(svgExport));
 
                     fullpage.clear();
                 }
+                return done;
             }
             function copyright(canvas)
             {
@@ -122,6 +127,16 @@
                 });
                 canvas.text('Robotech® RPG Tactics™ and associated game materials and terms are trademarks of Palladium Books, Inc http://palladiumbooks.com/'
                 ).x('1mm').y('9mm').font({
+                    family:   'sans-serif',
+                    size:     '2.75mm',
+                    anchor:   'start',
+                    'font-weight': 'normal',
+                });
+            }
+            function pageNumber(canvas, page, of)
+            {
+                canvas.text('Page '+(parseInt(page, 10) + 1)+' of '+of
+                ).x('180mm').y('3mm').font({
                     family:   'sans-serif',
                     size:     '2.75mm',
                     anchor:   'start',

@@ -710,6 +710,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
     _jcolor: '#0000CF',
     _weapon: [],
     _character: false,
+    rendered: false,
     //
     // This function renders the main output for this object
     // 
@@ -816,8 +817,24 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         
         this._canvas.width(this.width+'mm').height(this.height+'mm');
 
+        this.rendered = true;
         // This is the end
         return this;
+    },
+    //
+    // This function renders the main output for this object
+    //
+    // Function Parameters:
+    //      x The x coordinate of the top left corner of this object
+    //      y The y coordintate of the top left corner of this object
+    //
+    // Return:
+    //      This object
+    //
+    remove: function ()
+    {
+        this._canvas.clear();
+        this.rendered = false;
     },
     //
     // Returns the canvas
@@ -1319,6 +1336,7 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     height: 0,
     columnwidth: 70,
     _weapon: [],
+    _renderedMecha: [],
     //
     // This function renders the main output for this object
     //
@@ -1340,26 +1358,28 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         y += this.header(x, y, this.card.name);
         y += this.largebold(x, y, this.card.points+" Points");
         var dy = y;
-        var count = 0;
+        var cols = 1;
         for (var key in this.mecha) {
-            count++;
-            this.mecha[key].render(x, dy);
-            var h = this.mecha[key].height;
-            h += this.padding;
-            if ((dy + h) > this.height) {
-                x += this.columnwidth + this.padding;
-                dy = y + h;
-                this.mecha[key].x(x);
-                this.mecha[key].y(y);
-            } else {
-                dy += h;
+            if (!this.mecha[key].rendered) {
+                this.mecha[key].render(x, dy);
+                var h = this.mecha[key].height;
+                h += this.padding;
+                if ((dy + h) > this.height) {
+                    cols++;
+                    if (cols == 3) {
+                        this.mecha[key].remove();
+                        break;
+                    }
+                    x += this.columnwidth + this.padding;
+                    dy = y + h;
+                    this.mecha[key].x(x);
+                    this.mecha[key].y(y);
+                } else {
+                    dy += h;
+                }
             }
         }
-        if (count == 2) {
-            this.mecha[key].x(this.columnwidth + this.padding);
-            this.mecha[key].y(y);
-        }
-        return 0;
+        return cols != 3;
     },
     //
     // Returns the canvas
