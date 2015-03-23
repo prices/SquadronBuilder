@@ -3297,7 +3297,7 @@ SquadronBuilder.data.mecha = {
             'Hands'               : false,
             'Hover'               : false,
             'Jettison'            : false,
-            'Leadership'          : false,
+            'Leadership'          : 2,
             'Leap'                : false,
             'Life is Cheap'       : false,
             'Variable Modes'      : true,
@@ -3413,7 +3413,7 @@ SquadronBuilder.data.mecha = {
             'Hands'               : false,
             'Hover'               : false,
             'Jettison'            : false,
-            'Leadership'          : false,
+            'Leadership'          : 3,
             'Leap'                : false,
             'Life is Cheap'       : false,
             'Variable Modes'      : true,
@@ -3547,7 +3547,7 @@ SquadronBuilder.force.core = {
         },
         points: 80,
         upgrades: {
-            'VeteranWarriors': 10,
+            'VeteranWarriors': 20,
             'GlaugEldare': 25
         },
         factions: ['Zentraedi'],
@@ -3559,7 +3559,7 @@ SquadronBuilder.force.core = {
         },
         points: 70,
         upgrades: {
-            'VeteranWarriors': 10,
+            'VeteranWarriors': 25,
         },
         factions: ['Zentraedi'],
     },
