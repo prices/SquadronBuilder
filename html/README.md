@@ -13,8 +13,18 @@ that will allow a player to create squadron cards to play the game with.  The
 squadron cards will be output is SVG format, which Firefox and Chrome will both
 open natively.  From there they can be printed.
 
-## Requirements
-* A recent web broswer that supports JavaScript
+## Status
+
+This is still a work in progress.  There are bugs, and some of the rendering is not
+correct.  However, it is in a usable state.  Most things work.  It will output actual
+SVG files now, instead of ones that you can't save to disk.
+
+## Running SquadronBuilder
+
+Open the file html/index.html in your browser.  That is all that is require to run it.
+
+### Requirements
+* A recent web broswer that supports JavaScript and HTML5
 
 I was thinking about the project, written in PHP, and realized that PHP was not
 the right language.  Using JavaScript worked much better, as a web server is not
@@ -22,8 +32,8 @@ needed.  The files can just be opened in a web browser, and everything works.
 
 ## Testing
 
-Just run phpunit in the root directory of the git repository.  It will Run
-all of the tests automatically.
+Open the file test/jasmine/SpecRunner.html in your browser and all of the Jasmine tests
+will be run.
 
 ## Contributions
 

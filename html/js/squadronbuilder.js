@@ -286,7 +286,6 @@ BaseClass.prototype = {
     //
     box: function (x, y, width, height, color)
     {
-        console.log(color);
         var rect = this._canvas.rect(
             width+"mm", height+"mm"
         ).x(x+"mm").y(y+"mm").stroke({ color: color, opacity: 1, width: '0.3mm' }).fill("none");
@@ -1163,13 +1162,14 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         }
     },
     //
-    // This function adds a weapon in one or more modes
+    // This function adds to or subtracts from a stat
     //
     // Function Parameters:
     //      stat  The stat to change
     //      vaue  The value to change it to
+    //      modes The modes to change the values in
     //
-    changeStat: function(stat, value)
+    changeStat: function(stat, value, modes)
     {
         value = parseInt(value, 10) || 0;
 
@@ -1188,6 +1188,52 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
             // Fix up the jettison mecha also
             this._jettisonto.changeStat(stat, value);
         }
+    },
+    //
+    // This function adds to or subtracts from a stat
+    //
+    // Function Parameters:
+    //      stat  The stat to change
+    //      vaue  The value to change it to
+    //      modes The modes to change the values in
+    //
+    setStat: function(stat, value, modes)
+    {
+        value = parseInt(value, 10) || 0;
+
+        this.mecha[stat] = value;
+        if (this.mecha.modes) {
+            modes = modes ? modes : Object.keys(this.mecha.modes);
+            for (var key in modes) {
+                this.mecha.modes[modes[key]][stat] = value;
+            }
+        }
+        if (this._jettisonto) {
+            // Fix up the jettison mecha also
+            this._jettisonto.setStat(stat, value, modes);
+        }
+    },
+    //
+    // This function returns a stat
+    //
+    // Function Parameters:
+    //      stat  The stat to get
+    //      modes The modes to get
+    //
+    getStat: function(stat, modes)
+    {
+        if (this.mecha.modes) {
+            var ret = {};
+            modes = modes ? modes : Object.keys(this.mecha.modes);
+            for (var key in modes) {
+                if (typeof this.mecha.modes[modes[key]][stat] != 'undefined') {
+                    ret[modes[key]] = this.mecha.modes[modes[key]][stat];
+                }
+            }
+        } else {
+            var ret = this.mecha[stat];
+        }
+        return ret;
     },
     //
     // This function adds a weapon in one or more modes
@@ -1359,12 +1405,14 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         y += this.largebold(x, y, this.card.points+" Points");
         var dy = y;
         var cols = 1;
+        var count = 0;
         for (var key in this.mecha) {
+            console.log(this.mecha[key].rendered);
             if (!this.mecha[key].rendered) {
                 this.mecha[key].render(x, dy);
                 var h = this.mecha[key].height;
                 h += this.padding;
-                if ((dy + h) > this.height) {
+                if (((dy + h) > this.height) && (count > 0)) {
                     cols++;
                     if (cols == 3) {
                         this.mecha[key].remove();
@@ -1377,9 +1425,23 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
                 } else {
                     dy += h;
                 }
+                count++;
             }
         }
         return cols != 3;
+    },
+    //
+    // This function resets all of the render properties for this card.
+    //
+    // Return:
+    //      This object
+    //
+    resetRender: function ()
+    {
+        for (var key in this.mecha) {
+            this.mecha[key].rendered = false;
+        }
+        return this;
     },
     //
     // Returns the canvas
@@ -2720,7 +2782,7 @@ SquadronBuilder.data.weapons = {
     ValkyrieQuadHeadLasers: {
         name: 'Quad LLW-20 CIWS Valkyrie Head Laser',
         range: 9,
-        damage: 4,
+        damage: 2,
         abilities: {
             'Accurate'     : false,
             'Ammo'         : false,
@@ -2736,6 +2798,48 @@ SquadronBuilder.data.weapons = {
             'Split Fire'   : false,
             'Volley'       : false,
             'Volley X'     : false,
+        }
+    },
+    ValkyrieAutoCannon: {
+        name: 'LAC-20 20mm Auto-Cannon',
+        range: 9,
+        damage: 3,
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : false,
+            'Anti-Missile' : true,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : false,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : false,
+            'Volley X'     : false,
+        }
+    },
+    ValkyrieMiniMissiles: {
+        name: 'MDS-M-4 Mini-Missile Delivery System',
+        range: 12,
+        damage: '2/missile',
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 4,
+            'Anti-Missile' : true,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : false,
+            'Volley X'     : true,
         }
     },
     ValkyrieWingHardPoints: {
@@ -3534,6 +3638,126 @@ SquadronBuilder.data.mecha = {
             }
         },
     },
+    VF1RValkyrie: {
+        name: 'VF-1R Valkyrie',
+        damage: 17,
+        extradamage: 0,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': true,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : true,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+            'ValkyrieWingHardPoints', 'ValkyrieDualHeadLasers',
+            'GU11Battloid', 'GU11', 'GU11Fighter',
+            'ValkyrieAutoCannon', 'ValkyrieMiniMissiles'
+        ],
+        modes: {
+            Battloid: {
+                speed: 5,
+                piloting: 0,
+                gunnery: 0,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11Battloid', 'ValkyrieQuadHeadLasers', 'ValkyrieAutoCannon',
+                'ValkyrieMiniMissiles'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch',
+                'Power Punch', 'Stomp'
+                ]
+            },
+            Guardian: {
+                speed: 10,
+                piloting: 0,
+                gunnery: 0,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : true,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11', 'ValkyrieWingHardPoints', 'ValkyrieQuadHeadLasers',
+                'ValkyrieAutoCannon', 'ValkyrieMiniMissiles'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Punch'
+                ]
+            },
+            Fighter: {
+                speed: 12,
+                piloting: 0,
+                gunnery: 0,
+                defense: 6,
+                abilities: {
+                    'Afterburner'         : true,
+                    'Aircraft'            : true,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : true,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : false,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11Fighter', 'ValkyrieWingHardPoints', 'ValkyrieQuadHeadLasers',
+                'ValkyrieAutoCannon', 'ValkyrieMiniMissiles'
+                ],
+                handtohand: [
+                'None'
+                ]
+            }
+        },
+    },
 }
 //
 // The core force cards are specified here
@@ -4021,6 +4245,49 @@ SquadronBuilder.force.support = {
             return true;
         },
         execute: function (core) {
+            return true;
+        },
+    },
+    VF1R: {
+        name: "VF-1R Upgrade",
+        mecha: {
+        },
+        points: 10,
+        upgrades: {
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            mecha = core.getMecha();
+            if ((mecha.indexOf("VF1AValkyrie") != -1) || (mecha.indexOf("VF1JValkyrie") != -1)) {
+                return true;
+            }
+
+            return true;
+        },
+        execute: function (core) {
+            var count = 2;
+            core.upgradeMecha(function(mecha) {
+                var piloting = mecha.getStat('piloting');
+                var gunnery = mecha.getStat('gunnery');
+                if (mecha.count <= count) {
+                    var newmecha = core.replaceMecha(mecha.class, 'VF1RValkyrie', mecha.count);
+                    count -= mecha.count;
+                } else {
+                    mecha.count -= count;
+                    var newmecha = core.addMecha('VF1RValkyrie', count, true);
+                    count = 0;
+                }
+                if (newmecha) {
+                    // This gets the piloting and gunnery for the mecha.
+                    for (var mode in piloting) {
+                        newmecha.setStat('piloting', piloting[mode], [mode]);
+                    }
+                    for (var mode in gunnery) {
+                        newmecha.setStat('gunnery', gunnery[mode], [mode]);
+                    }
+                }
+            }, ["VF1AValkyrie", "VF1JValkyrie"]);
+
             return true;
         },
     },

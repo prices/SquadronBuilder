@@ -875,7 +875,7 @@ SquadronBuilder.data.weapons = {
     ValkyrieQuadHeadLasers: {
         name: 'Quad LLW-20 CIWS Valkyrie Head Laser',
         range: 9,
-        damage: 4,
+        damage: 2,
         abilities: {
             'Accurate'     : false,
             'Ammo'         : false,
@@ -891,6 +891,48 @@ SquadronBuilder.data.weapons = {
             'Split Fire'   : false,
             'Volley'       : false,
             'Volley X'     : false,
+        }
+    },
+    ValkyrieAutoCannon: {
+        name: 'LAC-20 20mm Auto-Cannon',
+        range: 9,
+        damage: 3,
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : false,
+            'Anti-Missile' : true,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : false,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : false,
+            'Volley X'     : false,
+        }
+    },
+    ValkyrieMiniMissiles: {
+        name: 'MDS-M-4 Mini-Missile Delivery System',
+        range: 12,
+        damage: '2/missile',
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 4,
+            'Anti-Missile' : true,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : false,
+            'Volley X'     : true,
         }
     },
     ValkyrieWingHardPoints: {

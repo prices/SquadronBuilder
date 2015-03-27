@@ -262,7 +262,6 @@ BaseClass.prototype = {
     //
     box: function (x, y, width, height, color)
     {
-        console.log(color);
         var rect = this._canvas.rect(
             width+"mm", height+"mm"
         ).x(x+"mm").y(y+"mm").stroke({ color: color, opacity: 1, width: '0.3mm' }).fill("none");
@@ -1139,13 +1138,14 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         }
     },
     //
-    // This function adds a weapon in one or more modes
+    // This function adds to or subtracts from a stat
     //
     // Function Parameters:
     //      stat  The stat to change
     //      vaue  The value to change it to
+    //      modes The modes to change the values in
     //
-    changeStat: function(stat, value)
+    changeStat: function(stat, value, modes)
     {
         value = parseInt(value, 10) || 0;
 
@@ -1164,6 +1164,52 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
             // Fix up the jettison mecha also
             this._jettisonto.changeStat(stat, value);
         }
+    },
+    //
+    // This function adds to or subtracts from a stat
+    //
+    // Function Parameters:
+    //      stat  The stat to change
+    //      vaue  The value to change it to
+    //      modes The modes to change the values in
+    //
+    setStat: function(stat, value, modes)
+    {
+        value = parseInt(value, 10) || 0;
+
+        this.mecha[stat] = value;
+        if (this.mecha.modes) {
+            modes = modes ? modes : Object.keys(this.mecha.modes);
+            for (var key in modes) {
+                this.mecha.modes[modes[key]][stat] = value;
+            }
+        }
+        if (this._jettisonto) {
+            // Fix up the jettison mecha also
+            this._jettisonto.setStat(stat, value, modes);
+        }
+    },
+    //
+    // This function returns a stat
+    //
+    // Function Parameters:
+    //      stat  The stat to get
+    //      modes The modes to get
+    //
+    getStat: function(stat, modes)
+    {
+        if (this.mecha.modes) {
+            var ret = {};
+            modes = modes ? modes : Object.keys(this.mecha.modes);
+            for (var key in modes) {
+                if (typeof this.mecha.modes[modes[key]][stat] != 'undefined') {
+                    ret[modes[key]] = this.mecha.modes[modes[key]][stat];
+                }
+            }
+        } else {
+            var ret = this.mecha[stat];
+        }
+        return ret;
     },
     //
     // This function adds a weapon in one or more modes
@@ -1335,12 +1381,14 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         y += this.largebold(x, y, this.card.points+" Points");
         var dy = y;
         var cols = 1;
+        var count = 0;
         for (var key in this.mecha) {
+            console.log(this.mecha[key].rendered);
             if (!this.mecha[key].rendered) {
                 this.mecha[key].render(x, dy);
                 var h = this.mecha[key].height;
                 h += this.padding;
-                if ((dy + h) > this.height) {
+                if (((dy + h) > this.height) && (count > 0)) {
                     cols++;
                     if (cols == 3) {
                         this.mecha[key].remove();
@@ -1353,9 +1401,23 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
                 } else {
                     dy += h;
                 }
+                count++;
             }
         }
         return cols != 3;
+    },
+    //
+    // This function resets all of the render properties for this card.
+    //
+    // Return:
+    //      This object
+    //
+    resetRender: function ()
+    {
+        for (var key in this.mecha) {
+            this.mecha[key].rendered = false;
+        }
+        return this;
     },
     //
     // Returns the canvas

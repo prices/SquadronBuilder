@@ -72,6 +72,7 @@
                 coreforce = faction.getCoreForce();
                 for (var i = 0; i < faction.getCount(); i++) {
                     if (coreforce[i].canvas) {
+                        coreforce[i].resetRender();
                         //win.push(window.open("force.svg", i+'.0'));
                         //pages[i] = 0;
                         if (!renderPage(i+'.0')) {
@@ -101,7 +102,7 @@
                     coreforce[index].canvas(canvas);
                     done = coreforce[index].render(page, width, height);
                     pageNumber(canvas, page, (done && (page != 1)) ? 1 : 2);
-                    var svgExport = fullpage.exportSvg({ whitespace: true, width: '216mm', height: '279mm' })
+                    var svgExport = fullpage.exportSvg({ whitespace: false, width: '216mm', height: '279mm' })
 
                     open("data:image/svg+xml," + encodeURIComponent(svgExport));
 
