@@ -1383,7 +1383,6 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         var cols = 1;
         var count = 0;
         for (var key in this.mecha) {
-            console.log(this.mecha[key].rendered);
             if (!this.mecha[key].rendered) {
                 this.mecha[key].render(x, dy);
                 var h = this.mecha[key].height;
@@ -1778,7 +1777,6 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
                 for (var k in this.faction[types[type].card]) {
                     var option = document.getElementById(this._id(type+'choice'+index+'.'+k));
                     var card = this.faction[types[type].card][k].card;
-
                     if (card.check(core)) {
                         option.disabled = false;
                     } else {

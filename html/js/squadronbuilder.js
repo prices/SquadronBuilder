@@ -1785,6 +1785,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
     updateChoice: function(index)
     {
         var core = this._getCoreForce(index);
+        console.log(core);
         if (core.card) {
             document.getElementById(this._id('support1choice'+index)).disabled = false;
             document.getElementById(this._id('support2choice'+index)).disabled = false;
@@ -1802,7 +1803,6 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
                 for (var k in this.faction[types[type].card]) {
                     var option = document.getElementById(this._id(type+'choice'+index+'.'+k));
                     var card = this.faction[types[type].card][k].card;
-
                     if (card.check(core)) {
                         option.disabled = false;
                     } else {
@@ -3666,7 +3666,7 @@ SquadronBuilder.data.mecha = {
         ],
         modes: {
             Battloid: {
-                speed: 5,
+                speed: 6,
                 piloting: 0,
                 gunnery: 0,
                 defense: 5,
@@ -3697,7 +3697,7 @@ SquadronBuilder.data.mecha = {
                 ]
             },
             Guardian: {
-                speed: 10,
+                speed: 12,
                 piloting: 0,
                 gunnery: 0,
                 defense: 5,
@@ -3727,7 +3727,7 @@ SquadronBuilder.data.mecha = {
                 ]
             },
             Fighter: {
-                speed: 12,
+                speed: 14,
                 piloting: 0,
                 gunnery: 0,
                 defense: 6,
@@ -4258,11 +4258,12 @@ SquadronBuilder.force.support = {
         factions: ["UEDF"],
         check: function (core) {
             mecha = core.getMecha();
+            console.log(mecha);
             if ((mecha.indexOf("VF1AValkyrie") != -1) || (mecha.indexOf("VF1JValkyrie") != -1)) {
                 return true;
             }
 
-            return true;
+            return false;
         },
         execute: function (core) {
             var count = 2;

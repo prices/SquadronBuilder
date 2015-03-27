@@ -167,7 +167,7 @@ SquadronBuilder.force.support = {
                 return true;
             }
 
-            return true;
+            return false;
         },
         execute: function (core) {
             var count = 2;
