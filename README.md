@@ -21,7 +21,7 @@ SVG files now, instead of ones that you can't save to disk.
 
 ## Running SquadronBuilder
 
-Open the file html/index.html in your browser.  That is all that is require to run it.
+Open the file html/index.html in your browser.  That is all that is required to run it.
 
 ### Requirements
 * A recent web broswer that supports JavaScript and HTML5
