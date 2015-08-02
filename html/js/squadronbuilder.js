@@ -1407,7 +1407,6 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         var cols = 1;
         var count = 0;
         for (var key in this.mecha) {
-            console.log(this.mecha[key].rendered);
             if (!this.mecha[key].rendered) {
                 this.mecha[key].render(x, dy);
                 var h = this.mecha[key].height;
@@ -1785,7 +1784,6 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
     updateChoice: function(index)
     {
         var core = this._getCoreForce(index);
-        console.log(core);
         if (core.card) {
             document.getElementById(this._id('support1choice'+index)).disabled = false;
             document.getElementById(this._id('support2choice'+index)).disabled = false;
@@ -3773,6 +3771,16 @@ SquadronBuilder.force.core = {
         },
         factions: ['Zentraedi'],
     },
+    QueadluunRauSquadron: {
+        name: 'Queadluun-Rau Squadron',
+        mecha: {
+            'QueadluunRau': 3,
+        },
+        points: 100,
+        upgrades: {
+        },
+        factions: ['Zentraedi'],
+    },
     RegultArtillerySquadron: {
         name: 'Regult Artillery Squadron',
         mecha: {
@@ -4258,7 +4266,6 @@ SquadronBuilder.force.support = {
         factions: ["UEDF"],
         check: function (core) {
             mecha = core.getMecha();
-            console.log(mecha);
             if ((mecha.indexOf("VF1AValkyrie") != -1) || (mecha.indexOf("VF1JValkyrie") != -1)) {
                 return true;
             }

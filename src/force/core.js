@@ -12,6 +12,16 @@ SquadronBuilder.force.core = {
         },
         factions: ['Zentraedi'],
     },
+    QueadluunRauSquadron: {
+        name: 'Queadluun-Rau Squadron',
+        mecha: {
+            'QueadluunRau': 3,
+        },
+        points: 100,
+        upgrades: {
+        },
+        factions: ['Zentraedi'],
+    },
     RegultArtillerySquadron: {
         name: 'Regult Artillery Squadron',
         mecha: {
