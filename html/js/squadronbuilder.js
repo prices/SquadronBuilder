@@ -4105,6 +4105,22 @@ SquadronBuilder.force.special = {
 // The special force cards are specified here
 //
 SquadronBuilder.force.support = {
+    QuelRegult: {
+        name: "Quel-Regult",
+        mecha: {
+            "QuelRegult": 1,
+        },
+        points: 15,
+        upgrades: {
+        },
+        factions: ["Zentraedi", "Malcontents"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
     RegultSquad: {
         name: "Regult Squad",
         mecha: {
