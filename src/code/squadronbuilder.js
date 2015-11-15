@@ -192,6 +192,8 @@ BaseClass.prototype = {
     largesize: 4,
     // This is the size of normal text in mm
     headersize: 5,
+    // This is the default maximum number of boxes in a row
+    boxesperrow: 9,
     // This is our font family
     fontfamily: "sans-serif",
     // This is our groups from all of this.
@@ -271,6 +273,31 @@ BaseClass.prototype = {
         return rect;
     },
     //
+    // Calculates the width of a set of boxes
+    //
+    // Function Parameters:
+    //      x     The x coordinate of the top left of the first box
+    //      y     The y coordinate of the top left of the first box
+    //      boxes The number of boxes to print out
+    //      rows  The number of rows to print
+    //      color The color the boxes
+    //
+    // Return:
+    //      The height of the boxes
+    //
+    boxeswidth: function (boxes, rows)
+    {
+        if ((boxes > this.boxesperrow) && !rows) {
+            rows = 2;
+        } else {
+            rows  = rows ? rows : 1;
+        }
+        if (rows > 1) {
+            boxes = parseInt((boxes / rows) + 1, 10);
+        }
+        return this.boxsize * boxes * this.boxmult;
+    },
+    //
     // Creates a row or more of boxes for damage, ammo, or other.
     //
     // Function Parameters:
@@ -285,7 +312,7 @@ BaseClass.prototype = {
     //
     boxes: function (x, y, boxes, rows, color)
     {
-        if ((boxes >= 10) && !rows) {
+        if ((boxes > this.boxesperrow) && !rows) {
             rows = 2;
         } else {
             rows  = rows ? rows : 1;
@@ -642,7 +669,7 @@ Weapon.prototype = BaseClass.extend({
         var dy   = y;
         this.small(dx, dy, this.weapon.name);
 
-        var bx = dx + this.width - (this.boxsize * ammo * this.boxmult) - (this.padding * 1.5);
+        var bx = dx + this.width - this.boxeswidth(this.boxesperrow, false) - (this.padding * 1.5);
         var by = dy + (this.smallsize / 2) - (this.boxsize / 2);
         this.ammoheight = this.boxes(bx, by, ammo, false);
         return this.ammoheight;
