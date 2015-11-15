@@ -35,6 +35,29 @@ SquadronBuilder.force.support = {
             return true;
         },
     },
+    NousjadeulGerSquad: {
+        name: "Nousjadeul-Ger Squad",
+        mecha: {
+            "NousjadeulGer": 3,
+        },
+        points: 25,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 8,
+            'ZTFGMkVTacticalFlechetteCannon': 23,
+            'ZMLMkIIShoulderFiredMissileLauncher': 15
+        },
+        factions: ["Zentraedi", "Malcontents"],
+        check: function (core) {
+            mecha = core.getMecha();
+            if ((mecha.indexOf("QueadluunRau") != -1) || (mecha.indexOf("QueadluunGult") != -1)) {
+                return false;
+            }
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
     GluuhaugRegultSquad: {
         name: "Gluuhaug-Regult Squad",
         mecha: {

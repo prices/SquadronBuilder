@@ -9,6 +9,9 @@ SquadronBuilder.force.core = {
         },
         points: 50,
         upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 15,
+            'ZTFGMkVTacticalFlechetteCannon': 40,
+            'ZMLMkIIShoulderFiredMissileLauncher': 30
         },
         factions: ['Zentraedi'],
     },
@@ -19,6 +22,8 @@ SquadronBuilder.force.core = {
         },
         points: 100,
         upgrades: {
+            'NousjadeulGer32mmPlasmaMachinePistol': 30,
+            'QueadluunRauZCRMK2ConvergingBeamRifle': 30
         },
         factions: ['Zentraedi'],
     },
@@ -84,6 +89,61 @@ SquadronBuilder.force.core = {
             'SDF1AirWingNoseLasers': 5
         },
         factions: ['UEDF'],
+    },
+    AirDefenseSquadron: {
+        name: 'Air Defense Squadron',
+        mecha: {
+            'GluuhaugRegult': 4,
+            'Defender': 2,
+        },
+        points: 70,
+        upgrades: {
+            'DefenderAirBurstMunitions': 5,
+        },
+        factions: ['Malcontents'],
+    },
+    AirSuperioritySquadron: {
+        name: 'Air Superiority Squadron',
+        mecha: {
+            'VF1AValkyrie': 3,
+            'QueadluunRau': 1,
+        },
+        points: 90,
+        upgrades: {
+            'ImprovisedBombs': 8,
+        },
+        factions: ['Malcontents'],
+    },
+    HeavyDestroidSquadron: {
+        name: 'Heavy Destroid Squadron',
+        mecha: {
+            'Glaug': 1,
+            'Spartan': 2,
+            'Tomahawk': 2
+        },
+        points: 90,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 5,
+            'ZTFGMkVTacticalFlechetteCannon': 15,
+            'ZMLMkIIShoulderFiredMissileLauncher': 10,
+            'GU11GunPod': 10
+        },
+        factions: ['Malcontents'],
+    },
+    MainBattleSquadron: {
+        name: 'Main Battle Squadron',
+        mecha: {
+            'NousjadeulGer': 3,
+            'Tomahawk': 2
+        },
+        points: 65,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 5,
+            'ZTFGMkVTacticalFlechetteCannon': 15,
+            'ZMLMkIIShoulderFiredMissileLauncher': 10,
+            'GU11GunPod': 10
+        },
+        factions: ['Malcontents'],
     },
     AreaDenialDestroidSquadron: {
         name: 'Area Denial Destroid Squadron',

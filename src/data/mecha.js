@@ -158,8 +158,8 @@ SquadronBuilder.data.mecha = {
             'Zentraidi Infantry'  : false,
         },
         ranged: [
-            'NousjadeulGerChargedParticleCannon', 'NousjadeulGer64mmGrenadeLauncher',
-            'NousjadeulGer32mmPlasmaMachinePistol'
+        'QueadluunRau64mmGrenadeLauncher', 'QueadluunRauMedParticleCannons',
+            'QueadluunRau103mmMiniMissiles'
         ],
         handtohand: [
             'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'

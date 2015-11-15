@@ -2041,6 +2041,27 @@ SquadronBuilder.data.weapons = {
             'Volley X'     : false,
         }
     },
+    QueadluunRauZCRMK2ConvergingBeamRifle: {
+        name: 'Z-CR MK. II Converging Beam Rifle',
+        range: 24,
+        damage: 9,
+        abilities: {
+            'Accurate'     : true,
+            'Ammo'         : false,
+            'Anti-Missile' : false,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : false,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : false,
+            'Volley X'     : false,
+        }
+    },
     NousjadeulGer32mmPlasmaMachinePistol: {
         name: '32mm Plamsa Machine Pistol',
         range: 9,
@@ -2714,6 +2735,27 @@ SquadronBuilder.data.weapons = {
             'Volley X'     : false,
         }
     },
+    ImprovisedBombs: {
+        name: 'Improvised Bombs',
+        range: '-',
+        damage: 6,
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 2,
+            'Anti-Missile' : false,
+            'Blast'        : true,
+            'Fly Over'     : true,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : false,
+            'Volley X'     : false,
+        }
+    },
     ValkyrieHeadLaser: {
         name: 'LLW-20 CIWS Valkyrie Head Laser',
         range: 9,
@@ -3022,8 +3064,8 @@ SquadronBuilder.data.mecha = {
             'Zentraidi Infantry'  : false,
         },
         ranged: [
-            'NousjadeulGerChargedParticleCannon', 'NousjadeulGer64mmGrenadeLauncher',
-            'NousjadeulGer32mmPlasmaMachinePistol'
+        'QueadluunRau64mmGrenadeLauncher', 'QueadluunRauMedParticleCannons',
+            'QueadluunRau103mmMiniMissiles'
         ],
         handtohand: [
             'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
@@ -3768,6 +3810,9 @@ SquadronBuilder.force.core = {
         },
         points: 50,
         upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 15,
+            'ZTFGMkVTacticalFlechetteCannon': 40,
+            'ZMLMkIIShoulderFiredMissileLauncher': 30
         },
         factions: ['Zentraedi'],
     },
@@ -3778,6 +3823,8 @@ SquadronBuilder.force.core = {
         },
         points: 100,
         upgrades: {
+            'NousjadeulGer32mmPlasmaMachinePistol': 30,
+            'QueadluunRauZCRMK2ConvergingBeamRifle': 30
         },
         factions: ['Zentraedi'],
     },
@@ -3843,6 +3890,61 @@ SquadronBuilder.force.core = {
             'SDF1AirWingNoseLasers': 5
         },
         factions: ['UEDF'],
+    },
+    AirDefenseSquadron: {
+        name: 'Air Defense Squadron',
+        mecha: {
+            'GluuhaugRegult': 4,
+            'Defender': 2,
+        },
+        points: 70,
+        upgrades: {
+            'DefenderAirBurstMunitions': 5,
+        },
+        factions: ['Malcontents'],
+    },
+    AirSuperioritySquadron: {
+        name: 'Air Superiority Squadron',
+        mecha: {
+            'VF1AValkyrie': 3,
+            'QueadluunRau': 1,
+        },
+        points: 90,
+        upgrades: {
+            'ImprovisedBombs': 8,
+        },
+        factions: ['Malcontents'],
+    },
+    HeavyDestroidSquadron: {
+        name: 'Heavy Destroid Squadron',
+        mecha: {
+            'Glaug': 1,
+            'Spartan': 2,
+            'Tomahawk': 2
+        },
+        points: 90,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 5,
+            'ZTFGMkVTacticalFlechetteCannon': 15,
+            'ZMLMkIIShoulderFiredMissileLauncher': 10,
+            'GU11GunPod': 10
+        },
+        factions: ['Malcontents'],
+    },
+    MainBattleSquadron: {
+        name: 'Main Battle Squadron',
+        mecha: {
+            'NousjadeulGer': 3,
+            'Tomahawk': 2
+        },
+        points: 65,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 5,
+            'ZTFGMkVTacticalFlechetteCannon': 15,
+            'ZMLMkIIShoulderFiredMissileLauncher': 10,
+            'GU11GunPod': 10
+        },
+        factions: ['Malcontents'],
     },
     AreaDenialDestroidSquadron: {
         name: 'Area Denial Destroid Squadron',
@@ -3967,6 +4069,31 @@ SquadronBuilder.force.special = {
                 return true;
             }
             return false;
+        },
+        execute: function (core)
+        {
+            return true;
+        }
+
+    },
+    QueadluunRau: {
+        name: 'Queadluun-Rau',
+        mecha: {
+            'QueadluunRau': 1,
+        },
+        points: 30,
+        upgrades: {
+            'NousjadeulGer32mmPlasmaMachinePistol': 10,
+            'QueadluunRauZCRMK2ConvergingBeamRifle': 10
+        },
+        factions: ['Zentraedi'],
+        check: function (core)
+        {
+            mecha = core.getMecha();
+            if ((mecha.indexOf("NousjadeulGer") != -1) && (mecha.indexOf("NousgarmaGer") != -1)) {
+                return false;
+            }
+            return true;
         },
         execute: function (core)
         {
@@ -4132,6 +4259,29 @@ SquadronBuilder.force.support = {
         },
         factions: ["Zentraedi", "Malcontents"],
         check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    NousjadeulGerSquad: {
+        name: "Nousjadeul-Ger Squad",
+        mecha: {
+            "NousjadeulGer": 3,
+        },
+        points: 25,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 8,
+            'ZTFGMkVTacticalFlechetteCannon': 23,
+            'ZMLMkIIShoulderFiredMissileLauncher': 15
+        },
+        factions: ["Zentraedi", "Malcontents"],
+        check: function (core) {
+            mecha = core.getMecha();
+            if ((mecha.indexOf("QueadluunRau") != -1) || (mecha.indexOf("QueadluunGult") != -1)) {
+                return false;
+            }
             return true;
         },
         execute: function (core) {
@@ -4342,6 +4492,28 @@ SquadronBuilder.force.upgrades = {
             core.replaceMecha('Glaug', 'GlaugEldare');
         },
         blocks: []
+    },
+    NousjadeulGer32mmPlasmaMachinePistol: {
+        name: '32mm plasma Machine pistols',
+        desc: 'RG: 9, MD: 8, Rapid Fire',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.addWeapon('NousjadeulGer32mmPlasmaMachinePistol');
+            }, ["QueadluunRau"]);
+        },
+        blocks: ['QueadluunRauZCRMK2ConvergingBeamRifle']
+    },
+    QueadluunRauZCRMK2ConvergingBeamRifle: {
+        name: 'Z-CR MK. II Converging Beam rifles',
+        desc: 'RG: 24, MD: 9, Accurate',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.addWeapon('QueadluunRauZCRMK2ConvergingBeamRifle');
+            }, ["QueadluunRau"]);
+        },
+        blocks: ['NousjadeulGer32mmPlasmaMachinePistol']
     },
     ZPRMkVIIIParticleAssaultRifle: {
         name: 'Z-PR Mk. VIII Particle Assault Rifle',

@@ -25,6 +25,28 @@ SquadronBuilder.force.upgrades = {
         },
         blocks: []
     },
+    NousjadeulGer32mmPlasmaMachinePistol: {
+        name: '32mm plasma Machine pistols',
+        desc: 'RG: 9, MD: 8, Rapid Fire',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.addWeapon('NousjadeulGer32mmPlasmaMachinePistol');
+            }, ["QueadluunRau"]);
+        },
+        blocks: ['QueadluunRauZCRMK2ConvergingBeamRifle']
+    },
+    QueadluunRauZCRMK2ConvergingBeamRifle: {
+        name: 'Z-CR MK. II Converging Beam rifles',
+        desc: 'RG: 24, MD: 9, Accurate',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.addWeapon('QueadluunRauZCRMK2ConvergingBeamRifle');
+            }, ["QueadluunRau"]);
+        },
+        blocks: ['NousjadeulGer32mmPlasmaMachinePistol']
+    },
     ZPRMkVIIIParticleAssaultRifle: {
         name: 'Z-PR Mk. VIII Particle Assault Rifle',
         desc: 'RG:12, MD: 5, Accurate',

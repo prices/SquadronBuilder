@@ -26,6 +26,31 @@ SquadronBuilder.force.special = {
         }
 
     },
+    QueadluunRau: {
+        name: 'Queadluun-Rau',
+        mecha: {
+            'QueadluunRau': 1,
+        },
+        points: 30,
+        upgrades: {
+            'NousjadeulGer32mmPlasmaMachinePistol': 10,
+            'QueadluunRauZCRMK2ConvergingBeamRifle': 10
+        },
+        factions: ['Zentraedi'],
+        check: function (core)
+        {
+            mecha = core.getMecha();
+            if ((mecha.indexOf("NousjadeulGer") != -1) && (mecha.indexOf("NousgarmaGer") != -1)) {
+                return false;
+            }
+            return true;
+        },
+        execute: function (core)
+        {
+            return true;
+        }
+
+    },
     VF1S: {
         name: 'VF-1S Valkyrie',
         mecha: {
