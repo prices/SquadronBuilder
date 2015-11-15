@@ -691,7 +691,7 @@ Weapon.prototype = BaseClass.extend({
         var ammo = this.weapon.abilities.Ammo;
         var dx   = x;
         var dy   = y;
-        this.small(dx, dy, this.weapon.name);
+        this.small(dx, dy, this.weapon.name.substring(0, 35));
 
         var bx = dx + this.width - this.boxeswidth(this.boxesperrow, false) - (this.padding * 1.5);
         var by = dy + (this.smallsize / 2) - (this.boxsize / 2);
@@ -2384,7 +2384,7 @@ SquadronBuilder.data.weapons = {
         }
     },
     ZMLMkIIShoulderFiredMissileLauncher: {
-        name: 'Z-ML MkII Shoulder-Fired Missiles',
+        name: 'Z-ML MkII Shoulder-Fired Missile Launcher',
         range: 18,
         damage: '6/missile',
         abilities: {

@@ -452,7 +452,7 @@ SquadronBuilder.data.weapons = {
         }
     },
     ZMLMkIIShoulderFiredMissileLauncher: {
-        name: 'Z-ML MkII Shoulder-Fired Missiles',
+        name: 'Z-ML MkII Shoulder-Fired Missile Launcher',
         range: 18,
         damage: '6/missile',
         abilities: {

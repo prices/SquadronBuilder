@@ -667,7 +667,7 @@ Weapon.prototype = BaseClass.extend({
         var ammo = this.weapon.abilities.Ammo;
         var dx   = x;
         var dy   = y;
-        this.small(dx, dy, this.weapon.name);
+        this.small(dx, dy, this.weapon.name.substring(0, 35));
 
         var bx = dx + this.width - this.boxeswidth(this.boxesperrow, false) - (this.padding * 1.5);
         var by = dy + (this.smallsize / 2) - (this.boxsize / 2);
