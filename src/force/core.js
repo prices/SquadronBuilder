@@ -110,7 +110,7 @@ SquadronBuilder.force.core = {
         },
         points: 90,
         upgrades: {
-            'ImprovisedBombs': 8,
+            'ValkyrieImprovisedBombs': 8,
         },
         factions: ['Malcontents'],
     },

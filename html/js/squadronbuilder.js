@@ -2384,7 +2384,7 @@ SquadronBuilder.data.weapons = {
         }
     },
     ZMLMkIIShoulderFiredMissileLauncher: {
-        name: 'Z-ML Mk. II Shoulder-Fired Missile Launcher',
+        name: 'Z-ML MkII Shoulder-Fired Missiles',
         range: 18,
         damage: '6/missile',
         abilities: {
@@ -2762,7 +2762,7 @@ SquadronBuilder.data.weapons = {
             'Volley X'     : false,
         }
     },
-    ImprovisedBombs: {
+    ValkyrieImprovisedBombs: {
         name: 'Improvised Bombs',
         range: '-',
         damage: 6,
@@ -3938,7 +3938,7 @@ SquadronBuilder.force.core = {
         },
         points: 90,
         upgrades: {
-            'ImprovisedBombs': 8,
+            'ValkyrieImprovisedBombs': 8,
         },
         factions: ['Malcontents'],
     },
@@ -4549,7 +4549,7 @@ SquadronBuilder.force.upgrades = {
         {
             core.upgradeMecha(function(mecha) {
                 mecha.addWeapon('ZPRMkVIIIParticleAssaultRifle');
-            }, ["Spartan"]);
+            }, ["Spartan", "NousjadeulGer"]);
         },
         blocks: ['GU11GunPod', 'ZTFGMkVTacticalFlechetteCannon', 'ZMLMkIIShoulderFiredMissileLauncher']
     },
@@ -4560,18 +4560,18 @@ SquadronBuilder.force.upgrades = {
         {
             core.upgradeMecha(function(mecha) {
                 mecha.addWeapon('ZTFGMkVTacticalFlechetteCannon');
-            }, ["Spartan"]);
+            }, ["Spartan", "NousjadeulGer"]);
         },
         blocks: ['GU11GunPod', 'ZPRMkVIIIParticleAssaultRifle', 'ZMLMkIIShoulderFiredMissileLauncher']
     },
     ZMLMkIIShoulderFiredMissileLauncher: {
-        name: 'Z-ML Mk. II Shoulder-Fired Missile Launcher',
+        name: 'Z-ML MkII Shoulder-Fired Missile Launcher',
         desc: 'RG:18, MD: 6/missile, Ammo 5, Anti-Missile, Blast',
         execute: function (core)
         {
             core.upgradeMecha(function(mecha) {
                 mecha.addWeapon('ZMLMkIIShoulderFiredMissileLauncher');
-            }, ["Spartan"]);
+            }, ["Spartan", "NousjadeulGer"]);
         },
         blocks: ['GU11GunPod', 'ZTFGMkVTacticalFlechetteCannon', 'ZPRMkVIIIParticleAssaultRifle']
     },
@@ -4594,7 +4594,7 @@ SquadronBuilder.force.upgrades = {
         {
             core.upgradeMecha(function(mecha) {
                 mecha.addWeapon('GU11Battloid');
-            }, ["Spartan"]);
+            }, ["Spartan", "NousjadeulGer"]);
         },
         blocks: ['ZTFGMkVTacticalFlechetteCannon', 'ZPRMkVIIIParticleAssaultRifle', 'ZMLMkIIShoulderFiredMissileLauncher']
     },
@@ -4642,6 +4642,17 @@ SquadronBuilder.force.upgrades = {
             }, ["VF1AValkyrie", "VF1JValkyrie", "VF1SValkyrie"]);
         },
         blocks: ['ValkyrieLongRangeMissiles', 'ValkyrieMLOPs']
+    },
+    ValkyrieImprovisedBombs: {
+        name: 'Improvised Bombs',
+        desc: 'The mecha has makeshift bombs mounted on its undercarriage with the following pro le: RG: -, MD: 6, Ammo 2, Blast, Fly Over, Missile. Note: On a Valkyrie, these are in addition to the normal Wing Mounted Articulated Missile Hardpoints',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.addWeapon('ValkyrieImprovisedBombs', ["Guardian", "Fighter"]);
+            }, ["VF1AValkyrie", "VF1JValkyrie", "VF1SValkyrie"]);
+        },
+        blocks: []
     },
     SDF1AirWingNoseLasers: {
         name: 'SDF-1 Air Wing Nose Lasers',

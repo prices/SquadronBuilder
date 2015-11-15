@@ -452,7 +452,7 @@ SquadronBuilder.data.weapons = {
         }
     },
     ZMLMkIIShoulderFiredMissileLauncher: {
-        name: 'Z-ML Mk. II Shoulder-Fired Missile Launcher',
+        name: 'Z-ML MkII Shoulder-Fired Missiles',
         range: 18,
         damage: '6/missile',
         abilities: {
@@ -830,7 +830,7 @@ SquadronBuilder.data.weapons = {
             'Volley X'     : false,
         }
     },
-    ImprovisedBombs: {
+    ValkyrieImprovisedBombs: {
         name: 'Improvised Bombs',
         range: '-',
         damage: 6,
