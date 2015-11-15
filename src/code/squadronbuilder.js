@@ -496,10 +496,11 @@ BaseClass.prototype = {
             for (var key in print) {
                 var span = add.tspan(print[key]);
                 if (height > 0) {
-                    span.x(x+'mm').dy(height+'mm');
+                    span.x(x+'mm').dy(size+'mm');
                 }
                 height += size;
-                if (print[key].length > length) {
+                console.log(height);
+                if (print[key].length > len) {
                     len = print[key].length;
                 }
                 lines++;
@@ -1030,6 +1031,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
     {
         var dx = x;
         var dy = y;
+        console.log(mecha.extraabilities);
         if (mecha.extraabilities) {
             // Add in the hand to hand combat
             dy += this.bold(dx, dy, "Extra Abilities:");
@@ -1297,6 +1299,9 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
     //
     addExtraAbility: function(name, value)
     {
+        if (!this.mecha.extraabilities) {
+            this.mecha.extraabilities = {};
+        }
         this.mecha.extraabilities[name] = value;
     },
     //

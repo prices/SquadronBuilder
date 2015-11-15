@@ -178,6 +178,27 @@ SquadronBuilder.data.weapons = {
             'Volley X'     : false,
         }
     },
+    Maloquinn32mmPlasmaMachinePistol: {
+        name: '32mm Plamsa Machine Pistol',
+        range: 9,
+        damage: 8,
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : false,
+            'Anti-Missile' : true,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : false,
+            'Overwhelming' : false,
+            'Rapid Fire'   : true,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : false,
+            'Volley X'     : false,
+        }
+    },
     NousjadeulGer64mmGrenadeLauncher: {
         name: '64mm Grenade Launcher',
         range: 12,
