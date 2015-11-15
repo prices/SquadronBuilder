@@ -133,6 +133,38 @@ SquadronBuilder.data.mecha = {
             'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
         ]
     },
+    NousgarmaGer: {
+        name: 'Nousgarma-Ger',
+        speed: 10,
+        piloting: 3,
+        gunnery: 2,
+        defense: 6,
+        damage: 10,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : true,
+            'Hands'               : true,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'Regult313mmMRM', 'NousjadeulGer64mmGrenadeLauncher',
+        'NousjadeulGer32mmPlasmaMachinePistol'
+        ],
+        handtohand: [
+        'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
+        ]
+    },
     QueadluunRau: {
         name: 'Queadluun-Rau',
         speed: 12,
@@ -163,6 +195,38 @@ SquadronBuilder.data.mecha = {
         ],
         handtohand: [
             'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
+        ]
+    },
+    QueadluunGult: {
+        name: 'Queadluun-Gult',
+        speed: 12,
+        piloting: 3,
+        gunnery: 3,
+        defense: 6,
+        damage: 12,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : true,
+            'Hands'               : true,
+            'Hover'               : true,
+            'Jettison'            : false,
+            'Leadership'          : 2,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'QueadluunRau64mmGrenadeLauncher', 'QueadluunRauMedParticleCannons',
+        'QueadluunGult103mmMiniMissiles', 'QueadluunGultHvyParticleCannons'
+        ],
+        handtohand: [
+        'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
         ]
     },
     QuelRegult: {
