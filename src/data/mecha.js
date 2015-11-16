@@ -1020,7 +1020,7 @@ SquadronBuilder.data.mecha = {
         'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
         ]
     },
-    ArmoredVF1JValkyrie: {
+    ArmoredVF1SValkyrie: {
         name: 'Armored VF-1S Valkyrie',
         speed: 4,
         piloting: 2,

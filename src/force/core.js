@@ -103,7 +103,7 @@ SquadronBuilder.force.core = {
             'ValkyrieGravityBombs': 10,
             'SDF1AirWingNoseLasers': 5
         },
-        factions: ['UEDF Test'],
+        factions: ['UEDF'],
     },
     AirDefenseSquadron: {
         name: 'Air Defense Squadron',

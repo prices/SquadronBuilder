@@ -722,7 +722,7 @@ SquadronBuilder.mecha = function (canvas, mecha, width, count) {
     this.class   = mecha;
     this.count   = count;
     this.mecha   = SquadronBuilder.data.getMecha(mecha);
-    this.width   = width ? width : 70;
+    this.width   = width ? width : 95;
     if (this.hasJettison()) {
         this._jettisonto = new SquadronBuilder.mecha(
             this._canvas, this.mecha.abilities.Jettison, this.width
@@ -750,6 +750,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
     //
     render: function (x, y, count)
     {
+        console.log(this.width);
         this._canvas.x(x+'mm').y(y+'mm');
         // Set up our weapons
         var color = 0;
@@ -1028,7 +1029,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         var len = 0;
         for (var key in mecha.handtohand) {
             text = sep + mecha.handtohand[key];
-            if ((hth.length + text.length - len) > 50) {
+            if ((hth.length + text.length - len) > 65) {
                 len = hth.length;
                 hth += text.replace(', ', ", \n");
             } else {
@@ -1131,7 +1132,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
                 }
                 sep = ', ';
             }
-            if ((abl.length + text.length - len) > 50) {
+            if ((abl.length + text.length - len) > 65) {
                 len = abl.length;
                 abl += text.replace(', ', ", \n");
             } else {
@@ -1402,7 +1403,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
 SquadronBuilder.coreforce = function (canvas, card, width, height) {
     this._canvas = canvas;
     this.card  = SquadronBuilder.force.getCore(card);
-    this.width  = width ? width : 70;
+    this.width  = width ? width : 95;
     this.height  = height ? height : 200;
     this.mecha = [];
     for (var mecha in this.card.mecha) {
@@ -1412,7 +1413,7 @@ SquadronBuilder.coreforce = function (canvas, card, width, height) {
 };
 SquadronBuilder.coreforce.prototype = BaseClass.extend({
     height: 0,
-    columnwidth: 70,
+    columnwidth: 95,
     _weapon: [],
     _renderedMecha: [],
     //
@@ -1791,7 +1792,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
         var ch = document.getElementById(this._id('characterchoice'+index));
         this.cards[index].character = ch.options[ch.selectedIndex].value;
         if (this.cards[index].core) {
-            this.forces[index] = new SquadronBuilder.coreforce(null, this.cards[index].core, 70);
+            this.forces[index] = new SquadronBuilder.coreforce(null, this.cards[index].core, 95);
             if (this.cards[index].support1) {
                 this.forces[index].support(this.cards[index].support1);
             }
@@ -4042,7 +4043,7 @@ SquadronBuilder.data.mecha = {
         'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
         ]
     },
-    ArmoredVF1JValkyrie: {
+    ArmoredVF1SValkyrie: {
         name: 'Armored VF-1S Valkyrie',
         speed: 4,
         piloting: 2,
@@ -4180,7 +4181,7 @@ SquadronBuilder.force.core = {
             'ValkyrieGravityBombs': 10,
             'SDF1AirWingNoseLasers': 5
         },
-        factions: ['UEDF Test'],
+        factions: ['UEDF'],
     },
     AirDefenseSquadron: {
         name: 'Air Defense Squadron',
