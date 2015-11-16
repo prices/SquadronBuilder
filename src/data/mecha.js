@@ -956,4 +956,100 @@ SquadronBuilder.data.mecha = {
             }
         },
     },
+    ArmoredVF1AValkyrie: {
+        name: 'Armored VF-1A Valkyrie',
+        speed: 4,
+        piloting: 2,
+        gunnery: 3,
+        defense: 5,
+        damage: 14,
+        extradamage: 8,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : true,
+            'Hover'               : false,
+            'Jettison'            : 'VF1AValkyrie',
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'GU11Battloid', 'ValkyrieHeadLaser', 'MDSL70BarrageMissilePack'
+        ],
+        handtohand: [
+        'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
+        ]
+    },
+    ArmoredVF1JValkyrie: {
+        name: 'Armored VF-1J Valkyrie',
+        speed: 4,
+        piloting: 2,
+        gunnery: 3,
+        defense: 5,
+        damage: 14,
+        extradamage: 8,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : true,
+            'Hover'               : false,
+            'Jettison'            : 'VF1JValkyrie',
+            'Leadership'          : 2,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'GU11Battloid', 'ValkyrieDualHeadLasers', 'MDSL70BarrageMissilePack'
+        ],
+        handtohand: [
+        'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
+        ]
+    },
+    ArmoredVF1JValkyrie: {
+        name: 'Armored VF-1S Valkyrie',
+        speed: 4,
+        piloting: 2,
+        gunnery: 3,
+        defense: 5,
+        damage: 14,
+        extradamage: 8,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : true,
+            'Hover'               : false,
+            'Jettison'            : 'VF1JValkyrie',
+            'Leadership'          : 3,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'GU11Battloid', 'ValkyrieQuadHeadLasers', 'MDSL70BarrageMissilePack'
+        ],
+        handtohand: [
+        'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
+        ]
+    },
 }

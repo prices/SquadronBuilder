@@ -2557,6 +2557,27 @@ SquadronBuilder.data.weapons = {
             'Volley X'     : false,
         }
     },
+    MDSL70BarrageMissilePack: {
+        name: 'MDS-L-70 Barrage Missile Pack',
+        range: 18,
+        damage: '6/missile',
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 9,
+            'Anti-Missile' : true,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : 8,
+            'Volley X'     : false,
+        }
+    },
     MDSM6AirDefenseMissilePod: {
         name: 'MDS-M-6 Air Defense Missile Pod',
         range: 18,
@@ -3957,6 +3978,102 @@ SquadronBuilder.data.mecha = {
             }
         },
     },
+    ArmoredVF1AValkyrie: {
+        name: 'Armored VF-1A Valkyrie',
+        speed: 4,
+        piloting: 2,
+        gunnery: 3,
+        defense: 5,
+        damage: 14,
+        extradamage: 8,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : true,
+            'Hover'               : false,
+            'Jettison'            : 'VF1AValkyrie',
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'GU11Battloid', 'ValkyrieHeadLaser', 'MDSL70BarrageMissilePack'
+        ],
+        handtohand: [
+        'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
+        ]
+    },
+    ArmoredVF1JValkyrie: {
+        name: 'Armored VF-1J Valkyrie',
+        speed: 4,
+        piloting: 2,
+        gunnery: 3,
+        defense: 5,
+        damage: 14,
+        extradamage: 8,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : true,
+            'Hover'               : false,
+            'Jettison'            : 'VF1JValkyrie',
+            'Leadership'          : 2,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'GU11Battloid', 'ValkyrieDualHeadLasers', 'MDSL70BarrageMissilePack'
+        ],
+        handtohand: [
+        'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
+        ]
+    },
+    ArmoredVF1JValkyrie: {
+        name: 'Armored VF-1S Valkyrie',
+        speed: 4,
+        piloting: 2,
+        gunnery: 3,
+        defense: 5,
+        damage: 14,
+        extradamage: 8,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : true,
+            'Hover'               : false,
+            'Jettison'            : 'VF1JValkyrie',
+            'Leadership'          : 3,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'GU11Battloid', 'ValkyrieQuadHeadLasers', 'MDSL70BarrageMissilePack'
+        ],
+        handtohand: [
+        'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
+        ]
+    },
 }
 //
 // The core force cards are specified here
@@ -4049,6 +4166,21 @@ SquadronBuilder.force.core = {
             'SDF1AirWingNoseLasers': 5
         },
         factions: ['UEDF'],
+    },
+    ArmoredValkyrieSquadron: {
+        name: 'Armored Valkyrie Squadron',
+        mecha: {
+            'ArmoredVF1JValkyrie': 1,
+            'ArmoredVF1AValkyrie': 3,
+        },
+        points: 100,
+        upgrades: {
+            'ValkyrieMLOPs': 5,
+            'ValkyrieLongRangeMissiles': 20,
+            'ValkyrieGravityBombs': 10,
+            'SDF1AirWingNoseLasers': 5
+        },
+        factions: ['UEDF Test'],
     },
     AirDefenseSquadron: {
         name: 'Air Defense Squadron',

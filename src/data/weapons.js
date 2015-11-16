@@ -620,6 +620,27 @@ SquadronBuilder.data.weapons = {
             'Volley X'     : false,
         }
     },
+    MDSL70BarrageMissilePack: {
+        name: 'MDS-L-70 Barrage Missile Pack',
+        range: 18,
+        damage: '6/missile',
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 9,
+            'Anti-Missile' : true,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : 8,
+            'Volley X'     : false,
+        }
+    },
     MDSM6AirDefenseMissilePod: {
         name: 'MDS-M-6 Air Defense Missile Pod',
         range: 18,

@@ -90,6 +90,21 @@ SquadronBuilder.force.core = {
         },
         factions: ['UEDF'],
     },
+    ArmoredValkyrieSquadron: {
+        name: 'Armored Valkyrie Squadron',
+        mecha: {
+            'ArmoredVF1JValkyrie': 1,
+            'ArmoredVF1AValkyrie': 3,
+        },
+        points: 100,
+        upgrades: {
+            'ValkyrieMLOPs': 5,
+            'ValkyrieLongRangeMissiles': 20,
+            'ValkyrieGravityBombs': 10,
+            'SDF1AirWingNoseLasers': 5
+        },
+        factions: ['UEDF Test'],
+    },
     AirDefenseSquadron: {
         name: 'Air Defense Squadron',
         mecha: {
