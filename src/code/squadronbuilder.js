@@ -1422,7 +1422,6 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         for (var key in this.mecha) {
             if (!this.mecha[key].rendered) {
                 cwidth += this.mecha[key].width;
-                console.log(cwidth);
                 if (cwidth > pwidth) {
                     break;
                 }
