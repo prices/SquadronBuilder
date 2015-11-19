@@ -1451,15 +1451,9 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
                     break;
                 }
                 this.mecha[key].render(x, dy);
-                /*
                 var h = this.mecha[key].height;
                 h += this.padding;
                 if (((dy + h) > this.height) && (count > 0)) {
-                    cols++;
-                    if (cols == 3) {
-                        this.mecha[key].remove();
-                        break;
-                    }
                     x += this.columnwidth + this.padding;
                     dy = y + h;
                     this.mecha[key].x(x);
@@ -1467,7 +1461,6 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
                 } else {
                     dy += h;
                 }
-                */
                 count++;
             }
         }
