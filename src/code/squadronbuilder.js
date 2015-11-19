@@ -499,7 +499,6 @@ BaseClass.prototype = {
                     span.x(x+'mm').dy(size+'mm');
                 }
                 height += size;
-                console.log(height);
                 if (print[key].length > len) {
                     len = print[key].length;
                 }
@@ -694,15 +693,17 @@ Weapon.prototype = BaseClass.extend({
 //      render  Render the object in SVG
 //      
 SquadronBuilder.mecha = function (canvas, mecha, width, count) {
-    this._canvas = canvas;
-    this.class   = mecha;
-    this.count   = count;
-    this.mecha   = SquadronBuilder.data.getMecha(mecha);
-    this.width   = width ? width : 95;
+    this._canvas     = canvas;
+    this.class       = mecha;
+    this.count       = count;
+    this.mecha       = SquadronBuilder.data.getMecha(mecha);
+    this.width       = width ? width : 95;
+    this.columnwidth = this.width;
     if (this.hasJettison()) {
         this._jettisonto = new SquadronBuilder.mecha(
             this._canvas, this.mecha.abilities.Jettison, this.width
         );
+        this.width = this.width * 2;
     }
 };
 SquadronBuilder.mecha.prototype = BaseClass.extend({
@@ -726,7 +727,6 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
     //
     render: function (x, y, count)
     {
-        console.log(this.width);
         this._canvas.x(x+'mm').y(y+'mm');
         // Set up our weapons
         var color = 0;
@@ -735,7 +735,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
             return;
         }
         var weapon = [];
-        var width = this.width - (this.padding * 2);
+        var width = this.columnwidth - (this.padding * 2);
         var hasammo = false;
         for (var key in this.mecha.ranged) {
             var wpn = this.mecha.ranged[key];
@@ -798,11 +798,11 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
                     ny += weapon[key].ammo(nx, ny);
                 }
             }
-            ny += this._jettison(nx, ny);
+            //ny += this._jettison(nx, ny);
             // Add a box around it if it had ammo and we have more than 1
             if (hasammo && (this.count > 1)) {
                 var height = ny - sy;
-                var width  = this.width - (this.padding * 2);
+                var width  = this.columnwidth - (this.padding * 2);
                 this.box(dx, sy, width, height, "#000000");
             }
         }
@@ -810,8 +810,8 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         dy += this._mechaRender(dx, dy, this.mecha);
         
         if (this.hasJettison()) {
-            this._jettisonto.jettisonTo(dx, dy);
-            dy += this._jettisonto.height;
+            this._jettisonto.jettisonTo(dx + this.columnwidth, y + this.padding);
+            //dy += this._jettisonto.height;
         }
         
         
@@ -877,7 +877,11 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         var dx = x;
         dy += this.padding;
         
-        dy += this.largebold(dx, dy, 'Jettison to '+this.mecha.name);
+        this.box(dx, dy - (this.largesize / 4), this.largesize, this.largesize, this._jcolor);
+
+        var bx = dx + (this.boxsize * 2);
+
+        dy += this.largebold(bx, dy, 'Jettison to '+this.mecha.name);
         dy += this.padding;
         dy += this._mechaRender(dx, dy, this.mecha);
 
@@ -971,7 +975,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
             var weapon = new Weapon(
                 this._canvas,
                 wpn,
-                (this.width - (this.padding * 2))
+                (this.columnwidth - (this.padding * 2))
             );
             if (weapon.hasAmmo()) {
                 weapon.color(this._wpncolors[wpn]);
@@ -1032,7 +1036,6 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
     {
         var dx = x;
         var dy = y;
-        console.log(mecha.extraabilities);
         if (mecha.extraabilities) {
             // Add in the hand to hand combat
             dy += this.bold(dx, dy, "Extra Abilities:");
@@ -1059,7 +1062,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
     //
     _stats: function(x, y, mecha)
     {
-        var width = this.width - (2 * this.padding);
+        var width = this.columnwidth - (2 * this.padding);
         dx = x + this.padding;
         dy = y + (this.padding * 2);
         this.normal(dx, dy, "Speed: "+mecha.speed);
@@ -1413,11 +1416,18 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         y += this.header(x, y, this.card.name);
         y += this.largebold(x, y, this.card.points+" Points");
         var dy = y;
-        var cols = 1;
         var count = 0;
+        var cwidth = 0;
+        var pwidth = parseInt(this._canvas.width(), 10);
         for (var key in this.mecha) {
             if (!this.mecha[key].rendered) {
+                cwidth += this.mecha[key].width;
+                console.log(cwidth);
+                if (cwidth > pwidth) {
+                    break;
+                }
                 this.mecha[key].render(x, dy);
+                /*
                 var h = this.mecha[key].height;
                 h += this.padding;
                 if (((dy + h) > this.height) && (count > 0)) {
@@ -1433,10 +1443,11 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
                 } else {
                     dy += h;
                 }
+                */
                 count++;
             }
         }
-        return cols != 3;
+        return cwidth < pwidth; //cols != 3;
     },
     //
     // This function resets all of the render properties for this card.
