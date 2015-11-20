@@ -1419,18 +1419,20 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         y += this.largebold(x, y, this.card.points+" Points");
         var dy = y;
         var pwidth = parseInt(this._canvas.width(), 10);
+        console.log(x);
         for (var key in this.mecha) {
             if (!this.mecha[key].rendered) {
+                console.log("Mecha: "+this.mecha[key].width);
                 if ((x + this.mecha[key].width) > pwidth) {
+                    x += this.mecha[key].width;
                     break;
                 }
                 this.mecha[key].render(x, dy);
                 x += this.mecha[key].width + this.padding;
+                console.log("Total Width: "+x);
             }
         }
-        console.log((x + this.mecha[key].width)+":"+pwidth);
-        console.log((x + this.mecha[key].width) < pwidth);
-        return (x + this.mecha[key].width) < pwidth; //cols != 3;
+        return x < pwidth; //cols != 3;
     },
     //
     // This function returns the number of pages for this core force card.
