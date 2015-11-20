@@ -733,7 +733,7 @@ SquadronBuilder.mecha = function (canvas, mecha, width, count) {
 SquadronBuilder.mecha.prototype = BaseClass.extend({
     height: 0,
     _jettisonto: null,
-    _colors: ['#CF0000', '#CFCF00', '#00CF00'],
+    _colors: ['#CF0000', '#CFCF00', '#00CF00', '#31DFF9', '#D131F9', '#F99431'],
     _wpncolors: {},
     _jcolor: '#0000CF',
     _weapon: [],
@@ -761,8 +761,17 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         var weapon = [];
         var width = this.columnwidth - (this.padding * 2);
         var hasammo = false;
-        for (var key in this.mecha.ranged) {
-            var wpn = this.mecha.ranged[key];
+        var wps = this.mecha.ranged;
+        if (this.hasJettison()) {
+            wps = this._jettisonto.mecha.ranged.slice();
+            for (var key in this.mecha.ranged) {
+                if (wps.indexOf(this.mecha.ranged[key]) == -1) {
+                    wps.push(this.mecha.ranged[key]);
+                }
+            }
+        }
+        for (var key in wps) {
+            var wpn = wps[key];
             weapon[key] = new Weapon(
                 this._canvas,
                 wpn,
@@ -1443,17 +1452,14 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         y += this.largebold(x, y, this.card.points+" Points");
         var dy = y;
         var pwidth = parseInt(this._canvas.width(), 10);
-        console.log(x);
         for (var key in this.mecha) {
             if (!this.mecha[key].rendered) {
-                console.log("Mecha: "+this.mecha[key].width);
                 if ((x + this.mecha[key].width) > pwidth) {
                     x += this.mecha[key].width;
                     break;
                 }
                 this.mecha[key].render(x, dy);
                 x += this.mecha[key].width + this.padding;
-                console.log("Total Width: "+x);
             }
         }
         return x < pwidth; //cols != 3;
@@ -2597,6 +2603,27 @@ SquadronBuilder.data.weapons = {
             'Volley X'     : false,
         }
     },
+    MDSL46HailstormMissilePack: {
+        name: 'MDS-L-46 Hailstorm Missile Pack',
+        range: 18,
+        damage: '6/missile',
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 6,
+            'Anti-Missile' : true,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : 8,
+            'Volley X'     : false,
+        }
+    },
     MDSM6AirDefenseMissilePod: {
         name: 'MDS-M-6 Air Defense Missile Pod',
         range: 18,
@@ -3645,6 +3672,122 @@ SquadronBuilder.data.mecha = {
             }
         }
     },
+    SuperVF1AValkyrie: {
+        name: 'Super VF-1A Valkyrie',
+        damage: 14,
+        extradamage: 0,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': true,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : 'VF1AValkyrie',
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : true,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'ValkyrieWingHardPoints', 'ValkyrieHeadLaser',
+        'GU11Battloid', 'GU11', 'GU11Fighter', 'MDSL46HailstormMissilePack'
+        ],
+        modes: {
+            Battloid: {
+                speed: 6,
+                piloting: 2,
+                gunnery: 3,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11Battloid', 'ValkyrieHeadLaser', 'MDSL46HailstormMissilePack'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch',
+                'Power Punch', 'Stomp'
+                ],
+            },
+            Guardian: {
+                speed: 14,
+                piloting: 3,
+                gunnery: 2,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : true,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11', 'ValkyrieWingHardPoints', 'ValkyrieHeadLaser', 'MDSL46HailstormMissilePack'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Punch'
+                ]
+            },
+            Fighter: {
+                speed: 16,
+                piloting: 2,
+                gunnery: 2,
+                defense: 6,
+                abilities: {
+                    'Afterburner'         : true,
+                    'Aircraft'            : true,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : true,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : false,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11Fighter', 'ValkyrieWingHardPoints', 'ValkyrieHeadLaser', 'MDSL46HailstormMissilePack'
+                ],
+                handtohand: [
+                'None'
+                ],
+            }
+        }
+    },
     VF1JValkyrie: {
         name: 'VF-1J Valkyrie',
         damage: 14,
@@ -3760,6 +3903,122 @@ SquadronBuilder.data.mecha = {
                 ]
             }
         },
+    },
+    SuperVF1JValkyrie: {
+        name: 'Super VF-1J Valkyrie',
+        damage: 14,
+        extradamage: 0,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': true,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : 'VF1JValkyrie',
+            'Leadership'          : 2,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : true,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'ValkyrieWingHardPoints', 'ValkyrieDualHeadLasers',
+        'GU11Battloid', 'GU11', 'GU11Fighter', 'MDSL46HailstormMissilePack'
+        ],
+        modes: {
+            Battloid: {
+                speed: 6,
+                piloting: 3,
+                gunnery: 4,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11Battloid', 'ValkyrieDualHeadLasers', 'MDSL46HailstormMissilePack'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch',
+                'Power Punch', 'Stomp'
+                ],
+            },
+            Guardian: {
+                speed: 14,
+                piloting: 4,
+                gunnery: 3,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : true,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11', 'ValkyrieWingHardPoints', 'ValkyrieDualHeadLasers', 'MDSL46HailstormMissilePack'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Punch'
+                ]
+            },
+            Fighter: {
+                speed: 16,
+                piloting: 3,
+                gunnery: 3,
+                defense: 6,
+                abilities: {
+                    'Afterburner'         : true,
+                    'Aircraft'            : true,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : true,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : false,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11Fighter', 'ValkyrieWingHardPoints', 'ValkyrieDualHeadLasers', 'MDSL46HailstormMissilePack'
+                ],
+                handtohand: [
+                'None'
+                ],
+            }
+        }
     },
     VF1SValkyrie: {
         name: 'VF-1S Valkyrie',
@@ -3877,6 +4136,122 @@ SquadronBuilder.data.mecha = {
             }
         },
     },
+    SuperVF1SValkyrie: {
+        name: 'Super VF-1S Valkyrie',
+        damage: 14,
+        extradamage: 0,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': true,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : 'VF1JValkyrie',
+            'Leadership'          : 3,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : true,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'ValkyrieWingHardPoints', 'ValkyrieQuadHeadLasers',
+        'GU11Battloid', 'GU11', 'GU11Fighter', 'MDSL46HailstormMissilePack'
+        ],
+        modes: {
+            Battloid: {
+                speed: 6,
+                piloting: 4,
+                gunnery: 4,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11Battloid', 'ValkyrieQuadHeadLasers', 'MDSL46HailstormMissilePack'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch',
+                'Power Punch', 'Stomp'
+                ],
+            },
+            Guardian: {
+                speed: 14,
+                piloting: 5,
+                gunnery: 4,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : true,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11', 'ValkyrieWingHardPoints', 'ValkyrieQuadHeadLasers', 'MDSL46HailstormMissilePack'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Punch'
+                ]
+            },
+            Fighter: {
+                speed: 16,
+                piloting: 4,
+                gunnery: 3,
+                defense: 6,
+                abilities: {
+                    'Afterburner'         : true,
+                    'Aircraft'            : true,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : true,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : false,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11Fighter', 'ValkyrieWingHardPoints', 'ValkyrieQuadHeadLasers', 'MDSL46HailstormMissilePack'
+                ],
+                handtohand: [
+                'None'
+                ],
+            }
+        }
+    },
     VF1RValkyrie: {
         name: 'VF-1R Valkyrie',
         damage: 17,
@@ -3990,6 +4365,126 @@ SquadronBuilder.data.mecha = {
                 ranged: [
                 'GU11Fighter', 'ValkyrieWingHardPoints', 'ValkyrieQuadHeadLasers',
                 'ValkyrieAutoCannon', 'ValkyrieMiniMissiles'
+                ],
+                handtohand: [
+                'None'
+                ]
+            }
+        },
+    },
+    SuperVF1RValkyrie: {
+        name: 'Super VF-1R Valkyrie',
+        damage: 17,
+        extradamage: 0,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': true,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : true,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'ValkyrieWingHardPoints', 'ValkyrieDualHeadLasers',
+        'GU11Battloid', 'GU11', 'GU11Fighter',
+        'ValkyrieAutoCannon', 'ValkyrieMiniMissiles', 'MDSL46HailstormMissilePack'
+        ],
+        modes: {
+            Battloid: {
+                speed: 7,
+                piloting: 0,
+                gunnery: 0,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11Battloid', 'ValkyrieQuadHeadLasers', 'ValkyrieAutoCannon',
+                'ValkyrieMiniMissiles', 'MDSL46HailstormMissilePack'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch',
+                'Power Punch', 'Stomp'
+                ]
+            },
+            Guardian: {
+                speed: 16,
+                piloting: 0,
+                gunnery: 0,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : true,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11', 'ValkyrieWingHardPoints', 'ValkyrieQuadHeadLasers',
+                'ValkyrieAutoCannon', 'ValkyrieMiniMissiles', 'MDSL46HailstormMissilePack'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Punch'
+                ]
+            },
+            Fighter: {
+                speed: 18,
+                piloting: 0,
+                gunnery: 0,
+                defense: 6,
+                abilities: {
+                    'Afterburner'         : true,
+                    'Aircraft'            : true,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : true,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : false,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11Fighter', 'ValkyrieWingHardPoints', 'ValkyrieQuadHeadLasers',
+                'ValkyrieAutoCannon', 'ValkyrieMiniMissiles', 'MDSL46HailstormMissilePack'
                 ],
                 handtohand: [
                 'None'
@@ -4180,7 +4675,22 @@ SquadronBuilder.force.core = {
         points: 80,
         upgrades: {
             'ValkyrieMLOPs': 5,
-            'ValkyrieLongRangeMissiles': 20,
+            'ValkyrieLongRangeMissiles': 15,
+            'ValkyrieGravityBombs': 10,
+            'SDF1AirWingNoseLasers': 5
+        },
+        factions: ['UEDF'],
+    },
+    SuperValkyrieSquadron: {
+        name: 'Super Valkyrie Squadron',
+        mecha: {
+            'SuperVF1JValkyrie': 1,
+            'SuperVF1AValkyrie': 3,
+        },
+        points: 110,
+        upgrades: {
+            'ValkyrieMLOPs': 5,
+            'ValkyrieLongRangeMissiles': 15,
             'ValkyrieGravityBombs': 10,
             'SDF1AirWingNoseLasers': 5
         },
@@ -5138,7 +5648,27 @@ SquadronBuilder.force.support = {
         points: 40,
         upgrades: {
             'ValkyrieMLOPs': 2,
-            'ValkyrieLongRangeMissiles': 10,
+            'ValkyrieLongRangeMissiles': 8,
+            'ValkyrieGravityBombs': 5,
+            'SDF1AirWingNoseLasers': 2
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    SuperValkyrieSquad: {
+        name: "Super Valkyrie Squad",
+        mecha: {
+            "SuperVF1AValkyrie": 2,
+        },
+        points: 55,
+        upgrades: {
+            'ValkyrieMLOPs': 2,
+            'ValkyrieLongRangeMissiles': 8,
             'ValkyrieGravityBombs': 5,
             'SDF1AirWingNoseLasers': 2
         },

@@ -641,6 +641,27 @@ SquadronBuilder.data.weapons = {
             'Volley X'     : false,
         }
     },
+    MDSL46HailstormMissilePack: {
+        name: 'MDS-L-46 Hailstorm Missile Pack',
+        range: 18,
+        damage: '6/missile',
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 6,
+            'Anti-Missile' : true,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : 8,
+            'Volley X'     : false,
+        }
+    },
     MDSM6AirDefenseMissilePod: {
         name: 'MDS-M-6 Air Defense Missile Pod',
         range: 18,

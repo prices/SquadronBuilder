@@ -709,7 +709,7 @@ SquadronBuilder.mecha = function (canvas, mecha, width, count) {
 SquadronBuilder.mecha.prototype = BaseClass.extend({
     height: 0,
     _jettisonto: null,
-    _colors: ['#CF0000', '#CFCF00', '#00CF00'],
+    _colors: ['#CF0000', '#CFCF00', '#00CF00', '#31DFF9', '#D131F9', '#F99431'],
     _wpncolors: {},
     _jcolor: '#0000CF',
     _weapon: [],
@@ -737,8 +737,17 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         var weapon = [];
         var width = this.columnwidth - (this.padding * 2);
         var hasammo = false;
-        for (var key in this.mecha.ranged) {
-            var wpn = this.mecha.ranged[key];
+        var wps = this.mecha.ranged;
+        if (this.hasJettison()) {
+            wps = this._jettisonto.mecha.ranged.slice();
+            for (var key in this.mecha.ranged) {
+                if (wps.indexOf(this.mecha.ranged[key]) == -1) {
+                    wps.push(this.mecha.ranged[key]);
+                }
+            }
+        }
+        for (var key in wps) {
+            var wpn = wps[key];
             weapon[key] = new Weapon(
                 this._canvas,
                 wpn,
@@ -1419,17 +1428,14 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         y += this.largebold(x, y, this.card.points+" Points");
         var dy = y;
         var pwidth = parseInt(this._canvas.width(), 10);
-        console.log(x);
         for (var key in this.mecha) {
             if (!this.mecha[key].rendered) {
-                console.log("Mecha: "+this.mecha[key].width);
                 if ((x + this.mecha[key].width) > pwidth) {
                     x += this.mecha[key].width;
                     break;
                 }
                 this.mecha[key].render(x, dy);
                 x += this.mecha[key].width + this.padding;
-                console.log("Total Width: "+x);
             }
         }
         return x < pwidth; //cols != 3;

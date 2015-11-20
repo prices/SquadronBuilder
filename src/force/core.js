@@ -84,7 +84,22 @@ SquadronBuilder.force.core = {
         points: 80,
         upgrades: {
             'ValkyrieMLOPs': 5,
-            'ValkyrieLongRangeMissiles': 20,
+            'ValkyrieLongRangeMissiles': 15,
+            'ValkyrieGravityBombs': 10,
+            'SDF1AirWingNoseLasers': 5
+        },
+        factions: ['UEDF'],
+    },
+    SuperValkyrieSquadron: {
+        name: 'Super Valkyrie Squadron',
+        mecha: {
+            'SuperVF1JValkyrie': 1,
+            'SuperVF1AValkyrie': 3,
+        },
+        points: 110,
+        upgrades: {
+            'ValkyrieMLOPs': 5,
+            'ValkyrieLongRangeMissiles': 15,
             'ValkyrieGravityBombs': 10,
             'SDF1AirWingNoseLasers': 5
         },
