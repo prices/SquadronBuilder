@@ -74,14 +74,14 @@
                     if (coreforce[i].canvas) {
                         coreforce[i].resetRender();
                         //win.push(window.open("force.svg", i+'.0'));
-                        //pages[i] = 0;
-                        if (!renderPage(i+'.0')) {
-                            renderPage(i+'.1');
+                        var iter = 0;
+                        while (!renderPage(i+'.'+iter)) {
+                            iter++;
                         }
                     }
                 }
             }
-            function renderPage(name)
+            function renderPage(name, pages)
             {
                 document.getElementById('svgcanvas').innerHTML += '<svg id="SVG'+name+'"></svg>';
                 var ind = name.split('.');
@@ -89,7 +89,6 @@
                 var page  = ind[1];
                 var svg = document.getElementById('SVG'+name);
                 var done = true;
-                var pages = 1;
                 if (svg && coreforce[index].canvas) {
                     var height = parseInt(svg.getAttribute("height"), 10);
                     var width = parseInt(svg.getAttribute("width"), 10);
@@ -100,9 +99,9 @@
                     // This sets up our writeable page.
                     var canvas = fullpage.nested().x("7mm").y("7mm").width("202mm").height("253mm");
                     coreforce[index].canvas(canvas);
+                    var pages = coreforce[index].pages();
                     done = coreforce[index].render(page, width, height);
-                    pageNumber(canvas, page, (done && (page != 1)) ? 1 : 2);
-                    console.log(canvas.width());
+                    pageNumber(canvas, page, pages);
                     var svgExport = fullpage.exportSvg({ whitespace: false, width: '216mm', height: '279mm' })
 
                     open("data:image/svg+xml," + encodeURIComponent(svgExport));

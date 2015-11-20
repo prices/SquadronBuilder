@@ -809,14 +809,16 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         dy  = ny + (this.padding * 2);
         dy += this._mechaRender(dx, dy, this.mecha);
         
+        var jheight = 0;
         if (this.hasJettison()) {
             this._jettisonto.jettisonTo(dx + this.columnwidth, y + this.padding);
-            //dy += this._jettisonto.height;
+            jheight = this._jettisonto.height;
         }
         
         
         // Put a rectangle around it all
-        this.height = dy - y;
+        this.height = (jheight < dy - y) ? dy - y : jheight;
+
         this.box(x, y, this.width, this.height, "#000000");
         
         this._canvas.width(this.width+'mm').height(this.height+'mm');
@@ -1416,32 +1418,43 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         y += this.header(x, y, this.card.name);
         y += this.largebold(x, y, this.card.points+" Points");
         var dy = y;
-        var count = 0;
-        var cwidth = 0;
         var pwidth = parseInt(this._canvas.width(), 10);
         for (var key in this.mecha) {
             if (!this.mecha[key].rendered) {
-                cwidth += this.mecha[key].width;
-                if (cwidth > pwidth) {
+                if ((x + this.mecha[key].width) > pwidth) {
                     break;
                 }
                 this.mecha[key].render(x, dy);
-                var h = this.mecha[key].height;
-                h += this.padding;
-                if (((dy + h) > this.height) && (count > 0)) {
-                    x += this.columnwidth + this.padding;
-                    dy = y + h;
-                    this.mecha[key].x(x);
-                    this.mecha[key].y(y);
-                } else {
-                    dy += h;
-                }
-                count++;
+                x += this.mecha[key].width + this.padding;
             }
         }
-        return cwidth < pwidth; //cols != 3;
+        console.log((x + this.mecha[key].width)+":"+pwidth);
+        console.log((x + this.mecha[key].width) < pwidth);
+        return (x + this.mecha[key].width) < pwidth; //cols != 3;
     },
     //
+    // This function returns the number of pages for this core force card.
+    //
+    // Function Parameters:
+    //
+    // Return:
+    //      The number of pages
+    //
+    pages: function ()
+    {
+        var pages = 1;
+        var pwidth = parseInt(this._canvas.width(), 10);
+        var x = 0;
+        for (var key in this.mecha) {
+            if ((x + this.mecha[key].width) > pwidth) {
+                x = 0;
+                pages++;
+            }
+            x += this.mecha[key].width + this.padding;
+        }
+        return pages;
+    },
+        //
     // This function resets all of the render properties for this card.
     //
     // Return:
