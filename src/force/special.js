@@ -59,7 +59,7 @@ SquadronBuilder.force.special = {
         points: 30,
         upgrades: {
             'ValkyrieMLOPs': 1,
-            'ValkyrieLongRangeMissiles': 5,
+            'ValkyrieLongRangeMissiles': 4,
             'ValkyrieGravityBombs': 3,
             'SDF1AirWingNoseLasers': 1,
         },
