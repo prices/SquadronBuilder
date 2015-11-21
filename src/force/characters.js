@@ -110,7 +110,7 @@ SquadronBuilder.force.characters = {
     Grell: {
         name: "Grell",
         mecha: [
-        "Regult", "Glaug", "GlaugEldare", "NousjadeulGer", "SerauGer", "GluuGer"
+        "Regult", "Glaug", "GlaugEldare", "NousjadeulGer", "NousgarmaGer", "SerauGer", "GluuGer"
         ],
         points: 5,
         factions: ["Zentraedi"],
@@ -120,6 +120,34 @@ SquadronBuilder.force.characters = {
                 "Calling for Reinforcements",
                 "Regults from Grell's squadron destroyed within 8 inches of him may \nbe put aside to return as Reinforcements even if he doesn't have line\n of sight to them.  Grell may set aside Regults from his squadron as \nReinforcements no matter what mecha he is piloting."
             );
+        },
+        check: function (core)
+        {
+            mecha = core.getMecha();
+            for (key in this.mecha) {
+                if (mecha.indexOf(this.mecha[key]) != -1) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    },
+    Grell2: {
+        name: "Grell",
+        mecha: [
+        "Regult", "Glaug", "GlaugEldare", "NousjadeulGer", "NousgarmaGer", "SerauGer", "GluuGer"
+        ],
+        points: 15,
+        factions: ["Malcontents"],
+        modifyMecha: function (mecha)
+        {
+            mecha.changeStat("piloting", 1);
+            mecha.changeStat("gunnery", 1);
+            mecha.addExtraAbility(
+                "Devastating Firepower",
+                "All of Grell's weapon systems gain the Overwhelming and Rapid Fire abilities."
+            );
+
         },
         check: function (core)
         {
