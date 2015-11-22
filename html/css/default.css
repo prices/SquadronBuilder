@@ -88,7 +88,3 @@ div.footer {
 div.upgrades{
     clear: both;
 }
-input[type=checkbox][disabled] + label {
-    color: #444;
-    font-style: italic;
-}

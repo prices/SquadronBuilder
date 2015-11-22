@@ -1284,9 +1284,12 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
     //      true if successful, false otherwise
     character: function(name)
     {
-        if (this.count == 1) {
-            this._character = name;
+        if (name) {
+            if (this.count == 1) {
+                this._character = name;
+            }
         }
+        return this._character;
     },
     //
     // This function adds a weapon in one or more modes
@@ -1552,9 +1555,14 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     character: function (name)
     {
         var card = SquadronBuilder.force.getCharacter(name);
-        if (card && card.card.check(this)) {
+        if (card && this.checkCard("characters", name)) {
             for (var key in card.mecha) {
-                var mecha = this.replaceMecha(card.mecha[key], card.mecha[key], 1);
+                var mecha = this.replaceMecha(
+                    card.mecha[key],
+                    card.mecha[key],
+                    1,
+                    function (mecha) { return !mecha.character(); }
+                );
                 if (mecha) {
                     mecha.character(card.name);
                     card.card.modifyMecha(mecha);
@@ -1677,10 +1685,10 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     // Return:
     //      This object
     //
-    replaceMecha: function (oldmecha, newmecha, count)
+    replaceMecha: function (oldmecha, newmecha, count, checkFct)
     {
         for (var key in this.mecha) {
-            if (this.mecha[key].class == oldmecha) {
+            if ((this.mecha[key].class == oldmecha) && ((typeof checkFct != "function") || checkFct(this.mecha[key]))) {
                 if ((oldmecha == newmecha) && (this.mecha[key].count > count)) {
                     this.mecha[key].count -= count;
                     return this.addMecha(oldmecha, count, true);
@@ -1876,6 +1884,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
                     } else {
                         var c = document.getElementById(this._id(type+'choice'+index));
                         if (types[type].type == "multiselect") {
+                            option.selected = false;
                         } else {
                             var value = c.options[c.selectedIndex].value;
                             if (value == option.value) {
@@ -1923,7 +1932,12 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
 
             var text = '';
             for (var key in core.mecha) {
-                text += '<div class="mecha">'+core.mecha[key].mecha.name+': '+core.mecha[key].count+'</div>';
+                text += '<div class="mecha">'+core.mecha[key].mecha.name+': '+core.mecha[key].count;
+                var char = core.mecha[key].character();
+                if (char) {
+                    text += ' ('+char+')';
+                }
+                text += '</div>';
             }
             document.getElementById(this._id('info'+index)).innerHTML = text;
 
