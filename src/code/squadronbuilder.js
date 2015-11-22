@@ -1566,6 +1566,44 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         return this;
     },
     //
+    // This function adds a character card
+    //
+    // Function Parameters:
+    //      name The name of the upgrade to run
+    //
+    // Return:
+    //      This object
+    //
+    checkCard: function (type, name)
+    {
+        var card = null;
+        var ret  = true;
+        switch (type) {
+            case 'characters':
+                card = SquadronBuilder.force.getCharacter(name);
+                mecha = this.getMecha();
+                ret = false;
+                for (key in card.mecha) {
+                    if (mecha.indexOf(card.mecha[key]) != -1) {
+                        ret = true;
+                    }
+                }
+                break;
+            case 'special':
+                card = SquadronBuilder.force.getSpecial(name);
+                break;
+            case 'support':
+                card = SquadronBuilder.force.getSupport(name);
+                break;
+            default:
+                break;
+        }
+        if (card && card.card.check(this)) {
+            return ret && true;
+        }
+        return false;
+    },
+    //
     // Sets the height of the page
     //
     // Function Parameters:
@@ -1789,8 +1827,7 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
         this.cards[index].support2 = s2.options[s2.selectedIndex].value;
         var sp = document.getElementById(this._id('specialchoice'+index));
         this.cards[index].special = sp.options[sp.selectedIndex].value;
-        var ch = document.getElementById(this._id('characterchoice'+index));
-        this.cards[index].character = ch.options[ch.selectedIndex].value;
+
         if (this.cards[index].core) {
             this.forces[index] = new SquadronBuilder.coreforce(null, this.cards[index].core, 95);
             if (this.cards[index].support1) {
@@ -1802,9 +1839,14 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
             if (this.cards[index].special) {
                 this.forces[index].special(this.cards[index].special);
             }
-            if (this.cards[index].character) {
-                this.forces[index].character(this.cards[index].character);
+
+            var ch = document.getElementById(this._id('characterchoice'+index));
+            for (var key = 0; key < ch.length; key++) {
+                if (ch[key].selected) {
+                    this.forces[index].character(ch[key].value);
+                }
             }
+
             for (var key in this.upgrades) {
                 var up = document.getElementById(this._id('upgrade.'+this.upgrades[key]+index));
                 if (up && up.checked) {
@@ -1817,36 +1859,33 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
     updateChoice: function(index)
     {
         var core = this._getCoreForce(index);
+        var types = {
+            'support1': { card: 'support', name: 'Support Force Card', type: 'select' },
+            'support2': { card: 'support', name: 'Support Force Card', type: 'select' },
+            'special': { card: 'special', name: 'Special Force Card', type: 'select' },
+            'character': { card: 'characters', name: 'Character Card', type: 'multiselect' },
+        };
         if (core.card) {
-            document.getElementById(this._id('support1choice'+index)).disabled = false;
-            document.getElementById(this._id('support2choice'+index)).disabled = false;
-            document.getElementById(this._id('specialchoice'+index)).disabled = false;
-            document.getElementById(this._id('characterchoice'+index)).disabled = false;
-
-
-            var types = {
-                'support1': { card: 'support', name: 'Support Force Card' },
-                'support2': { card: 'support', name: 'Support Force Card' },
-                'special': { card: 'special', name: 'Special Force Card' },
-                'character': { card: 'characters', name: 'Character Card' },
-            };
             for (var type in types) {
+                document.getElementById(this._id(type+'choice'+index)).disabled = false;
                 for (var k in this.faction[types[type].card]) {
                     var option = document.getElementById(this._id(type+'choice'+index+'.'+k));
                     var card = this.faction[types[type].card][k].card;
-                    if (card.check(core)) {
+                    if (core.checkCard(types[type].card, k)) {
                         option.disabled = false;
                     } else {
                         var c = document.getElementById(this._id(type+'choice'+index));
-                        var value = c.options[c.selectedIndex].value;
-                        if (value == option.value) {
-                            c.selectedIndex = 0;
+                        if (types[type].type == "multiselect") {
+                        } else {
+                            var value = c.options[c.selectedIndex].value;
+                            if (value == option.value) {
+                                c.selectedIndex = 0;
+                            }
                         }
                         option.disabled = true;
                     }
                 }
             }
-
             var points = core.card.points ? core.card.points : 0;
             document.getElementById(this._id('points'+index)).innerHTML = points;
 
@@ -1890,10 +1929,9 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
 
         } else {
             document.getElementById(this._id('info'+index)).innerHTML = "<div>No Mecha</div>";
-            document.getElementById(this._id('support1choice'+index)).disabled = true;
-            document.getElementById(this._id('support2choice'+index)).disabled = true;
-            document.getElementById(this._id('specialchoice'+index)).disabled = true;
-            document.getElementById(this._id('characterchoice'+index)).disabled = true;
+            for (var type in types) {
+                document.getElementById(this._id(type+'choice'+index)).disabled = true;
+            }
         }
         if (this._updateFct) {
             this._updateFct(index);
@@ -1915,15 +1953,21 @@ SquadronBuilder.faction.prototype = BaseClass.extend({
     {
         var text = '<div id="'+this._id('info'+index)+'" class="grid mecha info"></div>';
         var types = {
-            'core': { card: 'core', name: 'Core Force Card' },
-            'support1': { card: 'support', name: 'Support Force Card' },
-            'support2': { card: 'support', name: 'Support Force Card' },
-            'special': { card: 'special', name: 'Special Force Card' },
-            'character': { card: 'characters', name: 'Character Card' },
+            'core': { card: 'core', name: 'Core Force Card', type: 'select' },
+            'support1': { card: 'support', name: 'Support Force Card', type: 'select' },
+            'support2': { card: 'support', name: 'Support Force Card', type: 'select' },
+            'special': { card: 'special', name: 'Special Force Card', type: 'select' },
+            'character': { card: 'characters', type: 'multiselect' },
         };
         for (var type in types) {
-            text += '<select id="'+this._id(type+'choice'+index)+'" onChange="faction.updateChoice('+index+')" class="'+type+' '+types[type].card+' col-2-12">';
-            text += '<option value="">'+types[type].name+'</option>';
+            text += '<select id="'+this._id(type+'choice'+index)+'" onChange="faction.updateChoice('+index+')" class="'+type+' '+types[type].card+' col-2-12"';
+            if (types[type].type == 'multiselect') {
+                text += ' multiple="multiple"';
+            }
+            text += '>';
+            if (types[type].name) {
+                text += '<option value="">'+types[type].name+'</option>';
+            }
             for (var k in this.faction[types[type].card]) {
                 text += '<option id="'+this._id(type+'choice'+index+'.'+k)+'" value="'+k+'">'+this.faction[types[type].card][k].name+' ['+this.faction[types[type].card][k].points+' pts]</option>';
             }

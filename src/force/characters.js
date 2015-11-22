@@ -18,13 +18,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
     Breetai: {
@@ -46,13 +40,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
     Khyron: {
@@ -72,13 +60,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
     MiriyaParina: {
@@ -98,13 +80,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
     Grell: {
@@ -123,13 +99,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
     Grell2: {
@@ -151,13 +121,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
     Maloquinn: {
@@ -179,13 +143,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
     PirionGalarr: {
@@ -204,13 +162,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
     PolusMjor: {
@@ -235,13 +187,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
     SulreenTehr: {
@@ -260,13 +206,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
     /*******************************************************************
@@ -297,13 +237,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
     RickHunter: {
@@ -326,13 +260,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
     BenDixon: {
@@ -354,13 +282,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
     MaxSterling: {
@@ -387,13 +309,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
     Dietrich: {
@@ -413,13 +329,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
     FreemanDavidoff: {
@@ -438,13 +348,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
     KainWeller: {
@@ -467,13 +371,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
     Magnus: {
@@ -492,13 +390,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
     MiriyaSterling: {
@@ -524,13 +416,7 @@ SquadronBuilder.force.characters = {
         },
         check: function (core)
         {
-            mecha = core.getMecha();
-            for (key in this.mecha) {
-                if (mecha.indexOf(this.mecha[key]) != -1) {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
     },
 
