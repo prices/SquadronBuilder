@@ -1616,8 +1616,12 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
                 mecha = this.getMecha();
                 ret = false;
                 for (key in card.mecha) {
-                    if (mecha.indexOf(card.mecha[key]) != -1) {
-                        ret = true;
+                    var index = mecha.indexOf(card.mecha[key]);
+                    if (index != -1) {
+                        var char = this.mecha[index].character();
+                        if (!char || (char == name)) {
+                            ret = true;
+                        }
                     }
                 }
                 break;
@@ -1763,7 +1767,7 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
 
         var mecha = [];
         for (var key in this.mecha) {
-            mecha.push(this.mecha[key].class);
+            mecha[key] = this.mecha[key].class;
         }
         return mecha;
     }
