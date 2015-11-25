@@ -1423,8 +1423,9 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     render: function (page, width, height)
     {
         this.width  = width ? width : this.width;
-        this.height  = height ? height : this.height;
-        var pwidth = parseInt(this._canvas.width(), 10);
+        this.height = height ? height : this.height;
+        var pwidth  = parseInt(this._canvas.width(), 10);
+        var pheight = parseInt(this._canvas.height(), 10);
         var x = 0;
         var y = 0;
         y += this.padding * 3;
@@ -1435,10 +1436,23 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
         for (var key in this.mecha) {
             if (!this.mecha[key].rendered) {
                 if ((x + this.mecha[key].width) > pwidth) {
-                    x += this.mecha[key].width;
+                    x += this.mecha[key].width + this.padding;
                     break;
                 }
                 this.mecha[key].render(x, dy);
+                if ((this.mecha[key].height > pheight) && (this.mecha[key].count > 1)) {
+                    this.mecha[key].remove();
+                    var m = this.replaceMecha(this.mecha[key].class, this.mecha[key].class, parseInt(this.mecha[key].count / 2, 10));
+                    this.mecha[key].render(x, dy);
+                    x += this.padding + this.mecha[key].width;
+                    if (m) {
+                        if ((x + m.width) > pwidth) {
+                            x += m.width + this.padding;
+                            break;
+                        }
+                        m.render(x, dy);
+                    }
+                }
                 x += this.mecha[key].width + this.padding;
             }
         }
