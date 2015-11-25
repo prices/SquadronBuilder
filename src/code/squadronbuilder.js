@@ -1424,13 +1424,14 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     {
         this.width  = width ? width : this.width;
         this.height  = height ? height : this.height;
+        var pwidth = parseInt(this._canvas.width(), 10);
         var x = 0;
         var y = 0;
         y += this.padding * 3;
         y += this.header(x, y, this.card.name);
+        this.largebold(x + (pwidth / 2), y, "Command Points: "+this.commandPoints())
         y += this.largebold(x, y, this.card.points+" Points");
         var dy = y;
-        var pwidth = parseInt(this._canvas.width(), 10);
         for (var key in this.mecha) {
             if (!this.mecha[key].rendered) {
                 if ((x + this.mecha[key].width) > pwidth) {
@@ -1442,6 +1443,22 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
             }
         }
         return x < pwidth; //cols != 3;
+    },
+    commandPoints: function ()
+    {
+        var points = 0;
+        for (var key in this.mecha) {
+            var mpoints = 0;
+            var abilities = this.mecha[key].mecha.abilities;
+            if (!abilities['Life is Cheap']) {
+                mpoints++;
+            }
+            if (abilities['Leadership']) {
+                mpoints += abilities["Leadership"];
+            }
+            points += (mpoints * this.mecha[key].count);
+        }
+        return points;
     },
     //
     // This function returns the number of pages for this core force card.
