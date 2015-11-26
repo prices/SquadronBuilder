@@ -1626,7 +1626,7 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
                     var index = mecha.indexOf(card.mecha[key]);
                     if (index != -1) {
                         var char = this.mecha[index].character();
-                        if (!char || (char == name)) {
+                        if (!char || (char == card.name)) {
                             ret = true;
                         }
                     }

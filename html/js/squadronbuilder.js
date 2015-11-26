@@ -1650,7 +1650,7 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
                     var index = mecha.indexOf(card.mecha[key]);
                     if (index != -1) {
                         var char = this.mecha[index].character();
-                        if (!char || (char == name)) {
+                        if (!char || (char == card.name)) {
                             ret = true;
                         }
                     }
@@ -3038,7 +3038,7 @@ SquadronBuilder.data.weapons = {
         damage: '9/missile',
         abilities: {
             'Accurate'     : false,
-            'Ammo'         : 8,
+            'Ammo'         : 6,
             'Anti-Missile' : false,
             'Blast'        : true,
             'Fly Over'     : false,
@@ -5927,7 +5927,7 @@ SquadronBuilder.force.upgrades = {
     },
     ValkyrieLongRangeMissiles: {
         name: 'Valkyrie Long-Range Missiles',
-        desc: 'Changes the wing mounted hard points to RG:48, MD:9/missile, Ammo 8, Missile, Vollley X',
+        desc: 'Changes the wing mounted hard points to RG:48, MD:9/missile, Ammo 6, Missile, Vollley X',
         execute: function (core)
         {
             core.upgradeMecha(function(mecha) {
