@@ -983,7 +983,7 @@ SquadronBuilder.data.weapons = {
         damage: '9/missile',
         abilities: {
             'Accurate'     : false,
-            'Ammo'         : 8,
+            'Ammo'         : 6,
             'Anti-Missile' : false,
             'Blast'        : true,
             'Fly Over'     : false,
