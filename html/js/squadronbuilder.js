@@ -5401,7 +5401,7 @@ SquadronBuilder.force.special = {
         check: function (core)
         {
             mecha = core.getMecha();
-            if ((mecha.indexOf("NousjadeulGer") != -1) && (mecha.indexOf("NousgarmaGer") != -1)) {
+            if ((mecha.indexOf("NousjadeulGer") != -1) || (mecha.indexOf("NousgarmaGer") != -1)) {
                 return false;
             }
             return true;
@@ -5418,6 +5418,27 @@ SquadronBuilder.force.special = {
             'VF1SValkyrie': 1,
         },
         points: 30,
+        upgrades: {
+            'ValkyrieMLOPs': 1,
+            'ValkyrieLongRangeMissiles': 4,
+            'ValkyrieGravityBombs': 3,
+            'SDF1AirWingNoseLasers': 1,
+        },
+        factions: ['UEDF'],
+        check: function (core)
+        {
+            return true;
+        },
+        execute: function (core)
+        {
+        }
+    },
+    SuperVF1S: {
+        name: 'Super VF-1S Valkyrie',
+        mecha: {
+            'SuperVF1SValkyrie': 1,
+        },
+        points: 40,
         upgrades: {
             'ValkyrieMLOPs': 1,
             'ValkyrieLongRangeMissiles': 4,
