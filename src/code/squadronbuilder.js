@@ -1020,7 +1020,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         var len = 0;
         for (var key in mecha.handtohand) {
             text = sep + mecha.handtohand[key];
-            if ((hth.length + text.length - len) > 65) {
+            if ((hth.length + text.length - len) > 80) {
                 len = hth.length;
                 hth += text.replace(', ', ", \n");
             } else {
@@ -1122,7 +1122,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
                 }
                 sep = ', ';
             }
-            if ((abl.length + text.length - len) > 65) {
+            if ((abl.length + text.length - len) > 80) {
                 len = abl.length;
                 abl += text.replace(', ', ", \n");
             } else {
