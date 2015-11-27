@@ -60,7 +60,7 @@ describe("Weapons", function() {
                 });
             });
             var abilities = ['Accurate', 'Anti-Missile', 'Blast', 'Fly Over', 'Inescapable',
-            'Indirect Fire', 'Missile', 'Overwhelming', 'Rapid Fire',
+            'Indirect Fire', 'Missile', 'Overwhelming', 'Rapid Fire', 'Rapid Fire x2',
             'Rear Fire', 'Split Fire', 'Volley X'];
 
             describe(key+ " has its abilities set as ", function() {

@@ -823,7 +823,7 @@ SquadronBuilder.data.weapons = {
             'Indirect Fire': false,
             'Missile'      : false,
             'Overwhelming' : false,
-            'Rapid Fire'   : true,
+            'Rapid Fire x2': true,
             'Rear Fire'    : false,
             'Split Fire'   : false,
             'Volley'       : false,
