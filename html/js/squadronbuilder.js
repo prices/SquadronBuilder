@@ -831,7 +831,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
                     ny += weapon[key].ammo(nx, ny);
                 }
             }
-            //ny += this._jettison(nx, ny);
+            ny += this._jettison(nx, ny);
             // Add a box around it if it had ammo and we have more than 1
             if (hasammo && (this.count > 1)) {
                 var height = ny - sy;
@@ -912,11 +912,11 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         var dx = x;
         dy += this.padding;
         
-        this.box(dx, dy - (this.largesize / 4), this.largesize, this.largesize, this._jcolor);
+//        this.box(dx, dy - (this.largesize / 4), this.largesize, this.largesize, this._jcolor);
 
-        var bx = dx + (this.boxsize * 2);
+//        var bx = dx + (this.boxsize * 2);
 
-        dy += this.largebold(bx, dy, 'Jettison to '+this.mecha.name);
+        dy += this.largebold(dx, dy, 'Jettison to '+this.mecha.name);
         dy += this.padding;
         dy += this._mechaRender(dx, dy, this.mecha);
 
