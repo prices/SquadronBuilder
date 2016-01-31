@@ -1309,6 +1309,16 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         }
     },
     //
+    // This function get the value of an ability
+    //
+    // Function Parameters:
+    //      stat  The stat to get
+    //
+    getAbility: function(stat)
+    {
+        return this.mecha.abilities[stat];
+    },
+    //
     // This function adds an extra ability to the mecha
     //
     // Function Parameters:

@@ -1333,6 +1333,16 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
         }
     },
     //
+    // This function get the value of an ability
+    //
+    // Function Parameters:
+    //      stat  The stat to get
+    //
+    getAbility: function(stat)
+    {
+        return this.mecha.abilities[stat];
+    },
+    //
     // This function adds an extra ability to the mecha
     //
     // Function Parameters:
@@ -5795,6 +5805,7 @@ SquadronBuilder.force.support = {
             core.upgradeMecha(function(mecha) {
                 var piloting = mecha.getStat('piloting');
                 var gunnery = mecha.getStat('gunnery');
+                var leadership = mecha.getAbility('Leadership');
                 if (mecha.count <= count) {
                     var newmecha = core.replaceMecha(mecha.class, 'VF1RValkyrie', mecha.count);
                     count -= mecha.count;
@@ -5811,6 +5822,7 @@ SquadronBuilder.force.support = {
                     for (var mode in gunnery) {
                         newmecha.setStat('gunnery', gunnery[mode], [mode]);
                     }
+                    newmecha.setAbility('Leadership', leadership);
                 }
             }, ["VF1AValkyrie", "VF1JValkyrie"]);
 
