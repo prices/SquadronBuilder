@@ -727,7 +727,7 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
     //
     render: function (x, y, count)
     {
-        this._canvas.x(x+'mm').y(y+'mm');
+        this.move(x, y);
         // Set up our weapons
         var color = 0;
         this.count = count ? count : this.count;
@@ -834,6 +834,21 @@ SquadronBuilder.mecha.prototype = BaseClass.extend({
 
         this.rendered = true;
         // This is the end
+        return this;
+    },
+    //
+    // This function moves the canvas
+    //
+    // Function Parameters:
+    //      x The x coordinate of the top left corner of this object
+    //      y The y coordintate of the top left corner of this object
+    //
+    // Return:
+    //      This object
+    //
+    move: function (x, y)
+    {
+        this._canvas.x(x+'mm').y(y+'mm');
         return this;
     },
     //
@@ -1419,54 +1434,106 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     columnwidth: 95,
     _weapon: [],
     _renderedMecha: [],
+    _quads:[],
+    _y: 0,
+    _x: 0,
     //
     // This function renders the main output for this object
     //
     // Function Parameters:
     //      page   The page to render
-    //      width  The width of the page
-    //      height The height of the page
     //
     // Return:
     //      This object
     //
-    render: function (page, width, height)
+    render: function (page)
     {
-        this.width  = width ? width : this.width;
-        this.height = height ? height : this.height;
-        var pwidth  = parseInt(this._canvas.width(), 10);
-        var pheight = parseInt(this._canvas.height(), 10);
-        var x = 0;
-        var y = 0;
-        y += this.padding * 3;
-        y += this.header(x, y, this.card.name);
-        this.largebold(x + (pwidth / 2), y, "Command Points: "+this.commandPoints())
-        y += this.largebold(x, y, this.card.points+" Points");
-        var dy = y;
+        this.width  = parseInt(this._canvas.width(), 10);
+        this.height = parseInt(this._canvas.height(), 10);
+        this.quads = [0, 0, 0, 0];
+        this._y = 0;
+        this._x = 0;
+        this._y += this.padding * 3;
+        this._y += this.header(0, this._y, this.card.name);
+        this.largebold((this.width / 2), this._y, "Command Points: "+this.commandPoints());
+        this._y += this.largebold(0, this._y, this.card.points+" Points");
+        var done = 1;
         for (var key in this.mecha) {
             if (!this.mecha[key].rendered) {
-                if ((x + this.mecha[key].width) > pwidth) {
-                    x += this.mecha[key].width + this.padding;
-                    break;
-                }
-                this.mecha[key].render(x, dy);
-                if ((this.mecha[key].height > pheight) && (this.mecha[key].count > 1)) {
+                this.mecha[key].render(0, 0);
+                var q = this.fitQuad(this.mecha[key].width, this.mecha[key].height);
+                if (q) {
+                    this.mecha[key].move(q.x, q.y);
+                } else {
+                    done = 0;
                     this.mecha[key].remove();
-                    var m = this.replaceMecha(this.mecha[key].class, this.mecha[key].class, parseInt(this.mecha[key].count / 2, 10));
-                    this.mecha[key].render(x, dy);
-                    x += this.padding + this.mecha[key].width;
-                    if (m) {
-                        if ((x + m.width) > pwidth) {
-                            x += m.width + this.padding;
-                            break;
-                        }
-                        m.render(x, dy);
-                    }
                 }
-                x += this.mecha[key].width + this.padding;
             }
         }
-        return x < pwidth; //cols != 3;
+        return done;
+    },
+    fitQuad: function (width, height)
+    {
+
+        // Quads:
+        //  0 2
+        //  1 3
+        var quad = 0;
+        var cwidth = (this.width/2) - (this.padding/2);
+        var rheight = ((this.height - this._y)/2) - (this.padding/2);
+        var c1x = this._x;
+        var c2x = this._x + cwidth + this.padding;
+        var r1y = this._y;
+        var r2y = this._y + rheight + this.padding
+
+
+        if ((width > cwidth) && (height > rheight)) {
+            // All 4 quads
+            if ((this.quads[0] == 0) && (this.quads[1] == 0) && (this.quads[2] == 0) && (this.quads[3] == 0)) {
+                this.quads = [1, 1, 1, 1];
+                return { 'x': c1x, 'y': r1y };
+            }
+        } else if ((width > cwidth) && (height <= rheight)) {
+            // Two wide, one high
+            if ((this.quads[0] == 0) && (this.quads[2] == 0)) {
+                this.quads[0] = 1;
+                this.quads[2] = 1;
+                return { 'x': c1x, 'y': r1y };
+            } else if((this.quads[1] == 0) && (this.quads[3] == 0)) {
+                this.quads[1] = 1;
+                this.quads[3] = 1;
+                return { 'x': c1x, 'y': r2y };
+            }
+        } else if ((width <= cwidth) && (height > rheight)) {
+            // one wide, two high
+            if ((this.quads[0] == 0) && (this.quads[1] == 0)) {
+                this.quads[0] = 1;
+                this.quads[1] = 1;
+                return { 'x': c1x, 'y': r1y };
+            } else if((this.quads[2] == 0) && (this.quads[3] == 0)) {
+                this.quads[2] = 1;
+                this.quads[3] = 1;
+                return { 'x': c2x, 'y': r1y };
+            }
+        } else {
+            // one wide, one high
+            if (this.quads[0] == 0) {
+                this.quads[0] = 1;
+                return { 'x': c1x, 'y': r1y };
+            } else if (this.quads[1] == 0) {
+                this.quads[1] = 1;
+                return { 'x': c1x, 'y': r2y };
+            } else if (this.quads[2] == 0) {
+                this.quads[2] = 1;
+                return { 'x': c2x, 'y': r1y };
+            } else if (this.quads[3] == 0) {
+                this.quads[3] = 1;
+                return { 'x': c2x, 'y': r2y };
+            }
+        }
+
+        return false;
+
     },
     commandPoints: function ()
     {
@@ -1667,7 +1734,7 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
     //
     height: function (height)
     {
-        if (name) {
+        if (height) {
             this.height = height;
         }
         return this.height;
