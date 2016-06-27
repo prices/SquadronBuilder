@@ -35,6 +35,46 @@ SquadronBuilder.force.support = {
             return true;
         },
     },
+    GluuGerSquad: {
+        name: "Light Infantry Squad",
+        mecha: {
+            "GluuGer": 6,
+        },
+        points: 10,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 0,
+            'ZTFGMkVTacticalFlechetteCannon': 0,
+            'ZMLMkIIShoulderFiredMissileLauncher': 0,
+            'VeteranWarriors': 5
+        },
+        factions: ["Zentraedi", "Malcontents"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    SerauGerSquad: {
+        name: "Heavy Infantry Squad",
+        mecha: {
+            "SerauGer": 6,
+        },
+        points: 15,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 0,
+            'ZTFGMkVTacticalFlechetteCannon': 0,
+            'ZMLMkIIShoulderFiredMissileLauncher': 0,
+            'VeteranWarriors': 5
+        },
+        factions: ["Zentraedi", "Malcontents"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
     NousjadeulGerSquad: {
         name: "Nousjadeul-Ger Squad",
         mecha: {

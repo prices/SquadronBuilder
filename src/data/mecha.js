@@ -167,6 +167,66 @@ SquadronBuilder.data.mecha = {
             'Body Block', 'Kick', 'Jump Kick', 'Stomp'
         ]
     },
+    GluuGer: {
+        name: 'Gluu-Ger',
+        speed: 3,
+        piloting: 1,
+        gunnery: 1,
+        defense: 5,
+        damage: 3,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : false,
+            'Focus Fire'          : false,
+            'Hands'               : true,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : true,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : true,
+        },
+        ranged: [
+        ],
+        handtohand: [
+        'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
+        ]
+    },
+    SerauGer: {
+        name: 'Serau-Ger',
+        speed: 3,
+        piloting: 1,
+        gunnery: 1,
+        defense: 6,
+        damage: 5,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : false,
+            'Focus Fire'          : false,
+            'Hands'               : true,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : true,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : true,
+        },
+        ranged: [
+        ],
+        handtohand: [
+        'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
+        ]
+    },
     NousjadeulGer: {
         name: 'Nousjadeul-Ger',
         speed: 5,

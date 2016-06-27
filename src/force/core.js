@@ -111,12 +111,55 @@ SquadronBuilder.force.core = {
             'ArmoredVF1JValkyrie': 1,
             'ArmoredVF1AValkyrie': 3,
         },
-        points: 100,
+        points: 90,
         upgrades: {
-            'ValkyrieMLOPs': 5,
-            'ValkyrieLongRangeMissiles': 20,
-            'ValkyrieGravityBombs': 10,
             'SDF1AirWingNoseLasers': 5
+        },
+        factions: ['UEDF'],
+    },
+    JotunArmoredValkyrieSquadron: {
+        name: 'Jotun Armored Valkyrie Squadron',
+        mecha: {
+            'JotunArmoredVF1JValkyrie': 1,
+            'JotunArmoredVF1AValkyrie': 3,
+        },
+        points: 90,
+        upgrades: {
+            'SDF1AirWingNoseLasers': 5
+        },
+        factions: ['UEDF'],
+    },
+    GhostSquadron: {
+        name: 'QF-3000 Ghost Squadron',
+        mecha: {
+            'QF3000Ghost': 4,
+        },
+        points: 70,
+        upgrades: {
+        },
+        factions: ['UEDF'],
+    },
+    LancerIISquadron: {
+        name: 'SF-3A Lancer II Squadron',
+        mecha: {
+            'SF3ALancerII': 4,
+        },
+        points: 70,
+        upgrades: {
+        },
+        factions: ['UEDF'],
+    },
+    YF4VeritechSquadron: {
+        name: 'YF-4 Veritech Squadron',
+        mecha: {
+            'FlightLeadYF4Veritech': 1,
+            'YF4Veritech': 3,
+        },
+        points: 105,
+        upgrades: {
+            'YF4MLOPs': 5,
+            'YF4MRM': 10,
+            'YF4GravityBombs': 10
         },
         factions: ['UEDF'],
     },

@@ -54,7 +54,7 @@ SquadronBuilder.force.upgrades = {
         {
             core.upgradeMecha(function(mecha) {
                 mecha.addWeapon('ZPRMkVIIIParticleAssaultRifle');
-            }, ["Spartan", "NousjadeulGer"]);
+            }, ["Spartan", "NousjadeulGer", "GluuGer", "SerauGer"]);
         },
         blocks: ['GU11GunPod', 'ZTFGMkVTacticalFlechetteCannon', 'ZMLMkIIShoulderFiredMissileLauncher']
     },
@@ -65,7 +65,7 @@ SquadronBuilder.force.upgrades = {
         {
             core.upgradeMecha(function(mecha) {
                 mecha.addWeapon('ZTFGMkVTacticalFlechetteCannon');
-            }, ["Spartan", "NousjadeulGer"]);
+            }, ["Spartan", "NousjadeulGer", "GluuGer", "SerauGer"]);
         },
         blocks: ['GU11GunPod', 'ZPRMkVIIIParticleAssaultRifle', 'ZMLMkIIShoulderFiredMissileLauncher']
     },
@@ -76,7 +76,7 @@ SquadronBuilder.force.upgrades = {
         {
             core.upgradeMecha(function(mecha) {
                 mecha.addWeapon('ZMLMkIIShoulderFiredMissileLauncher');
-            }, ["Spartan", "NousjadeulGer"]);
+            }, ["Spartan", "NousjadeulGer", "GluuGer", "SerauGer"]);
         },
         blocks: ['GU11GunPod', 'ZTFGMkVTacticalFlechetteCannon', 'ZPRMkVIIIParticleAssaultRifle']
     },
@@ -203,5 +203,4 @@ SquadronBuilder.force.upgrades = {
         },
         blocks: ['YF4MRM', 'YF4MLOPs']
     },
-
 }

@@ -3720,6 +3720,66 @@ SquadronBuilder.data.mecha = {
             'Body Block', 'Kick', 'Jump Kick', 'Stomp'
         ]
     },
+    GluuGer: {
+        name: 'Gluu-Ger',
+        speed: 3,
+        piloting: 1,
+        gunnery: 1,
+        defense: 5,
+        damage: 3,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : false,
+            'Focus Fire'          : false,
+            'Hands'               : true,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : true,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : true,
+        },
+        ranged: [
+        ],
+        handtohand: [
+        'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
+        ]
+    },
+    SerauGer: {
+        name: 'Serau-Ger',
+        speed: 3,
+        piloting: 1,
+        gunnery: 1,
+        defense: 6,
+        damage: 5,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : false,
+            'Focus Fire'          : false,
+            'Hands'               : true,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : true,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : true,
+        },
+        ranged: [
+        ],
+        handtohand: [
+        'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
+        ]
+    },
     NousjadeulGer: {
         name: 'Nousjadeul-Ger',
         speed: 5,
@@ -6111,12 +6171,55 @@ SquadronBuilder.force.core = {
             'ArmoredVF1JValkyrie': 1,
             'ArmoredVF1AValkyrie': 3,
         },
-        points: 100,
+        points: 90,
         upgrades: {
-            'ValkyrieMLOPs': 5,
-            'ValkyrieLongRangeMissiles': 20,
-            'ValkyrieGravityBombs': 10,
             'SDF1AirWingNoseLasers': 5
+        },
+        factions: ['UEDF'],
+    },
+    JotunArmoredValkyrieSquadron: {
+        name: 'Jotun Armored Valkyrie Squadron',
+        mecha: {
+            'JotunArmoredVF1JValkyrie': 1,
+            'JotunArmoredVF1AValkyrie': 3,
+        },
+        points: 90,
+        upgrades: {
+            'SDF1AirWingNoseLasers': 5
+        },
+        factions: ['UEDF'],
+    },
+    GhostSquadron: {
+        name: 'QF-3000 Ghost Squadron',
+        mecha: {
+            'QF3000Ghost': 4,
+        },
+        points: 70,
+        upgrades: {
+        },
+        factions: ['UEDF'],
+    },
+    LancerIISquadron: {
+        name: 'SF-3A Lancer II Squadron',
+        mecha: {
+            'SF3ALancerII': 4,
+        },
+        points: 70,
+        upgrades: {
+        },
+        factions: ['UEDF'],
+    },
+    YF4VeritechSquadron: {
+        name: 'YF-4 Veritech Squadron',
+        mecha: {
+            'FlightLeadYF4Veritech': 1,
+            'YF4Veritech': 3,
+        },
+        points: 105,
+        upgrades: {
+            'YF4MLOPs': 5,
+            'YF4MRM': 10,
+            'YF4GravityBombs': 10
         },
         factions: ['UEDF'],
     },
@@ -6963,6 +7066,46 @@ SquadronBuilder.force.support = {
             return true;
         },
     },
+    GluuGerSquad: {
+        name: "Light Infantry Squad",
+        mecha: {
+            "GluuGer": 6,
+        },
+        points: 10,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 0,
+            'ZTFGMkVTacticalFlechetteCannon': 0,
+            'ZMLMkIIShoulderFiredMissileLauncher': 0,
+            'VeteranWarriors': 5
+        },
+        factions: ["Zentraedi", "Malcontents"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    SerauGerSquad: {
+        name: "Heavy Infantry Squad",
+        mecha: {
+            "SerauGer": 6,
+        },
+        points: 15,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 0,
+            'ZTFGMkVTacticalFlechetteCannon': 0,
+            'ZMLMkIIShoulderFiredMissileLauncher': 0,
+            'VeteranWarriors': 5
+        },
+        factions: ["Zentraedi", "Malcontents"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
     NousjadeulGerSquad: {
         name: "Nousjadeul-Ger Squad",
         mecha: {
@@ -7421,7 +7564,7 @@ SquadronBuilder.force.upgrades = {
         {
             core.upgradeMecha(function(mecha) {
                 mecha.addWeapon('ZPRMkVIIIParticleAssaultRifle');
-            }, ["Spartan", "NousjadeulGer"]);
+            }, ["Spartan", "NousjadeulGer", "GluuGer", "SerauGer"]);
         },
         blocks: ['GU11GunPod', 'ZTFGMkVTacticalFlechetteCannon', 'ZMLMkIIShoulderFiredMissileLauncher']
     },
@@ -7432,7 +7575,7 @@ SquadronBuilder.force.upgrades = {
         {
             core.upgradeMecha(function(mecha) {
                 mecha.addWeapon('ZTFGMkVTacticalFlechetteCannon');
-            }, ["Spartan", "NousjadeulGer"]);
+            }, ["Spartan", "NousjadeulGer", "GluuGer", "SerauGer"]);
         },
         blocks: ['GU11GunPod', 'ZPRMkVIIIParticleAssaultRifle', 'ZMLMkIIShoulderFiredMissileLauncher']
     },
@@ -7443,7 +7586,7 @@ SquadronBuilder.force.upgrades = {
         {
             core.upgradeMecha(function(mecha) {
                 mecha.addWeapon('ZMLMkIIShoulderFiredMissileLauncher');
-            }, ["Spartan", "NousjadeulGer"]);
+            }, ["Spartan", "NousjadeulGer", "GluuGer", "SerauGer"]);
         },
         blocks: ['GU11GunPod', 'ZTFGMkVTacticalFlechetteCannon', 'ZPRMkVIIIParticleAssaultRifle']
     },
@@ -7570,5 +7713,4 @@ SquadronBuilder.force.upgrades = {
         },
         blocks: ['YF4MRM', 'YF4MLOPs']
     },
-
 }})();
