@@ -2752,6 +2752,27 @@ SquadronBuilder.data.weapons = {
             'Volley X'     : false,
         }
     },
+    MDSL12ShortRangeLauncher: {
+        name: 'MDS-L-12 Short-Range Missile Launcher',
+        range: 18,
+        damage: '6/missile',
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 6,
+            'Anti-Missile' : true,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : false,
+            'Volley X'     : true,
+        }
+    },
     MDSL70BarrageMissilePack: {
         name: 'MDS-L-70 Barrage Missile Pack',
         range: 18,
@@ -2791,6 +2812,27 @@ SquadronBuilder.data.weapons = {
             'Rear Fire'    : false,
             'Split Fire'   : false,
             'Volley'       : 8,
+            'Volley X'     : false,
+        }
+    },
+    MDSL23HailstormMissilePack: {
+        name: 'MDS-L-46 Hailstorm Missile Pack',
+        range: 18,
+        damage: '6/missile',
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 8,
+            'Anti-Missile' : true,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : 4,
             'Volley X'     : false,
         }
     },
@@ -3235,6 +3277,216 @@ SquadronBuilder.data.weapons = {
             'Volley X'     : false,
         }
     },
+    MonsterQuadM400ArtilleryCannon: {
+        name: 'Quad M-400 40cm Artillery Cannon',
+        range: 60,
+        damage: 12,
+        abilities: {
+            'Accurate'     : true,
+            'Ammo'         : 16,
+            'Anti-Missile' : false,
+            'Blast'        : true,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : false,
+            'Overwhelming' : true,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : false,
+            'Volley X'     : false,
+        }
+    },
+    DualMMDS12MultipleMissleLaunchers: {
+        name: 'Dual MMDS-12 Multiple Missile Launchers',
+        range: 24,
+        damage: '9/missile',
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 12,
+            'Anti-Missile' : false,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : false,
+            'Volley X'     : true,
+        }
+    },
+    YF4DualLLW60BeamCannons: {
+        name: 'Dual LLW-60 CIWS Beam Cannons',
+        range: 12,
+        damage: 6,
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : false,
+            'Anti-Missile' : true,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : false,
+            'Overwhelming' : false,
+            'Rapid Fire'   : true,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : false,
+            'Volley X'     : false,
+        }
+    },
+    YF4LongRangeMissiles: {
+        name: 'Recessed Long-Range Missile Launchers',
+        range: 48,
+        damage: "9/missile",
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 6,
+            'Anti-Missile' : false,
+            'Blast'        : true,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : false,
+            'Volley X'     : true,
+        }
+    },
+    MDRSRS5SRMLaunchers: {
+        name: 'MDS-RF-5 Missile Launchers, Short Range',
+        range: 18,
+        damage: "6/missile",
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 10,
+            'Anti-Missile' : false,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : 4,
+            'Volley X'     : false,
+        }
+    },
+    MDRSRS5MRMLaunchers: {
+        name: 'MDS-RF-5 Missile Launchers, Medium Range',
+        range: 24,
+        damage: "9/missile",
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 5,
+            'Anti-Missile' : false,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : 4,
+            'Volley X'     : false,
+        }
+    },
+    ARLENMk730mmAutoCannons: {
+        name: 'ARLEN Mk. 7 30mm Auto-Cannons',
+        range: 24,
+        damage: 12,
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : false,
+            'Anti-Missile' : false,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : false,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : false,
+            'Volley X'     : false,
+        }
+    },
+    DoubleBarreledPlasmaBeamCannon: {
+        name: 'Double-Barreled Plasma Beam Cannon',
+        range: 48,
+        damage: 10,
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : false,
+            'Anti-Missile' : false,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : false,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : false,
+            'Volley X'     : false,
+        }
+    },
+    PZ3232mmRotaryParticleCannon: {
+        name: 'PZ-32 32mm Rotary Particle Cannon',
+        range: 18,
+        damage: 4,
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : false,
+            'Anti-Missile' : false,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : false,
+            'Overwhelming' : true,
+            'Rapid Fire'   : true,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : false,
+            'Volley X'     : false,
+        }
+    },
+    MZ18AirtoAirMissleLaunchers: {
+        name: 'MZ-18 Air to Air Missile Launchers',
+        range: 18,
+        damage: '6/missile',
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 3,
+            'Anti-Missile' : true,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : 6,
+            'Volley X'     : false,
+        }
+    },
 }
 //
 // The mecha are specified here
@@ -3306,6 +3558,72 @@ SquadronBuilder.data.mecha = {
         ],
         handtohand: [
             'Body Block', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
+        ]
+    },
+    QuelGulnau: {
+        name: 'Quel-Gulnau',
+        speed: 9,
+        piloting: 2,
+        gunnery: '-',
+        defense: 5,
+        damage: 9,
+        extradamage: 0,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : true,
+            'Hover'               : true,
+            'Jettison'            : false,
+            'Leadership'          : false,
+            'Leap'                : true,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        ],
+        handtohand: [
+        'Body Block', 'Grab', 'Punch', 'Power Punch'
+        ],
+        extraabilities: {
+            'Recovery and Salvage': 'While a Quel-Gulnau is within 2 inches of a Glaug or Glaug-Eldare, it extends the normal 8 in range of the Zentraedi faction ability of reinforcements to 12"'
+        }
+    },
+    Gnerl: {
+        name: 'Gnerl Fighter',
+        speed: 12,
+        piloting: 2,
+        gunnery: 2,
+        defense: 7,
+        damage: 9,
+        extradamage: 10,
+        abilities: {
+            'Afterburner'         : true,
+            'Aircraft'            : true,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'PZ3232mmRotaryParticleCannon', 'MZ18AirtoAirMissleLaunchers'
+        ],
+        handtohand: [
+        'None'
         ]
     },
     GluuhaugRegult: {
@@ -3958,8 +4276,8 @@ SquadronBuilder.data.mecha = {
             }
         }
     },
-    VF1JValkyrie: {
-        name: 'VF-1J Valkyrie',
+    VF1DValkyrie: {
+        name: 'VF-1D Valkyrie',
         damage: 14,
         extradamage: 0,
         abilities: {
@@ -3983,6 +4301,9 @@ SquadronBuilder.data.mecha = {
             'ValkyrieWingHardPoints', 'ValkyrieDualHeadLasers',
             'GU11Battloid', 'GU11', 'GU11Fighter'
         ],
+        extraabilities: {
+            'Dual Pilot': 'An additional weapon system can be fired each turn at no Command Point cost at a GN of 1.',
+        },
         modes: {
             Battloid: {
                 speed: 5,
@@ -4070,6 +4391,241 @@ SquadronBuilder.data.mecha = {
                 ],
                 handtohand: [
                     'None'
+                ]
+            }
+        },
+    },
+    SuperVF1DValkyrie: {
+        name: 'Super VF-1D Valkyrie',
+        damage: 14,
+        extradamage: 0,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': true,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : 'VF1DValkyrie',
+            'Leadership'          : 2,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : true,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'ValkyrieWingHardPoints', 'ValkyrieDualHeadLasers',
+        'GU11Battloid', 'GU11', 'GU11Fighter', 'MDSL46HailstormMissilePack'
+        ],
+        extraabilities: {
+            'Dual Pilot': 'An additional weapon system can be fired each turn at no Command Point cost at a GN of 1.',
+        },
+        modes: {
+            Battloid: {
+                speed: 6,
+                piloting: 3,
+                gunnery: 4,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11Battloid', 'ValkyrieDualHeadLasers', 'MDSL46HailstormMissilePack'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch',
+                'Power Punch', 'Stomp'
+                ],
+            },
+            Guardian: {
+                speed: 14,
+                piloting: 4,
+                gunnery: 3,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : true,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11', 'ValkyrieWingHardPoints', 'ValkyrieDualHeadLasers', 'MDSL46HailstormMissilePack'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Punch'
+                ]
+            },
+            Fighter: {
+                speed: 16,
+                piloting: 3,
+                gunnery: 3,
+                defense: 6,
+                abilities: {
+                    'Afterburner'         : true,
+                    'Aircraft'            : true,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : true,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : false,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11Fighter', 'ValkyrieWingHardPoints', 'ValkyrieDualHeadLasers', 'MDSL46HailstormMissilePack'
+                ],
+                handtohand: [
+                'None'
+                ],
+            }
+        }
+    },
+    VF1JValkyrie: {
+        name: 'VF-1J Valkyrie',
+        damage: 14,
+        extradamage: 0,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': true,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : 2,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : true,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'ValkyrieWingHardPoints', 'ValkyrieDualHeadLasers',
+        'GU11Battloid', 'GU11', 'GU11Fighter'
+        ],
+        modes: {
+            Battloid: {
+                speed: 5,
+                piloting: 3,
+                gunnery: 4,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11Battloid', 'ValkyrieDualHeadLasers'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch',
+                'Power Punch', 'Stomp'
+                ]
+            },
+            Guardian: {
+                speed: 10,
+                piloting: 4,
+                gunnery: 3,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : true,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11', 'ValkyrieWingHardPoints', 'ValkyrieDualHeadLasers'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Punch'
+                ]
+            },
+            Fighter: {
+                speed: 12,
+                piloting: 3,
+                gunnery: 3,
+                defense: 6,
+                abilities: {
+                    'Afterburner'         : true,
+                    'Aircraft'            : true,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : true,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : false,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'GU11Fighter', 'ValkyrieWingHardPoints', 'ValkyrieDualHeadLasers'
+                ],
+                handtohand: [
+                'None'
                 ]
             }
         },
@@ -4694,11 +5250,46 @@ SquadronBuilder.data.mecha = {
         'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
         ]
     },
+    ArmoredVF1DValkyrie: {
+        name: 'Armored VF-1D Valkyrie',
+        speed: 4,
+        piloting: 3,
+        gunnery: 4,
+        defense: 5,
+        damage: 14,
+        extradamage: 8,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : true,
+            'Hover'               : false,
+            'Jettison'            : 'VF1DValkyrie',
+            'Leadership'          : 2,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'GU11Battloid', 'ValkyrieDualHeadLasers', 'MDSL70BarrageMissilePack'
+        ],
+        handtohand: [
+        'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
+        ],
+        extraabilities: {
+            'Dual Pilot': 'An additional weapon system can be fired each turn at no Command Point cost at a GN of 1.',
+        }
+    },
     ArmoredVF1JValkyrie: {
         name: 'Armored VF-1J Valkyrie',
         speed: 4,
-        piloting: 2,
-        gunnery: 3,
+        piloting: 3,
+        gunnery: 4,
         defense: 5,
         damage: 14,
         extradamage: 8,
@@ -4729,8 +5320,8 @@ SquadronBuilder.data.mecha = {
     ArmoredVF1SValkyrie: {
         name: 'Armored VF-1S Valkyrie',
         speed: 4,
-        piloting: 2,
-        gunnery: 3,
+        piloting: 4,
+        gunnery: 4,
         defense: 5,
         damage: 14,
         extradamage: 8,
@@ -4744,7 +5335,7 @@ SquadronBuilder.data.mecha = {
             'Focus Fire'          : false,
             'Hands'               : true,
             'Hover'               : false,
-            'Jettison'            : 'VF1JValkyrie',
+            'Jettison'            : 'VF1SValkyrie',
             'Leadership'          : 3,
             'Leap'                : false,
             'Life is Cheap'       : false,
@@ -4757,6 +5348,472 @@ SquadronBuilder.data.mecha = {
         handtohand: [
         'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
         ]
+    },
+    Monster: {
+        name: 'Monster',
+        speed: 3,
+        piloting: 2,
+        gunnery: 3,
+        defense: 7,
+        damage: 14,
+        extradamage: 8,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : true,
+            'Fast Mover'          : false,
+            'Flight'              : false,
+            'Focus Fire'          : false,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'MonsterQuadM400ArtilleryCannon', 'DualMMDS12MultipleMissleLaunchers'
+        ],
+        handtohand: [
+        'Body Block', 'Kick', 'Punch', 'Power Punch', 'Stomp'
+        ],
+        extraabilities: {
+            'Quad Cannon Salvo': 'Double the MD of the Quad M-400 Cannons before you roll to hit.  If you do, they can\'t be used during the next turn and two points of ammo are used.',
+        }
+    },
+    JotunArmoredVF1AValkyrie: {
+        name: 'Jotun Armored VF-1A Valkyrie',
+        speed: 4,
+        piloting: 2,
+        gunnery: 3,
+        defense: 5,
+        damage: 14,
+        extradamage: 12,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : true,
+            'Hover'               : false,
+            'Jettison'            : 'VF1AValkyrie',
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'GU11Battloid', 'ValkyrieHeadLaser', 'MDSL23HailstormMissilePack'
+        ],
+        handtohand: [
+        'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
+        ]
+    },
+    JotunArmoredVF1DValkyrie: {
+        name: 'Jotun Armored VF-1D Valkyrie',
+        speed: 4,
+        piloting: 3,
+        gunnery: 4,
+        defense: 5,
+        damage: 14,
+        extradamage: 12,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : true,
+            'Hover'               : false,
+            'Jettison'            : 'VF1JValkyrie',
+            'Leadership'          : 2,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'GU11Battloid', 'ValkyrieDualHeadLasers', 'MDSL23HailstormMissilePack'
+        ],
+        handtohand: [
+        'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
+        ],
+        extraabilities: {
+            'Dual Pilot': 'An additional weapon system can be fired each turn at no Command Point cost at a GN of 1.',
+        }
+    },
+    JotunArmoredVF1JValkyrie: {
+        name: 'Jotun Armored VF-1J Valkyrie',
+        speed: 4,
+        piloting: 3,
+        gunnery: 4,
+        defense: 5,
+        damage: 14,
+        extradamage: 12,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : true,
+            'Hover'               : false,
+            'Jettison'            : 'VF1JValkyrie',
+            'Leadership'          : 2,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'GU11Battloid', 'ValkyrieDualHeadLasers', 'MDSL23HailstormMissilePack'
+        ],
+        handtohand: [
+        'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
+        ]
+    },
+    JotunArmoredVF1SValkyrie: {
+        name: 'Jotun Armored VF-1S Valkyrie',
+        speed: 4,
+        piloting: 4,
+        gunnery: 4,
+        defense: 5,
+        damage: 14,
+        extradamage: 8,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : true,
+            'Hover'               : false,
+            'Jettison'            : 'VF1SValkyrie',
+            'Leadership'          : 3,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'GU11Battloid', 'ValkyrieQuadHeadLasers', 'MDSL23HailstormMissilePack'
+        ],
+        handtohand: [
+        'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch', 'Power Punch', 'Stomp'
+        ]
+    },
+    YF4Veritech: {
+        name: 'YF-4 Veritech',
+        damage: 16,
+        extradamage: 0,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : true,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'YF4DualLLW60BeamCannons', 'ValkyrieMiniMissiles', 'YF4LongRangeMissiles'
+        ],
+        modes: {
+            Battloid: {
+                speed: 6,
+                piloting: 2,
+                gunnery: 3,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'YF4DualLLW60BeamCannons', 'ValkyrieMiniMissiles', 'YF4LongRangeMissiles'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch',
+                'Power Punch', 'Stomp'
+                ],
+            },
+            Guardian: {
+                speed: 11,
+                piloting: 3,
+                gunnery: 2,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : true,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'YF4DualLLW60BeamCannons', 'ValkyrieMiniMissiles', 'YF4LongRangeMissiles'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Punch'
+                ]
+            },
+            Fighter: {
+                speed: 14,
+                piloting: 2,
+                gunnery: 2,
+                defense: 6,
+                abilities: {
+                    'Afterburner'         : true,
+                    'Aircraft'            : true,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : true,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : false,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'YF4DualLLW60BeamCannons', 'ValkyrieMiniMissiles', 'YF4LongRangeMissiles'
+                ],
+                handtohand: [
+                'None'
+                ],
+            }
+        }
+    },
+    FlightLeadYF4Veritech: {
+        name: 'Flight Lead YF-4 Veritech',
+        damage: 16,
+        extradamage: 0,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : 2,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : true,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'YF4DualLLW60BeamCannons', 'ValkyrieMiniMissiles', 'YF4LongRangeMissiles'
+        ],
+        modes: {
+            Battloid: {
+                speed: 6,
+                piloting: 2,
+                gunnery: 3,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'YF4DualLLW60BeamCannons', 'ValkyrieMiniMissiles', 'YF4LongRangeMissiles'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch',
+                'Power Punch', 'Stomp'
+                ],
+            },
+            Guardian: {
+                speed: 11,
+                piloting: 4,
+                gunnery: 3,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : true,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'YF4DualLLW60BeamCannons', 'ValkyrieMiniMissiles', 'YF4LongRangeMissiles'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Punch'
+                ]
+            },
+            Fighter: {
+                speed: 14,
+                piloting: 3,
+                gunnery: 3,
+                defense: 6,
+                abilities: {
+                    'Afterburner'         : true,
+                    'Aircraft'            : true,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : true,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : false,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'YF4DualLLW60BeamCannons', 'ValkyrieMiniMissiles', 'YF4LongRangeMissiles'
+                ],
+                handtohand: [
+                'None'
+                ],
+            }
+        }
+    },
+    QF3000Ghost: {
+        name: 'QF-3000 Ghost',
+        speed: 10,
+        piloting: 1,
+        gunnery: 1,
+        defense: 6,
+        damage: 9,
+        extradamage: 0,
+        abilities: {
+            'Afterburner'         : true,
+            'Aircraft'            : true,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'ARLENMk730mmAutoCannons', 'MDRSRS5SRMLaunchers', 'MDRSRS5MRMLaunchers'
+        ],
+        handtohand: [
+        'None'
+        ],
+        extraabilities: {
+            'Dual MDRS-RF-5 Missile Launchers': 'Carry both short and medium range missiles and can fire either.  Only one kind may be fired each turn.',
+        }
+    },
+    SF3ALancerII: {
+        name: 'SF-3A Lancer II',
+        speed: 11,
+        piloting: 2,
+        gunnery: 2,
+        defense: 5,
+        damage: 11,
+        extradamage: 0,
+        abilities: {
+            'Afterburner'         : true,
+            'Aircraft'            : true,
+            'Battloid Restriction': false,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : false,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : false,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'DoubleBarreledPlasmaBeamCannon', 'MDSL12ShortRangeLauncher'
+        ],
+        handtohand: [
+        'None'
+        ],
+        extraabilities: {
+            'Dual MDRS-RF-5 Missile Launchers': 'Carry both short and medium range missiles and can fire either.  Only one kind may be fired each turn.',
+        }
     },
 }
 //
