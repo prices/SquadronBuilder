@@ -146,6 +146,85 @@ SquadronBuilder.force.support = {
             return true;
         },
     },
+    YF4VeritechSquad: {
+        name: "YF-4 Veritech Squad",
+        mecha: {
+            "YF4Veritech": 2,
+        },
+        points: 50,
+        upgrades: {
+            'YF4MLOPs': 3,
+            'YF4MRM': 5,
+            'YF4GravityBombs': 5
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    SuperVF1D: {
+        name: "Super VF-1D Valkyrie",
+        mecha: {
+            "SuperVF1DValkyrie": 1,
+        },
+        points: 40,
+        upgrades: {
+            'ValkyrieMLOPs': 1,
+            'ValkyrieLongRangeMissiles': 5,
+            'ValkyrieGravityBombs': 3,
+            'SDF1AirWingNoseLasers': 1
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    VF1D: {
+        name: "VF-1D Valkyrie",
+        mecha: {
+            "VF1DValkyrie": 1,
+        },
+        points: 30,
+        upgrades: {
+            'ValkyrieMLOPs': 1,
+            'ValkyrieLongRangeMissiles': 5,
+            'ValkyrieGravityBombs': 3,
+            'SDF1AirWingNoseLasers': 1
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    VEF1: {
+        name: "VEF-1 Valkyrie",
+        mecha: {
+            "VEF1Valkyrie": 1,
+        },
+        points: 30,
+        upgrades: {
+            'ValkyrieMLOPs': 1,
+            'ValkyrieLongRangeMissiles': 5,
+            'ValkyrieGravityBombs': 3,
+            'SDF1AirWingNoseLasers': 1
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
     TomahawkSquad: {
         name: "Tomahawk Squad",
         mecha: {
@@ -186,6 +265,106 @@ SquadronBuilder.force.support = {
         points: 20,
         upgrades: {
             'DefenderAirBurstMunitions': 5
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    ArmoredValkyrieSquad: {
+        name: "Armored Valkyrie Squad",
+        mecha: {
+            "ArmoredVF1AValkyrie": 2,
+        },
+        points: 45,
+        upgrades: {
+            'SDF1AirWingNoseLasers': 2
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    ArmoredVF1D: {
+        name: "Armored VF-1D",
+        mecha: {
+            "ArmoredVF1DValkyrie": 1,
+        },
+        points: 35,
+        upgrades: {
+            'SDF1AirWingNoseLasers': 1
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    JotunArmoredValkyrieSquad: {
+        name: "Jotun Armored Valkyrie Squad",
+        mecha: {
+            "JotunArmoredVF1AValkyrie": 2,
+        },
+        points: 45,
+        upgrades: {
+            'SDF1AirWingNoseLasers': 2
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    ArmoredVF1D: {
+        name: "Jotun Armored VF-1D",
+        mecha: {
+            "JotunArmoredVF1DValkyrie": 1,
+        },
+        points: 35,
+        upgrades: {
+            'SDF1AirWingNoseLasers': 1
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    QF3000GhostSquad: {
+        name: "QF-3000 Ghost Squad",
+        mecha: {
+            "QF3000Ghost": 2,
+        },
+        points: 35,
+        upgrades: {
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    SF3ALancerIISquad: {
+        name: "SF-3A Lancer II Squad",
+        mecha: {
+            "SF3ALancerII": 2,
+        },
+        points: 35,
+        upgrades: {
         },
         factions: ["UEDF"],
         check: function (core) {

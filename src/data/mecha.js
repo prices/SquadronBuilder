@@ -1488,6 +1488,125 @@ SquadronBuilder.data.mecha = {
             }
         }
     },
+    VEF1Valkyrie: {
+        name: 'VEF-1 Valkyrie',
+        damage: 14,
+        extradamage: 0,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': true,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : 1,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : true,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'ValkyrieWingHardPoints', 'ValkyrieDualHeadLasers'
+        ],
+        extraabilities: {
+            'Electroinc Attack Suite': 'When the VEF-1 activates, you may spend a Command Point to inflict a -1 penalty to strike in ranged combat on a single enemy mecha within 24".  Multiple enemy mecha may be affected at a cost of one Command Point per mecha.',
+            'Jamming and Sensor Spoofing Pod': 'When the VEF-1 is activated, you may pay 2 Command Points to enable the Jamming and Sensor Spoofing Pod.  While activated the VEF-1 can not be targeted with missiles and any friendly mecha within 12" receive a free Dodge against all incoming fire.  Even missile volleys of 4 or more missiles can be dodged.  This lasts until the VEF-1 activates again.'
+        },
+        modes: {
+            Battloid: {
+                speed: 5,
+                piloting: 3,
+                gunnery: 3,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'ValkyrieDualHeadLasers'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch',
+                'Power Punch', 'Stomp'
+                ]
+            },
+            Guardian: {
+                speed: 10,
+                piloting: 4,
+                gunnery: 2,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : true,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'ValkyrieWingHardPoints', 'ValkyrieDualHeadLasers'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Punch'
+                ]
+            },
+            Fighter: {
+                speed: 12,
+                piloting: 3,
+                gunnery: 2,
+                defense: 6,
+                abilities: {
+                    'Afterburner'         : true,
+                    'Aircraft'            : true,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : true,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : false,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'ValkyrieWingHardPoints', 'ValkyrieDualHeadLasers'
+                ],
+                handtohand: [
+                'None'
+                ]
+            }
+        },
+    },
     VF1RValkyrie: {
         name: 'VF-1R Valkyrie',
         damage: 17,

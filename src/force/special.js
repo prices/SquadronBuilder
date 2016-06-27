@@ -93,6 +93,56 @@ SquadronBuilder.force.special = {
         {
         }
     },
+    ArmoredVF1S: {
+        name: "Armored VF-1S",
+        mecha: {
+            "ArmoredVF1SValkyrie": 1,
+        },
+        points: 35,
+        upgrades: {
+            'SDF1AirWingNoseLasers': 1
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    JotunArmoredVF1S: {
+        name: "Jotun Armored VF-1S",
+        mecha: {
+            "JotunArmoredVF1SValkyrie": 1,
+        },
+        points: 35,
+        upgrades: {
+            'SDF1AirWingNoseLasers': 1
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    Monster: {
+        name: "Monster",
+        mecha: {
+            "Monster": 1,
+        },
+        points: 40,
+        upgrades: {
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
     CommandDestroidDefender: {
         name: 'Command Defender Upgrade',
         mecha: {

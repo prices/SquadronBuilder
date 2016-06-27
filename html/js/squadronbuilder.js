@@ -3361,6 +3361,69 @@ SquadronBuilder.data.weapons = {
             'Volley X'     : true,
         }
     },
+    YF4MLOPs: {
+        name: 'YF-4 MLOPs',
+        range: 12,
+        damage: '2/missile',
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 4,
+            'Anti-Missile' : true,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : 4,
+            'Volley X'     : false,
+        }
+    },
+    YF4MRM: {
+        name: 'YF-4 Medium Range Missiles',
+        range: 24,
+        damage: '9/missile',
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 3,
+            'Anti-Missile' : false,
+            'Blast'        : false,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : 2,
+            'Volley X'     : false,
+        }
+    },
+    YF4GravityBombs: {
+        name: 'YF-4 Gravity Bombs',
+        range: '-',
+        damage: 12,
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 2,
+            'Anti-Missile' : false,
+            'Blast'        : true,
+            'Fly Over'     : true,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : true,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : false,
+            'Volley X'     : false,
+        }
+    },
     MDRSRS5SRMLaunchers: {
         name: 'MDS-RF-5 Missile Launchers, Short Range',
         range: 18,
@@ -4978,6 +5041,125 @@ SquadronBuilder.data.mecha = {
             }
         }
     },
+    VEF1Valkyrie: {
+        name: 'VEF-1 Valkyrie',
+        damage: 14,
+        extradamage: 0,
+        abilities: {
+            'Afterburner'         : false,
+            'Aircraft'            : false,
+            'Battloid Restriction': true,
+            'Cumbersome'          : false,
+            'Fast Mover'          : false,
+            'Flight'              : true,
+            'Focus Fire'          : false,
+            'Hands'               : false,
+            'Hover'               : false,
+            'Jettison'            : false,
+            'Leadership'          : 1,
+            'Leap'                : false,
+            'Life is Cheap'       : false,
+            'Variable Modes'      : true,
+            'Zentraidi Infantry'  : false,
+        },
+        ranged: [
+        'ValkyrieWingHardPoints', 'ValkyrieDualHeadLasers'
+        ],
+        extraabilities: {
+            'Electroinc Attack Suite': 'When the VEF-1 activates, you may spend a Command Point to inflict a -1 penalty to strike in ranged combat on a single enemy mecha within 24".  Multiple enemy mecha may be affected at a cost of one Command Point per mecha.',
+            'Jamming and Sensor Spoofing Pod': 'When the VEF-1 is activated, you may pay 2 Command Points to enable the Jamming and Sensor Spoofing Pod.  While activated the VEF-1 can not be targeted with missiles and any friendly mecha within 12" receive a free Dodge against all incoming fire.  Even missile volleys of 4 or more missiles can be dodged.  This lasts until the VEF-1 activates again.'
+        },
+        modes: {
+            Battloid: {
+                speed: 5,
+                piloting: 3,
+                gunnery: 3,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'ValkyrieDualHeadLasers'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Jump Kick', 'Punch',
+                'Power Punch', 'Stomp'
+                ]
+            },
+            Guardian: {
+                speed: 10,
+                piloting: 4,
+                gunnery: 2,
+                defense: 5,
+                abilities: {
+                    'Afterburner'         : false,
+                    'Aircraft'            : false,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : false,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : true,
+                    'Hover'               : true,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'ValkyrieWingHardPoints', 'ValkyrieDualHeadLasers'
+                ],
+                handtohand: [
+                'Body Block', 'Club', 'Grab', 'Kick', 'Punch'
+                ]
+            },
+            Fighter: {
+                speed: 12,
+                piloting: 3,
+                gunnery: 2,
+                defense: 6,
+                abilities: {
+                    'Afterburner'         : true,
+                    'Aircraft'            : true,
+                    'Battloid Restriction': false,
+                    'Cumbersome'          : false,
+                    'Fast Mover'          : true,
+                    'Flight'              : false,
+                    'Focus Fire'          : false,
+                    'Hands'               : false,
+                    'Hover'               : false,
+                    'Jettison'            : false,
+                    'Leadership'          : false,
+                    'Leap'                : false,
+                    'Life is Cheap'       : false,
+                    'Variable Modes'      : false,
+                    'Zentraidi Infantry'  : false,
+                },
+                ranged: [
+                'ValkyrieWingHardPoints', 'ValkyrieDualHeadLasers'
+                ],
+                handtohand: [
+                'None'
+                ]
+            }
+        },
+    },
     VF1RValkyrie: {
         name: 'VF-1R Valkyrie',
         damage: 17,
@@ -6588,6 +6770,56 @@ SquadronBuilder.force.special = {
         {
         }
     },
+    ArmoredVF1S: {
+        name: "Armored VF-1S",
+        mecha: {
+            "ArmoredVF1SValkyrie": 1,
+        },
+        points: 35,
+        upgrades: {
+            'SDF1AirWingNoseLasers': 1
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    JotunArmoredVF1S: {
+        name: "Jotun Armored VF-1S",
+        mecha: {
+            "JotunArmoredVF1SValkyrie": 1,
+        },
+        points: 35,
+        upgrades: {
+            'SDF1AirWingNoseLasers': 1
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    Monster: {
+        name: "Monster",
+        mecha: {
+            "Monster": 1,
+        },
+        points: 40,
+        upgrades: {
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
     CommandDestroidDefender: {
         name: 'Command Defender Upgrade',
         mecha: {
@@ -6842,6 +7074,85 @@ SquadronBuilder.force.support = {
             return true;
         },
     },
+    YF4VeritechSquad: {
+        name: "YF-4 Veritech Squad",
+        mecha: {
+            "YF4Veritech": 2,
+        },
+        points: 50,
+        upgrades: {
+            'YF4MLOPs': 3,
+            'YF4MRM': 5,
+            'YF4GravityBombs': 5
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    SuperVF1D: {
+        name: "Super VF-1D Valkyrie",
+        mecha: {
+            "SuperVF1DValkyrie": 1,
+        },
+        points: 40,
+        upgrades: {
+            'ValkyrieMLOPs': 1,
+            'ValkyrieLongRangeMissiles': 5,
+            'ValkyrieGravityBombs': 3,
+            'SDF1AirWingNoseLasers': 1
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    VF1D: {
+        name: "VF-1D Valkyrie",
+        mecha: {
+            "VF1DValkyrie": 1,
+        },
+        points: 30,
+        upgrades: {
+            'ValkyrieMLOPs': 1,
+            'ValkyrieLongRangeMissiles': 5,
+            'ValkyrieGravityBombs': 3,
+            'SDF1AirWingNoseLasers': 1
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    VEF1: {
+        name: "VEF-1 Valkyrie",
+        mecha: {
+            "VEF1Valkyrie": 1,
+        },
+        points: 30,
+        upgrades: {
+            'ValkyrieMLOPs': 1,
+            'ValkyrieLongRangeMissiles': 5,
+            'ValkyrieGravityBombs': 3,
+            'SDF1AirWingNoseLasers': 1
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
     TomahawkSquad: {
         name: "Tomahawk Squad",
         mecha: {
@@ -6882,6 +7193,106 @@ SquadronBuilder.force.support = {
         points: 20,
         upgrades: {
             'DefenderAirBurstMunitions': 5
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    ArmoredValkyrieSquad: {
+        name: "Armored Valkyrie Squad",
+        mecha: {
+            "ArmoredVF1AValkyrie": 2,
+        },
+        points: 45,
+        upgrades: {
+            'SDF1AirWingNoseLasers': 2
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    ArmoredVF1D: {
+        name: "Armored VF-1D",
+        mecha: {
+            "ArmoredVF1DValkyrie": 1,
+        },
+        points: 35,
+        upgrades: {
+            'SDF1AirWingNoseLasers': 1
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    JotunArmoredValkyrieSquad: {
+        name: "Jotun Armored Valkyrie Squad",
+        mecha: {
+            "JotunArmoredVF1AValkyrie": 2,
+        },
+        points: 45,
+        upgrades: {
+            'SDF1AirWingNoseLasers': 2
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    ArmoredVF1D: {
+        name: "Jotun Armored VF-1D",
+        mecha: {
+            "JotunArmoredVF1DValkyrie": 1,
+        },
+        points: 35,
+        upgrades: {
+            'SDF1AirWingNoseLasers': 1
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    QF3000GhostSquad: {
+        name: "QF-3000 Ghost Squad",
+        mecha: {
+            "QF3000Ghost": 2,
+        },
+        points: 35,
+        upgrades: {
+        },
+        factions: ["UEDF"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    SF3ALancerIISquad: {
+        name: "SF-3A Lancer II Squad",
+        mecha: {
+            "SF3ALancerII": 2,
+        },
+        points: 35,
+        upgrades: {
         },
         factions: ["UEDF"],
         check: function (core) {
@@ -7125,6 +7536,39 @@ SquadronBuilder.force.upgrades = {
             }, ["VF1AValkyrie", "VF1JValkyrie", "VF1SValkyrie"]);
         },
         blocks: []
+    },
+    YF4MLOPs: {
+        name: 'YF-4 MLOPs',
+        desc: 'Adds a Wing Mounted Articulated Hardpoints weapon system to the YF-4 with the following profile: RG: 12, MD: 2 per missile, Ammo 4, Anti-Missile, Missile, Volley 4. This system cannot be fired while the YF-4 is in Battloid mode.',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.addWeapon('YF4MLOPS');
+            }, ["YF4Veritech", "FlightLeadYF4Veritech"]);
+        },
+        blocks: ['YF4MRM', 'YF4GravityBombs']
+    },
+    YF4MRM: {
+        name: 'YF-4 Medium-Range Missiles',
+        desc: 'Adds a Wing Mounted Articulated Missile Hardpoints weapon system to the YF-4 with the following profile: RG: 24, MD: 9 per missile, Ammo 3, Missile, Volley 2. This system cannot be fired while the YF-4 is in Battloid mode.',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.addWeapon('YF4MRM');
+            }, ["YF4Veritech", "FlightLeadYF4Veritech"]);
+        },
+        blocks: ['YF4MLOPs', 'YF4GravityBombs']
+    },
+    YF4GravityBombs: {
+        name: 'YF-4 Gravity Bombs',
+        desc: 'Adds a Wing Mounted Articulated Missile Hardpoints weapon system to the YF-4 with the following profile: RG: -, MD: 12, Ammo 2, Blast, Fly Over, Missile, Overwhelming. This system cannot be fired while the YF-4 is in Battloid mode.',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.addWeapon('YF4GravityBombs');
+            }, ["YF4Veritech", "FlightLeadYF4Veritech"]);
+        },
+        blocks: ['YF4MRM', 'YF4MLOPs']
     },
 
 }})();

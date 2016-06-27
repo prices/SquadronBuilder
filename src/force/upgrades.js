@@ -170,5 +170,38 @@ SquadronBuilder.force.upgrades = {
         },
         blocks: []
     },
+    YF4MLOPs: {
+        name: 'YF-4 MLOPs',
+        desc: 'Adds a Wing Mounted Articulated Hardpoints weapon system to the YF-4 with the following profile: RG: 12, MD: 2 per missile, Ammo 4, Anti-Missile, Missile, Volley 4. This system cannot be fired while the YF-4 is in Battloid mode.',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.addWeapon('YF4MLOPS');
+            }, ["YF4Veritech", "FlightLeadYF4Veritech"]);
+        },
+        blocks: ['YF4MRM', 'YF4GravityBombs']
+    },
+    YF4MRM: {
+        name: 'YF-4 Medium-Range Missiles',
+        desc: 'Adds a Wing Mounted Articulated Missile Hardpoints weapon system to the YF-4 with the following profile: RG: 24, MD: 9 per missile, Ammo 3, Missile, Volley 2. This system cannot be fired while the YF-4 is in Battloid mode.',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.addWeapon('YF4MRM');
+            }, ["YF4Veritech", "FlightLeadYF4Veritech"]);
+        },
+        blocks: ['YF4MLOPs', 'YF4GravityBombs']
+    },
+    YF4GravityBombs: {
+        name: 'YF-4 Gravity Bombs',
+        desc: 'Adds a Wing Mounted Articulated Missile Hardpoints weapon system to the YF-4 with the following profile: RG: -, MD: 12, Ammo 2, Blast, Fly Over, Missile, Overwhelming. This system cannot be fired while the YF-4 is in Battloid mode.',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.addWeapon('YF4GravityBombs');
+            }, ["YF4Veritech", "FlightLeadYF4Veritech"]);
+        },
+        blocks: ['YF4MRM', 'YF4MLOPs']
+    },
 
 }
