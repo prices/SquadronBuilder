@@ -47,6 +47,28 @@ SquadronBuilder.force.upgrades = {
         },
         blocks: ['NousjadeulGer32mmPlasmaMachinePistol']
     },
+    GnerlUnderSlungMissiles: {
+        name: 'Under-Slung Missiles',
+        desc: 'The Gnerl has long-range missiles mounted on its undercarriage with the following profile: RG: 48, MD: 9 per missile, Ammo 3, Blast, Missile, Volley X',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.addWeapon('GnerlUnderSlungMissiles');
+            }, ["Gnerl"]);
+        },
+        blocks: ['GnerlPlasmaBombs']
+    },
+    GnerlPlasmaBombs: {
+        name: 'Plasma Bombs',
+        desc: 'The Gnerl has plasma bombs mounted on its undercarriage with the following profile: RG: -, MD: 16, Ammo 2, Blast, Fly Over, Missile, Overwhelming.',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.addWeapon('GnerlPlasmaBombs');
+            }, ["Gnerl"]);
+        },
+        blocks: ['GnerlUnderSlungMissiles']
+    },
     ZPRMkVIIIParticleAssaultRifle: {
         name: 'Z-PR Mk. VIII Particle Assault Rifle',
         desc: 'RG:12, MD: 5, Accurate',
@@ -155,7 +177,7 @@ SquadronBuilder.force.upgrades = {
         {
             core.upgradeMecha(function(mecha) {
                 mecha.addWeapon('ValkyrieImprovisedBombs', ["Guardian", "Fighter"]);
-            }, ["VF1AValkyrie", "VF1JValkyrie", "VF1SValkyrie"]);
+            }, ["VF1AValkyrie", "VF1JValkyrie", "VF1SValkyrie", "Gnerl", "SuperVF1AValkyrie", "SuperVF1JValkyrie", "SuperVF1SValkyrie"]);
         },
         blocks: []
     },
@@ -203,4 +225,27 @@ SquadronBuilder.force.upgrades = {
         },
         blocks: ['YF4MRM', 'YF4MLOPs']
     },
+    PhalanxArtilleryRockets: {
+        name: 'Phalanx Artillery Rockets',
+        desc: 'Changes the attributes of the Dual MDS-H-22 Derringer Missile Launchers to RG: 36, MD: 9 per missile, Ammo 11, Blast, Indirect Fire, Missile, Overwhelming, Rear Fire, Volley 4.',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.replaceWeapon('MDSH22DerringerMissileLaunchers', 'MDSH22DerringerMissileLaunchersPhalanx');
+            }, ["Phalanx"]);
+        },
+        blocks: []
+    },
+    PhalanxScorpioAdvancedArtillery: {
+        name: 'Phalanx Scorpio Advanced Artillery',
+        desc: 'Replaces the Phalanx’s Dual MDS-H-22 Derringer Missile Launchers with the Scorpio Advanced Dual Artillery Launchers RG: 48, MD: 10 per missile. Ammo 4, Blast, Indirect Fire, Inescapable, Missile, Rear Fire. Missiles fired by the Scorpio cannot be shot down.',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.replaceWeapon('MDSH22DerringerMissileLaunchers', 'ScorpioAdvancedArtillery');
+            }, ["Phalanx"]);
+        },
+        blocks: []
+    },
+
 }

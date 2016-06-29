@@ -15,12 +15,37 @@ SquadronBuilder.force.core = {
         },
         factions: ['Zentraedi'],
     },
+    NousgarmaGerSquadron: {
+        name: 'Nousgarma-Ger Squadron',
+        mecha: {
+            'NousgarmaGer': 3,
+        },
+        points: 70,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 8,
+            'ZTFGMkVTacticalFlechetteCannon': 20,
+            'ZMLMkIIShoulderFiredMissileLauncher': 15
+        },
+        factions: ['Zentraedi'],
+    },
     QueadluunRauSquadron: {
         name: 'Queadluun-Rau Squadron',
         mecha: {
             'QueadluunRau': 3,
         },
         points: 100,
+        upgrades: {
+            'NousjadeulGer32mmPlasmaMachinePistol': 30,
+            'QueadluunRauZCRMK2ConvergingBeamRifle': 30
+        },
+        factions: ['Zentraedi'],
+    },
+    QueadluunGultSquadron: {
+        name: 'Queadluun-Gult Squadron',
+        mecha: {
+            'QueadluunGult': 3,
+        },
+        points: 110,
         upgrades: {
             'NousjadeulGer32mmPlasmaMachinePistol': 30,
             'QueadluunRauZCRMK2ConvergingBeamRifle': 30
@@ -50,6 +75,28 @@ SquadronBuilder.force.core = {
         },
         factions: ['Zentraedi'],
     },
+    GlaugEldareAttackSquadron: {
+        name: 'Glaug-Eldare Attack Squadron',
+        mecha: {
+            'GlaugEldare': 3,
+        },
+        points: 150,
+        upgrades: {
+        },
+        factions: ['Zentraedi'],
+    },
+    GnerlAttackSquadron: {
+        name: 'Gnerl Attack Squadron',
+        mecha: {
+            'Gnerl': 6,
+        },
+        points: 150,
+        upgrades: {
+            'GnerlUnderSlungMissiles': 30,
+            'GnerlPlasmaBombs': 20
+        },
+        factions: ['Zentraedi'],
+    },
     RegultAttritionSquadron: {
         name: 'Regult Attrition Squadron',
         mecha: {
@@ -58,6 +105,34 @@ SquadronBuilder.force.core = {
         points: 70,
         upgrades: {
             'VeteranWarriors': 25,
+        },
+        factions: ['Zentraedi'],
+    },
+    SerauGerSquadron: {
+        name: 'Zentraedi Heavy Infantry Squadron',
+        mecha: {
+            'SerauGer': 12,
+        },
+        points: 35,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 0,
+            'ZTFGMkVTacticalFlechetteCannon': 0,
+            'ZMLMkIIShoulderFiredMissileLauncher': 0,
+            'VeteranWarriors': 10,
+        },
+        factions: ['Zentraedi'],
+    },
+    GluuGerSquadron: {
+        name: 'Zentraedi Light Infantry Squadron',
+        mecha: {
+            'GluuGer': 12,
+        },
+        points: 25,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 0,
+            'ZTFGMkVTacticalFlechetteCannon': 0,
+            'ZMLMkIIShoulderFiredMissileLauncher': 0,
+            'VeteranWarriors': 10,
         },
         factions: ['Zentraedi'],
     },
@@ -163,6 +238,108 @@ SquadronBuilder.force.core = {
         },
         factions: ['UEDF'],
     },
+    AreaDenialDestroidSquadron: {
+        name: 'Area Denial Destroid Squadron',
+        mecha: {
+            'Tomahawk': 2,
+            'Defender': 2,
+        },
+        points: 60,
+        upgrades: {
+            'DefenderAirBurstMunitions': 5,
+        },
+        factions: ['UEDF'],
+    },
+    ArmoredDestroidSquadron: {
+        name: 'Armored Destroid Squadron',
+        mecha: {
+            'Tomahawk': 4,
+        },
+        points: 80,
+        upgrades: {
+        },
+        factions: ['UEDF'],
+    },
+    CloseQuartersDestroidSquadron: {
+        name: 'Close Quarters Destroid Squadron',
+        mecha: {
+            'Spartan': 4,
+        },
+        points: 60,
+        upgrades: {
+            'GU11GunPod': 20,
+            'SpartanShockBaton': 10,
+        },
+        factions: ['UEDF'],
+    },
+    BrawlerDestroidSquadron: {
+        name: 'Brawler Destroid Squadron',
+        mecha: {
+            'Tomahawk': 2,
+            'Spartan': 2,
+        },
+        points: 70,
+        upgrades: {
+            'GU11GunPod': 10,
+            'SpartanShockBaton': 5
+        },
+        factions: ['UEDF'],
+    },
+    ArtilleryDestriodSquadron: {
+        name: 'Artillery Destriod Squadron',
+        mecha: {
+            'Phalanx': 4,
+        },
+        points: 80,
+        upgrades: {
+            'PhalanxArtilleryRockets': 20,
+            'PhalanxScorpioAdvancedArtillery': 30,
+        },
+        factions: ['UEDF'],
+    },
+    FireSupportDestroidSquadron: {
+        name: 'Fire Support Destroid Squadron',
+        mecha: {
+            'Phalanx': 2,
+            'Defender': 2,
+        },
+        points: 60,
+        upgrades: {
+            'DefenderAirBurstMunitions': 5,
+            'PhalanxArtilleryRockets': 10,
+            'PhalanxScorpioAdvancedArtillery': 15,
+        },
+        factions: ['UEDF'],
+    },
+    // Malcontents
+    HeavyDestroidSquadron: {
+        name: 'Heavy Destroid Squadron',
+        mecha: {
+            'Tomahawk': 2,
+            'Spartan': 2,
+            'Glaug': 1
+        },
+        points: 90,
+        upgrades: {
+            GU11GunPod: 10,
+            ZPRMkVIIIParticleAssaultRifle: 5,
+            ZTFGMkVTacticalFlechetteCannon: 15,
+            ZMLMkIIShoulderFiredMissileLauncher: 10
+        },
+        factions: ['Malcontents'],
+    },
+    AirDefenseSquadron: {
+        name: 'Air Defense Squadron',
+        mecha: {
+            'GluuhaugRegult': 4,
+            'Defender': 2,
+        },
+        points: 70,
+        upgrades: {
+            'DefenderAirBurstMunitions': 5,
+        },
+        factions: ['Malcontents'],
+    },
     AirDefenseSquadron: {
         name: 'Air Defense Squadron',
         mecha: {
@@ -218,79 +395,111 @@ SquadronBuilder.force.core = {
         },
         factions: ['Malcontents'],
     },
-    AreaDenialDestroidSquadron: {
-        name: 'Area Denial Destroid Squadron',
+    AirSuperioritySquadron: {
+        name: 'Armored Assault Squadron',
         mecha: {
-            'Tomahawk': 2,
-            'Defender': 2,
+            'ArmoredVF1AValkyrie': 3,
+            'QueadluunRau': 1,
         },
-        points: 60,
+        points: 100,
         upgrades: {
-            'DefenderAirBurstMunitions': 5,
-        },
-        factions: ['UEDF'],
-    },
-    ArmoredDestroidSquadron: {
-        name: 'Armored Destroid Squadron',
-        mecha: {
-            'Tomahawk': 4,
-        },
-        points: 80,
-        upgrades: {
-        },
-        factions: ['UEDF'],
-    },
-    CloseQuartersDestroidSquadron: {
-        name: 'Close Quarters Destroid Squadron',
-        mecha: {
-            'Spartan': 4,
-        },
-        points: 60,
-        upgrades: {
-            'GU11GunPod': 20,
-            'SpartanShockBaton': 10,
-        },
-        factions: ['UEDF'],
-    },
-    BrawlerDestroidSquadron: {
-        name: 'Brawler Destroid Squadron',
-        mecha: {
-            'Tomahawk': 2,
-            'Spartan': 2,
-        },
-        points: 70,
-        upgrades: {
-            'GU11GunPod': 10,
-            'SpartanShockBaton': 5
-        },
-        factions: ['UEDF'],
-    },
-    // Malcontents
-    HeavyDestroidSquadron: {
-        name: 'Heavy Destroid Squadron',
-        mecha: {
-            'Tomahawk': 2,
-            'Spartan': 2,
-            'Glaug': 1
-        },
-        points: 90,
-        upgrades: {
-            GU11GunPod: 10,
-            ZPRMkVIIIParticleAssaultRifle: 5,
-            ZTFGMkVTacticalFlechetteCannon: 15,
-            ZMLMkIIShoulderFiredMissileLauncher: 10
         },
         factions: ['Malcontents'],
     },
-    AirDefenseSquadron: {
-        name: 'Air Defense Squadron',
+    ArtillerySupportSquadron: {
+        name: 'Artillery Support Squadron',
         mecha: {
-            'GluuhaugRegult': 4,
-            'Defender': 2,
+            'SerauhaugRegult': 2,
+            'Phalanx': 2,
         },
-        points: 70,
+        points: 80,
         upgrades: {
-            'DefenderAirBurstMunitions': 5,
+            'PhalanxArtilleryRockets': 10,
+        },
+        factions: ['Malcontents'],
+    },
+    AssaultReconSquadron: {
+        name: 'Assault Recon Squadron',
+        mecha: {
+            'VEF1Valkyrie': 1,
+            'Gnerl': 3,
+        },
+        points: 65,
+        upgrades: {
+            'ValkyrieImprovisedBombs': 10,
+        },
+        factions: ['Malcontents'],
+    },
+    GroundAttackSquadron: {
+        name: 'Ground Attack Squadron',
+        mecha: {
+            'VF1JValkyrie': 1,
+            'VF1AValkyrie': 1,
+            'Gnerl': 3,
+        },
+        points: 75,
+        upgrades: {
+            'ValkyrieImprovisedBombs': 12,
+        },
+        factions: ['Malcontents'],
+    },
+    LightRaiderSquadron: {
+        name: 'Light Raider Squadron',
+        mecha: {
+            'Spartan': 2,
+            'Regult': 6,
+        },
+        points: 65,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 5,
+            'ZTFGMkVTacticalFlechetteCannon': 15,
+            'ZMLMkIIShoulderFiredMissileLauncher': 10,
+            'GU11GunPod': 10,
+            'VeteranWarriors': 10
+        },
+        factions: ['Malcontents'],
+    },
+    MixedInfantrySquadron: {
+        name: 'Mixed Infantry Squadron',
+        mecha: {
+            'Spartan': 2,
+            'SerauGer': 3,
+            'GluuGer': 6
+        },
+        points: 65,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 5,
+            'ZTFGMkVTacticalFlechetteCannon': 15,
+            'ZMLMkIIShoulderFiredMissileLauncher': 10,
+            'GU11GunPod': 10,
+            'VeteranWarriors': 10
+        },
+        factions: ['Malcontents'],
+    },
+    SuperValkyrieSquadron: {
+        name: 'Super Valkyrie Squadron',
+        mecha: {
+            'SuperVF1AValkyrie': 4,
+        },
+        points: 110,
+        upgrades: {
+            'ValkyrieImprovisedBombs': 10
+        },
+        factions: ['Malcontents'],
+    },
+    ZentraediAssaultSquadron: {
+        name: 'Zentraedi Assault Squadron',
+        mecha: {
+            'NousjadeulGer': 3,
+            'Regult': 6
+        },
+        points: 60,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 7,
+            'ZTFGMkVTacticalFlechetteCannon': 15,
+            'ZMLMkIIShoulderFiredMissileLauncher': 13,
+            'GU11GunPod': 13,
+            'VeteranWarriors': 10
         },
         factions: ['Malcontents'],
     },

@@ -2604,6 +2604,48 @@ SquadronBuilder.data.weapons = {
             'Volley X'     : false,
         }
     },
+    GnerlUnderSlungMissiles: {
+        name: 'Under-Slung Missiles',
+        range: 48,
+        damage: "9/missile",
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 3,
+            'Anti-Missile' : false,
+            'Blast'        : true,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : false,
+            'Volley X'     : true,
+        }
+    },
+    GnerlPlasmaBombs: {
+        name: 'Plasma Bombs',
+        range: '-',
+        damage: 16,
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 2,
+            'Anti-Missile' : false,
+            'Blast'        : true,
+            'Fly Over'     : true,
+            'Inescapable'  : false,
+            'Indirect Fire': false,
+            'Missile'      : true,
+            'Overwhelming' : true,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : false,
+            'Split Fire'   : false,
+            'Volley'       : false,
+            'Volley X'     : false,
+        }
+    },
     ZPRMkVIIIParticleAssaultRifle: {
         name: 'Z-PR Mk. VIII Particle Assault Rifle',
         range: 12,
@@ -3547,6 +3589,48 @@ SquadronBuilder.data.weapons = {
             'Rear Fire'    : false,
             'Split Fire'   : false,
             'Volley'       : 6,
+            'Volley X'     : false,
+        }
+    },
+    MDSH22DerringerMissileLaunchersPhalanx: {
+        name: 'Dual MDS-H-22 Derringer Missile Launchers',
+        range: 36,
+        damage: '9/missile',
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 11,
+            'Anti-Missile' : false,
+            'Blast'        : true,
+            'Fly Over'     : false,
+            'Inescapable'  : false,
+            'Indirect Fire': true,
+            'Missile'      : true,
+            'Overwhelming' : true,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : true,
+            'Split Fire'   : false,
+            'Volley'       : 4,
+            'Volley X'     : false,
+        }
+    },
+    ScorpioAdvancedArtillery: {
+        name: 'Scorpio Advanced Dual Artillery Launchers',
+        range: 48,
+        damage: '10/missile',
+        abilities: {
+            'Accurate'     : false,
+            'Ammo'         : 4,
+            'Anti-Missile' : false,
+            'Blast'        : true,
+            'Fly Over'     : false,
+            'Inescapable'  : true,
+            'Indirect Fire': true,
+            'Missile'      : true,
+            'Overwhelming' : false,
+            'Rapid Fire'   : false,
+            'Rear Fire'    : true,
+            'Split Fire'   : false,
+            'Volley'       : 4,
             'Volley X'     : false,
         }
     },
@@ -6075,12 +6159,37 @@ SquadronBuilder.force.core = {
         },
         factions: ['Zentraedi'],
     },
+    NousgarmaGerSquadron: {
+        name: 'Nousgarma-Ger Squadron',
+        mecha: {
+            'NousgarmaGer': 3,
+        },
+        points: 70,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 8,
+            'ZTFGMkVTacticalFlechetteCannon': 20,
+            'ZMLMkIIShoulderFiredMissileLauncher': 15
+        },
+        factions: ['Zentraedi'],
+    },
     QueadluunRauSquadron: {
         name: 'Queadluun-Rau Squadron',
         mecha: {
             'QueadluunRau': 3,
         },
         points: 100,
+        upgrades: {
+            'NousjadeulGer32mmPlasmaMachinePistol': 30,
+            'QueadluunRauZCRMK2ConvergingBeamRifle': 30
+        },
+        factions: ['Zentraedi'],
+    },
+    QueadluunGultSquadron: {
+        name: 'Queadluun-Gult Squadron',
+        mecha: {
+            'QueadluunGult': 3,
+        },
+        points: 110,
         upgrades: {
             'NousjadeulGer32mmPlasmaMachinePistol': 30,
             'QueadluunRauZCRMK2ConvergingBeamRifle': 30
@@ -6110,6 +6219,28 @@ SquadronBuilder.force.core = {
         },
         factions: ['Zentraedi'],
     },
+    GlaugEldareAttackSquadron: {
+        name: 'Glaug-Eldare Attack Squadron',
+        mecha: {
+            'GlaugEldare': 3,
+        },
+        points: 150,
+        upgrades: {
+        },
+        factions: ['Zentraedi'],
+    },
+    GnerlAttackSquadron: {
+        name: 'Gnerl Attack Squadron',
+        mecha: {
+            'Gnerl': 6,
+        },
+        points: 150,
+        upgrades: {
+            'GnerlUnderSlungMissiles': 30,
+            'GnerlPlasmaBombs': 20
+        },
+        factions: ['Zentraedi'],
+    },
     RegultAttritionSquadron: {
         name: 'Regult Attrition Squadron',
         mecha: {
@@ -6118,6 +6249,34 @@ SquadronBuilder.force.core = {
         points: 70,
         upgrades: {
             'VeteranWarriors': 25,
+        },
+        factions: ['Zentraedi'],
+    },
+    SerauGerSquadron: {
+        name: 'Zentraedi Heavy Infantry Squadron',
+        mecha: {
+            'SerauGer': 12,
+        },
+        points: 35,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 0,
+            'ZTFGMkVTacticalFlechetteCannon': 0,
+            'ZMLMkIIShoulderFiredMissileLauncher': 0,
+            'VeteranWarriors': 10,
+        },
+        factions: ['Zentraedi'],
+    },
+    GluuGerSquadron: {
+        name: 'Zentraedi Light Infantry Squadron',
+        mecha: {
+            'GluuGer': 12,
+        },
+        points: 25,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 0,
+            'ZTFGMkVTacticalFlechetteCannon': 0,
+            'ZMLMkIIShoulderFiredMissileLauncher': 0,
+            'VeteranWarriors': 10,
         },
         factions: ['Zentraedi'],
     },
@@ -6223,6 +6382,108 @@ SquadronBuilder.force.core = {
         },
         factions: ['UEDF'],
     },
+    AreaDenialDestroidSquadron: {
+        name: 'Area Denial Destroid Squadron',
+        mecha: {
+            'Tomahawk': 2,
+            'Defender': 2,
+        },
+        points: 60,
+        upgrades: {
+            'DefenderAirBurstMunitions': 5,
+        },
+        factions: ['UEDF'],
+    },
+    ArmoredDestroidSquadron: {
+        name: 'Armored Destroid Squadron',
+        mecha: {
+            'Tomahawk': 4,
+        },
+        points: 80,
+        upgrades: {
+        },
+        factions: ['UEDF'],
+    },
+    CloseQuartersDestroidSquadron: {
+        name: 'Close Quarters Destroid Squadron',
+        mecha: {
+            'Spartan': 4,
+        },
+        points: 60,
+        upgrades: {
+            'GU11GunPod': 20,
+            'SpartanShockBaton': 10,
+        },
+        factions: ['UEDF'],
+    },
+    BrawlerDestroidSquadron: {
+        name: 'Brawler Destroid Squadron',
+        mecha: {
+            'Tomahawk': 2,
+            'Spartan': 2,
+        },
+        points: 70,
+        upgrades: {
+            'GU11GunPod': 10,
+            'SpartanShockBaton': 5
+        },
+        factions: ['UEDF'],
+    },
+    ArtilleryDestriodSquadron: {
+        name: 'Artillery Destriod Squadron',
+        mecha: {
+            'Phalanx': 4,
+        },
+        points: 80,
+        upgrades: {
+            'PhalanxArtilleryRockets': 20,
+            'PhalanxScorpioAdvancedArtillery': 30,
+        },
+        factions: ['UEDF'],
+    },
+    FireSupportDestroidSquadron: {
+        name: 'Fire Support Destroid Squadron',
+        mecha: {
+            'Phalanx': 2,
+            'Defender': 2,
+        },
+        points: 60,
+        upgrades: {
+            'DefenderAirBurstMunitions': 5,
+            'PhalanxArtilleryRockets': 10,
+            'PhalanxScorpioAdvancedArtillery': 15,
+        },
+        factions: ['UEDF'],
+    },
+    // Malcontents
+    HeavyDestroidSquadron: {
+        name: 'Heavy Destroid Squadron',
+        mecha: {
+            'Tomahawk': 2,
+            'Spartan': 2,
+            'Glaug': 1
+        },
+        points: 90,
+        upgrades: {
+            GU11GunPod: 10,
+            ZPRMkVIIIParticleAssaultRifle: 5,
+            ZTFGMkVTacticalFlechetteCannon: 15,
+            ZMLMkIIShoulderFiredMissileLauncher: 10
+        },
+        factions: ['Malcontents'],
+    },
+    AirDefenseSquadron: {
+        name: 'Air Defense Squadron',
+        mecha: {
+            'GluuhaugRegult': 4,
+            'Defender': 2,
+        },
+        points: 70,
+        upgrades: {
+            'DefenderAirBurstMunitions': 5,
+        },
+        factions: ['Malcontents'],
+    },
     AirDefenseSquadron: {
         name: 'Air Defense Squadron',
         mecha: {
@@ -6278,79 +6539,111 @@ SquadronBuilder.force.core = {
         },
         factions: ['Malcontents'],
     },
-    AreaDenialDestroidSquadron: {
-        name: 'Area Denial Destroid Squadron',
+    AirSuperioritySquadron: {
+        name: 'Armored Assault Squadron',
         mecha: {
-            'Tomahawk': 2,
-            'Defender': 2,
+            'ArmoredVF1AValkyrie': 3,
+            'QueadluunRau': 1,
         },
-        points: 60,
+        points: 100,
         upgrades: {
-            'DefenderAirBurstMunitions': 5,
-        },
-        factions: ['UEDF'],
-    },
-    ArmoredDestroidSquadron: {
-        name: 'Armored Destroid Squadron',
-        mecha: {
-            'Tomahawk': 4,
-        },
-        points: 80,
-        upgrades: {
-        },
-        factions: ['UEDF'],
-    },
-    CloseQuartersDestroidSquadron: {
-        name: 'Close Quarters Destroid Squadron',
-        mecha: {
-            'Spartan': 4,
-        },
-        points: 60,
-        upgrades: {
-            'GU11GunPod': 20,
-            'SpartanShockBaton': 10,
-        },
-        factions: ['UEDF'],
-    },
-    BrawlerDestroidSquadron: {
-        name: 'Brawler Destroid Squadron',
-        mecha: {
-            'Tomahawk': 2,
-            'Spartan': 2,
-        },
-        points: 70,
-        upgrades: {
-            'GU11GunPod': 10,
-            'SpartanShockBaton': 5
-        },
-        factions: ['UEDF'],
-    },
-    // Malcontents
-    HeavyDestroidSquadron: {
-        name: 'Heavy Destroid Squadron',
-        mecha: {
-            'Tomahawk': 2,
-            'Spartan': 2,
-            'Glaug': 1
-        },
-        points: 90,
-        upgrades: {
-            GU11GunPod: 10,
-            ZPRMkVIIIParticleAssaultRifle: 5,
-            ZTFGMkVTacticalFlechetteCannon: 15,
-            ZMLMkIIShoulderFiredMissileLauncher: 10
         },
         factions: ['Malcontents'],
     },
-    AirDefenseSquadron: {
-        name: 'Air Defense Squadron',
+    ArtillerySupportSquadron: {
+        name: 'Artillery Support Squadron',
         mecha: {
-            'GluuhaugRegult': 4,
-            'Defender': 2,
+            'SerauhaugRegult': 2,
+            'Phalanx': 2,
         },
-        points: 70,
+        points: 80,
         upgrades: {
-            'DefenderAirBurstMunitions': 5,
+            'PhalanxArtilleryRockets': 10,
+        },
+        factions: ['Malcontents'],
+    },
+    AssaultReconSquadron: {
+        name: 'Assault Recon Squadron',
+        mecha: {
+            'VEF1Valkyrie': 1,
+            'Gnerl': 3,
+        },
+        points: 65,
+        upgrades: {
+            'ValkyrieImprovisedBombs': 10,
+        },
+        factions: ['Malcontents'],
+    },
+    GroundAttackSquadron: {
+        name: 'Ground Attack Squadron',
+        mecha: {
+            'VF1JValkyrie': 1,
+            'VF1AValkyrie': 1,
+            'Gnerl': 3,
+        },
+        points: 75,
+        upgrades: {
+            'ValkyrieImprovisedBombs': 12,
+        },
+        factions: ['Malcontents'],
+    },
+    LightRaiderSquadron: {
+        name: 'Light Raider Squadron',
+        mecha: {
+            'Spartan': 2,
+            'Regult': 6,
+        },
+        points: 65,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 5,
+            'ZTFGMkVTacticalFlechetteCannon': 15,
+            'ZMLMkIIShoulderFiredMissileLauncher': 10,
+            'GU11GunPod': 10,
+            'VeteranWarriors': 10
+        },
+        factions: ['Malcontents'],
+    },
+    MixedInfantrySquadron: {
+        name: 'Mixed Infantry Squadron',
+        mecha: {
+            'Spartan': 2,
+            'SerauGer': 3,
+            'GluuGer': 6
+        },
+        points: 65,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 5,
+            'ZTFGMkVTacticalFlechetteCannon': 15,
+            'ZMLMkIIShoulderFiredMissileLauncher': 10,
+            'GU11GunPod': 10,
+            'VeteranWarriors': 10
+        },
+        factions: ['Malcontents'],
+    },
+    SuperValkyrieSquadron: {
+        name: 'Super Valkyrie Squadron',
+        mecha: {
+            'SuperVF1AValkyrie': 4,
+        },
+        points: 110,
+        upgrades: {
+            'ValkyrieImprovisedBombs': 10
+        },
+        factions: ['Malcontents'],
+    },
+    ZentraediAssaultSquadron: {
+        name: 'Zentraedi Assault Squadron',
+        mecha: {
+            'NousjadeulGer': 3,
+            'Regult': 6
+        },
+        points: 60,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 7,
+            'ZTFGMkVTacticalFlechetteCannon': 15,
+            'ZMLMkIIShoulderFiredMissileLauncher': 13,
+            'GU11GunPod': 13,
+            'VeteranWarriors': 10
         },
         factions: ['Malcontents'],
     },
@@ -7557,6 +7850,28 @@ SquadronBuilder.force.upgrades = {
         },
         blocks: ['NousjadeulGer32mmPlasmaMachinePistol']
     },
+    GnerlUnderSlungMissiles: {
+        name: 'Under-Slung Missiles',
+        desc: 'The Gnerl has long-range missiles mounted on its undercarriage with the following profile: RG: 48, MD: 9 per missile, Ammo 3, Blast, Missile, Volley X',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.addWeapon('GnerlUnderSlungMissiles');
+            }, ["Gnerl"]);
+        },
+        blocks: ['GnerlPlasmaBombs']
+    },
+    GnerlPlasmaBombs: {
+        name: 'Plasma Bombs',
+        desc: 'The Gnerl has plasma bombs mounted on its undercarriage with the following profile: RG: -, MD: 16, Ammo 2, Blast, Fly Over, Missile, Overwhelming.',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.addWeapon('GnerlPlasmaBombs');
+            }, ["Gnerl"]);
+        },
+        blocks: ['GnerlUnderSlungMissiles']
+    },
     ZPRMkVIIIParticleAssaultRifle: {
         name: 'Z-PR Mk. VIII Particle Assault Rifle',
         desc: 'RG:12, MD: 5, Accurate',
@@ -7665,7 +7980,7 @@ SquadronBuilder.force.upgrades = {
         {
             core.upgradeMecha(function(mecha) {
                 mecha.addWeapon('ValkyrieImprovisedBombs', ["Guardian", "Fighter"]);
-            }, ["VF1AValkyrie", "VF1JValkyrie", "VF1SValkyrie"]);
+            }, ["VF1AValkyrie", "VF1JValkyrie", "VF1SValkyrie", "Gnerl", "SuperVF1AValkyrie", "SuperVF1JValkyrie", "SuperVF1SValkyrie"]);
         },
         blocks: []
     },
@@ -7713,4 +8028,27 @@ SquadronBuilder.force.upgrades = {
         },
         blocks: ['YF4MRM', 'YF4MLOPs']
     },
+    PhalanxArtilleryRockets: {
+        name: 'Phalanx Artillery Rockets',
+        desc: 'Changes the attributes of the Dual MDS-H-22 Derringer Missile Launchers to RG: 36, MD: 9 per missile, Ammo 11, Blast, Indirect Fire, Missile, Overwhelming, Rear Fire, Volley 4.',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.replaceWeapon('MDSH22DerringerMissileLaunchers', 'MDSH22DerringerMissileLaunchersPhalanx');
+            }, ["Phalanx"]);
+        },
+        blocks: []
+    },
+    PhalanxScorpioAdvancedArtillery: {
+        name: 'Phalanx Scorpio Advanced Artillery',
+        desc: 'Replaces the Phalanx’s Dual MDS-H-22 Derringer Missile Launchers with the Scorpio Advanced Dual Artillery Launchers RG: 48, MD: 10 per missile. Ammo 4, Blast, Indirect Fire, Inescapable, Missile, Rear Fire. Missiles fired by the Scorpio cannot be shot down.',
+        execute: function (core)
+        {
+            core.upgradeMecha(function(mecha) {
+                mecha.replaceWeapon('MDSH22DerringerMissileLaunchers', 'ScorpioAdvancedArtillery');
+            }, ["Phalanx"]);
+        },
+        blocks: []
+    },
+
 }})();
