@@ -566,4 +566,89 @@ SquadronBuilder.force.support = {
             return true;
         },
     },
+    SuperVF1AMalcontents: {
+        name: "Super VF-1A Valkyrie",
+        mecha: {
+            "SuperVF1AValkyrie": 1,
+        },
+        points: 30,
+        upgrades: {
+        },
+        factions: ["Malcontents"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    SupportDestroidSquad: {
+        name: 'Support Destroid Squad',
+        mecha: {
+            'Phalanx': 1,
+            'Defender': 1,
+        },
+        points: 30,
+        upgrades: {
+            'DefenderAirBurstMunitions': 2,
+            'PhalanxArtilleryRockets': 5,
+        },
+        factions: ['Malcontents'],
+    },
+    ValkyrieSquadMalcontents: {
+        name: 'Valkyrie Squad',
+        mecha: {
+            'VF1AValkyrie': 2,
+        },
+        points: 40,
+        upgrades: {
+            'ValkyrieImprovisedBombs': 5,
+        },
+        factions: ['Malcontents'],
+    },
+    VF1RMalcontents: {
+        name: "VF-1R Upgrade",
+        mecha: {
+        },
+        points: 10,
+        upgrades: {
+        },
+        factions: ["Malcontents"],
+        check: function (core) {
+            mecha = core.getMecha();
+            if ((mecha.indexOf("VF1AValkyrie") != -1) || (mecha.indexOf("VF1JValkyrie") != -1) || (mecha.indexOf("VF1DValkyrie") != -1) || (mecha.indexOf("VF1SValkyrie") != -1)) {
+                return true;
+            }
+
+            return false;
+        },
+        execute: function (core) {
+            var count = 1;
+            core.upgradeMecha(function(mecha) {
+                var piloting = mecha.getStat('piloting');
+                var gunnery = mecha.getStat('gunnery');
+                var leadership = mecha.getAbility('Leadership');
+                if (mecha.count <= count) {
+                    var newmecha = core.replaceMecha(mecha.class, 'VF1RValkyrie', mecha.count);
+                    count -= mecha.count;
+                } else {
+                    mecha.count -= count;
+                    var newmecha = core.addMecha('VF1RValkyrie', count, true);
+                    count = 0;
+                }
+                if (newmecha) {
+                    // This gets the piloting and gunnery for the mecha.
+                    for (var mode in piloting) {
+                        newmecha.setStat('piloting', piloting[mode], [mode]);
+                    }
+                    for (var mode in gunnery) {
+                        newmecha.setStat('gunnery', gunnery[mode], [mode]);
+                    }
+                    newmecha.setAbility('Leadership', leadership);
+                }
+            }, ["VF1AValkyrie", "VF1JValkyrie", "VF1DValkyrie", "VF1SValkyrie"]);
+
+            return true;
+        },
+    },
 }
