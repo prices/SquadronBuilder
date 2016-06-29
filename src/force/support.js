@@ -10,8 +10,27 @@ SquadronBuilder.force.support = {
         points: 15,
         upgrades: {
         },
-        factions: ["Zentraedi", "Malcontents"],
+        factions: ["Zentraedi"],
         check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    QuelGulnau: {
+        name: "Quel-Gulnau",
+        mecha: {
+            "QuelGulnau": 1,
+        },
+        points: 10,
+        upgrades: {
+        },
+        factions: ["Zentraedi"],
+        check: function (core) {
+            if ((mecha.indexOf("Glaug") == -1) && (mecha.indexOf("GlaugEldare") == -1)) {
+                return false;
+            }
             return true;
         },
         execute: function (core) {
@@ -129,6 +148,18 @@ SquadronBuilder.force.support = {
         execute: function (core) {
             return true;
         },
+    },
+    GnerlSquad: {
+        name: 'Gnerl Squad',
+        mecha: {
+            'Gnerl': 3,
+        },
+        points: 35,
+        upgrades: {
+            'GnerlUnderSlungMissiles': 15,
+            'GnerlPlasmaBombs': 10
+        },
+        factions: ['Zentraedi'],
     },
     TelnestaRegultSquad: {
         name: "Telnesta-Regult Squad",
@@ -473,6 +504,65 @@ SquadronBuilder.force.support = {
                 }
             }, ["VF1AValkyrie", "VF1JValkyrie"]);
 
+            return true;
+        },
+    },
+    ArmoredValkyrieSquadMalcontents: {
+        name: "Armored Valkyrie Squad",
+        mecha: {
+            "ArmoredVF1AValkyrie": 2,
+        },
+        points: 50,
+        upgrades: {
+        },
+        factions: ["Malcontents"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
+    },
+    AssaultDestriodSquad: {
+        name: 'Assault Destroid Squad',
+        mecha: {
+            'Tomahawk': 1,
+            'Spartan': 1,
+        },
+        points: 35,
+        upgrades: {
+            ZPRMkVIIIParticleAssaultRifle: 2,
+            ZTFGMkVTacticalFlechetteCannon: 8,
+            ZMLMkIIShoulderFiredMissileLauncher: 5,
+            GU11GunPod: 5,
+        },
+        factions: ['Malcontents'],
+    },
+    GnerlSquadMalcontents: {
+        name: 'Gnerl Squad',
+        mecha: {
+            'Gnerl': 3,
+        },
+        points: 35,
+        upgrades: {
+            'ValkyrieImprovisedBombs': 8,
+        },
+        factions: ['Malcontents'],
+    },
+    RegultSupportSquad: {
+        name: "Regult Support Squad",
+        mecha: {
+            "GluuhaugRegult": 2,
+            "SerauhaugRegult": 2,
+        },
+        points: 65,
+        upgrades: {
+        },
+        factions: ["Malcontents"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
             return true;
         },
     },

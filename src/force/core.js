@@ -90,7 +90,7 @@ SquadronBuilder.force.core = {
         mecha: {
             'Gnerl': 6,
         },
-        points: 150,
+        points: 65,
         upgrades: {
             'GnerlUnderSlungMissiles': 30,
             'GnerlPlasmaBombs': 20

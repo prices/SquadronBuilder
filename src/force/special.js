@@ -51,6 +51,57 @@ SquadronBuilder.force.special = {
         }
 
     },
+    QueadluunGult: {
+        name: 'Queadluun-Gult',
+        mecha: {
+            'QueadluunGult': 1,
+        },
+        points: 35,
+        upgrades: {
+            'NousjadeulGer32mmPlasmaMachinePistol': 10,
+            'QueadluunRauZCRMK2ConvergingBeamRifle': 10
+        },
+        factions: ['Zentraedi'],
+        check: function (core)
+        {
+            mecha = core.getMecha();
+            if ((mecha.indexOf("NousjadeulGer") != -1) || (mecha.indexOf("NousgarmaGer") != -1)) {
+                return false;
+            }
+            return true;
+        },
+        execute: function (core)
+        {
+            return true;
+        }
+
+    },
+    NousgarmaGer: {
+        name: 'NousGarma-Ger',
+        mecha: {
+            'NousgarmaGer': 1,
+        },
+        points: 25,
+        upgrades: {
+            'ZPRMkVIIIParticleAssaultRifle': 8,
+            'ZTFGMkVTacticalFlechetteCannon': 20,
+            'ZMLMkIIShoulderFiredMissileLauncher': 15,
+        },
+        factions: ['Zentraedi'],
+        check: function (core)
+        {
+            mecha = core.getMecha();
+            if ((mecha.indexOf("QuadluunRau") != -1) || (mecha.indexOf("QueadluunGult") != -1)) {
+                return false;
+            }
+            return true;
+        },
+        execute: function (core)
+        {
+            return true;
+        }
+
+    },
     VF1S: {
         name: 'VF-1S Valkyrie',
         mecha: {
@@ -246,6 +297,139 @@ SquadronBuilder.force.special = {
             mecha.mecha.name = "Command\n"+mecha.mecha.name;
             return true;
         }
+    },
+    GluuGerZentraediOfficer: {
+        name: 'Gluu-Ger Officer Upgrade',
+        mecha: {
+        },
+        points: 5,
+        upgrades: {
+        },
+        factions: ['Zentraedi'],
+        check: function (core)
+        {
+            mecha = core.getMecha();
+            if (mecha.indexOf("GluuGer") == -1) {
+                return false;
+            }
+            return true;
+        },
+        execute: function (core)
+        {
+            var mecha = core.replaceMecha('GluuGer', 'GluuGer', 1);
+            mecha.changeStat('gunnery', 1);
+            mecha.setAbility('Leadership', 1);
+            mecha.mecha.name = "Command\n"+mecha.mecha.name;
+            return true;
+        }
+    },
+    SerauGerZentraediOfficer: {
+        name: 'Serau-Ger Officer Upgrade',
+        mecha: {
+        },
+        points: 5,
+        upgrades: {
+        },
+        factions: ['Zentraedi'],
+        check: function (core)
+        {
+            mecha = core.getMecha();
+            if (mecha.indexOf("SerauGer") == -1) {
+                return false;
+            }
+            return true;
+        },
+        execute: function (core)
+        {
+            var mecha = core.replaceMecha('SerauGer', 'SerauGer', 1);
+            mecha.changeStat('gunnery', 1);
+            mecha.setAbility('Leadership', 1);
+            mecha.mecha.name = "Command\n"+mecha.mecha.name;
+            return true;
+        }
+    },
+    CommandMonster: {
+        name: "Command Monster",
+        mecha: {
+            "Monster": 1,
+        },
+        points: 60,
+        upgrades: {
+        },
+        factions: ["Malcontents"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            var mecha = core.replaceMecha('Monster', 'Monster', 1);
+            mecha.changeStat('piloting', 1);
+            mecha.changeStat('gunnery', 1);
+            mecha.setAbility('Leadership', 2);
+            mecha.mecha.name = "Command\n"+mecha.mecha.name;
+            return true;
+        },
+    },
+    GlaugMalcontents: {
+        name: 'Glaug',
+        mecha: {
+            'Glaug': 1,
+        },
+        points: 25,
+        upgrades: {
+        },
+        factions: ['Malcontents'],
+        check: function (core)
+        {
+            mecha = core.getMecha();
+            if ((mecha.indexOf("Glaug") == -1) && (mecha.indexOf("GlaugEldare") == -1)) {
+                return true;
+            }
+            return false;
+        },
+        execute: function (core)
+        {
+            return true;
+        }
+
+    },
+    QueadluunRauMalcontents: {
+        name: 'Queadluun-Rau',
+        mecha: {
+            'QueadluunRau': 1,
+        },
+        points: 30,
+        upgrades: {
+        },
+        factions: ['Malcontents'],
+        check: function (core)
+        {
+            mecha = core.getMecha();
+            if ((mecha.indexOf("NousjadeulGer") != -1) || (mecha.indexOf("NousgarmaGer") != -1)) {
+                return false;
+            }
+            return true;
+        },
+        execute: function (core)
+        {
+            return true;
+        }
+
+    },
+    QuelRegult: {
+        name: "Quel-Regult",
+        mecha: {
+            "QuelRegult": 1,
+        },
+        points: 20,
+        upgrades: {
+        },
+        factions: ["Malcontents"],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
     },
 
 }
