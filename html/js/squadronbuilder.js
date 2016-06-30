@@ -6138,7 +6138,6 @@ SquadronBuilder.data.mecha = {
         'None'
         ],
         extraabilities: {
-            'Dual MDRS-RF-5 Missile Launchers': 'Carry both short and medium range missiles and can fire either.  Only one kind may be fired each turn.',
         }
     },
 }
