@@ -28,6 +28,7 @@ SquadronBuilder.force.support = {
         },
         factions: ["Zentraedi"],
         check: function (core) {
+            mecha = core.getMecha();
             if ((mecha.indexOf("Glaug") == -1) && (mecha.indexOf("GlaugEldare") == -1)) {
                 return false;
             }
@@ -158,6 +159,9 @@ SquadronBuilder.force.support = {
         upgrades: {
             'GnerlUnderSlungMissiles': 15,
             'GnerlPlasmaBombs': 10
+        },
+        check: function (core) {
+            return true;
         },
         factions: ['Zentraedi'],
     },

@@ -1718,6 +1718,7 @@ SquadronBuilder.coreforce.prototype = BaseClass.extend({
             default:
                 break;
         }
+        console.log(card.card);
         if (card && card.card.check(this)) {
             return ret && true;
         }

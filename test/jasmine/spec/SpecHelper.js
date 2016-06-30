@@ -69,6 +69,16 @@ beforeEach(function () {
                 }
             }
         };
-    }
+    },
+    toBeValidFaction: function () {
+        return {
+            compare: function (actual, expected) {
+                var types = ["Malcontents", "Zentraedi", "UEDF"];
+                return {
+                    pass: types.indexOf(actual) >= 0
+                }
+            }
+        };
+    },
   });
 });
