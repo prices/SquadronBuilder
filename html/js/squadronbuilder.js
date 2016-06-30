@@ -6868,7 +6868,7 @@ SquadronBuilder.force.characters = {
         "VF1SValkyrie",
         "ArmoredVF1SValkyrie",
         "SuperVF1SValkyrie",
-        "JotunVF1SValkyrie"
+        "JotunArmoredVF1SValkyrie"
         ],
         points: 30,
         factions: ["UEDF"],
@@ -6896,7 +6896,7 @@ SquadronBuilder.force.characters = {
         "VF1SValkyrie", "VF1JValkyrie", "VF1AValkyrie", "Spartan",
         "ArmoredVF1SValkyrie", "ArmoredVF1JValkyrie", "ArmoredVF1AValkyrie",
         "SuperVF1SValkyrie", "SuperVF1JValkyrie", "SuperVF1AValkyrie",
-        "JotunVF1SValkyrie", "JotunVF1JValkyrie", "JotunVF1AValkyrie"
+        "JotunArmoredVF1SValkyrie", "JotunArmoredVF1JValkyrie", "JotunArmoredVF1AValkyrie"
         ],
         points: 10,
         factions: ["UEDF"],
@@ -6919,7 +6919,7 @@ SquadronBuilder.force.characters = {
         "VF1AValkyrie",
         "ArmoredVF1AValkyrie",
         "SuperVF1AValkyrie",
-        "JotunVF1AValkyrie"
+        "JotunArmoredVF1AValkyrie"
         ],
         points: 5,
         factions: ["UEDF"],
@@ -6941,7 +6941,7 @@ SquadronBuilder.force.characters = {
         "VF1JValkyrie", "VF1AValkyrie",
         "ArmoredVF1JValkyrie", "ArmoredVF1AValkyrie",
         "SuperVF1JValkyrie", "SuperVF1AValkyrie",
-        "JotunVF1JValkyrie", "JotunVF1AValkyrie"
+        "JotunArmoredVF1JValkyrie", "JotunArmoredVF1AValkyrie"
         ],
         points: 10,
         factions: ["UEDF"],
@@ -7049,7 +7049,7 @@ SquadronBuilder.force.characters = {
         "VF1JValkyrie", "VF1AValkyrie",
         "ArmoredVF1JValkyrie", "ArmoredVF1AValkyrie",
         "SuperVF1JValkyrie", "SuperVF1AValkyrie",
-        "JotunVF1JValkyrie", "JotunVF1AValkyrie"
+        "JotunArmoredVF1JValkyrie", "JotunArmoredVF1AValkyrie"
         ],
         points: 10,
         factions: ["UEDF"],
@@ -7668,10 +7668,13 @@ SquadronBuilder.force.support = {
             'GnerlUnderSlungMissiles': 15,
             'GnerlPlasmaBombs': 10
         },
+        factions: ['Zentraedi'],
         check: function (core) {
             return true;
         },
-        factions: ['Zentraedi'],
+        execute: function (core) {
+            return true;
+        },
     },
     TelnestaRegultSquad: {
         name: "Telnesta-Regult Squad",
@@ -8049,6 +8052,12 @@ SquadronBuilder.force.support = {
             GU11GunPod: 5,
         },
         factions: ['Malcontents'],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
     },
     GnerlSquadMalcontents: {
         name: 'Gnerl Squad',
@@ -8060,6 +8069,12 @@ SquadronBuilder.force.support = {
             'ValkyrieImprovisedBombs': 8,
         },
         factions: ['Malcontents'],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
     },
     RegultSupportSquad: {
         name: "Regult Support Squad",
@@ -8106,6 +8121,12 @@ SquadronBuilder.force.support = {
             'PhalanxArtilleryRockets': 5,
         },
         factions: ['Malcontents'],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
     },
     ValkyrieSquadMalcontents: {
         name: 'Valkyrie Squad',
@@ -8117,6 +8138,12 @@ SquadronBuilder.force.support = {
             'ValkyrieImprovisedBombs': 5,
         },
         factions: ['Malcontents'],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
     },
     VF1RMalcontents: {
         name: "VF-1R Upgrade",

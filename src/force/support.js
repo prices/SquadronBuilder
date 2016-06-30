@@ -160,10 +160,13 @@ SquadronBuilder.force.support = {
             'GnerlUnderSlungMissiles': 15,
             'GnerlPlasmaBombs': 10
         },
+        factions: ['Zentraedi'],
         check: function (core) {
             return true;
         },
-        factions: ['Zentraedi'],
+        execute: function (core) {
+            return true;
+        },
     },
     TelnestaRegultSquad: {
         name: "Telnesta-Regult Squad",
@@ -541,6 +544,12 @@ SquadronBuilder.force.support = {
             GU11GunPod: 5,
         },
         factions: ['Malcontents'],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
     },
     GnerlSquadMalcontents: {
         name: 'Gnerl Squad',
@@ -552,6 +561,12 @@ SquadronBuilder.force.support = {
             'ValkyrieImprovisedBombs': 8,
         },
         factions: ['Malcontents'],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
     },
     RegultSupportSquad: {
         name: "Regult Support Squad",
@@ -598,6 +613,12 @@ SquadronBuilder.force.support = {
             'PhalanxArtilleryRockets': 5,
         },
         factions: ['Malcontents'],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
     },
     ValkyrieSquadMalcontents: {
         name: 'Valkyrie Squad',
@@ -609,6 +630,12 @@ SquadronBuilder.force.support = {
             'ValkyrieImprovisedBombs': 5,
         },
         factions: ['Malcontents'],
+        check: function (core) {
+            return true;
+        },
+        execute: function (core) {
+            return true;
+        },
     },
     VF1RMalcontents: {
         name: "VF-1R Upgrade",

@@ -218,7 +218,7 @@ SquadronBuilder.force.characters = {
         "VF1SValkyrie",
         "ArmoredVF1SValkyrie",
         "SuperVF1SValkyrie",
-        "JotunVF1SValkyrie"
+        "JotunArmoredVF1SValkyrie"
         ],
         points: 30,
         factions: ["UEDF"],
@@ -246,7 +246,7 @@ SquadronBuilder.force.characters = {
         "VF1SValkyrie", "VF1JValkyrie", "VF1AValkyrie", "Spartan",
         "ArmoredVF1SValkyrie", "ArmoredVF1JValkyrie", "ArmoredVF1AValkyrie",
         "SuperVF1SValkyrie", "SuperVF1JValkyrie", "SuperVF1AValkyrie",
-        "JotunVF1SValkyrie", "JotunVF1JValkyrie", "JotunVF1AValkyrie"
+        "JotunArmoredVF1SValkyrie", "JotunArmoredVF1JValkyrie", "JotunArmoredVF1AValkyrie"
         ],
         points: 10,
         factions: ["UEDF"],
@@ -269,7 +269,7 @@ SquadronBuilder.force.characters = {
         "VF1AValkyrie",
         "ArmoredVF1AValkyrie",
         "SuperVF1AValkyrie",
-        "JotunVF1AValkyrie"
+        "JotunArmoredVF1AValkyrie"
         ],
         points: 5,
         factions: ["UEDF"],
@@ -291,7 +291,7 @@ SquadronBuilder.force.characters = {
         "VF1JValkyrie", "VF1AValkyrie",
         "ArmoredVF1JValkyrie", "ArmoredVF1AValkyrie",
         "SuperVF1JValkyrie", "SuperVF1AValkyrie",
-        "JotunVF1JValkyrie", "JotunVF1AValkyrie"
+        "JotunArmoredVF1JValkyrie", "JotunArmoredVF1AValkyrie"
         ],
         points: 10,
         factions: ["UEDF"],
@@ -399,7 +399,7 @@ SquadronBuilder.force.characters = {
         "VF1JValkyrie", "VF1AValkyrie",
         "ArmoredVF1JValkyrie", "ArmoredVF1AValkyrie",
         "SuperVF1JValkyrie", "SuperVF1AValkyrie",
-        "JotunVF1JValkyrie", "JotunVF1AValkyrie"
+        "JotunArmoredVF1JValkyrie", "JotunArmoredVF1AValkyrie"
         ],
         points: 10,
         factions: ["UEDF"],
